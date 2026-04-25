@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+
 use function Pest\Laravel\assertAuthenticated;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
@@ -12,7 +13,6 @@ it('verifies if a guest can access to login page', function () {
     // Assert
     $response->assertStatus(200);
 });
-
 
 it('check if a route to access a login form existe', function () {
     // Act
@@ -73,7 +73,7 @@ it('redirects a successfully authenticated user to the predefined home page', fu
 
     // Act
     $response = post(route('login'), [
-        'email'    => $user->email,
+        'email' => $user->email,
         'password' => 'change_this',
     ]);
 

@@ -1,3 +1,1 @@
-<x-layouts.app>
-
-</x-layouts.app>
+<a href="{{ route('login') }}">Login</a>

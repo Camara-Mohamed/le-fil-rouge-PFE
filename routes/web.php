@@ -6,6 +6,6 @@ Route::get('/', function () {
     return view('public.home');
 })->name('home');
 
-Route::get('/dashboard', function (){
+Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->name('dashboard');
