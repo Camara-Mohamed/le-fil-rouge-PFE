@@ -1,5 +1,5 @@
-<p>Hi !</p>
+<x-layouts.app>
 
-<form method="POST" action="{{ route('logout') }}">
-    <button type="submit">Logout</button>
-</form>
+    <p>Hi ! {{ auth()->user()->name }}</p>
+
+</x-layouts.app>
