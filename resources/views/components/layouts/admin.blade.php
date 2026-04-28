@@ -11,6 +11,12 @@
 </head>
 <body>
 
+<header>
+
+    <x-nav.info></x-nav.info>
+
+</header>
+
 <main>
 
     {{ $slot }}

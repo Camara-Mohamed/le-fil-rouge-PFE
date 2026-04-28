@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
+
 use function Pest\Laravel\post;
 
 beforeEach(function () {

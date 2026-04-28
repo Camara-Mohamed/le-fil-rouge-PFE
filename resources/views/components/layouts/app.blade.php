@@ -13,6 +13,7 @@
 
 <header>
 
+    <x-nav.info></x-nav.info>
     <x-nav.header></x-nav.header>
 
 </header>

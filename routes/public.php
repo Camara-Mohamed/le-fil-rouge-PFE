@@ -1,29 +1,36 @@
 <?php
 
-Route::get('/', function () {
-    return view('public.home');
-})->name('public.home');
+use App\Http\Middleware\SetLocale;
 
-Route::get('/courses', function () {
-    return view('public.courses.index');
-})->name('public.courses.index');
+Route::prefix('{locale}')
+    ->whereIn('locale', config('app.locales'))
+    ->middleware(SetLocale::class)
+    ->group(function () {
+        Route::get('/', function () {
+            return view('public.home');
+        })->name('public.home');
 
-Route::get('/camps', function () {
-    return view('public.camps.index');
-})->name('public.camps.index');
+        Route::get('/courses', function () {
+            return view('public.courses.index');
+        })->name('public.courses.index');
 
-Route::get('/about', function () {
-    return view('public.about');
-})->name('public.about');
+        Route::get('/camps', function () {
+            return view('public.camps.index');
+        })->name('public.camps.index');
 
-Route::get('/news', function () {
-    return view('public.news.index');
-})->name('public.news.index');
+        Route::get('/about', function () {
+            return view('public.about');
+        })->name('public.about');
 
-Route::get('/contact', function () {
-    return view('public.contact');
-})->name('public.contact');
+        Route::get('/news', function () {
+            return view('public.news.index');
+        })->name('public.news.index');
 
-Route::get('/volunteer', function () {
-    return view('public.volunteer');
-})->name('public.volunteer');
+        Route::get('/contact', function () {
+            return view('public.contact');
+        })->name('public.contact');
+
+        Route::get('/volunteer', function () {
+            return view('public.volunteer');
+        })->name('public.volunteer');
+    });
