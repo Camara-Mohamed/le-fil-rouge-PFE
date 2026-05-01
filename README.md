@@ -149,10 +149,10 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
 ## 3. Fonctionnalités secondaires
 
 ### Dashboard
-- Calendrier de formation
+- Calendrier des formations, des stages et des séjours
 
 ### Profil et historique
-- Suivi de l'historique des formations et séjours
+- Suivis de l'historique des formations, des stages et des séjours
 
 ## 3. Site Public
 - Page "Accueil"
