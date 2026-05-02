@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum FormationStatus: string
 {
-    case Draft = 'draft';
-    case Pending = 'pending';
-    case Published = 'published';
-    case Refused = 'refused';
+    case DRAFT = 'draft';
+    case PENDING = 'pending';
+    case PUBLISHED = 'published';
+    case REFUSED = 'refused';
 }
