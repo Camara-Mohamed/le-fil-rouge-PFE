@@ -15,7 +15,7 @@ class NewEventController extends Controller
         $this->authorize('viewAny', NewEvent::class);
 
         return NewEvent::all();
-        }
+    }
 
     public function store(Request $request)
     {
@@ -26,35 +26,34 @@ class NewEventController extends Controller
         ]);
 
         return NewEvent::create($data);
-        }
+    }
 
     public function show(NewEvent $newEvent)
-        {
+    {
         $this->authorize('view', $newEvent);
 
         return $newEvent;
-        }
-
-public
-function update(Request $request, NewEvent $newEvent)
-        {
-            $this->authorize('update', $newEvent);
-
-            $data = $request->validate([
-
-            ]);
-
-            $newEvent->update($data);
-
-            return $newEvent;
-        }
-
-        public function destroy(NewEvent $newEvent)
-        {
-            $this->authorize('delete', $newEvent);
-
-            $newEvent->delete();
-
-            return response()->json();
-        }
     }
+
+    public function update(Request $request, NewEvent $newEvent)
+    {
+        $this->authorize('update', $newEvent);
+
+        $data = $request->validate([
+
+        ]);
+
+        $newEvent->update($data);
+
+        return $newEvent;
+    }
+
+    public function destroy(NewEvent $newEvent)
+    {
+        $this->authorize('delete', $newEvent);
+
+        $newEvent->delete();
+
+        return response()->json();
+    }
+}

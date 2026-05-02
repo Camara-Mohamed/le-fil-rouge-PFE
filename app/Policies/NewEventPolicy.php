@@ -10,34 +10,17 @@ class NewEventPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
-    {
+    public function viewAny(User $user): bool {}
 
-    }
+    public function view(User $user, NewEvent $newEvent): bool {}
 
-    public function view(User $user, NewEvent $newEvent): bool
-    {
-    }
+    public function create(User $user): bool {}
 
-public
-function create(User $user): bool
-{
-}
+    public function update(User $user, NewEvent $newEvent): bool {}
 
-public
-function update(User $user, NewEvent $newEvent): bool
-    {
-    }
+    public function delete(User $user, NewEvent $newEvent): bool {}
 
-    public function delete(User $user, NewEvent $newEvent): bool
-    {
-    }
+    public function restore(User $user, NewEvent $newEvent): bool {}
 
-    public function restore(User $user, NewEvent $newEvent): bool
-    {
-    }
-
-    public function forceDelete(User $user, NewEvent $newEvent): bool
-    {
-    }
+    public function forceDelete(User $user, NewEvent $newEvent): bool {}
 }
