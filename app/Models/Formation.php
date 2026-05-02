@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'province',
     'postal_code',
     'galeries',
-    'user_id'
+    'user_id',
 ])]
 class Formation extends Model
 {

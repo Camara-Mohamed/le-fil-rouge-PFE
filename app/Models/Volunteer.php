@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
     'email',
     'phone',
     'message',
-    'status'
+    'status',
 ])]
 class Volunteer extends Model
 {

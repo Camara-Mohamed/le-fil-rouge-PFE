@@ -25,11 +25,11 @@ use Illuminate\Notifications\Notifiable;
     'city',
     'province',
     'postal_code',
-    'avatar_path'
+    'avatar_path',
 ])]
 #[Hidden([
     'password',
-    'remember_token'
+    'remember_token',
 ])]
 class User extends Authenticatable
 {

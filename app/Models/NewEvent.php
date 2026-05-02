@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'content',
     'banner',
     'published_at',
-    'user_id'
+    'user_id',
 ])]
 class NewEvent extends Model
 {
