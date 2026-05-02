@@ -15,7 +15,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->enum('status', ['pending', 'accepted', 'refused'])->default('pending');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

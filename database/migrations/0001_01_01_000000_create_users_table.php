@@ -20,13 +20,13 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', [
                 'arrivant', 'animateur_1', 'animateur_2', 'brevete', 'coordinateur', 'formateur', 'admin'])->default('arrivant');
-            $table->string('phone')->unique();
+            $table->string('phone')->unique()->nullable();
             $table->date('birth_date')->nullable();
             $table->string('address')->nullable();
             $table->string('number')->nullable();
             $table->string('city')->nullable();
             $table->string('province')->nullable();
-            $table->integer('postal_code')->nullable();
+            $table->string('postal_code')->nullable();
             $table->string('avatar_path')->nullable();
             $table->rememberToken();
             $table->timestamps();
