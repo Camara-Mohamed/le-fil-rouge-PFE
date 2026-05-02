@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\New;
+use App\Models\NewEvent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
-class NewFactory extends Factory
+class NewEventFactory extends Factory
 {
-    protected $model = new::class;
+    protected $model = NewEvent::class;
 
     public function definition(): array
     {

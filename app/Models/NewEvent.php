@@ -2,6 +2,6 @@
 
 namespace App\Models;
 
-class new extends Model {
+class NewEvent extends Model {
     use HasFactory, SoftDeletes;
 }
