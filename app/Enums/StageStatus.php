@@ -2,9 +2,10 @@
 
 namespace App\Enums;
 
-enum RequestStatus: string
+enum StageStatus: string
 {
+    case DRAFT = 'draft';
     case PENDING = 'pending';
-    case ACCEPTED = 'accepted';
+    case PUBLISHED = 'published';
     case REFUSED = 'refused';
 }

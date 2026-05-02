@@ -4,6 +4,6 @@ namespace App\Enums;
 
 enum StageType: string
 {
-    case Stage = 'stage';
-    case Sejour = 'sejour';
+    case STAGE = 'stage';
+    case SEJOUR = 'sejour';
 }
