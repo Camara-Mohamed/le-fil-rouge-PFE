@@ -1,14 +1,14 @@
 # Le Fil Rouge - Gestion Animation Jeunesse
 
-<p align="center">
+<p style="align-content: center;">
   <img src="https://wakatime.com/badge/user/996f0f7d-c952-4cd0-a2d6-e00eb364028d/project/fe09ea41-ee8b-4650-a872-8e2c623215b6.svg?cache_seconds=60" alt="WakaTime">
   <a href="https://www.figma.com/design/9lzwLsQn7pkZTwEIQnk1RA/Le-Fil-Rouge?node-id=0-1&t=CHFPrh0sjf7PPZ2s-1" target="_blank">
-    <img src="https://img.shields.io/badge/Figma-Design-F24E1E?logo=figma">
+    <img src="https://img.shields.io/badge/Figma-Design-F24E1E?logo=figma" alt="badge Figma">
   </a>
   <a href="https://github.com/Camara-Mohamed/camara-mohamed-doc-PFE" target="_blank">
-    <img src="https://img.shields.io/badge/Documentation-GitHub-black?logo=github">
+    <img src="https://img.shields.io/badge/Documentation-GitHub-black?logo=github" alt="badge Github">
   </a>
-  <img src="https://img.shields.io/badge/Status-Projet%20académique-green">
+  <img src="https://img.shields.io/badge/Status-Projet%20académique-green" alt="badge Status">
 </p>
 
 ---
@@ -43,7 +43,7 @@ sa formation. Il a rempli le formulaire disponible sur le site public. Stéphani
 décide qu'il peut rejoindre la formation. Elle décide alors de lui créer un compte via la page de gestion des 
 volontaires sur son interface d'administration. Elle lui crée une adresse mail qui se termine par @lefilrouge.com et 
 un mot de passe, et remplit aussi les champs avec son nom et prénom. Ensuite, elle lui assigne le rôle "Arrivant". 
-Une fois le profil créé, un mail est renvoyé à Sam sur l'adresse mail que Stéphanie avait au préalable indiquée dans 
+Une fois le profil créé, un mail est renvoyé à Sam sur l'adresse mail que Stéphanie avait au préalable indiqué dans 
 le champ "Envoyé à :".
 
 Stéphanie peut maintenant voir le profil de Sam dans la liste des autres volontaires. Elle peut ensuite modifier son rôle en "Animateur 1ère année" lorsqu'elle le jugera nécessaire (s'il a bien rempli son profil), ou d'autres données, mais ne peut pas modifier son mot de passe. Elle peut aussi supprimer son profil de volontaire.
@@ -82,7 +82,9 @@ Quelques heures plus tard, il reçoit une notification que Stéphanie a validé 
 
 **Scénario 2 : Validation d'un utilisateur**
 
-Quelques heures plus tard, il reçoit une notification que Stéphanie a validé son stage, et plusieurs animateurs et coordinateurs s'y sont inscrits. Il va voir la liste de ceux-ci et décide d'accepter deux coordinateurs pour l'aider et choisit 2 animateurs de chaque année. Ceux-ci sont notifiés.
+Quelques heures plus tard, il reçoit une notification que Stéphanie a validé son stage, et plusieurs animateurs et 
+coordinateurs s'y sont inscrits. Il va voir la liste de ceux-ci et décide d'accepter deux coordinateurs pour l'aider 
+et choisit deux animateurs de chaque année. Ceux-ci sont notifiés.
 
 ### Léa, Luc et Tiffany - Animatrice (1ère année, 2ème année, Brevetée)
 
@@ -106,7 +108,8 @@ Malheureusement, Luc a un imprévu. Il décide alors de se désinscrire en cliqu
 
 **Scénario 5 : Inscription à une formation**
 
-Quelques semaines après, les 3 amis sont notifiés que Hugo a créé une nouvelle formation. Les deux amis s'y inscrivent en allant sur la page de la formation. Ils y voient les modalités et tout. Malheureusement, Léa, en première année, n'a pas accès à la formation vu qu'elle est seulement en 1ère année.
+Quelques semaines après, les trois amis sont notifiés que Hugo a créé une nouvelle formation. Les deux amis s'y 
+inscrivent en allant sur la page de la formation. Ils y voient les modalités et tout. Malheureusement, Léa, en première année, n'a pas accès à la formation vu qu'elle est seulement en 1ère année.
 
 ### Membres - Utilisateurs connectés
 
@@ -225,7 +228,7 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
    ```
 
 7. Lancer le projet
- ```bash
+    ```bash
    composer run dev 
    ```
 
@@ -242,7 +245,7 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
 
 ## Documentation
 
-Pour plus de détails sur le projet, consulter la documentation que j'ai faite sur le projet vous y verrez ma recherche 
+Pour plus de détails sur le projet, consulter la documentation que j'ai faite sur le projet, vous y verrez ma recherche 
 graphique, mon processus de réflexion, illustrés et expliqués :
 [Documentation GitHub - Projet de Fin d'Études](https://github.com/Camara-Mohamed/camara-mohamed-doc-PFE)
 
