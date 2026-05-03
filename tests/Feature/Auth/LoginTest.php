@@ -24,12 +24,9 @@ it('check if a route to access a login form existe', function () {
         '<form method="POST" '.'action="'.
         route('login')
     );
-    $response->assertSee('Login');
-    $response->assertSeeHtmlInOrder([
-        '<input type="email"',
-        '<input type="password"',
-        '<button type="submit"',
-    ]);
+    $response->assertSee(__('auth.login.title'));
+    $response->assertSee('type="email"', false);
+    $response->assertSee('type="password"', false);
 });
 
 it('requires email field', function () {

@@ -12,7 +12,7 @@ beforeEach(function () {
 it('verifies if user can access admin dashboard page as a connected', function () {
     actingAs($this->user);
 
-    $response = get(route('admin.dashboard'));
+    $response = $this->get(route('admin.dashboard', ['locale' => app()->getLocale()]));
 
     $response->assertStatus(200);
 });
