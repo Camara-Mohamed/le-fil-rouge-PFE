@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
@@ -15,26 +14,15 @@ it('does see the logout button as a connected', function () {
     actingAs($this->user);
 
     // Act
-    $response = get(route('admin.dashboard'));
+    $response = get(route('admin.dashboard', ['locale' => app()->getLocale()]));
 
     // Assert
     $response->assertSee('Logout');
 });
 
-/* it('can logout a user', function () {
-    // Arrange
-    actingAs($this->user);
-
-    // Act
-    $response = $this->post(route('logout'));
-
-    // Assert
-    $response->assertRedirect(route('login'));    expect(Auth::check())->toBeFalse();
-}); */
-
 it('does not show logout button as a guest', function () {
     // Act
-    $response = get(route('public.home', app()->getLocale()));
+    $response = get(route('public.home', ['locale' => app()->getLocale()]));
 
     // Assert
     $response->assertDontSee('Logout');

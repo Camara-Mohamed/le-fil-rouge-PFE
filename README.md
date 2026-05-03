@@ -1,6 +1,6 @@
 # Le Fil Rouge - Gestion Animation Jeunesse
 
-<p style="align-content: center;">
+<p align="center">
   <img src="https://wakatime.com/badge/user/996f0f7d-c952-4cd0-a2d6-e00eb364028d/project/fe09ea41-ee8b-4650-a872-8e2c623215b6.svg?cache_seconds=60" alt="WakaTime">
   <a href="https://www.figma.com/design/9lzwLsQn7pkZTwEIQnk1RA/Le-Fil-Rouge?node-id=0-1&t=CHFPrh0sjf7PPZ2s-1" target="_blank">
     <img src="https://img.shields.io/badge/Figma-Design-F24E1E?logo=figma" alt="badge Figma">
@@ -149,7 +149,7 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
 - Mise à jour des informations personnelles et coordonnées
 - Téléversement et téléchargement de documents administratifs
 
-## 3. Fonctionnalités secondaires
+## 4. Fonctionnalités secondaires
 
 ### Dashboard
 - Calendrier des formations, des stages et des séjours
@@ -157,7 +157,7 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
 ### Profil et historique
 - Suivis de l'historique des formations, des stages et des séjours
 
-## 3. Site Public
+## Pages du site
 - Page "Accueil"
 - Page "Les Formations"
 - Page "Les Stages et Séjours"

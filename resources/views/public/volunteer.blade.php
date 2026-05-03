@@ -1,5 +1,5 @@
-<x-layouts.guest>
+<x-public.app title="Devenir Volontaire">
 
-    <h1>Devenir Volontaire</h1>
+    <h2>Devenir Volontaire</h2>
 
-</x-layouts.guest>
+</x-public.app>

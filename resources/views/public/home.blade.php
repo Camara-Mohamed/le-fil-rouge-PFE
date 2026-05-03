@@ -1,7 +1,7 @@
-<x-layouts.guest>
+<x-public.app title="Page d'Accueil">
 
-    <h1>Accueil</h1>
+    <h2>Page d'Accueil</h2>
 
-    <a href="{{ route('public.volunteer', app()->getLocale()) }}">Devenir volontaire</a>
+    <a href="{{ route('public.volunteer', ['locale' => app()->getLocale()]) }}">Devenir Volontaire</a>
 
-</x-layouts.guest>
+</x-public.app>

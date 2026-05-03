@@ -4,25 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ $title . ' | ' . config('app.name') }}</title>
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
 
-<header>
+<x-nav.skip-link></x-nav.skip-link>
 
-    <x-nav.info></x-nav.info>
-    <x-nav.header></x-nav.header>
+<h1 class="sr-only">{{ $title }}</h1>
 
-</header>
+<x-partials.header></x-partials.header>
 
-<main>
+<main id="main-content">
 
     {{ $slot }}
 
 </main>
+
+<x-partials.footer></x-partials.footer>
 
 </body>
 </html>
