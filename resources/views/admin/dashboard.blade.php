@@ -1,5 +1,5 @@
-<x-layouts.app>
+<x-admin.admin title="Dashboard">
 
-    <p>Hi ! {{ auth()->user()->name }}</p>
+    <p>Bonjour, ! {{ auth()->user()->first_name }}</p>
 
-</x-layouts.app>
+</x-admin.admin>

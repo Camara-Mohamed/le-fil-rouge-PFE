@@ -1,5 +1,5 @@
-<x-layouts.guest>
+<x-public.app title="Nous Contacter">
 
-    <h1>Nous Contacter</h1>
+    <h2>Nous Contacter</h2>
 
-</x-layouts.guest>
+</x-public.app>

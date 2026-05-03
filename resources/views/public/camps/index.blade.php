@@ -1,5 +1,5 @@
-<x-layouts.guest>
+<x-public.app title="La liste des stages et séjours">
 
-    <h1>Stages et Séjours</h1>
+    <h2>La liste des stages et séjours</h2>
 
-</x-layouts.guest>
+</x-public.app>

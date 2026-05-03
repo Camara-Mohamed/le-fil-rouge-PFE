@@ -1,5 +1,5 @@
-<x-layouts.guest>
+<x-public.app title="Qui sommes-nous ?">
 
-    <h1>Qui sommes-nous ?</h1>
+    <h2>Qui sommes-nous ?</h2>
 
-</x-layouts.guest>
+</x-public.app>

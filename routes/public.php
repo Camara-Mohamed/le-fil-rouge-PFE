@@ -3,33 +3,49 @@
 use App\Http\Middleware\SetLocale;
 
 Route::prefix('{locale}')
-    ->whereIn('locale', config('app.locales'))
     ->middleware(SetLocale::class)
     ->group(function () {
+
+        // Page d'accueil
         Route::get('/', function () {
             return view('public.home');
         })->name('public.home');
 
-        Route::get('/courses', function () {
-            return view('public.courses.index');
-        })->name('public.courses.index');
+        // Pages des formations
+        Route::get('/trainings', function () {
+            return view('public.trainings.index');
+        })->name('public.trainings.index');
+        Route::get('/trainings/{training}', function () {
+            return view('public.trainings.show');
+        })->name('public.trainings.show');
 
+        // Pages des stages et séjours
         Route::get('/camps', function () {
             return view('public.camps.index');
         })->name('public.camps.index');
+        Route::get('/camps/{camp}', function () {
+            return view('public.camps.show');
+        })->name('public.camps.show');
 
+        // Page à propos
         Route::get('/about', function () {
             return view('public.about');
         })->name('public.about');
 
-        Route::get('/news', function () {
-            return view('public.news.index');
-        })->name('public.news.index');
+        // Pages des actualités
+        Route::get('/announcements', function () {
+            return view('public.announcements.index');
+        })->name('public.announcements.index');
+        Route::get('/announcements/{announcement}', function () {
+            return view('public.announcements.show');
+        })->name('public.announcements.show');
 
+        // Page de contact
         Route::get('/contact', function () {
             return view('public.contact');
         })->name('public.contact');
 
+        // Page devenir volontaire
         Route::get('/volunteer', function () {
             return view('public.volunteer');
         })->name('public.volunteer');

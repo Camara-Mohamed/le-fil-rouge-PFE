@@ -85,22 +85,22 @@ class User extends Authenticatable
         return $this->role === UserRole::ARRIVANT;
     }
 
-    public function userDocuments(): HasMany
+    public function documents(): HasMany
     {
         return $this->hasMany(UserDocument::class);
     }
 
-    public function formations(): HasMany
+    public function trainings(): HasMany
     {
         return $this->hasMany(Formation::class);
     }
 
-    public function stages(): HasMany
+    public function camps(): HasMany
     {
         return $this->hasMany(Stage::class);
     }
 
-    public function newEvents(): HasMany
+    public function announcements(): HasMany
     {
         return $this->hasMany(NewEvent::class);
     }
