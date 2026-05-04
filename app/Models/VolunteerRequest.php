@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\RequestStatus;
+use App\Enums\RegisterStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,12 +19,12 @@ class VolunteerRequest extends Model
     protected function casts(): array
     {
         return [
-            'status' => RequestStatus::class,
+            'status' => RegisterStatus::class,
         ];
     }
 
     public function isPending(): bool
     {
-        return $this->status === RequestStatus::PENDING;
+        return $this->status === RegisterStatus::PENDING;
     }
 }

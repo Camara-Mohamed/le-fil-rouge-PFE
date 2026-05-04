@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum StageStatus: string
+enum TrainingStatus: string
 {
     case DRAFT = 'draft';
     case PENDING = 'pending';

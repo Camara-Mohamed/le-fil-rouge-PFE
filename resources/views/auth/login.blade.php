@@ -16,15 +16,24 @@
             >
         </div>
 
-        <div>
+        <div x-data="{ show: false }">
             <label for="password">{{ __('auth.login.password') }}</label>
+
             <input
                 id="password"
-                type="password"
+                :type="show ? 'text' : 'password'"
                 name="password"
                 placeholder="{{ __('auth.login.password_placeholder') }}"
                 required
             >
+
+            <button
+                type="button"
+                @click="show = !show"
+            >
+                <span x-show="!show">Afficher</span>
+                <span x-show="show">Cacher</span>
+            </button>
         </div>
 
         <button type="submit">

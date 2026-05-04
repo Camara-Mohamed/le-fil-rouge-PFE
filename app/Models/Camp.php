@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\FormationStatus;
+use App\Enums\TrainingStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,22 +42,22 @@ class Camp extends Model
 
     public function isDraft(): bool
     {
-        return $this->status === FormationStatus::DRAFT;
+        return $this->status === TrainingStatus::DRAFT;
     }
 
     public function isPublished(): bool
     {
-        return $this->status === FormationStatus::PUBLISHED;
+        return $this->status === TrainingStatus::PUBLISHED;
     }
 
     public function isPending(): bool
     {
-        return $this->status === FormationStatus::PENDING;
+        return $this->status === TrainingStatus::PENDING;
     }
 
     public function isRefused(): bool
     {
-        return $this->status === FormationStatus::REFUSED;
+        return $this->status === TrainingStatus::REFUSED;
     }
 
     public function user(): BelongsTo
