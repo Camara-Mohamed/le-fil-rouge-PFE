@@ -26,7 +26,7 @@ it('check if a route to access a login form existe', function () {
     );
     $response->assertSee(__('auth.login.title'));
     $response->assertSee('type="email"', false);
-    $response->assertSee('type="password"', false);
+    $response->assertSee('name="password"', false);
 });
 
 it('requires email field', function () {
