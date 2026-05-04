@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('banner')->nullable();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->enum('type', ['stage', 'sejour']);
+            $table->enum('type', ['stage', 'sejour'])->default('stage');
             $table->integer('participants')->nullable();
             $table->longText('details')->nullable();
             $table->longText('constraints')->nullable();

@@ -87,21 +87,26 @@ class User extends Authenticatable
 
     public function documents(): HasMany
     {
-        return $this->hasMany(UserDocument::class);
+        return $this->hasMany(Document::class);
     }
 
     public function trainings(): HasMany
     {
-        return $this->hasMany(Formation::class);
+        return $this->hasMany(Training::class);
     }
 
     public function camps(): HasMany
     {
-        return $this->hasMany(Stage::class);
+        return $this->hasMany(Camp::class);
     }
 
     public function announcements(): HasMany
     {
-        return $this->hasMany(NewEvent::class);
+        return $this->hasMany(Announcement::class);
+    }
+
+    public function fullName(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 }

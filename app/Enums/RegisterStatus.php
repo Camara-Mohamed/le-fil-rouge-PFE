@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum RequestStatus: string
+enum RegisterStatus: string
 {
     case PENDING = 'pending';
     case ACCEPTED = 'accepted';

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('banner')->nullable();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->enum('type', ['residential', 'non_residential'])->default('residential');
             $table->integer('price')->nullable();
             $table->integer('participants')->nullable();
             $table->longText('details')->nullable();

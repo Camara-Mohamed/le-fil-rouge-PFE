@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum FormationStatus: string
+enum CampStatus: string
 {
     case DRAFT = 'draft';
     case PENDING = 'pending';
