@@ -18,26 +18,40 @@
             >
         </div>
 
-        <div>
+        <div x-data="{ show: false }">
             <label for="password">{{ __('auth.reset.password') }}</label>
             <input
                 id="password"
-                type="password"
+                :type="show ? 'text' : 'password'"
                 name="password"
                 placeholder="{{ __('auth.reset.password_placeholder') }}"
                 required
             >
+            <button
+                type="button"
+                @click="show = !show"
+            >
+                <span x-show="!show">Afficher</span>
+                <span x-show="show">Cacher</span>
+            </button>
         </div>
 
-        <div>
+        <div x-data="{ show: false }">
             <label for="password_confirmation">{{ __('auth.reset.password_confirmation') }}</label>
             <input
                 id="password_confirmation"
-                type="password"
+                :type="show ? 'text' : 'password'"
                 name="password_confirmation"
                 placeholder="{{ __('auth.reset.password_placeholder') }}"
                 required
             >
+            <button
+                type="button"
+                @click="show = !show"
+            >
+                <span x-show="!show">Afficher</span>
+                <span x-show="show">Cacher</span>
+            </button>
         </div>
 
         <button type="submit">
