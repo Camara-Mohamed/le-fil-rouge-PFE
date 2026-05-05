@@ -1,4 +1,8 @@
+@php use App\Enums\TrainingStatus; @endphp
 <x-public.auth title="{{ __('auth.login.title') }}">
+
+    <a href="{{ route('public.home', ['locale' => app()->getLocale()]) }}">Revenir à la page d'accueil</a>
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -43,6 +47,9 @@
         <a href="{{ route('password.request') }}">
             {{ __('auth.login.forgot_password') }}
         </a>
+
+        <p>Vous n'êtes pas encore membre ? <a href="{{ route('public.volunteer', ['locale' => app()->getLocale()])
+        }}">Devenez volontaire</a></p>
 
     </form>
 </x-public.auth>
