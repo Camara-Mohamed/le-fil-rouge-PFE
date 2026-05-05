@@ -1,23 +1,26 @@
-<x-public.auth title="{{ __('auth.password.title') }}">
+<x-public.auth title="{{ __('auth.forgot_password.title') }}">
+
+    <a href="{{ route('login') }}">Revenir à la page de connexion</a>
+
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
 
-        <h2>{{ __('auth.password.title') }}</h2>
+        <h2>{{ __('auth.forgot_password.title') }}</h2>
 
         <div>
-            <label for="email">{{ __('auth.password.email') }}</label>
+            <label for="email">{{ __('auth.forgot_password.email') }}</label>
             <input
                 id="email"
                 type="email"
                 name="email"
-                placeholder="{{ __('auth.password.email_placeholder') }}"
+                placeholder="{{ __('auth.forgot_password.email_placeholder') }}"
                 value="{{ old('email') }}"
                 required
             >
         </div>
 
         <button type="submit">
-            {{ __('auth.password.submit') }}
+            {{ __('auth.forgot_password.submit') }}
         </button>
 
     </form>
