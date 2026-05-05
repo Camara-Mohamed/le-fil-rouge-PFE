@@ -27,4 +27,9 @@ class VolunteerRequest extends Model
     {
         return $this->status === RegisterStatus::PENDING;
     }
+
+    public function fullName(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
 }
