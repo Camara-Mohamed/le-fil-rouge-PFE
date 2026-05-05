@@ -15,7 +15,6 @@ class ContactMessageMail extends Mailable
 
     public function __construct(public ContactMessage $contactMessage) {}
 
-
     public function envelope(): Envelope
     {
         return new Envelope(

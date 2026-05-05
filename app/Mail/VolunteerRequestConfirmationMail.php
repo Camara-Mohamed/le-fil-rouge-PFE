@@ -13,9 +13,7 @@ class VolunteerRequestConfirmationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public VolunteerRequest $volunteerRequest)
-    {
-    }
+    public function __construct(public VolunteerRequest $volunteerRequest) {}
 
     public function envelope(): Envelope
     {

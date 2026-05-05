@@ -8,7 +8,6 @@ use App\Mail\ContactMessageMail;
 use App\Models\ContactMessage;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
 
 class ContactMessageController extends Controller
 {
