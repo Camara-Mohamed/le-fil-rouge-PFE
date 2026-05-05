@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Le Fil Rouge'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -78,13 +78,13 @@ return [
     |
     */
 
-    'locale' => env('APP_LOCALE', 'fr'),
+    'locale' => env('APP_LOCALE', 'en'),
 
     'locales' => ['fr', 'en', 'nl', 'de'],
 
-    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'fr'),
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 
-    'faker_locale' => env('APP_FAKER_LOCALE', 'fr_FR'),
+    'faker_locale' => env('APP_FAKER_LOCALE', 'en_EN'),
 
     /*
     |--------------------------------------------------------------------------
