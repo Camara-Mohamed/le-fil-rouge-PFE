@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\VolunteerRequestController;
 use App\Http\Middleware\SetLocale;
 
 Route::prefix('{locale}')
@@ -47,7 +48,8 @@ Route::prefix('{locale}')
         Route::post('/contact', [ContactMessageController::class, 'store'])->name('public.contact.store');
 
         // Page devenir volontaire
-        Route::get('/volunteer', function () {
-            return view('public.volunteer');
-        })->name('public.volunteer');
+        Route::get('/volunteer', [VolunteerRequestController::class, 'index'])
+            ->name('public.volunteer');
+        Route::post('/volunteer', [VolunteerRequestController::class, 'store'])
+            ->name('public.volunteer.store');
     });

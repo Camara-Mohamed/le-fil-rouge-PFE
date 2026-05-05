@@ -2,30 +2,30 @@
 
 namespace App\Mail;
 
-use App\Models\ContactMessage;
+use App\Models\VolunteerRequest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ContactMessageMail extends Mailable
+class VolunteerRequestConfirmationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public ContactMessage $contactMessage) {}
+    public function __construct(public VolunteerRequest $volunteerRequest) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Nouveau Message — '.$this->contactMessage->sujet,
+            subject: 'Votre demande de volontaire sera bientôt traité',
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.contact-message',
+            markdown: 'emails.volunteer-request-confirmation',
         );
     }
 
