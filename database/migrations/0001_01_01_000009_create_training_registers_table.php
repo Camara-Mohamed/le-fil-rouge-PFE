@@ -10,10 +10,11 @@ return new class extends Migration
     {
         Schema::create('training_registers', function (Blueprint $table) {
             $table->id();
-            $table->unique(['training_id', 'user_id']);
             $table->enum('status', ['pending', 'accepted', 'refused'])->default('pending');
+            $table->text('notes')->nullable();
             $table->foreignId('training_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->unique(['training_id', 'user_id']);
             $table->timestamps();
         });
     }

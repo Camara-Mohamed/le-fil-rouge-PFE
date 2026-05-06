@@ -21,12 +21,14 @@ return new class extends Migration
             $table->enum('role', [
                 'arrivant', 'animateur_1', 'animateur_2', 'brevete', 'coordinateur', 'formateur', 'admin'])->default('arrivant');
             $table->string('phone')->unique()->nullable();
-            $table->date('birth_date')->nullable();
+            $table->date('birth_date')->default(now());
             $table->string('address')->nullable();
             $table->string('number')->nullable();
             $table->string('city')->nullable();
             $table->string('province')->nullable();
             $table->string('postal_code')->nullable();
+            $table->enum('diet', ['normal', 'vegetarian', 'vegan', 'halal', 'kosher', 'gluten_free', 'lactose_free', 'other'])->default('normal');
+            $table->text('allergies')->nullable();
             $table->string('avatar_path')->nullable();
             $table->rememberToken();
             $table->timestamps();

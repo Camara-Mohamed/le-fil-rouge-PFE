@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\TrainingStatus;
+use App\Enums\CampStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'type',
     'participants',
     'details',
-    'contraints',
+    'constraints',
     'address',
     'number',
     'city',
@@ -42,17 +42,17 @@ class Camp extends Model
 
     public function isDraft(): bool
     {
-        return $this->status === TrainingStatus::DRAFT;
+        return $this->status === CampStatus::DRAFT;
     }
 
     public function isPublished(): bool
     {
-        return $this->status === TrainingStatus::PUBLISHED;
+        return $this->status === CampStatus::PUBLISHED;
     }
 
     public function isPending(): bool
     {
-        return $this->status === TrainingStatus::PENDING;
+        return $this->status === CampStatus::PENDING;
     }
 
     public function isRefused(): bool

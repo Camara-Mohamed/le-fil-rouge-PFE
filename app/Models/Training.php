@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'price',
     'participants',
     'details',
-    'contraints',
+    'constraints',
     'address',
     'number',
     'city',
