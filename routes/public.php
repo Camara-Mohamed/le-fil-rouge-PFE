@@ -21,7 +21,7 @@ Route::prefix('{locale}')
             return view('public.trainings.show');
         })->name('public.trainings.show');
 
-        // Pages des stages et séjours
+        // Pages des stages et séjours (camps)
         Route::get('/camps', function () {
             return view('public.camps.index');
         })->name('public.camps.index');

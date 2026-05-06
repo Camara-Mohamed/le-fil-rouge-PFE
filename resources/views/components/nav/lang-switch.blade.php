@@ -1,6 +1,6 @@
-<ul>
+<ul class="flex gap-2">
     @foreach (config('app.locales') as $locale)
-        <li><a href="{{ route(
+        <li class="hover:text-purple-500 hover:underline"><a href="{{ route(
         Route::currentRouteName(),
         array_merge(request()->route()->parameters(),
             ['locale' => $locale])) }}">

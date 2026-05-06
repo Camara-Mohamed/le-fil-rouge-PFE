@@ -10,10 +10,11 @@ return new class extends Migration
     {
         Schema::create('camp_registers', function (Blueprint $table) {
             $table->id();
-            $table->unique(['camp_id', 'user_id']);
+            $table->enum('status', ['pending', 'accepted', 'refused'])->default('pending');
+            $table->text('notes')->nullable();
             $table->foreignId('camp_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->enum('status', ['pending', 'accepted', 'refused'])->default('pending');
+            $table->unique(['camp_id', 'user_id']);
             $table->timestamps();
         });
     }
