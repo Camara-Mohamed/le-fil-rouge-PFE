@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Livewire\Livewire;
+
 use function Pest\Laravel\actingAs;
 
 beforeEach(function () {
