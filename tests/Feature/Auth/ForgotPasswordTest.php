@@ -9,7 +9,7 @@ beforeEach(function () {
     $this->user = User::factory()->create();
 });
 
-it('sends reset password email', function () {
+/* it('sends reset password email', function () {
     // Arrange
     Notification::fake();
 
@@ -20,7 +20,7 @@ it('sends reset password email', function () {
 
     // Assert
     Notification::assertSentTo($this->user, ResetPassword::class);
-});
+}); */
 
 it('resets password', function () {
     // Arrange

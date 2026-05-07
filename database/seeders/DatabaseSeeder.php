@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Enums\Diets;
 use App\Enums\Provinces;
 use App\Enums\UserRoles;
+use App\Models\Camp;
+use App\Models\Training;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -46,5 +48,7 @@ class DatabaseSeeder extends Seeder
             'role' => UserRoles::ADMIN,
             'password' => Hash::make('change_this'),
         ]);
+
+        Camp::factory()->count(4)->create();
     }
 }
