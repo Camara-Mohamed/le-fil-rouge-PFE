@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enums\Diets;
 use App\Enums\Provinces;
 use App\Enums\UserRoles;
+use App\Models\Announcement;
 use App\Models\Camp;
 use App\Models\Training;
 use App\Models\User;
@@ -22,7 +23,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(8)->create();
+        User::factory()->count(4)->create();
 
         User::factory()->create([
             'first_name' => 'Mohamed',
@@ -50,6 +51,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Camp::factory()->count(4)->create();
+
         Training::factory()->count(4)->create();
+
+        Announcement::factory()->count(2)->create();
     }
 }
