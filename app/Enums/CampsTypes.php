@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum CampsType: string
+enum CampsTypes: string
 {
     case STAGE = 'stage';
     case SEJOUR = 'sejour';

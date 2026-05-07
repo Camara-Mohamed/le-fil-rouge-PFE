@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\UserRole;
+use App\Enums\UserRoles;
 use App\Http\Requests\VolunteerDemandeRequest;
 use App\Mail\VolunteerRequestConfirmationMail;
 use App\Mail\VolunteerRequestMail;
@@ -21,7 +21,7 @@ class VolunteerRequestController extends Controller
     {
         $volunteer = VolunteerRequest::create($request->validated());
 
-        $admins = User::where('role', UserRole::ADMIN)->get();
+        $admins = User::where('role', UserRoles::ADMIN)->get();
         Mail::to($admins)->send(new VolunteerRequestMail($volunteer));
 
         Mail::to($volunteer->email)->send(new VolunteerRequestConfirmationMail($volunteer));

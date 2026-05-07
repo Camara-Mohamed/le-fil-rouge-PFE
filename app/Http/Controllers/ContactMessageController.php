@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\UserRole;
+use App\Enums\UserRoles;
 use App\Http\Requests\ContactMessageRequest;
 use App\Mail\ContactMessageMail;
 use App\Models\ContactMessage;
@@ -20,7 +20,7 @@ class ContactMessageController extends Controller
     {
         $message = ContactMessage::create($request->validated());
 
-        $admins = User::where('role', UserRole::ADMIN)->get();
+        $admins = User::where('role', UserRoles::ADMIN)->get();
         Mail::to($admins)->send(new ContactMessageMail($message));
 
         return redirect()->back()->with('send', __('/public/contact.send'));
