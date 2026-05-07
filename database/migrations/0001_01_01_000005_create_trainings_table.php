@@ -25,7 +25,8 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('province')->nullable();
             $table->integer('postal_code')->nullable();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users');
+            $table->json('roles')->nullable();
             $table->enum('status', ['draft', 'pending', 'published', 'refused'])->default('draft');
             $table->json('galeries')->nullable();
             $table->timestamps();
