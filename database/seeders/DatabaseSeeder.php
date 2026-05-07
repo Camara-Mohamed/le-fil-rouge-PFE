@@ -50,5 +50,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Camp::factory()->count(4)->create();
+        Training::factory()->count(4)->create();
     }
 }

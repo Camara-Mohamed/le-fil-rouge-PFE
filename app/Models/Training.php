@@ -97,4 +97,9 @@ class Training extends Model
     {
         return in_array($user->role->value, $this->roles);
     }
+
+    public function getFormattedPrice(): ?string
+    {
+        return number_format($this->price, 2, ',', ' ') . ' €';
+    }
 }
