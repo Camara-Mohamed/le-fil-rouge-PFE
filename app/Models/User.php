@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 
 #[Fillable([
     'first_name',
@@ -108,5 +109,20 @@ class User extends Authenticatable
     public function fullName(): string
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function trainingRegisters(): HasMany
+    {
+        return $this->hasMany(TrainingRegister::class);
+    }
+
+    public function campRegisters(): HasMany
+    {
+        return $this->hasMany(CampRegister::class);
+    }
+
+    public function getAge(): int
+    {
+        return Carbon::parse($this->birth_date)->age;
     }
 }

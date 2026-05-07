@@ -6,6 +6,7 @@ use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'mohamed.camara@lefilrouge.com',
             'role' => UserRole::ADMIN,
             'password' => Hash::make('change_this'),
+            'birth_date' => fake()->dateTimeBetween('-28 years', '-18 years'),
         ]);
 
         User::factory()->create([
@@ -31,6 +33,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'stephanie.admin@lefilrouge.com',
             'role' => UserRole::ADMIN,
             'password' => Hash::make('change_this'),
+            'birth_date' => fake()->dateTimeBetween('-60 years', '-18 years'),
         ]);
     }
 }
