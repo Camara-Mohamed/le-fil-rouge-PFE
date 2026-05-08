@@ -1,1 +1,1 @@
-<p>Bonjour, {{ auth()->user()->fullName() }} !</p>
+<p>Bonjour {{ auth()->user()->fullName() }}, tu as {{ auth()->user()->getAge() }} ans ?</p>

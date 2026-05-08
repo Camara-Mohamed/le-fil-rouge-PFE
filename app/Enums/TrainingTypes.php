@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum TrainingType: string
+enum TrainingTypes: string
 {
     case RESIDENTIAL = 'residential';
     case NON_RESIDENTIAL = 'non_residential';

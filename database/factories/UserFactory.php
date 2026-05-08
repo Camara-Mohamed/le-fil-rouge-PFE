@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\Diets;
+use App\Enums\Provinces;
+use App\Enums\UserRoles;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -24,13 +27,59 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $roles = [
+            UserRoles::ARRIVANT,
+            UserRoles::ANIMATEUR_1,
+            UserRoles::ANIMATEUR_2,
+            UserRoles::BREVETE,
+            UserRoles::COORDINATEUR,
+            UserRoles::FORMATEUR,
+            UserRoles::ADMIN,
+        ];
+
+        $provinces = [
+            Provinces::ANVERS,
+            Provinces::BRABANT_WALLON,
+            Provinces::BRUXELLES,
+            Provinces::FLANDRE_OCCIDENTALE,
+            Provinces::FLANDRE_ORIENTALE,
+            Provinces::HAINAUT,
+            Provinces::LIEGE,
+            Provinces::LIMBOURG,
+            Provinces::LUXEMBOURG,
+            Provinces::NAMUR,
+            Provinces::BRABANT_FLAMAND,
+        ];
+
+        $diets = [
+            Diets::NORMAL,
+            Diets::VEGETARIAN,
+            Diets::VEGAN,
+            Diets::HALAL,
+            Diets::KOSHER,
+            Diets::GLUTEN_FREE,
+            Diets::LACTOSE_FREE,
+            Diets::OTHER,
+        ];
+
         return [
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'email' => fake()->unique()->safeEmail(),
+            'email' => fake()->firstName().'.'.fake()->lastName().'@lefilrouge.com',
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => static::$password ??= Hash::make('change_this'),
             'remember_token' => Str::random(10),
+            'role' => fake()->randomElement($roles),
+            'phone' => fake()->unique()->phoneNumber(),
+            'birth_date' => fake()->dateTimeBetween('-64 years', '-18 years'),
+            'address' => fake()->streetName(),
+            'number' => fake()->buildingNumber(),
+            'city' => fake()->city(),
+            'province' => fake()->randomElement($provinces),
+            'postal_code' => fake()->postcode(),
+            'diet' => fake()->randomElement($diets),
+            'allergies' => fake()->text(),
+            'avatar_path' => null,
         ];
     }
 
@@ -39,7 +88,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

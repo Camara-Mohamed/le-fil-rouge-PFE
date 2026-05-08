@@ -3,7 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\UserRole;
+use App\Enums\Diets;
+use App\Enums\UserRoles;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 
 #[Fillable([
     'first_name',
@@ -25,6 +27,7 @@ use Illuminate\Notifications\Notifiable;
     'city',
     'province',
     'postal_code',
+    'diet',
     'avatar_path',
 ])]
 #[Hidden([
@@ -47,42 +50,44 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'birth_date' => 'date',
+            'diet' => Diets::class,
+            'role' => UserRoles::class,
         ];
     }
 
     public function isAdmin(): bool
     {
-        return $this->role === UserRole::ADMIN;
+        return $this->role === UserRoles::ADMIN;
     }
 
     public function isFormateur(): bool
     {
-        return $this->role === UserRole::FORMATEUR;
+        return $this->role === UserRoles::FORMATEUR;
     }
 
     public function isCoordinateur(): bool
     {
-        return $this->role === UserRole::COORDINATEUR;
+        return $this->role === UserRoles::COORDINATEUR;
     }
 
     public function isAnimateur1(): bool
     {
-        return $this->role === UserRole::ANIMATEUR_1;
+        return $this->role === UserRoles::ANIMATEUR_1;
     }
 
     public function isAnimateur2(): bool
     {
-        return $this->role === UserRole::ANIMATEUR_2;
+        return $this->role === UserRoles::ANIMATEUR_2;
     }
 
     public function isBrevete(): bool
     {
-        return $this->role === UserRole::BREVETE;
+        return $this->role === UserRoles::BREVETE;
     }
 
     public function isArrivant(): bool
     {
-        return $this->role === UserRole::ARRIVANT;
+        return $this->role === UserRoles::ARRIVANT;
     }
 
     public function documents(): HasMany
@@ -108,5 +113,20 @@ class User extends Authenticatable
     public function fullName(): string
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function trainingRegisters(): HasMany
+    {
+        return $this->hasMany(TrainingRegister::class);
+    }
+
+    public function campRegisters(): HasMany
+    {
+        return $this->hasMany(CampRegister::class);
+    }
+
+    public function getAge(): int
+    {
+        return Carbon::parse($this->birth_date)->age;
     }
 }
