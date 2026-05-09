@@ -41,23 +41,15 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::define('create-training', function (User $user): bool {
-            return $user->hasAnyRole([
-                UserRoles::FORMATEUR,
-                UserRoles::ADMIN,
-            ]);
+            return $user->isAdmin() || $user->isFormateur();
         });
 
         Gate::define('create-camp', function (User $user): bool {
-            return $user->hasAnyRole([
-                UserRoles::COORDINATEUR,
-                UserRoles::ADMIN,
-            ]);
+            return $user->isAdmin() || $user->isCoordinateur();
         });
 
         Gate::define('create-announcement', function (User $user): bool {
-            return $user->hasAnyRole([
-                UserRoles::ADMIN,
-            ]);
+            return $user->isAdmin();
         });
 
         Gate::define('create-member', function (User $user): bool {
