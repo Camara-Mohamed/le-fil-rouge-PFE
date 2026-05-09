@@ -27,7 +27,7 @@ class TrainingRegister extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function camp(): BelongsTo
+    public function training(): BelongsTo
     {
         return $this->belongsTo(Training::class);
     }

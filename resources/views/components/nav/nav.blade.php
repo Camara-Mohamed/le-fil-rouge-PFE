@@ -13,6 +13,17 @@
         <li class="hover:underline hover:text-blue-500"><a href="{{ route('public.announcements.index', ['locale' => app
         ()->getLocale()]) }}">Les Actualités</a>
         </li>
+
+        @can('manage-members')
+            <li class="hover:underline hover:text-blue-500"><a href="{{ route('admin.members.index', ['locale' => app()->getLocale
+        ()]) }}">Les Membres</a></li>
+        @endcan
+
+        @can('manage-messages')
+            <li class="hover:underline hover:text-blue-500"><a href="{{ route('admin.messages.index', ['locale' => app()->getLocale
+        ()]) }}">Les Messages</a></li>
+        @endcan
+
         <li class="hover:underline hover:text-blue-500"><a href="{{ route('public.contact', ['locale' => app()
         ->getLocale()]) }}">Nous Contacter</a></li>
 
@@ -21,14 +32,22 @@
         @endguest
 
         @auth
-            <li class="hover:underline hover:text-blue-500"><a href="{{ route('admin.profile', ['locale' => app()
-            ->getLocale()]) }}">Mon Profil</a></li>
-            <li class="hover:underline hover:text-blue-500"><a href="{{ route('admin.enrollments', ['locale' => app()
-            ->getLocale()]) }}">Mon Historique</a></li>
+            <li class="group relative">
+                <button type="button" class="hover:text-blue-500 hover:underline">
+                    Mon Profil
+                </button>
+                <ul>
+                    <li class="hover:underline hover:text-blue-500"><a href="{{ route('admin.dashboard', ['locale' =>
+                    app()->getLocale()]) }}">Mon Dashboard</a></li>
+                    <li class="hover:underline hover:text-blue-500"><a href="{{ route('admin.profile', ['locale' =>
+                    app()->getLocale()]) }}">Mon Compte</a></li>
+                    <li class="hover:underline hover:text-blue-500"><a href="{{ route('admin.enrollments', ['locale' => app()->getLocale()]) }}">Mon Historique</a></li>
 
-            <form method="POST" action="{{ route('logout') }}">
-                <button type="submit" class="hover:text-red-500 hover:underline">Logout</button>
-            </form>
+                    <form method="POST" action="{{ route('logout') }}">
+                        <button type="submit" class="hover:text-red-500 hover:underline">Logout</button>
+                    </form>
+                </ul>
+            </li>
         @endauth
     </ul>
 </nav>

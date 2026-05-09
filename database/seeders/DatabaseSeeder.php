@@ -50,10 +50,34 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('change_this'),
         ]);
 
-        Camp::factory()->count(4)->create();
+        User::factory()->create([
+            'first_name' => 'Hugo',
+            'last_name' => 'Formateur',
+            'email' => 'hugo.formateur@lefilrouge.com',
+            'role' => UserRoles::FORMATEUR,
+            'password' => Hash::make('change_this'),
+        ]);
 
-        Training::factory()->count(4)->create();
+        User::factory()->create([
+            'first_name' => 'Paul',
+            'last_name' => 'Coordinateur',
+            'email' => 'paul.coordinateur@lefilrouge.com',
+            'role' => UserRoles::COORDINATEUR,
+            'password' => Hash::make('change_this'),
+        ]);
 
-        Announcement::factory()->count(2)->create();
+        User::factory()->create([
+            'first_name' => 'Sam',
+            'last_name' => 'Arrivant',
+            'email' => 'sam.arrivant@lefilrouge.com',
+            'role' => UserRoles::ARRIVANT,
+            'password' => Hash::make('change_this'),
+        ]);
+
+        Camp::factory()->count(12)->create();
+
+        Training::factory()->count(12)->create();
+
+        Announcement::factory()->count(6)->create();
     }
 }
