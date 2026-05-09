@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Policies\AnnouncementPolicy;
 use App\Policies\CampPolicy;
 use App\Policies\TrainingPolicy;
+use App\Policies\UserPolicy;
 use Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Training::class, TrainingPolicy::class);
         Gate::policy(Camp::class, CampPolicy::class);
         Gate::policy(Announcement::class, AnnouncementPolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
 
         Gate::define('access-dashboard', function (User $user): bool {
             return true;
