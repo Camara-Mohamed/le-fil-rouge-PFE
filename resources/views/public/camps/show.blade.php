@@ -1,5 +1,14 @@
-<x-public.app title="La stage ou séjour :">
+<x-public.app title="La stage ou séjour : {{ $camp->title }}">
 
-    <h2>La stage ou séjour :</h2>
+    <h2>La stage ou séjour : {{ $camp->title }}</h2>
+
+    <p>{{ $camp->start_date }}</p>
+    <p>{{ $camp->city }}</p>
+
+    // Héro + Retour
+
+    // Details | Description + CTA (Inscription)
+
+    // Galéries
 
 </x-public.app>

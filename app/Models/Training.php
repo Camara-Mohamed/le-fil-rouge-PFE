@@ -100,6 +100,6 @@ class Training extends Model
 
     public function getFormattedPrice(): ?string
     {
-        return number_format($this->price, 2, ',', ' ') . ' €';
+        return number_format($this->price, 2, ',', ' ').' €';
     }
 }

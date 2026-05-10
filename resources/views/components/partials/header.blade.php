@@ -5,3 +5,7 @@
 
     <x-nav.nav></x-nav.nav>
 </header>
+
+// Langues
+
+// Navigation : Nom + Pages | CTA (Profil) > Drop-Down Menu

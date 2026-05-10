@@ -52,4 +52,12 @@
         }}">Devenez volontaire</a></p>
 
     </form>
+
+    // Retour
+
+    // Présentation
+
+    // Formulaire + CTA (Volontaire)
+
+
 </x-public.auth>

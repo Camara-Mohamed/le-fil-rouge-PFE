@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Enums\CampStatus;
 use App\Enums\CampsTypes;
 use App\Enums\Provinces;
-use App\Enums\UserRoles;
 use App\Models\Camp;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
