@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Enums\UserRoles;
 use App\Models\Announcement;
 use App\Models\Camp;
 use App\Models\Training;

@@ -47,7 +47,7 @@ class TrainingFactory extends Factory
             'brevete',
             'coordinateur',
             'formateur',
-            'admin'
+            'admin',
         ];
 
         return [

@@ -15,16 +15,16 @@ class HomeController extends Controller
         $trainings = Training::query()
             ->where('status', TrainingStatus::PUBLISHED)
             ->limit(3)
-            ->get();;
+            ->get();
 
         $camps = Camp::query()
             ->where('status', CampStatus::PUBLISHED)
-            ->get();;
+            ->get();
 
         $announcements = Announcement::query()
             ->orderBy('published_at', 'desc')
             ->limit(3)
-            ->get();;
+            ->get();
 
         return view('public.home', compact('trainings', 'announcements', 'camps'));
     }

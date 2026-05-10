@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'notes',
     'status',
     'camp_id',
-    'user_id'
+    'user_id',
 ])]
 class TrainingRegister extends Model
 {
