@@ -55,6 +55,7 @@ Route::prefix('{locale}')
 
         // Page de gestion du profil utilisateur
         Route::livewire('/my-profile', 'pages::profile')
+            ->middleware('can:access-profile')
             ->name('admin.profile');
 
         // Page de gestion des historiques de formations ou de camps
