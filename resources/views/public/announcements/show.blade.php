@@ -5,4 +5,9 @@
     <p>{{ $announcement->start_date }}</p>
     <p>{{ $announcement->city }}</p>
 
+    // Héro + Retour
+
+    // Details | Description
+
+
 </x-public.app>

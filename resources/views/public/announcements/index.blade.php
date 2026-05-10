@@ -17,4 +17,12 @@
 
     <div>{{ $announcements->links() }}</div>
 
+    // Héro
+
+    // Rechercher | Tri (Date)
+
+    // Liste des actualités + Pagination
+
+    // Liens utiles
+
 </x-public.app>

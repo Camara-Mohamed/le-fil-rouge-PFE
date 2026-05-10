@@ -5,4 +5,10 @@
     <p>{{ $camp->start_date }}</p>
     <p>{{ $camp->city }}</p>
 
+    // Héro + Retour
+
+    // Details | Description + CTA (Inscription)
+
+    // Galéries
+
 </x-public.app>

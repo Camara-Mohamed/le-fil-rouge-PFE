@@ -68,4 +68,10 @@
 
     </form>
 
+    // Héro
+
+    // Coordonnées | Formulaire de contact
+
+    // Liste des partenaires
+
 </x-public.app>

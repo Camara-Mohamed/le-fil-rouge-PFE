@@ -81,4 +81,10 @@
 
     </form>
 
+    // Héro
+
+    // Texte + Image + CTA (Encre Nommé)
+
+    // Formulaire
+
 </x-public.app>

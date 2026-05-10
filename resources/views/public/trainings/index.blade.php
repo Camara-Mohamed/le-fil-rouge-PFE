@@ -18,4 +18,16 @@
 
     <a href="{{route('admin.trainings.create', ['locale' => app()->getLocale()])}}">Create</a>
 
+    // Héro
+
+    // Recherche | Filtres | Tri
+
+    // Liste des formations (Date - Desc) + Pagination
+
+    // Image + Texte Descriptifs
+
+    // Galéries
+
+
+
 </x-public.app>

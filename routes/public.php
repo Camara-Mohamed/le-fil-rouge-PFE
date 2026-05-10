@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\CampController;
 use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\VolunteerRequestController;
 use App\Http\Middleware\SetLocale;
@@ -12,9 +13,8 @@ Route::prefix('{locale}')
     ->group(function () {
 
         // Page d'accueil
-        Route::get('/', function () {
-            return view('public.home');
-        })->name('public.home');
+        Route::get('/', [HomeController::class, 'index'])
+            ->name('public.home');
 
         // Pages des formations
         Route::get('/trainings', [TrainingController::class, 'index'])

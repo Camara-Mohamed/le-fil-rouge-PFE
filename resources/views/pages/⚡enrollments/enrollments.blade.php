@@ -1,4 +1,9 @@
-
 <div>
-    {{-- Breathing in, I calm body and mind. Breathing out, I smile. - Thich Nhat Hanh --}}
+
+    // Liste des inscriptions actuelles
+
+    // Liste des formations
+
+    // Liste des camps
+
 </div>

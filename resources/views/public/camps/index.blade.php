@@ -16,4 +16,14 @@
 
     <div>{{ $camps->links() }}</div>
 
+    // Héro
+
+    // Recherche | Filtres | Tri
+
+    // Liste des camps (Date - Desc) + Pagination
+
+    // Compositions + Texte
+
+    // Galéries
+
 </x-public.app>

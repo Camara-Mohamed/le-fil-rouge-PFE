@@ -1,4 +1,5 @@
-
 <div>
-    {{-- We must ship. - Taylor Otwell --}}
+
+    // Vidéo ou Genially
+
 </div>
