@@ -51,6 +51,6 @@ class UserPolicy
 
     public function updateProfile(User $user, User $model): bool
     {
-        return $user->isAdmin() || $user->id === $model->id;
+        return $user->id === $model->id || $user->isAdmin();
     }
 }

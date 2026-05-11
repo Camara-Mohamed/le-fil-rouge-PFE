@@ -21,7 +21,7 @@ new #[Title('Mon Profil')] class extends Component
     {
         $user = auth()->user();
 
-        $this->authorize('update', $user);
+        $this->authorize('update-profile', $user);
 
         $this->form->setProfile($user);
     }
