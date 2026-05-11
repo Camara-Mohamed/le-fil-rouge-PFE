@@ -22,8 +22,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(4)->create();
-
         User::factory()->create([
             'first_name' => 'Mohamed',
             'last_name' => 'Camara',
@@ -31,9 +29,9 @@ class DatabaseSeeder extends Seeder
             'role' => UserRoles::ADMIN,
             'password' => Hash::make('change_this'),
             'birth_date' => fake()->dateTimeBetween('-28 years', '-18 years'),
-            'phone' => '0123456789',
+            'phone' => fake()->phoneNumber,
             'address' => 'Rue du Vallon',
-            'number' => '1B',
+            'number' => fake()->buildingNumber(),
             'city' => 'Liege',
             'province' => Provinces::LIEGE,
             'postal_code' => '4000',
