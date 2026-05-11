@@ -65,6 +65,11 @@ class Training extends Model
         return $this->status === TrainingStatus::REFUSED;
     }
 
+    public function isConfirmed(): bool
+    {
+        return $this->status === TrainingStatus::CONFIRMED;
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

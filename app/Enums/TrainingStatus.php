@@ -8,4 +8,5 @@ enum TrainingStatus: string
     case PENDING = 'pending';
     case PUBLISHED = 'published';
     case REFUSED = 'refused';
+    case CONFIRMED = 'confirmed';
 }
