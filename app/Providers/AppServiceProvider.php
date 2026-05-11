@@ -4,11 +4,12 @@ namespace App\Providers;
 
 use App\Models\Announcement;
 use App\Models\Camp;
+use App\Models\Document;
 use App\Models\Training;
 use App\Models\User;
 use App\Policies\AnnouncementPolicy;
 use App\Policies\CampPolicy;
-use App\Policies\ProfilePolicy;
+use App\Policies\DocumentPolicy;
 use App\Policies\TrainingPolicy;
 use App\Policies\UserPolicy;
 use Gate;
@@ -34,8 +35,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Training::class, TrainingPolicy::class);
         Gate::policy(Camp::class, CampPolicy::class);
         Gate::policy(Announcement::class, AnnouncementPolicy::class);
-        Gate::policy(User::class, UserPolicy::class);
-        Gate::policy(User::class, ProfilePolicy::class);
+        Gate::policy(Document::class, DocumentPolicy::class);
 
         Gate::define('access-dashboard', function (User $user): bool {
             return true;
@@ -45,20 +45,16 @@ class AppServiceProvider extends ServiceProvider
             return true;
         });
 
-        Gate::define('create-training', function (User $user): bool {
+        Gate::define('manage-training', function (User $user): bool {
             return $user->isAdmin() || $user->isFormateur();
         });
 
-        Gate::define('create-camp', function (User $user): bool {
+        Gate::define('manage-camp', function (User $user): bool {
             return $user->isAdmin() || $user->isCoordinateur();
         });
 
-        Gate::define('create-announcement', function (User $user): bool {
-            return $user->isAdmin();
-        });
-
-        Gate::define('create-member', function (User $user): bool {
-            return $user->isAdmin();
+        Gate::define('manage-announcement', function (User $user): bool {
+            return $user->isAdmin() || $user->isFormateur();
         });
 
         Gate::define('manage-members', function (User $user): bool {

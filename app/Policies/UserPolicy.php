@@ -48,4 +48,9 @@ class UserPolicy
     {
         return $user->isAdmin() && $user->id !== $model->id;
     }
+
+    public function updateProfile(User $user, User $model): bool
+    {
+        return $user->isAdmin() || $user->id === $model->id;
+    }
 }
