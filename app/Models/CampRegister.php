@@ -15,6 +15,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 )]
 class CampRegister extends Model
 {
+    protected $fillable = [
+        'status',
+    ];
+
     protected function casts(): array
     {
         return [
