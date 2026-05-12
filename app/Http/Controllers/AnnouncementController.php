@@ -19,4 +19,9 @@ class AnnouncementController extends Controller
     {
         return view('public.announcements.show', compact('announcement'));
     }
+
+    public function create()
+    {
+        return view('pages.announcements.⚡create.create');
+    }
 }

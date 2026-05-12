@@ -62,7 +62,7 @@ class UserFactory extends Factory
             Diets::OTHER,
         ];
 
-        $email = Str::ascii(fake()->firstName().'.'.fake()->lastName().'@lefilrouge.com');
+        $email = Str::ascii(fake()->userName().'@lefilrouge.com');
 
         return [
             'first_name' => fake()->firstName(),
