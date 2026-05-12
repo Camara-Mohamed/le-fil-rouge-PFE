@@ -12,26 +12,26 @@ Route::prefix('{locale}')
 
         // Pages de gestion des formations
         Route::livewire('/trainings/create', 'pages::trainings.create')
-            ->middleware('can:create-training')
+            ->middleware('can:manage-training')
             ->name('admin.trainings.create');
         Route::livewire('/trainings/{training}/edit', 'pages::trainings.edit')
-            ->middleware('can:create-training')
+            ->middleware('can:manage-training')
             ->name('admin.trainings.edit');
 
         // Pages de gestion des stages et séjours (camps)
         Route::livewire('/camps/create', 'pages::camps.create')
-            ->middleware('can:create-camp')
+            ->middleware('can:manage-camp')
             ->name('admin.camps.create');
         Route::livewire('/camps/{camp}/edit', 'pages::camps.edit')
-            ->middleware('can:create-camp')
+            ->middleware('can:manage-camp')
             ->name('admin.camps.edit');
 
         // Pages de gestion des actualités
         Route::livewire('/announcements/create', 'pages::announcements.create')
-            ->middleware('can:create-announcement')
+            ->middleware('can:manage-announcement')
             ->name('admin.announcements.create');
         Route::livewire('/announcements/{announcement}/edit', 'pages::announcements.edit')
-            ->middleware('can:create-camp')
+            ->middleware('can:manage-announcement')
             ->name('admin.announcements.edit');
 
         // Pages de gestion des membres
