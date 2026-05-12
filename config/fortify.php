@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SetLocale;
 use Laravel\Fortify\Features;
 
 return [
@@ -73,7 +74,7 @@ return [
     |
     */
 
-    'home' => app()->getLocale().'/dashboard',
+    'home' => '/'.app()->getLocale().'/dashboard',
 
     /*
     |--------------------------------------------------------------------------
@@ -86,7 +87,7 @@ return [
     |
     */
 
-    'prefix' => '',
+    'prefix' => '{locale}',
 
     'domain' => null,
 
@@ -101,7 +102,7 @@ return [
     |
     */
 
-    'middleware' => ['web'],
+    'middleware' => ['web', SetLocale::class],
 
     /*
     |--------------------------------------------------------------------------

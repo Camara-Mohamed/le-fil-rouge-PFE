@@ -26,7 +26,7 @@
         {{ $password }}
     </p>
 
-    <a href="{{ route('login') }}">Se connecter</a>
+    <a href="{{ route('login', ['locale'=>app()->getLocale()]) }}">Se connecter</a>
 
     <small>Oublie pas de changer de mdp.</small>
 </main>

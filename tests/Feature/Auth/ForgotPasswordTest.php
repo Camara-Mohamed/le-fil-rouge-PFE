@@ -14,7 +14,7 @@ beforeEach(function () {
     Notification::fake();
 
     // Act
-    post(route('password.email'), [
+    post(route('password.email', ['locale'=>app()->getLocale()]), [
         'email' => $this->user->email,
     ]);
 
@@ -27,7 +27,7 @@ it('resets password', function () {
     $token = Password::createToken($this->user);
 
     // Act
-    post(route('password.update'), [
+    post(route('password.update', ['locale'=>app()->getLocale()]), [
         'email' => $this->user->email,
         'password' => 'Change_this',
         'password_confirmation' => 'Change_this',
