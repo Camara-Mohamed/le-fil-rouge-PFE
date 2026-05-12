@@ -76,12 +76,16 @@ new #[Title('Mon Profil')] class extends Component
     {
         $this->document->upload();
         session()->flash('success', 'Document ajouté.');
+
+        // Notification
     }
 
     public function deleteDocument(int $id): void
     {
         $this->document->delete($id);
         session()->flash('success', 'Document supprimé.');
+
+        // Notification
     }
 
     public function render()

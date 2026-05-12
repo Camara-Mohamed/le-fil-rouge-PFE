@@ -174,7 +174,7 @@
             <div>
                 <span>{{ $document->name }}</span>
                 <span>{{ $document->type }}</span>
-                <a href="{{ Storage::disk('public')->url($document->path) }}">Voir</a>
+                <a href="{{ Storage::disk('public')->url($document->path) }}" target="_blank">Voir</a>
                 <button wire:click="deleteDocument({{ $document->id }})" wire:confirm="Supprimer ce document ?" type="button">
                     Supprimer
                 </button>

@@ -1,4 +1,6 @@
 @php
+    use Illuminate\Support\Facades\Storage;
+
     $initials = strtoupper($member->first_name[0] . $member->last_name[0]);
     $sizes    = config('avatar.sizes');
 @endphp
@@ -76,13 +78,17 @@
 
     <section>
         <h3>Documents</h3>
-        @forelse($member->documents as $document)
-            <div>
-                <span>{{ $document->name }}</span>
-            </div>
-        @empty
-            <p>Aucun document.</p>
-        @endforelse
+        @if($member->documents)
+            @foreach($member->documents as $document)
+                <div>
+                    <span>{{ $document->name }}</span>
+                    <span>{{ $document->type }}</span>
+                    <a href="{{ Storage::disk('public')->url($document->path) }}" target="_blank">Voir</a>
+                </div>
+            @endforeach
+        @else
+            <p>Aucun document</p>
+        @endif
     </section>
 
     <div>
