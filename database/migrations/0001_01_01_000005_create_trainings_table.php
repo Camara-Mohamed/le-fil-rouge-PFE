@@ -23,11 +23,11 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('number')->nullable();
             $table->string('city')->nullable();
-            $table->string('province')->nullable();
+            $table->enum('province', ['liege', 'namur', 'luxembourg', 'hainaut', 'brabant_wallon', 'anvers', 'limbourg', 'flandre_orientale', 'flandre_occidentale', 'bruxelles', 'brabant_flamand'])->default('liege');
             $table->integer('postal_code')->nullable();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->json('roles')->nullable();
-            $table->enum('status', ['draft', 'pending', 'published', 'refused'])->default('draft');
+            $table->enum('status', ['draft', 'pending', 'published', 'refused', 'confirmed'])->default('draft');
             $table->json('galeries')->nullable();
             $table->timestamps();
             $table->softDeletes();

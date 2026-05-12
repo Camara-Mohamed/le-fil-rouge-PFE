@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->enum('type', ['carte_identite', 'certificat_medical', 'casier_judiciaire', 'other']);
             $table->string('name');
             $table->string('path');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();

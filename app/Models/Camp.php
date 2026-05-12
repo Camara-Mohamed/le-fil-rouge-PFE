@@ -65,6 +65,11 @@ class Camp extends Model
         return $this->status === CampStatus::REFUSED;
     }
 
+    public function isConfirmed(): bool
+    {
+        return $this->status === CampStatus::CONFIRMED;
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

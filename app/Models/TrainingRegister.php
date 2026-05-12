@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable([
     'notes',
     'status',
-    'camp_id',
+    'training_id',
     'user_id',
 ])]
 class TrainingRegister extends Model

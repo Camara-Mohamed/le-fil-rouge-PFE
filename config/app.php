@@ -80,7 +80,7 @@ return [
 
     'locale' => env('APP_LOCALE', 'fr'),
 
-    'locales' => ['fr', 'en', 'nl', 'de'],
+    'locales' => ['fr', 'en'],
 
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'fr'),
 

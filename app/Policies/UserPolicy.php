@@ -31,7 +31,7 @@ class UserPolicy
 
     public function delete(User $user, User $model): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() && $user->id !== $model->id;
     }
 
     public function restore(User $user, User $model): bool
@@ -42,5 +42,15 @@ class UserPolicy
     public function forceDelete(User $user, User $model): bool
     {
         return false;
+    }
+
+    public function changeRole(User $user, User $model): bool
+    {
+        return $user->isAdmin() && $user->id !== $model->id;
+    }
+
+    public function updateProfile(User $user, User $model): bool
+    {
+        return $user->id === $model->id || $user->isAdmin();
     }
 }

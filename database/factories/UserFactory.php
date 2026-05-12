@@ -62,16 +62,18 @@ class UserFactory extends Factory
             Diets::OTHER,
         ];
 
+        $email = Str::ascii(fake()->firstName().'.'.fake()->lastName().'@lefilrouge.com');
+
         return [
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'email' => fake()->firstName().'.'.fake()->lastName().'@lefilrouge.com',
+            'email' => strtolower($email),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('change_this'),
             'remember_token' => Str::random(10),
             'role' => fake()->randomElement($roles),
             'phone' => fake()->unique()->phoneNumber(),
-            'birth_date' => fake()->dateTimeBetween('-64 years', '-18 years'),
+            'birth_date' => fake()->dateTimeBetween('-44 years', '-18 years'),
             'address' => fake()->streetName(),
             'number' => fake()->buildingNumber(),
             'city' => fake()->city(),
