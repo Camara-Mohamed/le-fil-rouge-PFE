@@ -41,30 +41,32 @@ new #[Title('Mon Profil')] class extends Component
     public function saveInfo(): void
     {
         $this->info->update();
+        session()->flash('success', 'Info mis à jour');
     }
 
     public function saveEmail(): void
     {
         $this->email->update();
+        session()->flash('success', 'Mail mis à jour');
     }
 
     public function savePassword(): void
     {
         $this->password->update();
+        session()->flash('success', 'Mdp mis à jour');
     }
 
     public function saveAddress(): void
     {
         $this->address->update();
+        session()->flash('success', 'Adresse mis à jour');
     }
 
     public function saveDiet(): void
     {
         $this->diet->update();
+        session()->flash('success', 'Regime mis à jour');
     }
-
-
-
 
     public function render()
     {

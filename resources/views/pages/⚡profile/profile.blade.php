@@ -25,9 +25,15 @@
                     class="w-32 h-32 rounded-full object-cover"
                 >
             @else
-                {{ $initials }}
+                <div class="w-32 h-32 rounded-full flex items-center justify-center text-3xl border">
+                    {{ $initials }}
+                </div>
             @endif
         </div>
+
+        @if($user->avatar_path)
+            <button type="button" wire:click="deleteAvatar">Supprimer l'avatar</button>
+        @endif
 
         <label>Changer l'avatar</label>
         <input type="file" wire:model="avatar" accept="image/*">
@@ -36,6 +42,9 @@
         <button type="submit">Enregistrer</button>
     </form>
 
+    @if(session('success'))
+        <div class="text-green-500">{{ session('success') }}</div>
+    @endif
     <form wire:submit="saveInfo">
         <div>
             <label>Prénom</label>
