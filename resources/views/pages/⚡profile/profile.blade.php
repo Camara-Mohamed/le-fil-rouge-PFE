@@ -26,7 +26,8 @@
                     >
                 </a>
             @else
-                <div class="w-32 h-32 rounded-full bg-blue-500 text-white flex items-center justify-center text-3xl font-bold">
+                <div
+                    class="w-32 h-32 rounded-full bg-blue-500 text-white flex items-center justify-center text-3xl font-bold">
                     {{ $initials }}
                 </div>
             @endif
@@ -148,13 +149,40 @@
         <button type="submit">Mettre à jour</button>
     </form>
 
-    @forelse($documents as $document)
-        <div>
-            <span>{{ $document->name }}</span>
-        </div>
-    @empty
-        <p>Aucun document.</p>
-    @endforelse
+    <div>
+        @if(session('success'))
+            <p>{{ session('success') }}</p>
+        @endif
+
+        <form wire:submit="uploadDocument">
+            <div>
+                <label>Fichier</label>
+                <input type="file" wire:model="document.file">
+            </div>
+            <div>
+                <label>Nom</label>
+                <input type="text" wire:model="document.name">
+            </div>
+            <div>
+                <label>Type</label>
+                <input type="text" wire:model="document.type">
+            </div>
+            <button type="submit">Ajouter</button>
+        </form>
+
+        @forelse($documents as $document)
+            <div>
+                <span>{{ $document->name }}</span>
+                <span>{{ $document->type }}</span>
+                <a href="{{ Storage::disk('public')->url($document->path) }}">Voir</a>
+                <button wire:click="deleteDocument({{ $document->id }})" wire:confirm="Supprimer ce document ?" type="button">
+                    Supprimer
+                </button>
+            </div>
+        @empty
+            <p>Aucun document.</p>
+        @endforelse
+    </div>
 
     <form method="POST" action="{{ route('logout') }}">
         @csrf

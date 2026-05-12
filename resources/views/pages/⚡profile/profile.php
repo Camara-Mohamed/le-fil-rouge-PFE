@@ -2,6 +2,7 @@
 
 use App\Livewire\Forms\AddressForm;
 use App\Livewire\Forms\DietForm;
+use App\Livewire\Forms\DocumentForm;
 use App\Livewire\Forms\EmailForm;
 use App\Livewire\Forms\InfoForm;
 use App\Livewire\Forms\PasswordForm;
@@ -22,6 +23,8 @@ new #[Title('Mon Profil')] class extends Component
     public PasswordForm $password;
     public AddressForm  $address;
     public DietForm     $diet;
+    public DocumentForm $document;
+
 
     public $avatar;
 
@@ -36,6 +39,7 @@ new #[Title('Mon Profil')] class extends Component
         $this->password->setUser($user);
         $this->address->setUser($user);
         $this->diet->setUser($user);
+        $this->document->setUser($user);
     }
 
     public function saveInfo(): void
@@ -68,10 +72,22 @@ new #[Title('Mon Profil')] class extends Component
         session()->flash('success', 'Regime mis à jour');
     }
 
+    public function uploadDocument(): void
+    {
+        $this->document->upload();
+        session()->flash('success', 'Document ajouté.');
+    }
+
+    public function deleteDocument(int $id): void
+    {
+        $this->document->delete($id);
+        session()->flash('success', 'Document supprimé.');
+    }
+
     public function render()
     {
         return view('pages.⚡profile.profile', [
-            'documents' => auth()->user()->documents()->latest()->get(),
+            'documents' => auth()->user()->documents()->get(),
         ]);
     }
 };
