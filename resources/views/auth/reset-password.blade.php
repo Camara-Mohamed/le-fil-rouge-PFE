@@ -1,5 +1,5 @@
 <x-public.auth title="{{ __('auth.reset.title') }}">
-    <form method="POST" action="{{ route('password.update') }}">
+    <form method="POST" action="{{ route('password.update', ['locale'=>app()->getLocale()]) }}">
         @csrf
 
         <h2>{{ __('auth.reset.title') }}</h2>

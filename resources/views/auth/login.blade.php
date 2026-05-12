@@ -3,7 +3,7 @@
 
     <a href="{{ route('public.home', ['locale' => app()->getLocale()]) }}">Revenir à la page d'accueil</a>
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login', ['locale'=>app()->getLocale()]) }}">
         @csrf
 
         <h2>{{ __('auth.login.title') }}</h2>
@@ -44,7 +44,7 @@
             {{ __('auth.login.submit') }}
         </button>
 
-        <a href="{{ route('password.request') }}">
+        <a href="{{ route('password.request', ['locale'=>app()->getLocale()]) }}">
             {{ __('auth.login.forgot_password') }}
         </a>
 

@@ -1,8 +1,8 @@
 <x-public.auth title="{{ __('auth.forgot_password.title') }}">
 
-    <a href="{{ route('login') }}">Revenir à la page de connexion</a>
+    <a href="{{ route('login', ['locale'=>app()->getLocale()]) }}">Revenir à la page de connexion</a>
 
-    <form method="POST" action="{{ route('password.email') }}">
+    <form method="POST" action="{{ route('password.email', ['locale'=>app()->getLocale()]) }}">
         @csrf
 
         <h2>{{ __('auth.forgot_password.title') }}</h2>

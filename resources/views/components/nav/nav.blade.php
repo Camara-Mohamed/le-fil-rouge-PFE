@@ -28,7 +28,7 @@
         ->getLocale()]) }}">Nous Contacter</a></li>
 
         @guest
-            <a href="{{ route('login') }}" class="text-green-500 hover:underline">Login</a>
+            <a href="{{ route('login', ['locale'=>app()->getLocale()]) }}" class="text-green-500 hover:underline">Login</a>
         @endguest
 
         @auth
@@ -43,7 +43,7 @@
                     app()->getLocale()]) }}">Mon Compte</a></li>
                     <li class="hover:underline hover:text-blue-500"><a href="{{ route('admin.enrollments', ['locale' => app()->getLocale()]) }}">Mon Historique</a></li>
 
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('logout', ['locale'=>app()->getLocale()], ['locale'=>app()->getLocale()]) }}">
                         <button type="submit" class="hover:text-red-500 hover:underline">Logout</button>
                     </form>
                 </ul>

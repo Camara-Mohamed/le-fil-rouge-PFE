@@ -190,7 +190,7 @@
         @endforelse
     </div>
 
-    <form method="POST" action="{{ route('logout') }}">
+    <form method="POST" action="{{ route('logout', ['locale'=>app()->getLocale()], ['locale'=>app()->getLocale()]) }}">
         @csrf
 
         <button type="submit">Déconnexion</button>
