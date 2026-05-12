@@ -29,11 +29,11 @@ it('resets password', function () {
     // Act
     post(route('password.update'), [
         'email' => $this->user->email,
-        'password' => 'change_this_again',
-        'password_confirmation' => 'change_this_again',
+        'password' => 'Change_this',
+        'password_confirmation' => 'Change_this',
         'token' => $token,
     ]);
 
     // Assert
-    expect(Hash::check('change_this_again', $this->user->fresh()->password))->toBeTrue();
+    expect(Hash::check('Change_this', $this->user->fresh()->password))->toBeTrue();
 });

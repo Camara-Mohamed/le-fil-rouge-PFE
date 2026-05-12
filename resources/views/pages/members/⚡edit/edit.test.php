@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserRoles;
 use App\Models\User;
 use Livewire\Livewire;
 
@@ -10,8 +11,11 @@ beforeEach(function () {
 });
 
 it('renders successfully', function () {
-    actingAs($this->user);
+    $admin  = User::factory()->create(['role' => UserRoles::ADMIN]);
+    $member = User::factory()->create();
 
-    Livewire::test('pages::members.edit')
+    actingAs($admin);
+
+    Livewire::test('pages::members.edit', ['member' => $member])
         ->assertStatus(200);
 });
