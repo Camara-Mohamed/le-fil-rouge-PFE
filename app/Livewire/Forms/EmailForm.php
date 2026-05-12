@@ -20,7 +20,7 @@ class EmailForm extends Form
 
     public function setUser(User $user): void
     {
-        $this->user  = auth()->user();
+        $this->user = auth()->user();
         $this->email = $this->user->email;
     }
 

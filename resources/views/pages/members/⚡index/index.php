@@ -10,6 +10,7 @@ new #[Title('Les membres')] class extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $role = '';
 
     public function updatingSearch(): void

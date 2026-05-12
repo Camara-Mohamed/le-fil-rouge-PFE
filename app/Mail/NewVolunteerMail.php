@@ -14,7 +14,7 @@ class NewVolunteerMail extends Mailable
     use Queueable, SerializesModels;
 
     public function __construct(
-        public User   $user,
+        public User $user,
         public string $password
     ) {}
 

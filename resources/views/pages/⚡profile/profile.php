@@ -18,13 +18,17 @@ new #[Title('Mon Profil')] class extends Component
     use HandlesAvatar;
     use WithFileUploads;
 
-    public InfoForm     $info;
-    public EmailForm    $email;
-    public PasswordForm $password;
-    public AddressForm  $address;
-    public DietForm     $diet;
-    public DocumentForm $document;
+    public InfoForm $info;
 
+    public EmailForm $email;
+
+    public PasswordForm $password;
+
+    public AddressForm $address;
+
+    public DietForm $diet;
+
+    public DocumentForm $document;
 
     public $avatar;
 

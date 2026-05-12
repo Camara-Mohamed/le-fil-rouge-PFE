@@ -12,20 +12,21 @@ class DietForm extends Form
     public User $user;
 
     public ?string $diet = null;
+
     public ?string $allergies = null;
 
     public function rules(): array
     {
         return [
-            'diet'      => ['required', Rule::enum(Diets::class)],
+            'diet' => ['required', Rule::enum(Diets::class)],
             'allergies' => ['nullable', 'string'],
         ];
     }
 
     public function setUser(User $user): void
     {
-        $this->user      = auth()->user();
-        $this->diet      = $this->user->diet?->value;
+        $this->user = auth()->user();
+        $this->diet = $this->user->diet?->value;
         $this->allergies = $this->user->allergies;
     }
 
@@ -34,7 +35,7 @@ class DietForm extends Form
         $this->validate();
 
         $this->user->update([
-            'diet'      => $this->diet,
+            'diet' => $this->diet,
             'allergies' => $this->allergies,
         ]);
     }

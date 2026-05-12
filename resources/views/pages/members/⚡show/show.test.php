@@ -18,7 +18,7 @@ it('renders successfully', function () {
 });
 
 it('admin can delete a member', function () {
-    $admin  = User::factory()->create(['role' => UserRoles::ADMIN]);
+    $admin = User::factory()->create(['role' => UserRoles::ADMIN]);
     $member = User::factory()->create();
 
     actingAs($admin);

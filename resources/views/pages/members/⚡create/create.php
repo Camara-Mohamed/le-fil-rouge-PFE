@@ -12,11 +12,16 @@ new #[Title('Nouveau membre')] class extends Component
 {
     use AuthorizesRequests;
 
-    public string $first_name  = '';
-    public string $last_name   = '';
-    public string $email       = '';
-    public string $password    = '';
-    public string $role        = '';
+    public string $first_name = '';
+
+    public string $last_name = '';
+
+    public string $email = '';
+
+    public string $password = '';
+
+    public string $role = '';
+
     public string $send_to = '';
 
     // TODO: Ajouter un prefix @lefilrouge.com
@@ -24,19 +29,19 @@ new #[Title('Nouveau membre')] class extends Component
     {
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],
-            'last_name'  => ['required', 'min:2', 'max:255'],
-            'email'      => ['required', 'email', 'unique:users,email'],
-            'password'   => ['required', 'min:8'],
-            'role'       => ['required', Rule::enum(UserRoles::class)],
+            'last_name' => ['required', 'min:2', 'max:255'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'min:8'],
+            'role' => ['required', Rule::enum(UserRoles::class)],
             'send_to' => ['nullable', 'email'],
         ]);
 
         $user = User::create([
             'first_name' => $this->first_name,
-            'last_name'  => $this->last_name,
-            'email'      => $this->email,
-            'password'   => $this->password,
-            'role'       => $this->role,
+            'last_name' => $this->last_name,
+            'email' => $this->email,
+            'password' => $this->password,
+            'role' => $this->role,
         ]);
 
         if ($this->send_to) {

@@ -15,7 +15,9 @@ class DocumentForm extends Form
     public User $user;
 
     public $file = null;
+
     public string $name = '';
+
     public string $type = '';
 
     public function rules(): array

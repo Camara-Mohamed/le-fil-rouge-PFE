@@ -11,13 +11,14 @@ class PasswordForm extends Form
     public User $user;
 
     public string $current_password = '';
+
     public string $password = '';
 
     public function rules(): array
     {
         return [
             'current_password' => ['required', 'current_password'],
-            'password'         => ['required', 'min:8', 'different:current_password'],
+            'password' => ['required', 'min:8', 'different:current_password'],
         ];
     }
 
