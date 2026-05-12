@@ -1,6 +1,7 @@
 @php
     use App\Enums\Diets;
     use App\Enums\Provinces;
+    use App\Enums\DocumentTypes;
 
     $sizes    = config('avatar.sizes');
     $user     = auth()->user();
@@ -165,7 +166,12 @@
             </div>
             <div>
                 <label>Type</label>
-                <input type="text" wire:model="document.type">
+                <select wire:model="document.type">
+                    <option value="">Type de document</option>
+                    @foreach(DocumentTypes::cases() as $type)
+                        <option value="{{ $type->value }}">{{ $type->value }}</option>
+                    @endforeach
+                </select>
             </div>
             <button type="submit">Ajouter</button>
         </form>

@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Forms;
 
+use App\Enums\DocumentTypes;
 use App\Models\Document;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Livewire\Form;
 use Livewire\WithFileUploads;
 
@@ -25,7 +27,7 @@ class DocumentForm extends Form
         return [
             'file' => ['required', 'file', 'max:5120'],
             'name' => ['required', 'string', 'max:255'],
-            'type' => ['required', 'string', 'max:255'],
+            'type' => ['required', Rule::enum(DocumentTypes::class)],
         ];
     }
 
