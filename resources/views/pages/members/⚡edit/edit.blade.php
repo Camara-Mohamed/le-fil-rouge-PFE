@@ -5,6 +5,10 @@
 <div>
     <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $member]) }}">Retour</a>
 
+    @if(session('success'))
+        <div class="text-green-500">{{ session('success') }}</div>
+    @endif
+
     <form wire:submit="save" class="flex flex-col gap-4 max-w-md">
         <div>
             <label>Prénom</label>
@@ -42,9 +46,6 @@
 
         <div>
             <button type="submit">Enregistrer</button>
-            @if($saved)
-                <span class="text-green-500">Mis à jour</span>
-            @endif
         </div>
     </form>
 </div>

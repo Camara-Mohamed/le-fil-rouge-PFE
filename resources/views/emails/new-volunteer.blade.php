@@ -17,12 +17,12 @@
     <p>Ton compte à été crée. Voici tes identifiants :</p>
 
     <p>
-        <strong>Téléphone :</strong>
+        <strong>Email :</strong>
         {{ $user->email }}
     </p>
 
     <p>
-        <strong>Message :</strong>
+        <strong>Mdp :</strong>
         {{ $password }}
     </p>
 

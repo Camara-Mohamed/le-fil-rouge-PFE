@@ -11,6 +11,9 @@ new #[Title('Modifier un membre')] class extends Component
 {
     use AuthorizesRequests;
 
+    // TODO: Gerer le prefix @lefilrouge.com
+
+
     public User $member;
 
     public string  $first_name = '';
@@ -50,6 +53,8 @@ new #[Title('Modifier un membre')] class extends Component
             'phone'      => $this->phone,
             'birth_date' => $this->birth_date,
         ]);
+
+        session()->flash('success', 'Member modifier');
     }
 
     public function render()

@@ -18,6 +18,8 @@ new #[Title('Nouveau membre')] class extends Component
     public string $password    = '';
     public string $role        = '';
     public string $send_to = '';
+
+    // TODO: Ajouter un prefix @lefilrouge.com
     public function save(): void
     {
         $this->validate([
