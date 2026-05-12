@@ -13,19 +13,20 @@
             @if($avatar)
                 <img src="{{ $avatar->temporaryUrl() }}" class="w-32 h-32 rounded-full object-cover">
             @elseif($user->avatar_path)
-                <img
-                    src="{{ asset('storage/avatars/originals/' . $user->avatar_path) }}"
-                    srcset="
-                @foreach($sizes as $size)
-                    {{ asset('storage/' . sprintf(config('avatar.variant_pattern'), $size['width'],
-                    $size['height']) . '/' . $user->avatar_path) }} {{ $size['width'] }}w,
-                @endforeach
-                "
-                    alt="Avatar de {{ $user->fullName() }}"
-                    class="w-32 h-32 rounded-full object-cover"
-                >
+                <a href="{{ asset('storage/avatars/originals/' . $user->avatar_path) }}" data-fancybox="avatar">
+                    <img
+                        src="{{ asset('storage/avatars/originals/' . $user->avatar_path) }}"
+                        srcset="
+            @foreach($sizes as $size)
+                {{ asset('storage/' . sprintf(config('avatar.variant_pattern'), $size['width'], $size['height']) . '/' . $user->avatar_path) }} {{ $size['width'] }}w,
+            @endforeach
+            "
+                        alt="Avatar de {{ $user->fullName() }}"
+                        class="w-32 h-32 rounded-full object-cover cursor-pointer"
+                    >
+                </a>
             @else
-                <div class="w-32 h-32 rounded-full flex items-center justify-center text-3xl border">
+                <div class="w-32 h-32 rounded-full bg-blue-500 text-white flex items-center justify-center text-3xl font-bold">
                     {{ $initials }}
                 </div>
             @endif
