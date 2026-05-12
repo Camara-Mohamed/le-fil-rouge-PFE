@@ -15,7 +15,7 @@ trait HandlesAvatar
 
         if ($stored) {
             auth()->user()->update(['avatar_path' => $fileName]);
-            ProcessUploadedUserAvatarJob::dispatch($stored, $fileName);
+            ProcessUploadedUserAvatarJob::dispatchSync($stored, $fileName);
         }
 
         $this->avatar = null;

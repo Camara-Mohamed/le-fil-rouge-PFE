@@ -10,17 +10,19 @@
 <div class="flex flex-col gap-8">
     <form wire:submit="saveAvatar">
         <div>
-            @if($user->avatar_path)
+            @if($avatar)
+                <img src="{{ $avatar->temporaryUrl() }}" class="w-32 h-32 rounded-full object-cover">
+            @elseif($user->avatar_path)
                 <img
                     src="{{ asset('storage/avatars/originals/' . $user->avatar_path) }}"
                     srcset="
-                    @foreach($sizes as $size)
-                        {{ asset('storage/' . sprintf(config('avatar.variant_pattern'), $size['width'],
-                        $size['height']) . '/' . $user->avatar_path) }} {{ $size['width'] }}w,
-                    @endforeach
+                @foreach($sizes as $size)
+                    {{ asset('storage/' . sprintf(config('avatar.variant_pattern'), $size['width'],
+                    $size['height']) . '/' . $user->avatar_path) }} {{ $size['width'] }}w,
+                @endforeach
                 "
                     alt="Avatar de {{ $user->fullName() }}"
-                    class="w-32 h-32 rounded-full"
+                    class="w-32 h-32 rounded-full object-cover"
                 >
             @else
                 {{ $initials }}
