@@ -1,15 +1,40 @@
 @php
     use App\Enums\Diets;
     use App\Enums\Provinces;
+
+    $sizes    = config('avatar.sizes');
+    $user     = auth()->user();
+    $initials = strtoupper($user->first_name[0] . $user->last_name[0]);
 @endphp
 
 <div class="flex flex-col gap-8">
-    <form wire:submit="saveInfo">
+    <form wire:submit="saveAvatar">
         <div>
-            <label>Avatar</label>
-            <input type="file" wire:model="avatar">
+            @if($user->avatar_path)
+                <img
+                    src="{{ asset('storage/avatars/originals/' . $user->avatar_path) }}"
+                    srcset="
+                    @foreach($sizes as $size)
+                        {{ asset('storage/' . sprintf(config('avatar.variant_pattern'), $size['width'],
+                        $size['height']) . '/' . $user->avatar_path) }} {{ $size['width'] }}w,
+                    @endforeach
+                "
+                    alt="Avatar de {{ $user->fullName() }}"
+                    class="w-32 h-32 rounded-full"
+                >
+            @else
+                {{ $initials }}
+            @endif
         </div>
 
+        <label>Changer l'avatar</label>
+        <input type="file" wire:model="avatar" accept="image/*">
+        @error('avatar') <span>{{ $message }}</span> @enderror
+
+        <button type="submit">Enregistrer</button>
+    </form>
+
+    <form wire:submit="saveInfo">
         <div>
             <label>Prénom</label>
             <input type="text" wire:model="info.first_name">

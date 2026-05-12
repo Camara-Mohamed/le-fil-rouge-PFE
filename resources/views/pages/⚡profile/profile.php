@@ -5,7 +5,6 @@ use App\Livewire\Forms\DietForm;
 use App\Livewire\Forms\EmailForm;
 use App\Livewire\Forms\InfoForm;
 use App\Livewire\Forms\PasswordForm;
-use App\Livewire\Forms\ProfileForm;
 use App\Traits\HandlesAvatar;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\Title;
@@ -63,6 +62,9 @@ new #[Title('Mon Profil')] class extends Component
     {
         $this->diet->update();
     }
+
+
+
 
     public function render()
     {
