@@ -1,5 +1,10 @@
 <?php
 
+use App\Livewire\Forms\AddressForm;
+use App\Livewire\Forms\DietForm;
+use App\Livewire\Forms\EmailForm;
+use App\Livewire\Forms\InfoForm;
+use App\Livewire\Forms\PasswordForm;
 use App\Livewire\Forms\ProfileForm;
 use App\Traits\HandlesAvatar;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -13,7 +18,11 @@ new #[Title('Mon Profil')] class extends Component
     use HandlesAvatar;
     use WithFileUploads;
 
-    public ProfileForm $form;
+    public InfoForm     $info;
+    public EmailForm    $email;
+    public PasswordForm $password;
+    public AddressForm  $address;
+    public DietForm     $diet;
 
     public $avatar;
 
@@ -23,18 +32,42 @@ new #[Title('Mon Profil')] class extends Component
 
         $this->authorize('update-profile', $user);
 
-        $this->form->setProfile($user);
+        $this->info->setUser($user);
+        $this->email->setUser($user);
+        $this->password->setUser($user);
+        $this->address->setUser($user);
+        $this->diet->setUser($user);
     }
 
-    public function save(): void
+    public function saveInfo(): void
     {
-        $this->form->update();
+        $this->info->update();
+    }
 
-        session()->flash('success', 'Le profil est mis à jour.');
+    public function saveEmail(): void
+    {
+        $this->email->update();
+    }
+
+    public function savePassword(): void
+    {
+        $this->password->update();
+    }
+
+    public function saveAddress(): void
+    {
+        $this->address->update();
+    }
+
+    public function saveDiet(): void
+    {
+        $this->diet->update();
     }
 
     public function render()
     {
-        return view('pages.⚡profile.profile');
+        return view('pages.⚡profile.profile', [
+            'documents' => auth()->user()->documents()->latest()->get(),
+        ]);
     }
 };

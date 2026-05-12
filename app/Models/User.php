@@ -29,6 +29,7 @@ use Illuminate\Support\Carbon;
     'province',
     'postal_code',
     'diet',
+    'allergies',
     'avatar_path',
 ])]
 #[Hidden([

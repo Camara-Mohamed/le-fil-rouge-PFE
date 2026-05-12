@@ -1,10 +1,10 @@
-@php use App\Enums\Diets;use App\Enums\Provinces; @endphp
-<div>
-    <p>{{ auth()->user()->fullName() }}</p>
+@php
+    use App\Enums\Diets;
+    use App\Enums\Provinces;
+@endphp
 
-    <p>{{ auth()->user()->role->value }}</p>
-
-    <form wire:submit="save">
+<div class="flex flex-col gap-8">
+    <form wire:submit="saveInfo">
         <div>
             <label>Avatar</label>
             <input type="file" wire:model="avatar">
@@ -12,47 +12,69 @@
 
         <div>
             <label>Prénom</label>
-            <input type="text" wire:model="form.first_name">
+            <input type="text" wire:model="info.first_name">
         </div>
 
         <div>
             <label>Nom</label>
-            <input type="text" wire:model="form.last_name">
-        </div>
-
-        <div>
-            <label>Email</label>
-            <input type="email" wire:model="form.email">
+            <input type="text" wire:model="info.last_name">
         </div>
 
         <div>
             <label>Téléphone</label>
-            <input type="text" wire:model="form.phone">
+            <input type="text" wire:model="info.phone">
         </div>
 
         <div>
             <label>Date de naissance</label>
-            <input type="date" wire:model="form.birth_date">
+            <input type="date" wire:model="info.birth_date">
+        </div>
+
+        <button type="submit">Mettre à jour</button>
+    </form>
+
+    <form wire:submit="saveEmail">
+        <div>
+            <label>Email</label>
+            <input type="email" wire:model="email.email">
+        </div>
+
+        <button type="submit">Mettre à jour</button>
+    </form>
+
+    <form wire:submit="savePassword">
+        <div>
+            <label>Mot de passe actuel</label>
+            <input type="password" wire:model="password.current_password">
         </div>
 
         <div>
+            <label>Nouveau mot de passe</label>
+            <input type="password" wire:model="password.password">
+        </div>
+
+        <button type="submit">Mettre à jour</button>
+    </form>
+
+    <form wire:submit="saveAddress">
+        <div>
             <label>Adresse</label>
-            <input type="text" wire:model="form.address">
+            <input type="text" wire:model="address.address">
         </div>
 
         <div>
             <label>Numéro</label>
-            <input type="text" wire:model="form.number">
+            <input type="text" wire:model="address.number">
         </div>
 
         <div>
             <label>Ville</label>
-            <input type="text" wire:model="form.city">
+            <input type="text" wire:model="address.city">
         </div>
 
         <div>
             <label for="province">Province</label>
-            <select id="province" wire:model="form.province">
+            <select id="province" wire:model="address.province">
                 @foreach(Provinces::cases() as $province)
                     <option value="{{ $province->value }}">
                         {{ $province->value }}
@@ -63,12 +85,16 @@
 
         <div>
             <label>Code postal</label>
-            <input type="text" wire:model="form.postal_code">
+            <input type="text" wire:model="address.postal_code">
         </div>
 
+        <button type="submit">Mettre à jour</button>
+    </form>
+
+    <form wire:submit="saveDiet">
         <div>
             <label>Régime</label>
-            <select wire:model="form.diet">
+            <select wire:model="diet.diet">
                 @foreach(Diets::cases() as $diet)
                     <option value="{{ $diet->value }}">
                         {{ $diet->value }}
@@ -79,32 +105,39 @@
 
         <div>
             <label>Allergies</label>
-            <textarea wire:model="form.allergies"></textarea>
+            <textarea wire:model="diet.allergies"></textarea>
         </div>
 
         <button type="submit">Mettre à jour</button>
     </form>
+
+    @forelse($documents as $document)
+        <div>
+            <span>{{ $document->name }}</span>
+        </div>
+    @empty
+        <p>Aucun document.</p>
+    @endforelse
 
     <form method="POST" action="{{ route('logout') }}">
         @csrf
 
         <button type="submit">Déconnexion</button>
 
-        <small>Tu ne peux pas supprimer ton compte demande à l'administrateur pour le faire.</small>
+        <small>Tu ne peux pas supprimer ton compte.</small>
     </form>
-
-    // Informations Personnelles
-
-    // Mail
-
-    // MDP
-
-    // Adresse Physique
-
-    // Documents
-
-    // Avertissement
-
-    // Logout
-
 </div>
+
+// Informations Personnelles
+
+// Mail
+
+// MDP
+
+// Adresse Physique
+
+// Documents
+
+// Avertissement
+
+// Logout
