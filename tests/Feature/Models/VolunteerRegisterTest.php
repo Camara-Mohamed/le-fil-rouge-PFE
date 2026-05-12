@@ -6,7 +6,7 @@ use App\Models\VolunteerRequest;
 it('returns the user full name', function () {
     $request = new VolunteerRequest([
         'first_name' => 'Dylan',
-        'last_name'  => 'Piquin',
+        'last_name' => 'Piquin',
     ]);
 
     expect($request->fullName())->toBe('Dylan Piquin');

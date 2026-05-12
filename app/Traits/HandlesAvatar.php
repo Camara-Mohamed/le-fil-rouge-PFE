@@ -2,7 +2,4 @@
 
 namespace App\Traits;
 
-trait HandlesAvatar
-{
-
-}
+trait HandlesAvatar {}

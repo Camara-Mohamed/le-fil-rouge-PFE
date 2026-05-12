@@ -9,7 +9,7 @@ beforeEach(function () {
     $this->user = User::factory()->create();
 });
 
-it('can you access to dashboard like if you are connected user', function () {
+it('renders successfully', function () {
     actingAs($this->user);
 
     Livewire::test('pages::dashboard')

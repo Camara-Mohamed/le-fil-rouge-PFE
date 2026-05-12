@@ -23,15 +23,22 @@ class ProfileForm extends Form
     public string $email = '';
 
     public ?string $phone = null;
-    public ?string $birth_date = null;
-    public string $address = '';
-    public string $number = '';
-    public string $city = '';
-    public ?string $province = null;
-    public string $postal_code = '';
-    public ?string $diet = null;
-    public ?string $allergies = null;
 
+    public ?string $birth_date = null;
+
+    public string $address = '';
+
+    public string $number = '';
+
+    public string $city = '';
+
+    public ?string $province = null;
+
+    public string $postal_code = '';
+
+    public ?string $diet = null;
+
+    public ?string $allergies = null;
 
     public function rules(): array
     {
@@ -67,7 +74,6 @@ class ProfileForm extends Form
         $this->diet = $this->user->diet->value;
         $this->allergies = $this->user->allergies;
     }
-
 
     public function update(): void
     {

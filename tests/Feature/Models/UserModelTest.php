@@ -6,7 +6,7 @@ use App\Models\User;
 it('returns the user full name', function () {
     $user = User::factory()->make([
         'first_name' => 'Mohamed',
-        'last_name'  => 'Camara',
+        'last_name' => 'Camara',
     ]);
 
     expect($user->fullName())->toBe('Mohamed Camara');

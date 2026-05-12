@@ -10,8 +10,8 @@ use Livewire\WithFileUploads;
 new #[Title('Mon Profil')] class extends Component
 {
     use AuthorizesRequests;
-    use WithFileUploads;
     use HandlesAvatar;
+    use WithFileUploads;
 
     public ProfileForm $form;
 
