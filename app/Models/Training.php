@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\Provinces;
 use App\Enums\RegisterStatus;
 use App\Enums\TrainingStatus;
+use App\Enums\TrainingTypes;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,6 +44,8 @@ class Training extends Model
             'galeries' => 'array',
             'roles' => 'array',
             'status' => TrainingStatus::class,
+            'province' => Provinces::class,
+            'type' => TrainingTypes::class,
         ];
     }
 

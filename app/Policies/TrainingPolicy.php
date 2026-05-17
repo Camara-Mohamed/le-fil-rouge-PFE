@@ -32,7 +32,7 @@ class TrainingPolicy
 
     public function delete(User $user, Training $training): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || ($user->isFormateur() && $training->user_id === $user->id);
     }
 
     public function restore(User $user, Training $training): bool

@@ -16,7 +16,11 @@ class TrainingController extends Controller
             ->orderBy('start_date', 'desc')
             ->paginate(6);
 
-        return view('public.trainings.index', compact('trainings'));
+        $allTrainings = Training::query()
+            ->orderBy('start_date', 'desc')
+            ->paginate(6);
+
+        return view('public.trainings.index', compact('trainings', 'allTrainings'));
     }
 
     public function show(string $locale, Training $training)
