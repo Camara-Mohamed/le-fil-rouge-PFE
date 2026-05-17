@@ -12,7 +12,7 @@ class TrainingPolicy
 
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isFormateur();
     }
 
     public function view(User $user, Training $training): bool

@@ -7,51 +7,58 @@
     @endcan
 
     <div class="grid grid-cols-3 gap-8">
-        @can('manage-training')
-        @forelse($allTrainings as $training)
+        @auth
+            @can('view-any', App\Models\Training::class)
+                @forelse($allTrainings as $training)
+                    <a href="{{ route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $training->id]) }}">
+                        <article>
+                            @if($training->banner)
+                                <img src="{{ asset('storage/' . $training->banner) }}" alt="{{ $training->title }}">
+                            @endif
+                            <h3>{{ $training->title }}</h3>
+                            <p>{{ $training->start_date->format('d/m/Y H:i') }}
+                                — {{ $training->end_date->format('d/m/Y H:i')  }}</p>
+                            @if($training->city)
+                                <p>{{ $training->city }}</p>
+                            @endif
+                            <p>{{ $training->description }}</p>
+                            @if($training->price)
+                                <p>{{ $training->getFormattedPrice() }}</p>
+                                {{-- TODO : Si 0 -> gratuit --}}
+                            @endif
+                        </article>
+                    </a>
+                @empty
+                    <p>Aucune formation </p>
+                @endforelse
+            @endcan
+        @endauth
+
+
+        @guest
+            @forelse($trainings as $training)
                 <a href="{{ route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $training->id]) }}">
                     <article>
                         @if($training->banner)
                             <img src="{{ asset('storage/' . $training->banner) }}" alt="{{ $training->title }}">
                         @endif
                         <h3>{{ $training->title }}</h3>
-                        <p>{{ $training->start_date->format('d/m/Y H:i') }} — {{ $training->end_date->format('d/m/Y H:i')  }}</p>
+                        <p>{{ $training->start_date->format('d/m/Y H:i') }}
+                            — {{ $training->end_date->format('d/m/Y H:i') }}</p>
                         @if($training->city)
                             <p>{{ $training->city }}</p>
                         @endif
                         <p>{{ $training->description }}</p>
                         @if($training->price)
                             <p>{{ $training->getFormattedPrice() }}</p>
-                                {{-- TODO : Si 0 -> gratuit --}}
-                            @endif
+                            {{-- TODO : Si 0 -> gratuit --}}
+                        @endif
                     </article>
                 </a>
             @empty
-                <p>Aucune formation </p>
+                <p>Aucune formation</p>
             @endforelse
-        @endcan
-
-        @forelse($trainings as $training)
-            <a href="{{ route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $training->id]) }}">
-                <article>
-                    @if($training->banner)
-                        <img src="{{ asset('storage/' . $training->banner) }}" alt="{{ $training->title }}">
-                    @endif
-                    <h3>{{ $training->title }}</h3>
-                    <p>{{ $training->start_date->format('d/m/Y H:i') }} — {{ $training->end_date->format('d/m/Y H:i') }}</p>
-                    @if($training->city)
-                        <p>{{ $training->city }}</p>
-                    @endif
-                    <p>{{ $training->description }}</p>
-                    @if($training->price)
-                        <p>{{ $training->getFormattedPrice() }}</p>
-                            {{-- TODO : Si 0 -> gratuit --}}
-                        @endif
-                </article>
-            </a>
-        @empty
-            <p>Aucune formation</p>
-        @endforelse
+        @endguest
     </div>
 
     <div>{{ $trainings->links() }}</div>

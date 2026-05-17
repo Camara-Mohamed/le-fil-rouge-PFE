@@ -16,9 +16,19 @@ class TrainingController extends Controller
             ->orderBy('start_date', 'desc')
             ->paginate(6);
 
-        $allTrainings = Training::query()
-            ->orderBy('start_date', 'desc')
-            ->paginate(6);
+        $allTrainings = null;
+
+        if (auth()->user()?->isAdmin()) {
+            $allTrainings = Training::query()
+                ->orderBy('start_date', 'desc')
+                ->paginate(6);
+
+        } elseif (auth()->user()?->isFormateur()) {
+            $allTrainings = Training::query()
+                ->where('user_id', auth()->id())
+                ->orderBy('start_date', 'desc')
+                ->paginate(6);
+        }
 
         return view('public.trainings.index', compact('trainings', 'allTrainings'));
     }
