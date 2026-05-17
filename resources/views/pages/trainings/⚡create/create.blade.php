@@ -126,6 +126,12 @@
             <input type="file" wire:model="form.banner" accept="image/*">
         </div>
 
+        <div>
+            <label>Galerie</label>
+            <input type="file" wire:model="form.galeries" multiple accept="image/*">
+            @error('form.galeries.*') <p>{{ $message }}</p> @enderror
+        </div>
+
         <button type="submit">Créer la formation</button>
     </form>
 </div>

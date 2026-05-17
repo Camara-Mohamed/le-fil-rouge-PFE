@@ -40,6 +40,14 @@
         <p>{{ $training->address }} {{ $training->number }}, {{ $training->postal_code }} {{ $training->city }}</p>
     @endif
 
+    @if($training->galeries)
+        <div class="grid grid-cols-6 gap-4">
+            @foreach($training->galeries as $path)
+                <img src="{{ asset('storage/'.$path) }}">
+            @endforeach
+        </div>
+    @endif
+
     @can('update', $training)
         <a href="{{ route('admin.trainings.edit', ['locale' => app()->getLocale(), 'training' => $training]) }}">
           Modifier cette formation

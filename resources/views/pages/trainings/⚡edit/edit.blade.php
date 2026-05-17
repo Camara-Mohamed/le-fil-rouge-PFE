@@ -129,6 +129,21 @@
             <input type="file" wire:model="form.banner" accept="image/*">
         </div>
 
+        <div>
+            <label>Galerie</label>
+
+            @if($training->galeries)
+                <div class="grid grid-cols-6 gap-4">
+                    @foreach($training->galeries as $path)
+                        <img src="{{ asset('storage/'.$path) }}">
+                    @endforeach
+                </div>
+            @endif
+
+            <input type="file" wire:model="form.galeries" multiple accept="image/*">
+            @error('form.galeries.*') <p>{{ $message }}</p> @enderror
+        </div>
+
         <button type="submit">Mettre à jour</button>
     </form>
 

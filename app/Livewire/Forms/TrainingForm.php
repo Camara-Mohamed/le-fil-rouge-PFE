@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Enums\Provinces;
 use App\Enums\TrainingStatus;
 use App\Enums\TrainingTypes;
 use App\Models\Training;
@@ -31,6 +32,7 @@ class TrainingForm extends Form
     public array $roles = [];
     public string  $status       = 'draft';
     public $banner = null;
+    public array $galeries = [];
 
     public function rules(): array
     {
@@ -47,12 +49,13 @@ class TrainingForm extends Form
             'address'      => ['nullable', 'string', 'max:255'],
             'number'       => ['nullable', 'string', 'max:20'],
             'city'         => ['nullable', 'string', 'max:255'],
-            'province'     => ['required', 'string'],
+            'province'     => ['required', Rule::enum(Provinces::class)],
             'postal_code'  => ['nullable', 'integer'],
             'roles'        => ['nullable', 'array'],
             'roles.*'      => ['string'],
             'status'       => ['required', Rule::enum(TrainingStatus::class)],
             'banner'       => ['nullable', 'image', 'max:2048'],
+            'galeries'   => ['nullable', 'array'],
         ];
     }
 
@@ -84,6 +87,14 @@ class TrainingForm extends Form
             $data['banner'] = $this->banner->store('trainings', 'public');
         }
 
+        if ($this->galeries) {
+            $paths = [];
+            foreach ($this->galeries as $file) {
+                $paths[] = $file->store('trainings/galeries', 'public');
+            }
+            $data['galeries'] = $paths;
+        }
+
         return Training::create($data);
     }
 
@@ -108,10 +119,19 @@ class TrainingForm extends Form
             'postal_code'  => $this->postal_code,
             'roles'        => $this->roles,
             'status'       => $this->status,
+            'user_id'      => auth()->user()->id,
         ];
 
         if ($this->banner) {
             $data['banner'] = $this->banner->store('trainings', 'public');
+        }
+
+        if ($this->galeries) {
+            $paths = [];
+            foreach ($this->galeries as $file) {
+                $paths[] = $file->store('trainings/galeries', 'public');
+            }
+            $data['galeries'] = array_merge($training->galeries ?? [], $paths);
         }
 
         $training->update($data);

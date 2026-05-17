@@ -32,7 +32,7 @@ new class extends Component {
             'city' => $training->city,
             'province' => $training->province->value,
             'postal_code' => $training->postal_code,
-            'roles' => $training->roles,
+            'roles' => $training->roles ?? [],
             'status' => $training->status->value,
         ]);
     }
