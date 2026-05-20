@@ -40,6 +40,15 @@
             </button>
         </div>
 
+        <div>
+            <input
+                id="remember"
+                type="checkbox"
+                name="remember"
+            >
+            <label for="remember">Se souvenir</label>
+        </div>
+
         <button type="submit">
             {{ __('auth.login.submit') }}
         </button>
