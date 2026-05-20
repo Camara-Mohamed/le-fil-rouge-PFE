@@ -1,9 +1,58 @@
-<x-public.app title="La formation : {{ $training->title }}">
+<x-public.app title="{{ $training->title }}">
 
-    <h2>La formation : {{ $training->title }}</h2>
+    <a href="{{ route('public.trainings.index', ['locale' => app()->getLocale()]) }}">← Retour aux formations</a>
 
-    <p>{{ $training->start_date }}</p>
-    <p>{{ $training->city }}</p>
+    @if($training->banner)
+        <img src="{{ asset('storage/' . $training->banner) }}" alt="{{ $training->title }}">
+    @endif
+
+    <h1>{{ $training->title }}</h1>
+
+    <p>
+        Du {{ $training->start_date->format('d/m/Y H:i') }}
+        au {{ $training->end_date->format('d/m/Y H:i') }}
+    </p>
+    <p>{{ $training->type }}</p>
+
+    @if($training->price)
+        <p>Prix : {{ $training->getFormattedPrice() }}</p>
+        {{-- TODO : Si 0 -> gratuit --}}
+    @endif
+
+    @if($training->participants)
+        <p>
+            {{ $training->participants }}
+        </p>
+    @endif
+
+    <p>{{ $training->description }}</p>
+
+    @if($training->details)
+        <div>{!! $training->details !!}</div>
+    @endif
+
+    @if($training->constraints)
+        <h3>Prérequis</h3>
+        <div>{!! $training->constraints !!}</div>
+    @endif
+
+    @if($training->city)
+        <p>{{ $training->address }} {{ $training->number }}, {{ $training->postal_code }} {{ $training->city }}</p>
+    @endif
+
+    @if($training->galeries)
+        <div class="grid grid-cols-6 gap-4">
+            @foreach($training->galeries as $path)
+                <img src="{{ asset('storage/'.$path) }}">
+            @endforeach
+        </div>
+    @endif
+
+    @can('update', $training)
+        <a href="{{ route('admin.trainings.edit', ['locale' => app()->getLocale(), 'training' => $training]) }}">
+          Modifier cette formation
+        </a>
+    @endcan
 
     // Héro + Retour
 
