@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import '../../resources/css/fonts.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,6 +7,72 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Lora', ui-serif, Georgia, serif;
+
+    /* BreakPoints */
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-xl: 1280px;
+
+    /* Couleurs */
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+
+    /* Main */
+    --color-red: #C1121F;
+    --color-red-mid: #E63946;
+    --color-red-light: #FFF5F5;
+
+    /* Background */
+    --color-bg: #F8F5F0;
+    --color-bg-mid: #EDE0DC;
+    --color-bg-dark: #C8A89A;
+
+    --color-dark: #1A1A2E;
+    --color-dark-mid: #6A6A88;
+    --color-dark-light: #C5C5CC;
+
+    /* Toasts */
+    --color-success: #2D6A4F;
+    --color-success-bg: #D1FAE5;
+    --color-warning: #D97706;
+    --color-warning-bg: #FEF3C7;
+    --color-danger: #DC2626;
+    --color-danger-bg: #FEE2E2;
+    --color-info: #1D4ED8;
+    --color-info-bg: #DBEAFE;
+}
+
+@layer base {
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        @apply font-serif;
+        color: var(--color-dark);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-sans;
+    }
+
+    p {
+        @apply font-serif;
+    }
+
+    a {
+        @apply transition duration-200 ease-in-out;
+    }
+
+    a:hover {
+        color: var(--color-red);
+    }
+
+    button {
+        cursor: pointer;
+    }
 }

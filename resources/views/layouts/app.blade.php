@@ -9,7 +9,7 @@
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="min-h-screen font-sans max-w-480 m-auto">
 
 <x-nav.skip-link></x-nav.skip-link>
 

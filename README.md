@@ -215,24 +215,17 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
    php artisan storage:link
    ```
 
-5. Créer les tables nécessaires
-   ```bash
-   php artisan cache:table
-   php artisan session:table
-   php artisan queue:table
-   ```
-
-6. Migrer et seeder la base de données
+5. Migrer et seeder la base de données
    ```bash
    php artisan migrate:fresh --seed
    ```
 
-7. Lancer le projet
+6. Lancer le projet
     ```bash
    composer run dev 
    ```
 
-8. Accéder à l'application
+7. Accéder à l'application
    ```
    http://localhost:8000
    ```
