@@ -16,7 +16,7 @@
 
             @foreach(UserRoles::cases() as $role)
                 <option value="{{ $role->value }}">
-                    {{ $role->value }}
+                    {{ $role->label() }}
                 </option>
             @endforeach
         </select>

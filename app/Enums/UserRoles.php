@@ -11,4 +11,9 @@ enum UserRoles: string
     case COORDINATEUR = 'coordinateur';
     case FORMATEUR = 'formateur';
     case ADMIN = 'admin';
+
+    public function label(): string
+    {
+        return __("enums.user_roles.{$this->value}");
+    }
 }

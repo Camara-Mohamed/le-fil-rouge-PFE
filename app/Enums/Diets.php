@@ -12,4 +12,9 @@ enum Diets: string
     case GLUTEN_FREE = 'gluten_free';
     case LACTOSE_FREE = 'lactose_free';
     case OTHER = 'other';
+
+    public function label(): string
+    {
+        return __("enums.diets.{$this->value}");
+    }
 }

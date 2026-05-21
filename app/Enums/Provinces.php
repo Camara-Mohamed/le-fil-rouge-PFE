@@ -15,4 +15,9 @@ enum Provinces: string
     case LUXEMBOURG = 'luxembourg';
     case NAMUR = 'namur';
     case BRABANT_FLAMAND = 'brabant_flamand';
+
+    public function label(): string
+    {
+        return __("enums.provinces.{$this->value}");
+    }
 }

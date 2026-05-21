@@ -27,7 +27,7 @@
         <select wire:model="role">
             <option value="">Choisir un role</option>
             @foreach(UserRoles::cases() as $role)
-                <option value="{{ $role->value }}">{{ $role->value }}</option>
+                <option value="{{ $role->value }}">{{ $role->label() }}</option>
             @endforeach
         </select>
     </div>

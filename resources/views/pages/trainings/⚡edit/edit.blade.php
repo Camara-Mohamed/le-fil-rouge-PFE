@@ -103,7 +103,7 @@
             @foreach(UserRoles::cases() as $role)
                 <label>
                     <input type="checkbox" wire:model="form.roles" value="{{ $role->value }}">
-                    {{ $role->value }}
+                    {{ $role->label() }}
                 </label>
             @endforeach
         </fieldset>
