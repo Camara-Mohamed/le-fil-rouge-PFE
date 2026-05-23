@@ -52,7 +52,7 @@ class TrainingForm extends Form
             'province'     => ['required', Rule::enum(Provinces::class)],
             'postal_code'  => ['nullable', 'integer'],
             'roles'        => ['nullable', 'array'],
-            'roles.*'      => ['string'],
+            'roles.*'      => ['nullable', 'string'],
             'status'       => ['required', Rule::enum(TrainingStatus::class)],
             'banner'       => ['nullable', 'image', 'max:2048'],
             'galeries'   => ['nullable', 'array'],
