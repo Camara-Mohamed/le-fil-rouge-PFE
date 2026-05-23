@@ -12,6 +12,7 @@ new class extends Component
     use AuthorizesRequests, WithFileUploads;
 
     public Camp $camp;
+
     public CampForm $form;
 
     public function mount(Camp $camp): void
@@ -20,21 +21,21 @@ new class extends Component
         $this->camp = $camp;
 
         $this->form->fill([
-            'title'        => $camp->title,
-            'description'  => $camp->description,
-            'start_date'   => $camp->start_date,
-            'end_date'     => $camp->end_date,
-            'type'         => $camp->type->value,
+            'title' => $camp->title,
+            'description' => $camp->description,
+            'start_date' => $camp->start_date,
+            'end_date' => $camp->end_date,
+            'type' => $camp->type->value,
             'participants' => $camp->participants,
-            'details'      => $camp->details,
-            'constraints'  => $camp->constraints,
-            'address'      => $camp->address,
-            'number'       => $camp->number,
-            'city'         => $camp->city,
-            'province'     => $camp->province->value,
-            'postal_code'  => $camp->postal_code,
-            'roles'        => $camp->roles ?? [],
-            'status'       => $camp->status->value,
+            'details' => $camp->details,
+            'constraints' => $camp->constraints,
+            'address' => $camp->address,
+            'number' => $camp->number,
+            'city' => $camp->city,
+            'province' => $camp->province->value,
+            'postal_code' => $camp->postal_code,
+            'roles' => $camp->roles ?? [],
+            'status' => $camp->status->value,
         ]);
     }
 

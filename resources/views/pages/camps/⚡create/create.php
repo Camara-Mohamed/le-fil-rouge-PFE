@@ -23,7 +23,7 @@ new #[Title('Ajouter un camp')] class extends Component
 
         $this->redirectRoute('admin.camps.edit', [
             'locale' => app()->getLocale(),
-            'camp'   => $camp,
+            'camp' => $camp,
         ]);
     }
 
