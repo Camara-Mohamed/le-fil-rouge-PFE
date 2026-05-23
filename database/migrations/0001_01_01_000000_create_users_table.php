@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', [
                 'arrivant', 'animateur_1', 'animateur_2', 'brevete', 'coordinateur', 'formateur', 'admin'])->default('arrivant');
+            $table->enum('status', ['incomplet', 'pending', 'complet'])->default('pending');
             $table->string('phone')->unique()->nullable();
             $table->date('birth_date')->default(now());
             $table->string('address')->nullable();

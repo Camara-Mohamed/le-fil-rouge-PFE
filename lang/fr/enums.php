@@ -80,4 +80,10 @@ return [
         'accepted' => 'Accepté',
         'rejected' => 'Rejeté',
     ],
+
+    'user_status' => [
+        'incomplet' => 'Incomplet',
+        'pending' => 'En attente',
+        'complet' => 'Complet',
+    ],
 ];
