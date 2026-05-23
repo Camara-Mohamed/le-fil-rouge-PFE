@@ -27,7 +27,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->json('roles')->nullable();
             $table->enum('status', ['draft', 'pending', 'published', 'refused', 'confirmed'])->default('draft');
-            $table->json('galeries')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

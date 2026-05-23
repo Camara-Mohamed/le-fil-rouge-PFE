@@ -15,47 +15,65 @@ class TrainingForm extends Form
 {
     use WithFileUploads;
 
-    public string  $title        = '';
-    public string  $description  = '';
-    public string  $start_date   = '';
-    public string  $end_date     = '';
-    public string  $type         = 'residential';
-    public ?int    $price        = null;
-    public ?int    $participants = null;
-    public ?string $details      = null;
-    public ?string $constraints  = null;
-    public ?string $address      = null;
-    public ?string $number       = null;
-    public ?string $city         = null;
-    public string  $province     = 'liege';
-    public ?int    $postal_code  = null;
+    public string $title = '';
+
+    public string $description = '';
+
+    public string $start_date = '';
+
+    public string $end_date = '';
+
+    public string $type = 'residential';
+
+    public ?int $price = null;
+
+    public ?int $participants = null;
+
+    public ?string $details = null;
+
+    public ?string $constraints = null;
+
+    public ?string $address = null;
+
+    public ?string $number = null;
+
+    public ?string $city = null;
+
+    public string $province = 'liege';
+
+    public ?int $postal_code = null;
+
     public array $roles = [];
-    public string  $status       = 'draft';
+
+    public string $status = 'draft';
+
     public $banner = null;
+
     public array $galeries = [];
 
     public function rules(): array
     {
         return [
-            'title'        => ['required', 'string', 'max:255'],
-            'description'  => ['required', 'string', 'max:255'],
-            'start_date'   => ['required', 'date'],
-            'end_date'     => ['required', 'date', 'after:start_date'],
-            'type'         => ['required', Rule::enum(TrainingTypes::class)],
-            'price'        => ['nullable', 'integer'],
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'start_date' => ['required', 'date'],
+            'end_date' => ['required', 'date', 'after:start_date'],
+            'type' => ['required', Rule::enum(TrainingTypes::class)],
+            'price' => ['nullable', 'integer'],
             'participants' => ['nullable', 'integer'],
-            'details'      => ['nullable', 'string'],
-            'constraints'  => ['nullable', 'string'],
-            'address'      => ['nullable', 'string', 'max:255'],
-            'number'       => ['nullable', 'string', 'max:20'],
-            'city'         => ['nullable', 'string', 'max:255'],
-            'province'     => ['required', Rule::enum(Provinces::class)],
-            'postal_code'  => ['nullable', 'integer'],
-            'roles'        => ['nullable', 'array'],
-            'roles.*'      => ['string'],
-            'status'       => ['required', Rule::enum(TrainingStatus::class)],
-            'banner'       => ['nullable', 'image', 'max:2048'],
-            'galeries'   => ['nullable', 'array'],
+            'details' => ['nullable', 'string'],
+            'constraints' => ['nullable', 'string'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'number' => ['nullable', 'string', 'max:20'],
+            'city' => ['nullable', 'string', 'max:255'],
+            'province' => ['required', Rule::enum(Provinces::class)],
+            'postal_code' => ['nullable', 'integer'],
+            'roles' => ['nullable', 'array'],
+            'roles.*' => ['nullable', 'string'],
+            'status' => ['required', Rule::enum(TrainingStatus::class)],
+            'banner' => ['nullable', 'image', 'max:2048'],
+            'galeries' => ['nullable', 'array'],
+            'galeries.*' => ['nullable', 'image', 'max:2048'],
         ];
     }
 
@@ -64,38 +82,40 @@ class TrainingForm extends Form
         $this->validate();
 
         $data = [
-            'title'        => $this->title,
-            'description'  => $this->description,
-            'start_date'   => $this->start_date,
-            'end_date'     => $this->end_date,
-            'type'         => $this->type,
-            'price'        => $this->price,
+            'title' => $this->title,
+            'description' => $this->description,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'type' => $this->type,
+            'price' => $this->price,
             'participants' => $this->participants,
-            'details'      => $this->details,
-            'constraints'  => $this->constraints,
-            'address'      => $this->address,
-            'number'       => $this->number,
-            'city'         => $this->city,
-            'province'     => $this->province,
-            'postal_code'  => $this->postal_code,
-            'roles'        => $this->roles,
-            'status'       => $this->status,
-            'user_id'      => auth()->user()->id,
+            'details' => $this->details,
+            'constraints' => $this->constraints,
+            'address' => $this->address,
+            'number' => $this->number,
+            'city' => $this->city,
+            'province' => $this->province,
+            'postal_code' => $this->postal_code,
+            'roles' => $this->roles,
+            'status' => $this->status,
+            'user_id' => auth()->user()->id,
         ];
 
         if ($this->banner) {
             $data['banner'] = $this->banner->store('trainings', 'public');
         }
 
+        $training = Training::create($data);
+
         if ($this->galeries) {
-            $paths = [];
             foreach ($this->galeries as $file) {
-                $paths[] = $file->store('trainings/galeries', 'public');
+                $training->galeries()->create([
+                    'path' => $file->store('trainings/galeries', 'public'),
+                ]);
             }
-            $data['galeries'] = $paths;
         }
 
-        return Training::create($data);
+        return $training;
     }
 
     public function update(Training $training): void
@@ -103,23 +123,23 @@ class TrainingForm extends Form
         $this->validate();
 
         $data = [
-            'title'        => $this->title,
-            'description'  => $this->description,
-            'start_date'   => $this->start_date,
-            'end_date'     => $this->end_date,
-            'type'         => $this->type,
-            'price'        => $this->price,
+            'title' => $this->title,
+            'description' => $this->description,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'type' => $this->type,
+            'price' => $this->price,
             'participants' => $this->participants,
-            'details'      => $this->details,
-            'constraints'  => $this->constraints,
-            'address'      => $this->address,
-            'number'       => $this->number,
-            'city'         => $this->city,
-            'province'     => $this->province,
-            'postal_code'  => $this->postal_code,
-            'roles'        => $this->roles,
-            'status'       => $this->status,
-            'user_id'      => auth()->user()->id,
+            'details' => $this->details,
+            'constraints' => $this->constraints,
+            'address' => $this->address,
+            'number' => $this->number,
+            'city' => $this->city,
+            'province' => $this->province,
+            'postal_code' => $this->postal_code,
+            'roles' => $this->roles,
+            'status' => $this->status,
+            'user_id' => auth()->user()->id,
         ];
 
         if ($this->banner) {
@@ -127,11 +147,11 @@ class TrainingForm extends Form
         }
 
         if ($this->galeries) {
-            $paths = [];
             foreach ($this->galeries as $file) {
-                $paths[] = $file->store('trainings/galeries', 'public');
+                $training->galeries()->create([
+                    'path' => $file->store('trainings/galeries', 'public'),
+                ]);
             }
-            $data['galeries'] = array_merge($training->galeries ?? [], $paths);
         }
 
         $training->update($data);

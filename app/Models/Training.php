@@ -41,7 +41,6 @@ class Training extends Model
         return [
             'start_date' => 'datetime',
             'end_date' => 'datetime',
-            'galeries' => 'array',
             'roles' => 'array',
             'status' => TrainingStatus::class,
             'province' => Provinces::class,
@@ -110,5 +109,10 @@ class Training extends Model
     public function getFormattedPrice(): ?string
     {
         return number_format($this->price, 2, ',', ' ').' €';
+    }
+
+    public function galeries(): HasMany
+    {
+        return $this->hasMany(Galerie::class);
     }
 }

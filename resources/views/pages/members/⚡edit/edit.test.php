@@ -11,7 +11,7 @@ beforeEach(function () {
 });
 
 it('renders successfully', function () {
-    $admin  = User::factory()->create(['role' => UserRoles::ADMIN]);
+    $admin = User::factory()->create(['role' => UserRoles::ADMIN]);
     $member = User::factory()->create();
 
     actingAs($admin);

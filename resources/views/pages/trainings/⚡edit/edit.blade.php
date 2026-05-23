@@ -133,11 +133,17 @@
             <label>Galerie</label>
 
             @if($training->galeries)
-                <div class="grid grid-cols-6 gap-4">
-                    @foreach($training->galeries as $path)
-                        <img src="{{ asset('storage/'.$path) }}">
-                    @endforeach
-                </div>
+                @foreach($training->galeries as $galerie)
+                    <div class="grid grid-cols-6 gap-4">
+                        <img src="{{ asset('storage/'.$galerie->path) }}">
+                        <button
+                            type="button"
+                            wire:click="deleteGalerie({{ $galerie->id }})"
+                            wire:confirm="Supprimer"
+                        >Supprimer
+                        </button>
+                    </div>
+                @endforeach
             @endif
 
             <input type="file" wire:model="form.galeries" multiple accept="image/*">

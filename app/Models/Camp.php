@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Enums\CampStatus;
+use App\Enums\CampsTypes;
+use App\Enums\Provinces;
 use App\Enums\RegisterStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,7 +29,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'province',
     'postal_code',
     'roles',
-    'galeries',
     'user_id',
 ])]
 class Camp extends Model
@@ -39,9 +40,10 @@ class Camp extends Model
         return [
             'start_date' => 'datetime',
             'end_date' => 'datetime',
-            'galeries' => 'array',
             'roles' => 'array',
             'status' => CampStatus::class,
+            'province' => Provinces::class,
+            'type' => CampsTypes::class,
         ];
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Announcement;
+
 use function Pest\Laravel\get;
 
 it('a guest can show announcements', function () {

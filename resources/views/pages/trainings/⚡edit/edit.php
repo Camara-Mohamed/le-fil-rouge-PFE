@@ -6,10 +6,12 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-new class extends Component {
+new class extends Component
+{
     use AuthorizesRequests, WithFileUploads;
 
     public Training $training;
+
     public TrainingForm $form;
 
     public function mount(Training $training): void
@@ -53,6 +55,16 @@ new class extends Component {
         $this->training->delete();
 
         $this->redirectRoute('public.trainings.index', ['locale' => app()->getLocale()]);
+    }
+
+    public function deleteGalerie(int $galerieId): void
+    {
+        $this->authorize('update', $this->training);
+
+        $galerie = $this->training->galeries()->findOrFail($galerieId);
+
+        Storage::disk('public')->delete($galerie->path);
+        $galerie->delete();
     }
 
     public function render()

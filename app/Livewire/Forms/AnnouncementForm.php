@@ -11,22 +11,27 @@ class AnnouncementForm extends Form
 {
     use WithFileUploads;
 
-    public string  $title       = '';
-    public string  $description = '';
-    public string  $content     = '';
-    public ?string $details     = null;
+    public string $title = '';
+
+    public string $description = '';
+
+    public string $content = '';
+
+    public ?string $details = null;
+
     public ?string $published_at = null;
+
     public $banner = null;
 
     public function rules(): array
     {
         return [
-            'title'        => ['required', 'string', 'max:255'],
-            'description'  => ['required', 'string', 'max:255'],
-            'content'      => ['required', 'string'],
-            'details'      => ['nullable', 'string'],
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string'],
+            'details' => ['nullable', 'string'],
             'published_at' => ['nullable', 'date'],
-            'banner'       => ['nullable', 'image'],
+            'banner' => ['nullable', 'image'],
         ];
     }
 
@@ -35,12 +40,12 @@ class AnnouncementForm extends Form
         $this->validate();
 
         $data = [
-            'title'        => $this->title,
-            'description'  => $this->description,
-            'content'      => $this->content,
-            'details'      => $this->details,
+            'title' => $this->title,
+            'description' => $this->description,
+            'content' => $this->content,
+            'details' => $this->details,
             'published_at' => $this->published_at ?: null,
-            'user_id'      => $user->id,
+            'user_id' => $user->id,
         ];
 
         if ($this->banner) {
@@ -55,10 +60,10 @@ class AnnouncementForm extends Form
         $this->validate();
 
         $data = [
-            'title'        => $this->title,
-            'description'  => $this->description,
-            'content'      => $this->content,
-            'details'      => $this->details,
+            'title' => $this->title,
+            'description' => $this->description,
+            'content' => $this->content,
+            'details' => $this->details,
             'published_at' => $this->published_at ?: null,
         ];
 
