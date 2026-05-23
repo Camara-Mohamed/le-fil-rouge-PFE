@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[Fillable(['content', 'user_id', 'training_id', 'camp_id', 'announcement_id', 'is_admin'])]
 class Comment extends Model
 {
-    protected $fillable = [
-        'content',
-        'user_id',
-        'training_id',
-        'camp_id',
-    ];
+    use HasFactory;
+
+    protected function casts(): array
+    {
+        return [
+            'is_admin' => 'boolean',
+        ];
+    }
 
     public function user(): BelongsTo
     {
@@ -27,5 +32,10 @@ class Comment extends Model
     public function camp(): BelongsTo
     {
         return $this->belongsTo(Camp::class);
+    }
+
+    public function announcement(): BelongsTo
+    {
+        return $this->belongsTo(Announcement::class);
     }
 }

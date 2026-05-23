@@ -8,6 +8,7 @@ use App\Enums\UserRoles;
 use App\Enums\UserStatus;
 use App\Models\Announcement;
 use App\Models\Camp;
+use App\Models\Comment;
 use App\Models\Training;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -81,6 +82,8 @@ class DatabaseSeeder extends Seeder
 
         Training::factory()->count(12)->create();
 
-        Announcement::factory()->count(6)->create();
+        Announcement::factory()->count(20)->create();
+
+        Comment::factory()->count(20)->create();
     }
 }
