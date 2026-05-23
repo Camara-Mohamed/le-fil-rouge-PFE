@@ -135,7 +135,7 @@
             @if($training->galeries)
                 @foreach($training->galeries as $galerie)
                     <div class="grid grid-cols-6 gap-4">
-                        <img src="{{ asset('storage/'.$galerie) }}">
+                        <img src="{{ asset('storage/'.$galerie->path) }}">
                         <button
                             type="button"
                             wire:click="deleteGalerie({{ $galerie->id }})"
