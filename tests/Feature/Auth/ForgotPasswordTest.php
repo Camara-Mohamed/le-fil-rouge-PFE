@@ -27,7 +27,7 @@ it('resets password', function () {
     $token = Password::createToken($this->user);
 
     // Act
-    post(route('password.update', ['locale'=>app()->getLocale()]), [
+    post(route('password.update', ['locale' => app()->getLocale()]), [
         'email' => $this->user->email,
         'password' => 'Change_this',
         'password_confirmation' => 'Change_this',

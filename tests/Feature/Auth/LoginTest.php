@@ -8,7 +8,7 @@ use function Pest\Laravel\post;
 
 it('verifies if a guest can access to login page', function () {
     // Act
-    $response = $this->get(route('login', ['locale'=>app()->getLocale()]));
+    $response = $this->get(route('login', ['locale' => app()->getLocale()]));
 
     // Assert
     $response->assertStatus(200);
@@ -16,13 +16,13 @@ it('verifies if a guest can access to login page', function () {
 
 it('check if a route to access a login form existe', function () {
     // Act
-    $response = get(route('login', ['locale'=>app()->getLocale()]));
+    $response = get(route('login', ['locale' => app()->getLocale()]));
 
     // Assert
     $response->assertStatus(200);
     $response->assertSeeHtml(
         '<form method="POST" '.'action="'.
-        route('login', ['locale'=>app()->getLocale()])
+        route('login', ['locale' => app()->getLocale()])
     );
     $response->assertSee(__('auth.login.title'));
     $response->assertSee('type="email"', false);
@@ -31,7 +31,7 @@ it('check if a route to access a login form existe', function () {
 
 it('requires email field', function () {
     // Act
-    $response = post(route('login', ['locale'=>app()->getLocale()]), [
+    $response = post(route('login', ['locale' => app()->getLocale()]), [
         'password' => 'change_this',
     ]);
 
@@ -41,7 +41,7 @@ it('requires email field', function () {
 
 it('requires password field', function () {
     // Act
-    $response = post(route('login', ['locale'=>app()->getLocale()]), [
+    $response = post(route('login', ['locale' => app()->getLocale()]), [
         'email' => 'mohamed@lefilrouge.com',
     ]);
 
@@ -51,7 +51,7 @@ it('requires password field', function () {
 
 it('fails to login with email not existe', function () {
     // Act
-    $response = post(route('login', ['locale'=>app()->getLocale()]), [
+    $response = post(route('login', ['locale' => app()->getLocale()]), [
         'email' => 'alex@lefilrouge.com',
         'password' => 'change_this',
     ]);
@@ -69,7 +69,7 @@ it('redirects a successfully authenticated user to the predefined home page', fu
     ]);
 
     // Act
-    $response = post(route('login', ['locale'=>app()->getLocale()]), [
+    $response = post(route('login', ['locale' => app()->getLocale()]), [
         'email' => $user->email,
         'password' => 'change_this',
     ]);

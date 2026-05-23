@@ -6,10 +6,12 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-new class extends Component {
+new class extends Component
+{
     use AuthorizesRequests, WithFileUploads;
 
     public Training $training;
+
     public TrainingForm $form;
 
     public function mount(Training $training): void

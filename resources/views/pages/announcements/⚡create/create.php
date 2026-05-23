@@ -4,7 +4,6 @@ use App\Livewire\Forms\AnnouncementForm;
 use App\Models\Announcement;
 use App\Models\User;
 use App\Notifications\AnnouncementNotification;
-use App\Notifications\NewAnnouncementNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\Title;
@@ -28,7 +27,7 @@ new #[Title('Ajouter une actualité')] class extends Component
         session()->flash('success', 'Une actualité à ete créee');
 
         $this->redirectRoute('admin.announcements.edit', [
-            'locale'       => app()->getLocale(),
+            'locale' => app()->getLocale(),
             'announcement' => $announcement,
         ]);
     }

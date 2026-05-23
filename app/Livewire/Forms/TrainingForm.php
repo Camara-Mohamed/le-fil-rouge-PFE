@@ -16,22 +16,39 @@ class TrainingForm extends Form
     use WithFileUploads;
 
     public string $title = '';
+
     public string $description = '';
+
     public string $start_date = '';
+
     public string $end_date = '';
+
     public string $type = 'residential';
+
     public ?int $price = null;
+
     public ?int $participants = null;
+
     public ?string $details = null;
+
     public ?string $constraints = null;
+
     public ?string $address = null;
+
     public ?string $number = null;
+
     public ?string $city = null;
+
     public string $province = 'liege';
+
     public ?int $postal_code = null;
+
     public array $roles = [];
+
     public string $status = 'draft';
+
     public $banner = null;
+
     public array $galeries = [];
 
     public function rules(): array

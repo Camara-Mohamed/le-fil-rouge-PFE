@@ -21,7 +21,7 @@ new #[Title('Ajouter une formation')] class extends Component
 
         session()->flash('success', 'La formation a été créée.');
 
-        $this->redirectRoute('admin.trainings.edit', ['locale'   => app()->getLocale(), 'training' => $training]);
+        $this->redirectRoute('admin.trainings.edit', ['locale' => app()->getLocale(), 'training' => $training]);
     }
 
     public function render()
