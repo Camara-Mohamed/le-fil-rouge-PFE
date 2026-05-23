@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\CampStatus;
-use App\Enums\CampsTypes;
+use App\Enums\CampTypes;
 use App\Enums\Provinces;
 use App\Enums\RegisterStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'province',
     'postal_code',
     'roles',
+    'galeries',
     'user_id',
 ])]
 class Camp extends Model
@@ -43,7 +44,7 @@ class Camp extends Model
             'roles' => 'array',
             'status' => CampStatus::class,
             'province' => Provinces::class,
-            'type' => CampsTypes::class,
+            'type' => CampTypes::class,
         ];
     }
 
@@ -103,5 +104,10 @@ class Camp extends Model
     public function roles(User $user): bool
     {
         return in_array($user->role->value, $this->roles);
+    }
+
+    public function galeries(): HasMany
+    {
+        return $this->hasMany(Galerie::class);
     }
 }
