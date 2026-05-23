@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enums\Diets;
 use App\Enums\Provinces;
 use App\Enums\UserRoles;
+use App\Enums\UserStatus;
 use App\Models\Announcement;
 use App\Models\Camp;
 use App\Models\Training;
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Camara',
             'email' => 'mohamed.camara@lefilrouge.com',
             'role' => UserRoles::ADMIN,
+            'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
             'birth_date' => fake()->dateTimeBetween('-28 years', '-18 years'),
             'phone' => fake()->phoneNumber,
@@ -44,6 +46,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Admin',
             'email' => 'stephanie.admin@lefilrouge.com',
             'role' => UserRoles::ADMIN,
+            'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
         ]);
 
@@ -52,6 +55,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Formateur',
             'email' => 'hugo.formateur@lefilrouge.com',
             'role' => UserRoles::FORMATEUR,
+            'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
         ]);
 
@@ -60,6 +64,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Coordinateur',
             'email' => 'paul.coordinateur@lefilrouge.com',
             'role' => UserRoles::COORDINATEUR,
+            'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
         ]);
 
@@ -68,6 +73,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Arrivant',
             'email' => 'sam.arrivant@lefilrouge.com',
             'role' => UserRoles::ARRIVANT,
+            'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
         ]);
 
