@@ -19,8 +19,8 @@ class CampController extends Controller
         return view('public.camps.index', compact('camps'));
     }
 
-    public function show(Camp $camp)
+    public function show(string $locale, Camp $camp)
     {
-        return view('public.camps.show', compact('camp'));
+        return view('public.camps.show', compact('camp', 'locale'));
     }
 }
