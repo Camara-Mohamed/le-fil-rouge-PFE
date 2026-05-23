@@ -19,7 +19,7 @@
                 required
             >
             @error('first_name')
-            <span>{{ $message }}</span>
+            <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
 
@@ -33,7 +33,7 @@
                 required
             >
             @error('last_name')
-            <span>{{ $message }}</span>
+            <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
 
@@ -47,7 +47,7 @@
                 required
             >
             @error('email')
-            <span>{{ $message }}</span>
+            <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
 
@@ -61,7 +61,7 @@
                 required
             >
             @error('phone')
-            <span>{{ $message }}</span>
+            <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
 
@@ -73,7 +73,7 @@
                 required
             >{{ old('message') }}</textarea>
             @error('message')
-            <span>{{ $message }}</span>
+            <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
 

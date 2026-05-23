@@ -16,6 +16,7 @@
                 value="{{ old('email') }}"
                 required
             >
+            @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div x-data="{ show: false }">
@@ -34,6 +35,7 @@
                 <span x-show="!show">Afficher</span>
                 <span x-show="show">Cacher</span>
             </button>
+            @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div x-data="{ show: false }">
@@ -52,6 +54,7 @@
                 <span x-show="!show">Afficher</span>
                 <span x-show="show">Cacher</span>
             </button>
+            @error('password_confirmation') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <button type="submit">

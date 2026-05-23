@@ -40,7 +40,7 @@
 
         <label>Changer l'avatar</label>
         <input type="file" wire:model="avatar" accept="image/*">
-        @error('avatar') <span>{{ $message }}</span> @enderror
+        @error('avatar') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
         <button type="submit">Enregistrer</button>
     </form>
@@ -52,21 +52,25 @@
         <div>
             <label>Prénom</label>
             <input type="text" wire:model="info.first_name">
+            @error('info.first_name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Nom</label>
             <input type="text" wire:model="info.last_name">
+            @error('info.last_name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Téléphone</label>
             <input type="text" wire:model="info.phone">
+            @error('info.phone') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Date de naissance</label>
             <input type="date" wire:model="info.birth_date">
+            @error('info.birth_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <button type="submit">Mettre à jour</button>
@@ -76,6 +80,7 @@
         <div>
             <label>Email</label>
             <input type="email" wire:model="email.email">
+            @error('email.email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <button type="submit">Mettre à jour</button>
@@ -85,11 +90,13 @@
         <div>
             <label>Mot de passe actuel</label>
             <input type="password" wire:model="password.current_password">
+            @error('password.current_password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Nouveau mot de passe</label>
             <input type="password" wire:model="password.password">
+            @error('password.password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <button type="submit">Mettre à jour</button>
@@ -99,16 +106,19 @@
         <div>
             <label>Adresse</label>
             <input type="text" wire:model="address.address">
+            @error('address.address') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Numéro</label>
             <input type="text" wire:model="address.number">
+            @error('address.number') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Ville</label>
             <input type="text" wire:model="address.city">
+            @error('address.city') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
@@ -120,11 +130,13 @@
                     </option>
                 @endforeach
             </select>
+            @error('address.province') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Code postal</label>
             <input type="text" wire:model="address.postal_code">
+            @error('address.postal_code') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <button type="submit">Mettre à jour</button>
@@ -140,11 +152,13 @@
                     </option>
                 @endforeach
             </select>
+            @error('diet.diet') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Allergies</label>
             <textarea wire:model="diet.allergies"></textarea>
+            @error('diet.allergies') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <button type="submit">Mettre à jour</button>
@@ -159,10 +173,12 @@
             <div>
                 <label>Fichier</label>
                 <input type="file" wire:model="document.file">
+                @error('document.file') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
             <div>
                 <label>Nom</label>
                 <input type="text" wire:model="document.name">
+                @error('document.name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
             <div>
                 <label>Type</label>
@@ -172,6 +188,7 @@
                         <option value="{{ $type->value }}">{{ $type->value }}</option>
                     @endforeach
                 </select>
+                @error('document.type') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
             <button type="submit">Ajouter</button>
         </form>

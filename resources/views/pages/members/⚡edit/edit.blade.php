@@ -10,19 +10,24 @@
     @endif
 
     <form wire:submit="save" class="flex flex-col gap-4 max-w-md">
+        @csrf
+
         <div>
             <label>Prénom</label>
             <input type="text" wire:model="first_name">
+            @error('first_name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Nom</label>
             <input type="text" wire:model="last_name">
+            @error('last_name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Email</label>
             <input type="email" wire:model="email">
+            @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
@@ -32,16 +37,19 @@
                     <option value="{{ $role->value }}">{{ $role->label() }}</option>
                 @endforeach
             </select>
+            @error('role') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Téléphone</label>
             <input type="text" wire:model="phone">
+            @error('phone') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
             <label>Date de naissance</label>
             <input type="date" wire:model="birth_date">
+            @error('birth_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
