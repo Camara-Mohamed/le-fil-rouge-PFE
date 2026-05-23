@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\UserRoles;
+use App\Enums\UserStatus;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
@@ -22,6 +23,7 @@ new #[Title('Modifier un membre')] class extends Component
     public string $email = '';
 
     public string $role = '';
+    public string $status = '';
 
     public string $phone = '';
 
@@ -34,6 +36,7 @@ new #[Title('Modifier un membre')] class extends Component
         $this->last_name = $member->last_name;
         $this->email = $member->email;
         $this->role = $member->role->value;
+        $this->status = $member->status->value;
         $this->phone = $member->phone ?? '';
         $this->birth_date = $member->birth_date?->format('Y-m-d');
     }
@@ -45,6 +48,7 @@ new #[Title('Modifier un membre')] class extends Component
             'last_name' => ['required', 'min:2', 'max:255'],
             'email' => ['required', 'email', Rule::unique('users')->ignore($this->member->id)],
             'role' => ['required', Rule::enum(UserRoles::class)],
+            'status' => ['required', Rule::enum(UserStatus::class)],
             'phone' => ['nullable', 'string'],
             'birth_date' => ['nullable', 'date'],
         ]);
@@ -54,6 +58,7 @@ new #[Title('Modifier un membre')] class extends Component
             'last_name' => $this->last_name,
             'email' => $this->email,
             'role' => $this->role,
+            'status' => $this->status,
             'phone' => $this->phone,
             'birth_date' => $this->birth_date,
         ]);

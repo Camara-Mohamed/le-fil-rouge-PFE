@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\UserRoles;
+use App\Enums\UserStatus;
 use App\Mail\NewVolunteerMail;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -21,6 +22,7 @@ new #[Title('Nouveau membre')] class extends Component
     public string $password = '';
 
     public string $role = '';
+    public string $status = '';
 
     public string $send_to = '';
 
@@ -33,6 +35,7 @@ new #[Title('Nouveau membre')] class extends Component
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:8'],
             'role' => ['required', Rule::enum(UserRoles::class)],
+            'status' => ['required', Rule::enum(UserStatus::class)],
             'send_to' => ['nullable', 'email'],
         ]);
 
@@ -42,6 +45,7 @@ new #[Title('Nouveau membre')] class extends Component
             'email' => $this->email,
             'password' => $this->password,
             'role' => $this->role,
+            'status' => $this->status,
         ]);
 
         if ($this->send_to) {
