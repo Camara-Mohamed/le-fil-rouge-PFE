@@ -54,6 +54,12 @@
         </a>
     @endcan
 
+    @auth
+        <livewire:comments :model="$camp" />
+    @else
+        <p>Connectez-vous pour pouvoir commenter</p>
+    @endauth
+
     // Héro + Retour
 
     // Details | Description + CTA (Inscription)

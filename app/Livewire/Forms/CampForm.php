@@ -104,9 +104,9 @@ class CampForm extends Form
         $camp = Camp::create($data);
 
         if ($this->galeries) {
-            foreach ($this->galeries as $file) {
+            foreach ($this->galeries as $galery) {
                 $camp->galeries()->create([
-                    'path' => $file->store('camps/galeries', 'public'),
+                    'path' => $galery->store('camps/galeries', 'public'),
                 ]);
             }
         }
@@ -148,9 +148,9 @@ class CampForm extends Form
         $camp->update($data);
 
         if ($this->galeries) {
-            foreach ($this->galeries as $file) {
+            foreach ($this->galeries as $galery) {
                 $camp->galeries()->create([
-                    'path' => $file->store('camps/galeries', 'public'),
+                    'path' => $galery->store('camps/galeries', 'public'),
                 ]);
             }
         }

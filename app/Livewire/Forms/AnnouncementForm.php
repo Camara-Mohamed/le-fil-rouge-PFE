@@ -23,6 +23,8 @@ class AnnouncementForm extends Form
 
     public $banner = null;
 
+    public array $galeries = [];
+
     public function rules(): array
     {
         return [
@@ -32,6 +34,8 @@ class AnnouncementForm extends Form
             'details' => ['nullable', 'string'],
             'published_at' => ['nullable', 'date'],
             'banner' => ['nullable', 'image'],
+            'galeries' => ['nullable', 'array'],
+            'galeries.*' => ['nullable', 'image', 'max:2048'],
         ];
     }
 
@@ -52,7 +56,17 @@ class AnnouncementForm extends Form
             $data['banner'] = $this->banner->store('announcements', 'public');
         }
 
-        return Announcement::create($data);
+        $announcement = Announcement::create($data);
+
+        if ($this->galeries) {
+            foreach ($this->galeries as $galery) {
+                $announcement->galeries()->create([
+                    'path' => $galery->store('announcements/galeries', 'public'),
+                ]);
+            }
+        }
+
+        return $announcement;
     }
 
     public function update(Announcement $announcement): void
@@ -69,6 +83,12 @@ class AnnouncementForm extends Form
 
         if ($this->banner) {
             $data['banner'] = $this->banner->store('announcements', 'public');
+        }
+
+        foreach ($this->galeries as $galery) {
+            $announcement->galeries()->create([
+                'path' => $galery->store('announcements/galeries', 'public'),
+            ]);
         }
 
         $announcement->update($data);

@@ -14,7 +14,7 @@
                     <h3>{{ $announcement->title }}</h3>
                     <p>{{ $announcement->description }}</p>
                     <p>{{ $announcement->details }}</p>
-                    <p>{{ $announcement->published_at }}</p>
+                    <p>{{ $announcement->published_at->format('d/m/Y H:i') }}</p>
                 </article>
             </a>
         @endforeach

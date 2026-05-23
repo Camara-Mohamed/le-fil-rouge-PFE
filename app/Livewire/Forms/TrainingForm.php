@@ -43,7 +43,7 @@ class TrainingForm extends Form
 
     public ?int $postal_code = null;
 
-    public array $roles = [];
+    public $roles = [];
 
     public string $status = 'draft';
 
@@ -108,9 +108,9 @@ class TrainingForm extends Form
         $training = Training::create($data);
 
         if ($this->galeries) {
-            foreach ($this->galeries as $file) {
+            foreach ($this->galeries as $galery) {
                 $training->galeries()->create([
-                    'path' => $file->store('trainings/galeries', 'public'),
+                    'path' => $galery->store('trainings/galeries', 'public'),
                 ]);
             }
         }
@@ -147,9 +147,9 @@ class TrainingForm extends Form
         }
 
         if ($this->galeries) {
-            foreach ($this->galeries as $file) {
+            foreach ($this->galeries as $galery) {
                 $training->galeries()->create([
-                    'path' => $file->store('trainings/galeries', 'public'),
+                    'path' => $galery->store('trainings/galeries', 'public'),
                 ]);
             }
         }

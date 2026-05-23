@@ -38,4 +38,9 @@ class Announcement extends Model
     {
         return $this->hasMany(Comment::class)->latest();
     }
+
+    public function galeries(): HasMany
+    {
+        return $this->hasMany(Galerie::class);
+    }
 }

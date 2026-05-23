@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['path', 'training_id', 'camp_id'])]
+#[Fillable(['path', 'training_id', 'camp_id', 'announcement_id'])]
 class Galerie extends Model
 {
     public function training(): BelongsTo
