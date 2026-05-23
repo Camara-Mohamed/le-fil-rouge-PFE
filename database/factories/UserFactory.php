@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Enums\Diets;
 use App\Enums\Provinces;
 use App\Enums\UserRoles;
+use App\Enums\UserStatus;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -35,6 +36,12 @@ class UserFactory extends Factory
             UserRoles::COORDINATEUR,
             UserRoles::FORMATEUR,
             UserRoles::ADMIN,
+        ];
+
+        $status = [
+            UserStatus::INCOMPLETE,
+            UserStatus::PENDING,
+            UserStatus::COMPLETE,
         ];
 
         $provinces = [
@@ -72,6 +79,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('change_this'),
             'remember_token' => Str::random(10),
             'role' => fake()->randomElement($roles),
+            'status' => fake()->randomElement($status),
             'phone' => fake()->unique()->phoneNumber(),
             'birth_date' => fake()->dateTimeBetween('-44 years', '-18 years'),
             'address' => fake()->streetName(),

@@ -12,6 +12,7 @@ new #[Title('Les membres')] class extends Component
     public string $search = '';
 
     public string $role = '';
+    public string $status = '';
 
     public function updatingSearch(): void
     {
@@ -19,6 +20,11 @@ new #[Title('Les membres')] class extends Component
     }
 
     public function updatingRole(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatus(): void
     {
         $this->resetPage();
     }
@@ -37,6 +43,10 @@ new #[Title('Les membres')] class extends Component
 
         if ($this->role) {
             $query->where('role', $this->role);
+        }
+
+        if ($this->status) {
+            $query->where('status', $this->status);
         }
 
         return view('pages.members.⚡index.index', ['members' => $query->paginate(10)]);

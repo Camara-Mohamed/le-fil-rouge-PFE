@@ -33,6 +33,7 @@
             <th class="px-4 py-2">Nom</th>
             <th class="px-4 py-2">Email</th>
             <th class="px-4 py-2">Rôle</th>
+            <th class="px-4 py-2">Status</th>
             <th class="px-4 py-2">Actions</th>
         </tr>
         </thead>
@@ -77,6 +78,10 @@
 
                 <td class="px-4 py-2">
                     {{ $member->role->value }}
+                </td>
+
+                <td class="px-4 py-2">
+                    {{ $member->status->value }}
                 </td>
 
                 <td class="px-4 py-2 flex gap-2">

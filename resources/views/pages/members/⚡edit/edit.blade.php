@@ -1,5 +1,6 @@
 @php use
     App\Enums\UserRoles;
+    App\Enums\UserStatus;
 @endphp
 
 <div>
@@ -50,6 +51,16 @@
             <label>Date de naissance</label>
             <input type="date" wire:model="birth_date">
             @error('birth_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+
+        <div>
+            <label>Statut</label>
+            <select wire:model="status">
+                @foreach(UserStatus::cases() as $status)
+                    <option value="{{ $status->value }}">{{ $status->label() }}</option>
+                @endforeach
+            </select>
+            @error('status') <p>{{ $message }}</p> @enderror
         </div>
 
         <div>
