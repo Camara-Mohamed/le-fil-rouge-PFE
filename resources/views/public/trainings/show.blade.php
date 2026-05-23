@@ -40,10 +40,10 @@
         <p>{{ $training->address }} {{ $training->number }}, {{ $training->postal_code }} {{ $training->city }}</p>
     @endif
 
-    @if($training->galeries)
+    @if($training->galeries->count())
         <div class="grid grid-cols-6 gap-4">
-            @foreach($training->galeries as $path)
-                <img src="{{ asset('storage/'.$path) }}">
+            @foreach($training->galeries as $galerie)
+                <img src="{{ asset('storage/' . $galerie->path) }}">
             @endforeach
         </div>
     @endif

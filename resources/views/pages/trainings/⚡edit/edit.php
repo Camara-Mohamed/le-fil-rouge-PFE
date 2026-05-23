@@ -32,7 +32,7 @@ new class extends Component {
             'city' => $training->city,
             'province' => $training->province->value,
             'postal_code' => $training->postal_code,
-            'roles' => json_decode($training->roles) ?? [],
+            'roles' => $training->roles ?? [],
             'status' => $training->status->value,
         ]);
     }
@@ -53,6 +53,16 @@ new class extends Component {
         $this->training->delete();
 
         $this->redirectRoute('public.trainings.index', ['locale' => app()->getLocale()]);
+    }
+
+    public function deleteGalerie(int $galerieId): void
+    {
+        $this->authorize('update', $this->training);
+
+        $galerie = $this->training->galeries()->findOrFail($galerieId);
+
+        Storage::disk('public')->delete($galerie->path);
+        $galerie->delete();
     }
 
     public function render()
