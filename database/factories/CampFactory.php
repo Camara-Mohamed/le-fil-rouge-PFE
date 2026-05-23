@@ -102,7 +102,6 @@ class CampFactory extends Factory
                 'coordinateur',
             ]),
             'status' => fake()->randomElement($statuses),
-            'galeries' => null,
         ];
     }
 }

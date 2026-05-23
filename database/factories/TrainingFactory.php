@@ -105,7 +105,6 @@ class TrainingFactory extends Factory
                 'admin',
             ]),
             'status' => fake()->randomElement($statuses),
-            'galeries' => null,
         ];
     }
 }

@@ -41,7 +41,6 @@ class Training extends Model
         return [
             'start_date' => 'datetime',
             'end_date' => 'datetime',
-            'galeries' => 'array',
             'roles' => 'array',
             'status' => TrainingStatus::class,
             'province' => Provinces::class,
