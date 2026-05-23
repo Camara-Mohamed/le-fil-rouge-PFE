@@ -110,4 +110,9 @@ class Camp extends Model
     {
         return $this->hasMany(Galerie::class);
     }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class)->latest();
+    }
 }
