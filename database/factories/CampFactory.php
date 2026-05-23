@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\CampStatus;
-use App\Enums\CampsTypes;
+use App\Enums\CampTypes;
 use App\Enums\Provinces;
 use App\Models\Camp;
 use App\Models\User;
@@ -30,8 +30,8 @@ class CampFactory extends Factory
         ];
 
         $types = [
-            CampsTypes::STAGE,
-            CampsTypes::SEJOUR,
+            CampTypes::STAGE,
+            CampTypes::SEJOUR,
         ];
 
         $statuses = [

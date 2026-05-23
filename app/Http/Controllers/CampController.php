@@ -16,7 +16,21 @@ class CampController extends Controller
             ->orderBy('start_date', 'desc')
             ->paginate(6);
 
-        return view('public.camps.index', compact('camps'));
+        $allCamps = null;
+
+        if (auth()->user()?->isAdmin()) {
+            $allCamps = Camp::query()
+                ->orderBy('start_date', 'desc')
+                ->paginate(6);
+
+        } elseif (auth()->user()?->isFormateur()) {
+            $allCamps = Camp::query()
+                ->where('user_id', auth()->id())
+                ->orderBy('start_date', 'desc')
+                ->paginate(6);
+        }
+
+        return view('public.camps.index', compact('camps', 'allCamps'));
     }
 
     public function show(string $locale, Camp $camp)
