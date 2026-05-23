@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Enums\Diets;
 use App\Enums\Provinces;
 use App\Enums\UserRoles;
+use App\Enums\UserStatus;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -21,6 +22,7 @@ use Illuminate\Support\Carbon;
     'email',
     'password',
     'role',
+    'status',
     'phone',
     'birth_date',
     'address',
@@ -52,6 +54,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'birth_date' => 'date',
+            'status' => UserStatus::class,
             'province' => Provinces::class,
             'diet' => Diets::class,
             'role' => UserRoles::class,
@@ -131,5 +134,20 @@ class User extends Authenticatable
     public function getAge(): int
     {
         return Carbon::parse($this->birth_date)->age;
+    }
+
+    public function isIncomplet(): bool
+    {
+        return $this->status === UserStatus::INCOMPLETE;
+    }
+
+    public function isEnAttente(): bool
+    {
+        return $this->status === UserStatus::PENDING;
+    }
+
+    public function isComplet(): bool
+    {
+        return $this->status === UserStatus::COMPLETE;
     }
 }
