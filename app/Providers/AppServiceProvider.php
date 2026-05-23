@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use App\Models\Announcement;
 use App\Models\Camp;
+use App\Models\Comment;
 use App\Models\Document;
 use App\Models\Training;
 use App\Models\User;
 use App\Policies\AnnouncementPolicy;
 use App\Policies\CampPolicy;
+use App\Policies\CommentPolicy;
 use App\Policies\DocumentPolicy;
 use App\Policies\TrainingPolicy;
 use App\Policies\UserPolicy;
@@ -36,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Camp::class, CampPolicy::class);
         Gate::policy(Announcement::class, AnnouncementPolicy::class);
         Gate::policy(Document::class, DocumentPolicy::class);
+        Gate::policy(Comment::class, CommentPolicy::class);
 
         Gate::define('access-dashboard', function (User $user): bool {
             return true;
