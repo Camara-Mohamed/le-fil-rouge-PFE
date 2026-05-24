@@ -18,4 +18,9 @@ class Galerie extends Model
     {
         return $this->belongsTo(Camp::class);
     }
+
+    public function announcement(): BelongsTo
+    {
+        return $this->belongsTo(Announcement::class);
+    }
 }

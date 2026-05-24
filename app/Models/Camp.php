@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'province',
     'postal_code',
     'roles',
-    'galeries',
+    'status',
     'user_id',
 ])]
 class Camp extends Model

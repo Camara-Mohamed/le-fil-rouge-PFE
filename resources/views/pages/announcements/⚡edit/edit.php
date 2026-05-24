@@ -5,6 +5,7 @@ use App\Models\Announcement;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 new class extends Component {
     use AuthorizesRequests, WithFileUploads;
@@ -23,7 +24,6 @@ new class extends Component {
             'description' => $this->announcement->description,
             'details' => $this->announcement->details,
             'content' => $this->announcement->content,
-            'banner' => $this->announcement->title,
             'published_at' => $announcement->published_at?->format('Y-m-d\TH:i'),
         ]);
     }

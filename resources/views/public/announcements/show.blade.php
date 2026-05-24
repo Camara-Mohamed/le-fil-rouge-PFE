@@ -30,12 +30,6 @@
         <a href="{{ route('admin.announcements.edit', ['locale' => app()->getLocale(), 'announcement' => $announcement]) }}">Modifier</a>
     @endcan
 
-    @auth
-        <livewire:comments :model="$announcement" />
-    @else
-        <p>Connectez-vous pour pouvoir commenter</p>
-    @endauth
-
 </x-public.app>
 
 // Héro + Retour

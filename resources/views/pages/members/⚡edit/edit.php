@@ -10,7 +10,7 @@ use Livewire\Component;
 
 new #[Title('Modifier un membre')] class extends Component
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests, WithFileUploads;
 
     // TODO: Gerer le prefix @lefilrouge.com
 

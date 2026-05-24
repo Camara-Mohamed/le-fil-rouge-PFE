@@ -7,6 +7,7 @@ use App\Enums\TrainingStatus;
 use App\Enums\TrainingTypes;
 use App\Models\Training;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
 use Livewire\WithFileUploads;
@@ -143,7 +144,10 @@ class TrainingForm extends Form
         ];
 
         if ($this->banner) {
-            $data['banner'] = $this->banner->store('trainings', 'public');
+            if ($training->banner) {
+                Storage::disk('public')->delete($training->banner);
+            }
+            $data['banner'] = $this->banner->store('trainings/banners', 'public');
         }
 
         if ($this->galeries) {

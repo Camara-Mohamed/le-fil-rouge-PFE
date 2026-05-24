@@ -7,6 +7,7 @@ use App\Enums\CampTypes;
 use App\Enums\Provinces;
 use App\Models\Camp;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
 use Livewire\WithFileUploads;
@@ -41,13 +42,13 @@ class CampForm extends Form
 
     public ?int $postal_code = null;
 
-    public $roles = [];
+    public array $roles = [];
 
     public string $status = 'draft';
 
     public $banner = null;
 
-    public $galeries = [];
+    public array $galeries = [];
 
     public function rules(): array
     {
@@ -116,10 +117,6 @@ class CampForm extends Form
 
     public function update(Camp $camp): void
     {
-        if (! is_array($this->roles)) {
-            $this->roles = [];
-        }
-
         $this->validate();
 
         $data = [
@@ -142,10 +139,11 @@ class CampForm extends Form
         ];
 
         if ($this->banner) {
-            $data['banner'] = $this->banner->store('camps', 'public');
+            if ($camp->banner) {
+                Storage::disk('public')->delete($camp->banner);
+            }
+            $data['banner'] = $this->banner->store('camps/banners', 'public');
         }
-
-        $camp->update($data);
 
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
@@ -154,5 +152,7 @@ class CampForm extends Form
                 ]);
             }
         }
+
+        $camp->update($data);
     }
 }

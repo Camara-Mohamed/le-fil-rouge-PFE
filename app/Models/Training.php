@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'province',
     'postal_code',
     'roles',
-    'galeries',
+    'status',
     'user_id',
 ])]
 class Training extends Model
