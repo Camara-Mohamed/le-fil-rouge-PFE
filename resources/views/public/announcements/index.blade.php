@@ -1,11 +1,17 @@
+@php
+    use App\Models\Announcement;
+@endphp
+
 <x-public.app title="Liste des actualités">
 
     <h2>Liste des actualités</h2>
 
-    <a href="{{ route('admin.announcements.create', ['locale' => app()->getLocale()]) }}">Ajouter une actualité</a>
+    @can('create', Announcement::class)
+        <a href="{{ route('admin.announcements.create', ['locale' => app()->getLocale()]) }}">Ajouter une actualité</a>
+    @endcan
 
     <div class="grid grid-cols-3 gap-8">
-        @foreach($announcements as $announcement)
+        @forelse($announcements as $announcement)
             <a href="{{ route('public.announcements.show', ['locale' => app()->getLocale(), 'announcement' => $announcement->id]) }}">
                 <article>
                     @if($announcement->banner)
@@ -13,11 +19,17 @@
                     @endif
                     <h3>{{ $announcement->title }}</h3>
                     <p>{{ $announcement->description }}</p>
-                    <p>{{ $announcement->details }}</p>
-                    <p>{{ $announcement->published_at->format('d/m/Y H:i') }}</p>
+                    @if($announcement->published_at)
+                        <p>{{ $announcement->published_at->format('d/m/Y H:i') }}</p>
+                    @endif
+                    @auth
+                        <span>{{ $announcement->published_at }}</span>
+                    @endauth
                 </article>
             </a>
-        @endforeach
+        @empty
+            <p>Aucune actualité</p>
+        @endforelse
     </div>
 
     <div>{{ $announcements->links() }}</div>

@@ -94,7 +94,7 @@ class CampForm extends Form
             'province' => $this->province,
             'postal_code' => $this->postal_code,
             'roles' => $this->roles,
-            'status' => $this->status,
+            'status' => CampStatus::PENDING,
             'user_id' => $user->id,
         ];
 

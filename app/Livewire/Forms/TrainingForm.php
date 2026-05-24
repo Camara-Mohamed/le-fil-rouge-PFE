@@ -98,7 +98,7 @@ class TrainingForm extends Form
             'province' => $this->province,
             'postal_code' => $this->postal_code,
             'roles' => $this->roles,
-            'status' => $this->status,
+            'status' => TrainingStatus::PENDING,
             'user_id' => auth()->user()->id,
         ];
 
