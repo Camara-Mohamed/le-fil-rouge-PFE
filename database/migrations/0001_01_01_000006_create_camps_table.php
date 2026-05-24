@@ -26,7 +26,7 @@ return new class extends Migration
             $table->integer('postal_code')->nullable();
             $table->foreignId('user_id')->constrained('users');
             $table->json('roles')->nullable();
-            $table->enum('status', ['draft', 'pending', 'published', 'refused', 'confirmed'])->default('draft');
+            $table->enum('status', ['pending', 'published', 'refused', 'confirmed'])->default('pending');
             $table->timestamps();
             $table->softDeletes();
         });

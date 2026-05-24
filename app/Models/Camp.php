@@ -48,11 +48,6 @@ class Camp extends Model
         ];
     }
 
-    public function isDraft(): bool
-    {
-        return $this->status === CampStatus::DRAFT;
-    }
-
     public function isPublished(): bool
     {
         return $this->status === CampStatus::PUBLISHED;

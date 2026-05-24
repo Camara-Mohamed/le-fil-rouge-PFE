@@ -35,7 +35,6 @@ class CampFactory extends Factory
         ];
 
         $statuses = [
-            CampStatus::DRAFT,
             CampStatus::PENDING,
             CampStatus::PUBLISHED,
             CampStatus::REFUSED,

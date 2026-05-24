@@ -48,11 +48,6 @@ class Training extends Model
         ];
     }
 
-    public function isDraft(): bool
-    {
-        return $this->status === TrainingStatus::DRAFT;
-    }
-
     public function isPublished(): bool
     {
         return $this->status === TrainingStatus::PUBLISHED;
@@ -108,6 +103,11 @@ class Training extends Model
 
     public function getFormattedPrice(): ?string
     {
+        if ($this->price == 0) {
+            // TODO : Traduire
+            return 'Gratuit';
+        }
+
         return number_format($this->price, 2, ',', ' ').' €';
     }
 

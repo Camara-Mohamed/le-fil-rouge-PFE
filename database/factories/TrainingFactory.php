@@ -35,7 +35,6 @@ class TrainingFactory extends Factory
         ];
 
         $statuses = [
-            TrainingStatus::DRAFT,
             TrainingStatus::PENDING,
             TrainingStatus::PUBLISHED,
             TrainingStatus::REFUSED,

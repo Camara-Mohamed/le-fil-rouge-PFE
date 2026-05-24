@@ -70,6 +70,33 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
+            'first_name' => 'Tiffany',
+            'last_name' => 'Brevete',
+            'email' => 'tiffany.brevete@lefilrouge.com',
+            'role' => UserRoles::BREVETE,
+            'status' => UserStatus::COMPLETE,
+            'password' => Hash::make('change_this'),
+        ]);
+
+        User::factory()->create([
+            'first_name' => 'Luc',
+            'last_name' => 'Animateur_2e',
+            'email' => 'paul.animateur2e@lefilrouge.com',
+            'role' => UserRoles::ANIMATEUR_2,
+            'status' => UserStatus::COMPLETE,
+            'password' => Hash::make('change_this'),
+        ]);
+
+        User::factory()->create([
+            'first_name' => 'Léa',
+            'last_name' => 'Animateur_1re',
+            'email' => 'lea.animateur1re@lefilrouge.com',
+            'role' => UserRoles::ANIMATEUR_1,
+            'status' => UserStatus::COMPLETE,
+            'password' => Hash::make('change_this'),
+        ]);
+
+        User::factory()->create([
             'first_name' => 'Sam',
             'last_name' => 'Arrivant',
             'email' => 'sam.arrivant@lefilrouge.com',
