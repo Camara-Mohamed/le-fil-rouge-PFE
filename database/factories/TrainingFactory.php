@@ -96,14 +96,14 @@ class TrainingFactory extends Factory
             'province' => fake()->randomElement($provinces),
             'postal_code' => fake()->postcode(),
             'user_id' => User::factory(),
-            'roles' => json_encode([
+            'roles' => [
                 'animateur_1',
                 'animateur_2',
                 'brevete',
                 'coordinateur',
                 'formateur',
                 'admin',
-            ]),
+            ],
             'status' => fake()->randomElement($statuses),
         ];
     }

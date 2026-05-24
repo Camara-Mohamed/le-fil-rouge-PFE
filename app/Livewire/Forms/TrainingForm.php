@@ -44,7 +44,7 @@ class TrainingForm extends Form
 
     public ?int $postal_code = null;
 
-    public $roles = [];
+    public array $roles = [];
 
     public string $status = 'draft';
 
