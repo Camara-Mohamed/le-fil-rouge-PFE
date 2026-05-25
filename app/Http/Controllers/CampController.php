@@ -4,33 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Enums\CampStatus;
 use App\Models\Camp;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 
 class CampController extends Controller
 {
     public function index()
     {
-        $camps = Camp::query()
-            ->where('status', CampStatus::PUBLISHED)
-            ->whereDate('start_date', '>=', Carbon::today())
-            ->orderBy('start_date', 'desc')
-            ->paginate(6);
+        $user = auth()->user();
 
-        $allCamps = null;
-
-        if (auth()->user()?->isAdmin()) {
-            $allCamps = Camp::query()
+        if ($user?->isAdmin()) {
+            $camps = Camp::query()
                 ->orderBy('start_date', 'desc')
                 ->paginate(6);
 
-        } elseif (auth()->user()?->isFormateur()) {
-            $allCamps = Camp::query()
-                ->where('user_id', auth()->id())
+        } elseif ($user?->isCoordinateur()) {
+            $camps = Camp::query()
+                ->where('status', CampStatus::PUBLISHED)
+                ->orWhere('user_id', $user->id)
+                ->orderBy('start_date', 'desc')
+                ->paginate(6);
+        } else {
+            $camps = Camp::query()
+                ->where('status', CampStatus::PUBLISHED)
                 ->orderBy('start_date', 'desc')
                 ->paginate(6);
         }
 
-        return view('public.camps.index', compact('camps', 'allCamps'));
+        return view('public.camps.index', compact('camps'));
     }
 
     public function show(string $locale, Camp $camp)

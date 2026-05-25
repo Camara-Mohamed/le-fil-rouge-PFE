@@ -159,6 +159,14 @@
 
             <input type="file" wire:model="form.galeries" multiple accept="image/*">
             @error('form.galeries.*') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
+            {{--@if($form->galeries)
+                <div class="grid grid-cols-6 gap-4">
+                @foreach($form->galeries as $galerie)
+                    <img src="{{ $galerie->temporaryUrl() }}">
+                @endforeach
+                </div>
+            @endif--}}
         </div>
 
         <button type="submit">Mettre à jour</button>

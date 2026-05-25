@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'province',
     'postal_code',
     'roles',
-    'galeries',
+    'status',
     'user_id',
 ])]
 class Training extends Model
@@ -46,11 +46,6 @@ class Training extends Model
             'province' => Provinces::class,
             'type' => TrainingTypes::class,
         ];
-    }
-
-    public function isDraft(): bool
-    {
-        return $this->status === TrainingStatus::DRAFT;
     }
 
     public function isPublished(): bool
@@ -108,11 +103,21 @@ class Training extends Model
 
     public function getFormattedPrice(): ?string
     {
+        if ($this->price == 0) {
+            // TODO : Traduire
+            return 'Gratuit';
+        }
+
         return number_format($this->price, 2, ',', ' ').' €';
     }
 
     public function galeries(): HasMany
     {
         return $this->hasMany(Galerie::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class)->latest();
     }
 }

@@ -5,6 +5,7 @@ use App\Models\Training;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 new class extends Component
 {
@@ -22,8 +23,8 @@ new class extends Component
         $this->form->fill([
             'title' => $training->title,
             'description' => $training->description,
-            'start_date' => $training->start_date,
-            'end_date' => $training->end_date,
+            'start_date' => $training->start_date?->format('Y-m-d\TH:i'),
+            'end_date' => $training->end_date?->format('Y-m-d\TH:i'),
             'type' => $training->type->value,
             'price' => $training->price,
             'participants' => $training->participants,

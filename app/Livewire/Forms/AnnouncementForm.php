@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Models\Announcement;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Form;
 use Livewire\WithFileUploads;
 
@@ -23,6 +24,8 @@ class AnnouncementForm extends Form
 
     public $banner = null;
 
+    public array $galeries = [];
+
     public function rules(): array
     {
         return [
@@ -31,7 +34,9 @@ class AnnouncementForm extends Form
             'content' => ['required', 'string'],
             'details' => ['nullable', 'string'],
             'published_at' => ['nullable', 'date'],
-            'banner' => ['nullable', 'image'],
+            'banner' => ['nullable', 'image', 'max:2048'],
+            'galeries' => ['nullable', 'array'],
+            'galeries.*' => ['nullable', 'image', 'max:2048'],
         ];
     }
 
@@ -44,7 +49,7 @@ class AnnouncementForm extends Form
             'description' => $this->description,
             'content' => $this->content,
             'details' => $this->details,
-            'published_at' => $this->published_at ?: null,
+            'published_at' => now(),
             'user_id' => $user->id,
         ];
 
@@ -52,7 +57,17 @@ class AnnouncementForm extends Form
             $data['banner'] = $this->banner->store('announcements', 'public');
         }
 
-        return Announcement::create($data);
+        $announcement = Announcement::create($data);
+
+        if ($this->galeries) {
+            foreach ($this->galeries as $galery) {
+                $announcement->galeries()->create([
+                    'path' => $galery->store('announcements/galeries', 'public'),
+                ]);
+            }
+        }
+
+        return $announcement;
     }
 
     public function update(Announcement $announcement): void
@@ -64,11 +79,20 @@ class AnnouncementForm extends Form
             'description' => $this->description,
             'content' => $this->content,
             'details' => $this->details,
-            'published_at' => $this->published_at ?: null,
+            'published_at' => now(),
         ];
 
         if ($this->banner) {
-            $data['banner'] = $this->banner->store('announcements', 'public');
+            if ($announcement->banner) {
+                Storage::disk('public')->delete($announcement->banner);
+            }
+            $data['banner'] = $this->banner->store('announcements/banners', 'public');
+        }
+
+        foreach ($this->galeries as $galery) {
+            $announcement->galeries()->create([
+                'path' => $galery->store('announcements/galeries', 'public'),
+            ]);
         }
 
         $announcement->update($data);

@@ -3,12 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['path', 'training_id', 'camp_id', 'announcement_id'])]
-class Galerie extends Model
+#[Fillable(['content', 'user_id', 'training_id', 'camp_id', 'announcement_id', 'document', 'is_admin'])]
+class Comment extends Model
 {
+    use HasFactory;
+
+    protected function casts(): array
+    {
+        return [
+            'is_admin' => 'boolean',
+        ];
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function training(): BelongsTo
     {
         return $this->belongsTo(Training::class);

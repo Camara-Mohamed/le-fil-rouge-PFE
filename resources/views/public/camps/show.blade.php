@@ -54,6 +54,10 @@
         </a>
     @endcan
 
+    @auth
+        <livewire:comments :model="$camp" />
+    @endauth
+
     // Héro + Retour
 
     // Details | Description + CTA (Inscription)

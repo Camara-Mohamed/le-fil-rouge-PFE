@@ -4,33 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Enums\TrainingStatus;
 use App\Models\Training;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 
 class TrainingController extends Controller
 {
     public function index()
     {
-        $trainings = Training::query()
-            ->where('status', TrainingStatus::PUBLISHED)
-            ->whereDate('start_date', '>=', Carbon::today())
-            ->orderBy('start_date', 'desc')
-            ->paginate(6);
+        $user = auth()->user();
 
-        $allTrainings = null;
-
-        if (auth()->user()?->isAdmin()) {
-            $allTrainings = Training::query()
+        if ($user?->isAdmin()) {
+            $trainings = Training::query()
                 ->orderBy('start_date', 'desc')
                 ->paginate(6);
 
-        } elseif (auth()->user()?->isFormateur()) {
-            $allTrainings = Training::query()
-                ->where('user_id', auth()->id())
+        } elseif ($user?->isCoordinateur()) {
+            $trainings = Training::query()
+                ->where('status', TrainingStatus::PUBLISHED)
+                ->orWhere('user_id', $user->id)
+                ->orderBy('start_date', 'desc')
+                ->paginate(6);
+        } else {
+            $trainings = Training::query()
+                ->where('status', TrainingStatus::PUBLISHED)
                 ->orderBy('start_date', 'desc')
                 ->paginate(6);
         }
 
-        return view('public.trainings.index', compact('trainings', 'allTrainings'));
+        return view('public.trainings.index', compact('trainings'));
     }
 
     public function show(string $locale, Training $training)

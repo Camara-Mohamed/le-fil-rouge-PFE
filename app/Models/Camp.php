@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'province',
     'postal_code',
     'roles',
-    'galeries',
+    'status',
     'user_id',
 ])]
 class Camp extends Model
@@ -46,11 +46,6 @@ class Camp extends Model
             'province' => Provinces::class,
             'type' => CampTypes::class,
         ];
-    }
-
-    public function isDraft(): bool
-    {
-        return $this->status === CampStatus::DRAFT;
     }
 
     public function isPublished(): bool
@@ -109,5 +104,10 @@ class Camp extends Model
     public function galeries(): HasMany
     {
         return $this->hasMany(Galerie::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class)->latest();
     }
 }

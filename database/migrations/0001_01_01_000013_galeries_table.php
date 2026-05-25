@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('path');
             $table->foreignId('training_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('camp_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('announcement_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

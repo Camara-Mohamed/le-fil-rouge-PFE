@@ -23,8 +23,8 @@ new class extends Component
         $this->form->fill([
             'title' => $camp->title,
             'description' => $camp->description,
-            'start_date' => $camp->start_date,
-            'end_date' => $camp->end_date,
+            'start_date' => $camp->start_date?->format('Y-m-d\TH:i'),
+            'end_date' => $camp->end_date?->format('Y-m-d\TH:i'),
             'type' => $camp->type->value,
             'participants' => $camp->participants,
             'details' => $camp->details,

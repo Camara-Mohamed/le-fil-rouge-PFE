@@ -5,9 +5,9 @@ use App\Models\Announcement;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
-new class extends Component
-{
+new class extends Component {
     use AuthorizesRequests, WithFileUploads;
 
     public Announcement $announcement;
@@ -18,7 +18,15 @@ new class extends Component
     {
         $this->authorize('update', $announcement);
         $this->announcement = $announcement;
-        $this->form->fill($announcement);
+
+        $this->form->fill([
+            'title' => $this->announcement->title,
+            'description' => $this->announcement->description,
+            'details' => $this->announcement->details,
+            'content' => $this->announcement->content,
+            // TODO : voir pour notre utc
+            'published_at' => $announcement->published_at?->format('Y-m-d\TH:i'),
+        ]);
     }
 
     public function save(): void
@@ -37,6 +45,16 @@ new class extends Component
         $this->announcement->delete();
 
         $this->redirectRoute('public.announcements.index', ['locale' => app()->getLocale()]);
+    }
+
+    public function deleteGalerie(int $galerieId): void
+    {
+        $this->authorize('update', $this->announcement);
+
+        $galerie = $this->announcement->galeries()->findOrFail($galerieId);
+
+        Storage::disk('public')->delete($galerie->path);
+        $galerie->delete();
     }
 
     public function render()

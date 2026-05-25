@@ -7,6 +7,7 @@ use App\Enums\TrainingStatus;
 use App\Enums\TrainingTypes;
 use App\Models\Training;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
 use Livewire\WithFileUploads;
@@ -97,7 +98,7 @@ class TrainingForm extends Form
             'province' => $this->province,
             'postal_code' => $this->postal_code,
             'roles' => $this->roles,
-            'status' => $this->status,
+            'status' => TrainingStatus::PENDING,
             'user_id' => auth()->user()->id,
         ];
 
@@ -108,9 +109,9 @@ class TrainingForm extends Form
         $training = Training::create($data);
 
         if ($this->galeries) {
-            foreach ($this->galeries as $file) {
+            foreach ($this->galeries as $galery) {
                 $training->galeries()->create([
-                    'path' => $file->store('trainings/galeries', 'public'),
+                    'path' => $galery->store('trainings/galeries', 'public'),
                 ]);
             }
         }
@@ -143,13 +144,16 @@ class TrainingForm extends Form
         ];
 
         if ($this->banner) {
-            $data['banner'] = $this->banner->store('trainings', 'public');
+            if ($training->banner) {
+                Storage::disk('public')->delete($training->banner);
+            }
+            $data['banner'] = $this->banner->store('trainings/banners', 'public');
         }
 
         if ($this->galeries) {
-            foreach ($this->galeries as $file) {
+            foreach ($this->galeries as $galery) {
                 $training->galeries()->create([
-                    'path' => $file->store('trainings/galeries', 'public'),
+                    'path' => $galery->store('trainings/galeries', 'public'),
                 ]);
             }
         }

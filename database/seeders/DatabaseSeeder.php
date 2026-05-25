@@ -8,6 +8,7 @@ use App\Enums\UserRoles;
 use App\Enums\UserStatus;
 use App\Models\Announcement;
 use App\Models\Camp;
+use App\Models\Comment;
 use App\Models\Training;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -69,6 +70,33 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
+            'first_name' => 'Tiffany',
+            'last_name' => 'Brevete',
+            'email' => 'tiffany.brevete@lefilrouge.com',
+            'role' => UserRoles::BREVETE,
+            'status' => UserStatus::COMPLETE,
+            'password' => Hash::make('change_this'),
+        ]);
+
+        User::factory()->create([
+            'first_name' => 'Luc',
+            'last_name' => 'Animateur_2e',
+            'email' => 'paul.animateur2e@lefilrouge.com',
+            'role' => UserRoles::ANIMATEUR_2,
+            'status' => UserStatus::COMPLETE,
+            'password' => Hash::make('change_this'),
+        ]);
+
+        User::factory()->create([
+            'first_name' => 'Léa',
+            'last_name' => 'Animateur_1re',
+            'email' => 'lea.animateur1re@lefilrouge.com',
+            'role' => UserRoles::ANIMATEUR_1,
+            'status' => UserStatus::COMPLETE,
+            'password' => Hash::make('change_this'),
+        ]);
+
+        User::factory()->create([
             'first_name' => 'Sam',
             'last_name' => 'Arrivant',
             'email' => 'sam.arrivant@lefilrouge.com',
@@ -81,6 +109,8 @@ class DatabaseSeeder extends Seeder
 
         Training::factory()->count(12)->create();
 
-        Announcement::factory()->count(6)->create();
+        Announcement::factory()->count(20)->create();
+
+        Comment::factory()->count(20)->create();
     }
 }
