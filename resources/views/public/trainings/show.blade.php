@@ -56,6 +56,7 @@
 
     @auth
         <livewire:comments :model="$training" />
+        <livewire:enrollment :model="$training" />
     @endauth
 
     // Héro + Retour
