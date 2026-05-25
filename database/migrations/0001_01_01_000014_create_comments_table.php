@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('training_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('camp_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('announcement_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('document')->nullable();
             $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });

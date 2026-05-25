@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['content', 'user_id', 'training_id', 'camp_id', 'announcement_id', 'is_admin'])]
+#[Fillable(['content', 'user_id', 'training_id', 'camp_id', 'announcement_id', 'document', 'is_admin'])]
 class Comment extends Model
 {
     use HasFactory;

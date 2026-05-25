@@ -13,12 +13,12 @@ class TrainingController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->isAdmin()) {
+        if ($user?->isAdmin()) {
             $trainings = Training::query()
                 ->orderBy('start_date', 'desc')
                 ->paginate(6);
 
-        } elseif ($user->isCoordinateur()) {
+        } elseif ($user?->isCoordinateur()) {
             $trainings = Training::query()
                 ->where('status', TrainingStatus::PUBLISHED)
                 ->orWhere('user_id', $user->id)

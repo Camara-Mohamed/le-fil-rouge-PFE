@@ -30,8 +30,11 @@
         <a href="{{ route('admin.announcements.edit', ['locale' => app()->getLocale(), 'announcement' => $announcement]) }}">Modifier</a>
     @endcan
 
+    @auth
+        <livewire:comments :model="$announcement" />
+    @endauth
+
+    // Héro + Retour
+
+    // Details | Description
 </x-public.app>
-
-// Héro + Retour
-
-// Details | Description

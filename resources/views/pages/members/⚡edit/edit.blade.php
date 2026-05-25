@@ -11,8 +11,6 @@
     @endif
 
     <form wire:submit="save" class="flex flex-col gap-4 max-w-md">
-        @csrf
-
         <div>
             <label>Prénom</label>
             <input type="text" wire:model="first_name">

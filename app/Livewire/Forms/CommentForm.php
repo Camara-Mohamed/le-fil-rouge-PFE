@@ -9,11 +9,13 @@ use Livewire\Form;
 class CommentForm extends Form
 {
     public string $content = '';
+    public $document = null;
 
     public function rules(): array
     {
         return [
-            'content' => ['string'],
+            'content' => ['required', 'string'],
+            'document' => ['nullable', 'file', 'max:5120'],
         ];
     }
 
@@ -27,7 +29,11 @@ class CommentForm extends Form
             'is_admin' => auth()->user()->isAdmin(),
         ];
 
-        $comment = Comment::create($data);
+        if ($this->document) {
+            $data['document'] = $this->document->store('comments/documents', 'public');
+        }
+
+        $comment = $model->comments()->create($data);
 
         $this->reset();
 

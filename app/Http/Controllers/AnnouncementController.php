@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
-use App\Models\User;
 
 class AnnouncementController extends Controller
 {
@@ -11,7 +10,7 @@ class AnnouncementController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->isAdmin()) {
+        if ($user?->isAdmin()) {
             $announcements = Announcement::query()
                 ->orderBy('created_at', 'desc')
                 ->paginate(4);

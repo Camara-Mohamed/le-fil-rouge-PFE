@@ -13,12 +13,12 @@ class CampController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->isAdmin()) {
+        if ($user?->isAdmin()) {
             $camps = Camp::query()
                 ->orderBy('start_date', 'desc')
                 ->paginate(6);
 
-        } elseif ($user->isCoordinateur()) {
+        } elseif ($user?->isCoordinateur()) {
             $camps = Camp::query()
                 ->where('status', CampStatus::PUBLISHED)
                 ->orWhere('user_id', $user->id)

@@ -31,11 +31,11 @@
             @error('form.details') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
-        <div>
-            <label>Date de publication</label>
-            <input type="datetime-local" wire:model="form.published_at">
-            @error('form.published_at') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+        {{--<div>
+             <label>Date de publication</label>
+             <input type="datetime-local" wire:model="form.published_at">
+             @error('form.published_at') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>--}}
 
         <div>
             <label>Bannière</label>
@@ -67,13 +67,14 @@
             <input type="file" wire:model="form.galeries" multiple accept="image/*">
             @error('form.galeries.*') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
-            @if($form->galeries)
+
+            {{--@if($form->galeries)
                 <div class="grid grid-cols-6 gap-4">
                     @foreach($form->galeries as $galerie)
                         <img src="{{ $galerie->temporaryUrl() }}">
                     @endforeach
                 </div>
-            @endif
+            @endif--}}
         </div>
 
         <button type="submit">Enregistrer</button>

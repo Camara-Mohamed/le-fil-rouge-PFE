@@ -24,6 +24,7 @@ new class extends Component {
             'description' => $this->announcement->description,
             'details' => $this->announcement->details,
             'content' => $this->announcement->content,
+            // TODO : voir pour notre utc
             'published_at' => $announcement->published_at?->format('Y-m-d\TH:i'),
         ]);
     }

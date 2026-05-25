@@ -31,11 +31,11 @@
             @error('form.details') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
-        <div>
-            <label>Date de publication</label>
-            <input type="datetime-local" wire:model="form.published_at">
-            @error('form.published_at') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+        {{--<div>
+             <label>Date de publication</label>
+             <input type="datetime-local" wire:model="form.published_at">
+             @error('form.published_at') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>--}}
 
         <div>
             <label>Bannière</label>

@@ -2,10 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Announcement;
-use App\Models\Camp;
 use App\Models\Comment;
-use App\Models\Training;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -25,7 +22,7 @@ class CommentPolicy
 
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     public function update(User $user, Comment $comment):
@@ -34,10 +31,29 @@ class CommentPolicy
         return $comment->user_id === $user->id;
     }
 
-    public function delete(User $user, Comment $comment, Training $training, Camp $camp, Announcement $announcement): bool
+    public function delete(User $user, Comment $comment): bool
     {
-        return $user->isAdmin() || ($comment->user_id === $user->id) || ($user->isFormateur() && $training->user_id
-                === $user->id) || ($user->isCoordinateur() && $camp->user_id === $user->id) || ($announcement->user_id === $user->id);
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        if ($comment->user_id === $user->id) {
+            return true;
+        }
+
+        if ($comment->training_id && $user->isFormateur()) {
+            return $comment->training->user_id === $user->id;
+        }
+
+        if ($comment->camp_id && $user->isCoordinateur()) {
+            return $comment->camp->user_id === $user->id;
+        }
+
+        if ($comment->announcement_id) {
+            return $comment->announcement->user_id === $user->id;
+        }
+
+        return false;
     }
 
     public function restore(User $user, Comment $comment): bool
