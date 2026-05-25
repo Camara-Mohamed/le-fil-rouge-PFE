@@ -17,6 +17,7 @@ return [
         resource_path('views/components'),
         resource_path('views/livewire'),
         resource_path('views/widgets'),
+        resource_path('views/modals'),
     ],
 
     /*
@@ -33,7 +34,8 @@ return [
     'component_namespaces' => [
         'layouts' => resource_path('views/layouts'),
         'pages' => resource_path('views/pages'),
-        'widgets'=> resource_path('views/widgets')
+        'widgets'=> resource_path('views/widgets'),
+        'modals'  => resource_path('views/modals'),
     ],
 
     /*
