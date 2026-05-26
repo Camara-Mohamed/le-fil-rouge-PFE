@@ -35,6 +35,8 @@ new class extends Component {
 
         $this->form->update($this->announcement);
 
+        // TODO : arranger
+        $this->dispatch('toast', message: 'Mise à jour.', type: 'success');
         session()->flash('success', 'Mise à jour.');
     }
 

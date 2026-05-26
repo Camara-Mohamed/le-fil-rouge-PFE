@@ -136,17 +136,17 @@ class User extends Authenticatable
         return Carbon::parse($this->birth_date)->age;
     }
 
-    public function isIncomplet(): bool
+    public function isIncomplete(): bool
     {
         return $this->status === UserStatus::INCOMPLETE;
     }
 
-    public function isEnAttente(): bool
+    public function isPending(): bool
     {
         return $this->status === UserStatus::PENDING;
     }
 
-    public function isComplet(): bool
+    public function isComplete(): bool
     {
         return $this->status === UserStatus::COMPLETE;
     }

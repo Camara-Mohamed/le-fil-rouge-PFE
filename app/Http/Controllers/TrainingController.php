@@ -22,6 +22,18 @@ class TrainingController extends Controller
             $trainings = Training::query()
                 ->where('status', TrainingStatus::PUBLISHED)
                 ->orWhere('user_id', $user->id)
+                ->orWhereHas('registers', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                })
+                ->orderBy('start_date', 'desc')
+                ->paginate(6);
+        } elseif ($user) {
+            $trainings = Training::query()
+                ->where('status', TrainingStatus::PUBLISHED)
+                ->orWhere('user_id', $user->id)
+                ->orWhereHas('registers', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                })
                 ->orderBy('start_date', 'desc')
                 ->paginate(6);
         } else {

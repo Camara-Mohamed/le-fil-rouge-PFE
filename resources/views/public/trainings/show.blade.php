@@ -2,6 +2,12 @@
 
     <a href="{{ route('public.trainings.index', ['locale' => app()->getLocale()]) }}">← Retour aux formations</a>
 
+    <livewire:widgets::breadcrumb :items="[
+    ['label' => 'Accueil', 'url' => route('public.home', ['locale' => app()->getLocale()])],
+    ['label' => 'Formations', 'url' => route('public.trainings.index', ['locale' => app()->getLocale()])],
+    ['label' => $training->title],
+]" />
+
     @if($training->banner)
         <img src="{{ asset('storage/' . $training->banner) }}" alt="{{ $training->title }}">
     @endif
@@ -56,6 +62,15 @@
 
     @auth
         <livewire:comments :model="$training" />
+        <livewire:enrollment :model="$training" />
+
+        @if($training->isConfirmed())
+            @can('update', $training)
+                <a href="{{ route('admin.trainings.pdf', ['locale' => app()->getLocale(), 'training' => $training]) }}" target="_blank">
+                    Télécharger le récapitulatif (pdf)
+                </a>
+            @endcan
+        @endif
     @endauth
 
     // Héro + Retour

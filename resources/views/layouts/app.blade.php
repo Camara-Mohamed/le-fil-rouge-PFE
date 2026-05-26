@@ -25,5 +25,8 @@
 
 <x-partials.footer></x-partials.footer>
 
+<livewire:widgets::modal/>
+<livewire:widgets::toast/>
+
 </body>
 </html>
