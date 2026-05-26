@@ -17,11 +17,21 @@ class CampController extends Controller
             $camps = Camp::query()
                 ->orderBy('start_date', 'desc')
                 ->paginate(6);
-
         } elseif ($user?->isCoordinateur()) {
             $camps = Camp::query()
                 ->where('status', CampStatus::PUBLISHED)
                 ->orWhere('user_id', $user->id)
+                ->orWhereHas('registers', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                })
+                ->orderBy('start_date', 'desc')
+                ->paginate(6);
+        } elseif ($user) {
+            $camps = Camp::query()
+                ->where('status', CampStatus::PUBLISHED)
+                ->orWhereHas('registers', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                })
                 ->orderBy('start_date', 'desc')
                 ->paginate(6);
         } else {
@@ -38,7 +48,7 @@ class CampController extends Controller
     {
         $myRegister = $camp
             ->acceptedRegisters()
-            ->where('user_id',auth()->id())
+            ->where('user_id', auth()->id())
             ->first();
 
         return view('public.camps.show', compact('camp', 'locale', 'myRegister'));
