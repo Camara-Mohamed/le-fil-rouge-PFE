@@ -36,6 +36,11 @@ class CampController extends Controller
 
     public function show(string $locale, Camp $camp)
     {
-        return view('public.camps.show', compact('camp', 'locale'));
+        $myRegister = $camp
+            ->acceptedRegisters()
+            ->where('user_id',auth()->id())
+            ->first();
+
+        return view('public.camps.show', compact('camp', 'locale', 'myRegister'));
     }
 }

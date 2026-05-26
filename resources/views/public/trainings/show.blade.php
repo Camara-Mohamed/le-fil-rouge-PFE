@@ -63,6 +63,14 @@
     @auth
         <livewire:comments :model="$training" />
         <livewire:enrollment :model="$training" />
+
+        @if($training->isConfirmed())
+            @can('update', $training)
+                <a href="{{ route('admin.trainings.pdf', ['locale' => app()->getLocale(), 'training' => $training]) }}" target="_blank">
+                    Télécharger le récapitulatif (pdf)
+                </a>
+            @endcan
+        @endif
     @endauth
 
     // Héro + Retour

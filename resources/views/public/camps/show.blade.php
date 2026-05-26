@@ -57,6 +57,21 @@
     @auth
         <livewire:comments :model="$camp" />
         <livewire:enrollment :model="$camp" />
+
+        @if($camp->isConfirmed())
+            @can('update', $camp)
+                <a href="{{ route('admin.camps.pdf', ['locale' => app()->getLocale(), 'camp' => $camp]) }}"
+                   target="_blank">
+                    Télécharger le récapitulatif (pdf)
+                </a>
+            @endcan
+        @endif
+
+        @if($myRegister && $camp->isConfirmed())
+            <a href="{{ route('admin.camps.register.pdf', ['locale' => app()->getLocale(), 'camp' => $camp, 'register' => $myRegister]) }}" target="_blank">
+                Télécharger mon contrat (pdf)
+            </a>
+        @endif
     @endauth
 
     // Héro + Retour
