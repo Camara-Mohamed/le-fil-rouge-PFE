@@ -20,6 +20,7 @@ trait HandlesAvatar
         }
 
         $this->avatar = null;
+        $this->dispatch('toast', message: __('toast/profile.avatar_updated'), type: 'success');
     }
 
     public function deleteAvatar(): void
@@ -38,5 +39,6 @@ trait HandlesAvatar
         }
 
         $user->update(['avatar_path' => null]);
+        $this->dispatch('toast', message: __('toast/profile.avatar_deleted'), type: 'success');
     }
 }

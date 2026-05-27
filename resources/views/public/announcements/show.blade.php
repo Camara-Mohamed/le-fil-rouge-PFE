@@ -21,7 +21,9 @@
     @if($announcement->galeries->count())
         <div class="grid grid-cols-6 gap-4">
             @foreach($announcement->galeries as $galerie)
-                <img src="{{ asset('storage/' . $galerie->path) }}">
+                <a href="{{ asset('storage/' . $galerie->path) }}" data-fancybox="galerie">
+                    <img src="{{ asset('storage/' . $galerie->path) }}" alt="{{ $announcement->title }}">
+                </a>
             @endforeach
         </div>
     @endif

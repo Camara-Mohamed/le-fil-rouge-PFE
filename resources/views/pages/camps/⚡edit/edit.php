@@ -45,7 +45,7 @@ new class extends Component
 
         $this->form->update($this->camp);
 
-        session()->flash('success', 'Mis à jour');
+        $this->dispatch('toast', message: __('toast/camps.updated', ['type' => $this->camp->type->label()]), type: 'success');
     }
 
     public function deleteGalerie(int $galerieId): void
@@ -56,6 +56,10 @@ new class extends Component
 
         Storage::disk('public')->delete($galerie->path);
         $galerie->delete();
+
+        $this->camp->unsetRelation('galeries');
+
+        $this->dispatch('toast', message: __('toast/camps.image_deleted'), type: 'success');
     }
 
     public function delete(): void

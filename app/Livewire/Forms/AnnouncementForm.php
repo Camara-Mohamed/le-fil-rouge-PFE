@@ -79,7 +79,7 @@ class AnnouncementForm extends Form
             'description' => $this->description,
             'content' => $this->content,
             'details' => $this->details,
-            'published_at' => now(),
+            'published_at' => $this->published_at ?? now(),
         ];
 
         if ($this->banner) {

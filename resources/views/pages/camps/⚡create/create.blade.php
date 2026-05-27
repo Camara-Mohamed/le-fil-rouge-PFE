@@ -54,7 +54,7 @@
             <select wire:model="form.type">
                 @foreach(CampTypes::cases() as $type)
                     <option value="{{ $type->value }}">
-                        {{ $type->value }}
+                        {{ $type->label() }}
                     </option>
                 @endforeach
             </select>
@@ -96,7 +96,7 @@
             <select wire:model="form.province">
                 @foreach(Provinces::cases() as $province)
                     <option value="{{ $province->value }}">
-                        {{ $province->value }}
+                        {{ $province->label() }}
                     </option>
                 @endforeach
             </select>
@@ -120,7 +120,7 @@
                 <select wire:model="form.status">
                     @foreach(CampStatus::cases() as $status)
                         <option value="{{ $status->value }}">
-                            {{ $status->value }}
+                            {{ $status->label() }}
                         </option>
                     @endforeach
                 </select>

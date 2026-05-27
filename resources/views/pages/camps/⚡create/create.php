@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\CampTypes;
 use App\Livewire\Forms\CampForm;
 use App\Models\Camp;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -19,7 +20,9 @@ new #[Title('Ajouter un camp')] class extends Component
 
         $camp = $this->form->store(auth()->user());
 
-        session()->flash('success', 'Le camp a été créé.');
+        $type = $this->form->type === CampTypes::STAGE->value ? 'stage' : 'camp';
+
+        session()->flash('success', __('toast/camps.created', ['type' => $type]));
 
         $this->redirectRoute('admin.camps.edit', [
             'locale' => app()->getLocale(),

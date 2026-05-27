@@ -7,18 +7,14 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(
+#[Fillable([
     'notes',
     'status',
     'camp_id',
-    'user_id'
-)]
+    'user_id',
+])]
 class CampRegister extends Model
 {
-    protected $fillable = [
-        'status',
-    ];
-
     protected function casts(): array
     {
         return [

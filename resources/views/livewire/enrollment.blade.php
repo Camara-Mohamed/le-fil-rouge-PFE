@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.20s>
 
     {{-- Utilisateur stade d'inscription --}}
     @if($register === null && $canEnroll)

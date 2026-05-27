@@ -7,12 +7,11 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
-new #[Title('Modifier un membre')] class extends Component
-{
+new #[Title('Modifier un membre')]
+class extends Component {
     use AuthorizesRequests, WithFileUploads;
-
-    // TODO: Gerer le prefix @lefilrouge.com
 
     public User $member;
 
@@ -43,10 +42,11 @@ new #[Title('Modifier un membre')] class extends Component
 
     public function save(): void
     {
+        // TODO: prefix input[nom.prenom . span('@lefilrouge.com')]
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],
             'last_name' => ['required', 'min:2', 'max:255'],
-            'email' => ['required', 'email', Rule::unique('users')->ignore($this->member->id)],
+            'email' => ['required', 'email', 'unique:users,email', 'ends_with:@lefilrouge.com'],
             'role' => ['required', Rule::enum(UserRoles::class)],
             'status' => ['required', Rule::enum(UserStatus::class)],
             'phone' => ['nullable', 'string'],
@@ -63,7 +63,7 @@ new #[Title('Modifier un membre')] class extends Component
             'birth_date' => $this->birth_date,
         ]);
 
-        session()->flash('success', 'Member modifier');
+        $this->dispatch('toast', message: __('toast/members.updated', ['name' => $this->member->fullName()]), type: 'success');
     }
 
     public function render()

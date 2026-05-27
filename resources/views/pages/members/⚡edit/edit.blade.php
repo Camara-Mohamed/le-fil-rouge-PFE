@@ -1,6 +1,6 @@
-@php use
-    App\Enums\UserRoles;
-    App\Enums\UserStatus;
+@php
+    use App\Enums\UserRoles;
+    use App\Enums\UserStatus;
 @endphp
 
 <div>

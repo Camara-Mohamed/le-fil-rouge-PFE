@@ -24,7 +24,7 @@ class PasswordForm extends Form
 
     public function setUser(User $user): void
     {
-        $this->user = auth()->user();
+        $this->user = $user;
     }
 
     public function update(): void

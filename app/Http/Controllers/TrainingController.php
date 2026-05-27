@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Enums\TrainingStatus;
 use App\Models\Training;
-use App\Models\User;
 use Illuminate\Support\Carbon;
 
 class TrainingController extends Controller
@@ -48,6 +47,14 @@ class TrainingController extends Controller
 
     public function show(string $locale, Training $training)
     {
+        $user = auth()->user();
+
+        if (!$training->isPublished()) {
+            if (!$user->isAdmin() || $user->id !== $training->user_id) {
+                abort(403);
+            }
+        }
+
         return view('public.trainings.show', compact('training', 'locale'));
     }
 }

@@ -31,6 +31,11 @@ class Enrollment extends Component
             return;
         }
 
+        if ($this->model->registers()->where('user_id', $user->id)->exists()) {
+            $this->dispatch('toast', message: __('toast/enrollments.already_register'), type: 'warning');
+            return;
+        }
+
         $this->model->registers()->create([
             'user_id' => $user->id,
             'status' => RegisterStatus::PENDING,
@@ -38,6 +43,7 @@ class Enrollment extends Component
         ]);
 
         $this->notes = '';
+        $this->dispatch('toast', message: __('toast/enrollments.sent'), type: 'success');
     }
 
     public function cancel(): void
@@ -55,6 +61,8 @@ class Enrollment extends Component
         $this->model->registers()
             ->where('user_id', $user->id)
             ->delete();
+
+        $this->dispatch('toast', message: __('toast/enrollments.cancel'), type: 'info');
     }
 
     public function accept(int $registerId): void
@@ -64,6 +72,8 @@ class Enrollment extends Component
         $this->model->registers()
             ->findOrFail($registerId)
             ->update(['status' => RegisterStatus::ACCEPTED]);
+
+        $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
     }
 
     public function refuse(int $registerId): void
@@ -73,6 +83,8 @@ class Enrollment extends Component
         $this->model->registers()
             ->findOrFail($registerId)
             ->update(['status' => RegisterStatus::REFUSED]);
+
+        $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
     }
 
     public function pending(int $registerId): void
@@ -82,6 +94,8 @@ class Enrollment extends Component
         $this->model->registers()
             ->findOrFail($registerId)
             ->update(['status' => RegisterStatus::PENDING]);
+
+        $this->dispatch('toast', message: __('toast/enrollments.pending'), type: 'info');
     }
 
     public function render()

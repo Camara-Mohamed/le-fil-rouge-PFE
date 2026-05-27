@@ -9,6 +9,7 @@ use App\Enums\TrainingTypes;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -34,7 +35,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 ])]
 class Training extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected function casts(): array
     {
@@ -101,11 +102,10 @@ class Training extends Model
         return in_array($user->role->value, $this->roles);
     }
 
-    public function getFormattedPrice(): ?string
+    public function getFormattedPrice(): string
     {
-        if ($this->price == 0) {
-            // TODO : Traduire
-            return 'Gratuit';
+        if ($this->price === null || $this->price == 0) {
+            return __('general.free');
         }
 
         return number_format($this->price, 2, ',', ' ').' €';

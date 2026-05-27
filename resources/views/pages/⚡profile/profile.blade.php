@@ -126,7 +126,7 @@
             <select id="province" wire:model="address.province">
                 @foreach(Provinces::cases() as $province)
                     <option value="{{ $province->value }}">
-                        {{ $province->value }}
+                        {{ $province->label() }}
                     </option>
                 @endforeach
             </select>
@@ -148,7 +148,7 @@
             <select wire:model="diet.diet">
                 @foreach(Diets::cases() as $diet)
                     <option value="{{ $diet->value }}">
-                        {{ $diet->value }}
+                        {{ $diet->label() }}
                     </option>
                 @endforeach
             </select>
@@ -185,7 +185,7 @@
                 <select wire:model="document.type">
                     <option value="">Type de document</option>
                     @foreach(DocumentTypes::cases() as $type)
-                        <option value="{{ $type->value }}">{{ $type->value }}</option>
+                        <option value="{{ $type->value }}">{{ $type->label() }}</option>
                     @endforeach
                 </select>
                 @error('document.type') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
