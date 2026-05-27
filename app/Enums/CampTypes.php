@@ -9,6 +9,6 @@ enum CampTypes: string
 
     public function label(): string
     {
-        return __("enums.camps_types.{$this->value}");
+        return __("enums/camp_types.{$this->value}");
     }
 }

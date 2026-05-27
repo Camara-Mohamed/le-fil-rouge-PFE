@@ -9,6 +9,6 @@ enum TrainingTypes: string
 
     public function label(): string
     {
-        return __("enums.training_types.{$this->value}");
+        return __("enums/training_types.{$this->value}");
     }
 }

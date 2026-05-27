@@ -10,6 +10,6 @@ enum VolunteerRequestStatus: string
 
     public function label(): string
     {
-        return __("enums.volunteer_request_status.{$this->value}");
+        return __("enums/volunteer_request_status.{$this->value}");
     }
 }

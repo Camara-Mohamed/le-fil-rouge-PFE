@@ -18,6 +18,6 @@ enum Provinces: string
 
     public function label(): string
     {
-        return __("enums.provinces.{$this->value}");
+        return __("enums/provinces.{$this->value}");
     }
 }

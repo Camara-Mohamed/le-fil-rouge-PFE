@@ -11,6 +11,6 @@ enum TrainingStatus: string
 
     public function label(): string
     {
-        return __("enums.training_status.{$this->value}");
+        return __("enums/training_status.{$this->value}");
     }
 }
