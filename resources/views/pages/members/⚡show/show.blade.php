@@ -6,6 +6,11 @@
 @endphp
 
 <div class="flex flex-col gap-8">
+
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.members'), 'url' => route('admin.members.index', ['locale' => app()->getLocale()])],
+        ['label' => $member->fullName()],
+    ]" />
     <a href="{{ route('admin.members.index', ['locale' => app()->getLocale()]) }}">Retour</a>
 
     <div class="flex gap-6">

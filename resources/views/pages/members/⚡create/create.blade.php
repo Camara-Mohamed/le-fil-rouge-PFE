@@ -1,6 +1,14 @@
-@php use App\Enums\UserRoles; @endphp
+@php
+    use App\Enums\UserRoles;
+@endphp
 
-<form wire:submit="save" class="flex flex-col gap-4">
+<div class="flex flex-col gap-4">
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.members'), 'url' => route('admin.members.index', ['locale' => app()->getLocale()])],
+        ['label' => __('breadcrumbs.create_member')],
+    ]" />
+
+    <form wire:submit="save" class="flex flex-col gap-4">
     <div>
         <label>Prénom</label>
         <input type="text" wire:model="first_name">
@@ -46,4 +54,5 @@
         <button type="submit">Créer</button>
         <a href="{{ route('admin.members.index', ['locale' => app()->getLocale()]) }}">Annuler</a>
     </div>
-</form>
+    </form>
+</div>

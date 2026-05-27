@@ -1,6 +1,10 @@
 <x-public.app title="{{ $camp->title }}">
 
-    <a href="{{ route('public.camps.index', ['locale' => app()->getLocale()]) }}">← Retour aux formations</a>
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.home'), 'url' => route('public.home', ['locale' => app()->getLocale()])],
+        ['label' => __('breadcrumbs.camps'), 'url' => route('public.camps.index', ['locale' => app()->getLocale()])],
+        ['label' => $camp->title],
+    ]" />
 
     @if($camp->banner)
         <img src="{{ asset('storage/' . $camp->banner) }}" alt="{{ $camp->title }}">

@@ -4,7 +4,11 @@
 @endphp
 
 <div>
-    <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $member]) }}">Retour</a>
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.members'), 'url' => route('admin.members.index', ['locale' => app()->getLocale()])],
+        ['label' => $member->fullName(), 'url' => route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $member])],
+        ['label' => __('breadcrumbs.edit')],
+    ]" />
 
     @if(session('success'))
         <div class="text-green-500">{{ session('success') }}</div>

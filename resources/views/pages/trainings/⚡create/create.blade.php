@@ -4,7 +4,12 @@
     use App\Enums\TrainingTypes;
     use App\Enums\UserRoles;
 @endphp
+
 <div>
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.trainings'), 'url' => route('public.trainings.index', ['locale' => app()->getLocale()])],
+        ['label' => __('breadcrumbs.create_training')],
+    ]" />
     @if(session('success'))
         <p>{{ session('success') }}</p>
     @endif

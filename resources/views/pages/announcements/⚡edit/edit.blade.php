@@ -1,4 +1,9 @@
 <div>
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.announcements'), 'url' => route('public.announcements.index', ['locale' => app()->getLocale()])],
+        ['label' => $announcement->title, 'url' => route('public.announcements.show', ['locale' => app()->getLocale(), 'announcement' => $announcement])],
+        ['label' => __('breadcrumbs.edit')],
+    ]" />
     @if(session('success'))
         <p>{{ session('success') }}</p>
     @endif

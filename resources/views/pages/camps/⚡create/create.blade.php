@@ -4,7 +4,12 @@
     use App\Enums\CampTypes;
     use App\Enums\UserRoles;
 @endphp
+
 <div>
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.camps'), 'url' => route('public.camps.index', ['locale' => app()->getLocale()])],
+        ['label' => __('breadcrumbs.create_camp')],
+    ]" />
     @if(session('success'))
         <p>{{ session('success') }}</p>
     @endif

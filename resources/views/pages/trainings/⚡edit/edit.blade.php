@@ -6,6 +6,11 @@
 @endphp
 
 <div>
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.trainings'), 'url' => route('public.trainings.index', ['locale' => app()->getLocale()])],
+        ['label' => $training->title, 'url' => route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $training])],
+        ['label' => __('breadcrumbs.edit')],
+    ]" />
     @if(session('success'))
         <p>{{ session('success') }}</p>
     @endif
