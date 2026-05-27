@@ -88,7 +88,13 @@
                 <div>
                     <span>{{ $document->name }}</span>
                     <span>{{ $document->type }}</span>
-                    <a href="{{ Storage::disk('public')->url($document->path) }}" target="_blank">Voir</a>
+                    <a
+                        href="{{ Storage::disk('public')->url($document->path) }}"
+                        data-fancybox="member-document"
+                        data-type="iframe"
+                        data-width="900"
+                        data-height="700"
+                    >Voir</a>
                 </div>
             @endforeach
         @else
