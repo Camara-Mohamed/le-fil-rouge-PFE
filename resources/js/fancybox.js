@@ -1,7 +1,7 @@
 import {Fancybox} from '@fancyapps/ui'
 import '@fancyapps/ui/dist/fancybox/fancybox.css'
 
-export function Fancybox() {
+export function appFancyBox() {
     Fancybox.bind('[data-fancybox]')
 
     document.addEventListener('livewire:init', () => {

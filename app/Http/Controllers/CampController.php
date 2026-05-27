@@ -48,7 +48,7 @@ class CampController extends Controller
         $user = auth()->user();
 
         if (!$camp->isPublished()) {
-            if (!$user->isAdmin() || $user->id !== $camp->user_id) {
+            if (!$user || (!$user->isAdmin() && $user->id !== $camp->user_id)) {
                 abort(403);
             }
         }

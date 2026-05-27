@@ -1,7 +1,7 @@
 import Alpine from 'alpinejs'
-import { Fancybox } from './fancybox.js'
+import { appFancyBox } from './fancybox.js'
 
 window.Alpine = Alpine
 
 Alpine.start()
-Fancybox();
+appFancyBox();

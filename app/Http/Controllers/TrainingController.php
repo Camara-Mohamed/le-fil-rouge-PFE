@@ -50,7 +50,7 @@ class TrainingController extends Controller
         $user = auth()->user();
 
         if (!$training->isPublished()) {
-            if (!$user->isAdmin() || $user->id !== $training->user_id) {
+            if (!$user || (!$user->isAdmin() && $user->id !== $training->user_id)) {
                 abort(403);
             }
         }
