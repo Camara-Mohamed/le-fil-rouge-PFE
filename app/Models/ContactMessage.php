@@ -11,7 +11,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'email',
     'sujet',
     'message',
+    'read_at',
 ])]
 class ContactMessage extends Model {
     use SoftDeletes;
+
+    protected function casts(): array
+    {
+        return [
+            'read_at' => 'datetime',
+        ];
+    }
 }

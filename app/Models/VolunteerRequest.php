@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
     'phone',
     'message',
     'status',
+    'read_at',
 ])]
 class VolunteerRequest extends Model
 {
@@ -20,6 +21,7 @@ class VolunteerRequest extends Model
     {
         return [
             'status' => VolunteerRequestStatus::class,
+            'read_at' => 'datetime',
         ];
     }
 
