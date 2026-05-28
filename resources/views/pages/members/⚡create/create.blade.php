@@ -27,9 +27,13 @@
         @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
 
-    <div>
+    <div x-data="{ show: false }">
         <label>Mot de passe</label>
-        <input type="password" wire:model="password">
+        <input :type="show ? 'text' : 'password'" wire:model="password">
+        <button type="button" @click="show = !show">
+            <span x-show="!show">Afficher</span>
+            <span x-show="show">Cacher</span>
+        </button>
         @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
 

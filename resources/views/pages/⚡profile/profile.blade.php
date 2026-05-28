@@ -87,15 +87,23 @@
     </form>
 
     <form wire:submit="savePassword">
-        <div>
+        <div x-data="{ show: false }">
             <label>Mot de passe actuel</label>
-            <input type="password" wire:model="password.current_password">
+            <input :type="show ? 'text' : 'password'" wire:model="password.current_password">
+            <button type="button" @click="show = !show">
+                <span x-show="!show">Afficher</span>
+                <span x-show="show">Cacher</span>
+            </button>
             @error('password.current_password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
-        <div>
+        <div x-data="{ show: false }">
             <label>Nouveau mot de passe</label>
-            <input type="password" wire:model="password.password">
+            <input :type="show ? 'text' : 'password'" wire:model="password.password">
+            <button type="button" @click="show = !show">
+                <span x-show="!show">Afficher</span>
+                <span x-show="show">Cacher</span>
+            </button>
             @error('password.password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
