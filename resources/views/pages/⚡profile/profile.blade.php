@@ -191,7 +191,6 @@
             <div>
                 <label>Type</label>
                 <select wire:model="document.type">
-                    <option value="">Type de document</option>
                     @foreach(DocumentTypes::cases() as $type)
                         <option value="{{ $type->value }}">{{ $type->label() }}</option>
                     @endforeach

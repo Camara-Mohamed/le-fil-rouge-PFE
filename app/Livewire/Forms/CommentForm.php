@@ -15,7 +15,7 @@ class CommentForm extends Form
     {
         return [
             'content' => ['required', 'string'],
-            'document' => ['nullable', 'file', 'max:5120'],
+            'document' => ['nullable', 'file', 'max:10240'],
         ];
     }
 

@@ -7,6 +7,7 @@ use App\Mail\NewVolunteerMail;
 use App\Models\User;
 use App\Models\VolunteerRequest;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -19,8 +20,8 @@ new class extends Component
     public string $last_name  = '';
     public string $email      = '';
     public string $password   = '';
-    public string $role       = '';
-    public string $status     = '';
+    public string $role       = UserRoles::ARRIVANT->value;
+    public string $status     = UserStatus::PENDING->value;
     public string $send_to    = '';
 
     public function mount(): void
@@ -30,6 +31,13 @@ new class extends Component
         $this->first_name = $request->first_name;
         $this->last_name  = $request->last_name;
         $this->send_to    = $request->email;
+
+        // email : prenom.nom@lefilrouge.com
+        $firstName   = str_replace(' ', '', strtolower(Str::ascii($request->first_name)));
+        $lastName    = str_replace(' ', '', strtolower(Str::ascii($request->last_name)));
+        $this->email = "{$firstName}.{$lastName}@lefilrouge.com";
+
+        $this->password = Str::random(8);
     }
 
     public function close(): void
@@ -114,12 +122,21 @@ new class extends Component
             <div>
                 <label>Rôle</label>
                 <select wire:model="role">
-                    <option value="">Choisir un role</option>
                     @foreach(UserRoles::cases() as $role)
                         <option value="{{ $role->value }}">{{ $role->label() }}</option>
                     @endforeach
                 </select>
                 @error('role') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            </div>
+
+            <div>
+                <label>Statut</label>
+                <select wire:model="status">
+                    @foreach(UserStatus::cases() as $status)
+                        <option value="{{ $status->value }}">{{ $status->label() }}</option>
+                    @endforeach
+                </select>
+                @error('status') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
             <div>

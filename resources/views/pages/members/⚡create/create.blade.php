@@ -1,5 +1,6 @@
 @php
     use App\Enums\UserRoles;
+    use App\Enums\UserStatus;
 @endphp
 
 <div class="flex flex-col gap-4">
@@ -40,12 +41,21 @@
     <div>
         <label>Rôle</label>
         <select wire:model="role">
-            <option value="">Choisir un role</option>
             @foreach(UserRoles::cases() as $role)
                 <option value="{{ $role->value }}">{{ $role->label() }}</option>
             @endforeach
         </select>
         @error('role') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+    </div>
+
+    <div>
+        <label>Statut</label>
+        <select wire:model="status">
+            @foreach(UserStatus::cases() as $status)
+                <option value="{{ $status->value }}">{{ $status->label() }}</option>
+            @endforeach
+        </select>
+        @error('status') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
 
     <div>
