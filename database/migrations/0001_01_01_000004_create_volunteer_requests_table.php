@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('phone');
             $table->text('message');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }

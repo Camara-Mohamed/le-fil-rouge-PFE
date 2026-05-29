@@ -7,6 +7,7 @@ use App\Models\CampRegister;
 use App\Models\Training;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class ExportController extends Controller
@@ -14,7 +15,9 @@ class ExportController extends Controller
     use AuthorizesRequests;
     public function resumeTraining(string $locale, Training $training)
     {
-        $this->authorize('update', $training);
+        if (!Gate::allows('update', $training) && $training->user_id !== auth()->id()) {
+            abort(403);
+        }
 
         $training->load(['acceptedRegisters.user', 'pendingRegisters.user', 'refusedRegisters.user', 'user']);
 
@@ -25,7 +28,9 @@ class ExportController extends Controller
 
     public function resumeCamp(string $locale, Camp $camp)
     {
-        $this->authorize('update', $camp);
+        if (!Gate::allows('update', $camp) && $camp->user_id !== auth()->id()) {
+            abort(403);
+        }
 
         $camp->load(['acceptedRegisters.user', 'pendingRegisters.user', 'refusedRegisters.user', 'user']);
 
@@ -36,6 +41,10 @@ class ExportController extends Controller
 
     public function contract(string $locale, Camp $camp, CampRegister $register)
     {
+        if ($register->camp_id !== $camp->id) {
+            abort(404);
+        }
+
         $this->authorize('view', $camp);
 
         $register->load('user');

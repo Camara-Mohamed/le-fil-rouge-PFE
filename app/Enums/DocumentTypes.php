@@ -11,6 +11,6 @@ enum DocumentTypes: string
 
     public function label(): string
     {
-        return __("enums.document_types.{$this->value}");
+        return __("enums/document_types.{$this->value}");
     }
 }

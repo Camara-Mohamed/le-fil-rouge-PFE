@@ -14,6 +14,6 @@ enum UserRoles: string
 
     public function label(): string
     {
-        return __("enums.user_roles.{$this->value}");
+        return __("enums/user_roles.{$this->value}");
     }
 }

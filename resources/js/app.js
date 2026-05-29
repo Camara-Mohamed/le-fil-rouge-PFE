@@ -1,9 +1,7 @@
 import Alpine from 'alpinejs'
-import { Fancybox } from '@fancyapps/ui'
-import '@fancyapps/ui/dist/fancybox/fancybox.css'
+import { appFancyBox } from './fancybox.js'
 
 window.Alpine = Alpine
 
 Alpine.start()
-
-Fancybox.bind('[data-fancybox]')
+appFancyBox();

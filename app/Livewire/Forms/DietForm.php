@@ -25,7 +25,7 @@ class DietForm extends Form
 
     public function setUser(User $user): void
     {
-        $this->user = auth()->user();
+        $this->user = $user;
         $this->diet = $this->user->diet?->value;
         $this->allergies = $this->user->allergies;
     }

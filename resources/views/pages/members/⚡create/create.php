@@ -5,6 +5,8 @@ use App\Enums\UserStatus;
 use App\Mail\NewVolunteerMail;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -22,18 +24,25 @@ new #[Title('Nouveau membre')] class extends Component
 
     public string $password = '';
 
-    public string $role = '';
-    public string $status = '';
+    public string $role   = UserRoles::ARRIVANT->value;
+    public string $status = UserStatus::PENDING->value;
 
     public string $send_to = '';
 
-    // TODO: Ajouter un prefix @lefilrouge.com
+    public function mount(): void
+    {
+        $this->password = Str::random(8);
+    }
+
+    // TODO: prefix input[nom.prenom . span('@lefilrouge.com')]
     public function save(): void
     {
+        $this->authorize('create', User::class);
+
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],
             'last_name' => ['required', 'min:2', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email'],
+            'email' => ['required', 'email', 'unique:users,email', 'ends_with:@lefilrouge.com'],
             'password' => ['required', 'min:8'],
             'role' => ['required', Rule::enum(UserRoles::class)],
             'status' => ['required', Rule::enum(UserStatus::class)],

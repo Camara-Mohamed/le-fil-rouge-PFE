@@ -87,15 +87,23 @@
     </form>
 
     <form wire:submit="savePassword">
-        <div>
+        <div x-data="{ show: false }">
             <label>Mot de passe actuel</label>
-            <input type="password" wire:model="password.current_password">
+            <input :type="show ? 'text' : 'password'" wire:model="password.current_password">
+            <button type="button" @click="show = !show">
+                <span x-show="!show">Afficher</span>
+                <span x-show="show">Cacher</span>
+            </button>
             @error('password.current_password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
-        <div>
+        <div x-data="{ show: false }">
             <label>Nouveau mot de passe</label>
-            <input type="password" wire:model="password.password">
+            <input :type="show ? 'text' : 'password'" wire:model="password.password">
+            <button type="button" @click="show = !show">
+                <span x-show="!show">Afficher</span>
+                <span x-show="show">Cacher</span>
+            </button>
             @error('password.password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
@@ -126,7 +134,7 @@
             <select id="province" wire:model="address.province">
                 @foreach(Provinces::cases() as $province)
                     <option value="{{ $province->value }}">
-                        {{ $province->value }}
+                        {{ $province->label() }}
                     </option>
                 @endforeach
             </select>
@@ -148,7 +156,7 @@
             <select wire:model="diet.diet">
                 @foreach(Diets::cases() as $diet)
                     <option value="{{ $diet->value }}">
-                        {{ $diet->value }}
+                        {{ $diet->label() }}
                     </option>
                 @endforeach
             </select>
@@ -183,9 +191,8 @@
             <div>
                 <label>Type</label>
                 <select wire:model="document.type">
-                    <option value="">Type de document</option>
                     @foreach(DocumentTypes::cases() as $type)
-                        <option value="{{ $type->value }}">{{ $type->value }}</option>
+                        <option value="{{ $type->value }}">{{ $type->label() }}</option>
                     @endforeach
                 </select>
                 @error('document.type') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -197,7 +204,13 @@
             <div>
                 <span>{{ $document->name }}</span>
                 <span>{{ $document->type }}</span>
-                <a href="{{ Storage::disk('public')->url($document->path) }}" target="_blank">Voir</a>
+                <a
+                    href="{{ Storage::disk('public')->url($document->path) }}"
+                    data-fancybox="profile-document"
+                    data-type="iframe"
+                    data-width="900"
+                    data-height="700"
+                >Voir</a>
                 <button wire:click="deleteDocument({{ $document->id }})" wire:confirm="Supprimer ce document ?" type="button">
                     Supprimer
                 </button>

@@ -1,6 +1,10 @@
 <x-public.app title="{{ $announcement->title }}">
 
-    <a href="{{ route('public.announcements.index', ['locale' => app()->getLocale()]) }}">Retour</a>
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.home'), 'url' => route('public.home', ['locale' => app()->getLocale()])],
+        ['label' => __('breadcrumbs.announcements'), 'url' => route('public.announcements.index', ['locale' => app()->getLocale()])],
+        ['label' => $announcement->title],
+    ]" />
 
     @if($announcement->banner)
         <img src="{{ asset('storage/' . $announcement->banner) }}" alt="{{ $announcement->title }}">
@@ -21,7 +25,9 @@
     @if($announcement->galeries->count())
         <div class="grid grid-cols-6 gap-4">
             @foreach($announcement->galeries as $galerie)
-                <img src="{{ asset('storage/' . $galerie->path) }}">
+                <a href="{{ asset('storage/' . $galerie->path) }}" data-fancybox="galerie">
+                    <img src="{{ asset('storage/' . $galerie->path) }}" alt="{{ $announcement->title }}">
+                </a>
             @endforeach
         </div>
     @endif

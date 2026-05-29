@@ -29,7 +29,7 @@ class InfoForm extends Form
 
     public function setUser(User $user): void
     {
-        $this->user = auth()->user();
+        $this->user = $user;
         $this->first_name = $this->user->first_name;
         $this->last_name = $this->user->last_name;
         $this->phone = $this->user->phone;

@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Enums\DocumentTypes;
 use App\Models\Document;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
@@ -20,14 +21,14 @@ class DocumentForm extends Form
 
     public string $name = '';
 
-    public string $type = '';
+    public string $type = DocumentTypes::AUTRE->value;
 
     public function rules(): array
     {
         return [
-            'file' => ['required', 'file', 'max:5120'],
+            'file' => ['required', 'file', 'max:10240'],
             'name' => ['required', 'string', 'max:255'],
-            'type' => ['required', Rule::enum(DocumentTypes::class)],
+            'type' => ['nullable', Rule::enum(DocumentTypes::class)],
         ];
     }
 
@@ -51,9 +52,9 @@ class DocumentForm extends Form
         $this->reset('file', 'name', 'type');
     }
 
-    public function delete(int $id): void
+    public function delete(Document $document): void
     {
-        $document = Document::findOrFail($id);
+        Gate::authorize('delete', $document);
         Storage::disk('public')->delete($document->path);
         $document->delete();
     }

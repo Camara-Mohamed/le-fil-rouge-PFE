@@ -6,6 +6,11 @@
 @endphp
 
 <div class="flex flex-col gap-8">
+
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.members'), 'url' => route('admin.members.index', ['locale' => app()->getLocale()])],
+        ['label' => $member->fullName()],
+    ]" />
     <a href="{{ route('admin.members.index', ['locale' => app()->getLocale()]) }}">Retour</a>
 
     <div class="flex gap-6">
@@ -29,7 +34,7 @@
 
         <div>
             <h2>{{ $member->fullName() }}</h2>
-            <p>{{ $member->role->value }}</p>
+            <p>{{ $member->role->label() }}</p>
         </div>
     </div>
 
@@ -58,7 +63,7 @@
                     <p><span>Ville :</span> {{ $member->city }} {{ $member->postal_code }}</p>
                 @endif
                 @if($member->province)
-                    <p><span>Province :</span> {{ $member->province->value }}</p>
+                    <p><span>Province :</span> {{ $member->province->label() }}</p>
                 @endif
             </div>
         </section>
@@ -68,7 +73,7 @@
         <section>
             <h3>Régime alimentaire</h3>
             <ul>
-                <li><span>Régime :</span> {{ $member->diet->value }}</li>
+                <li><span>Régime :</span> {{ $member->diet->label() }}</li>
                 @if($member->allergies)
                     <li><span>Allergies :</span> {{ $member->allergies }}</li>
                 @endif
@@ -83,7 +88,13 @@
                 <div>
                     <span>{{ $document->name }}</span>
                     <span>{{ $document->type }}</span>
-                    <a href="{{ Storage::disk('public')->url($document->path) }}" target="_blank">Voir</a>
+                    <a
+                        href="{{ Storage::disk('public')->url($document->path) }}"
+                        data-fancybox="member-document"
+                        data-type="iframe"
+                        data-width="900"
+                        data-height="700"
+                    >Voir</a>
                 </div>
             @endforeach
         @else

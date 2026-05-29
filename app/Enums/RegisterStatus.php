@@ -10,6 +10,6 @@ enum RegisterStatus: string
 
     public function label(): string
     {
-        return __("enums.register_status.{$this->value}");
+        return __("enums/register_status.{$this->value}");
     }
 }

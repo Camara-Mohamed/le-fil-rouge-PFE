@@ -6,6 +6,11 @@
 @endphp
 
 <div>
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.trainings'), 'url' => route('public.trainings.index', ['locale' => app()->getLocale()])],
+        ['label' => $training->title, 'url' => route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $training])],
+        ['label' => __('breadcrumbs.edit')],
+    ]" />
     @if(session('success'))
         <p>{{ session('success') }}</p>
     @endif
@@ -57,7 +62,7 @@
             <select wire:model="form.type">
                 @foreach(TrainingTypes::cases() as $type)
                     <option value="{{ $type->value }}">
-                        {{ $type->value }}
+                        {{ $type->label() }}
                     </option>
                 @endforeach
             </select>
@@ -105,7 +110,7 @@
             <select wire:model="form.province">
                 @foreach(Provinces::cases() as $province)
                     <option value="{{ $province->value }}">
-                        {{ $province->value }}
+                        {{ $province->label() }}
                     </option>
                 @endforeach
             </select>
@@ -129,7 +134,7 @@
                 <select wire:model="form.status">
                     @foreach(TrainingStatus::cases() as $status)
                         <option value="{{ $status->value }}">
-                            {{ $status->value }}
+                            {{ $status->label() }}
                         </option>
                     @endforeach
                 </select>

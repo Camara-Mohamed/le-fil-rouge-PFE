@@ -12,7 +12,14 @@
             <p>{{ $comment->content }}</p>
 
             @if($comment->document)
-                <a href="{{ asset('storage/' . $comment->document) }}" target="_blank">
+                <!-- TODO : Est-ce que ce ne serait pas plus intéressant de lier via $comment->user_id -->
+                <a
+                    href="{{ asset('storage/' . $comment->document) }}"
+                    data-fancybox="comment-document-{{ $comment->id }}"
+                    data-type="iframe"
+                    data-width="900"
+                    data-height="700"
+                >
                     Voir le document
                 </a>
             @endif

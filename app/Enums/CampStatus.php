@@ -11,6 +11,6 @@ enum CampStatus: string
 
     public function label(): string
     {
-        return __("enums.camp_status.{$this->value}");
+        return __("enums/camp_status.{$this->value}");
     }
 }

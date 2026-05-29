@@ -1,6 +1,15 @@
-@php use App\Enums\UserRoles; @endphp
+@php
+    use App\Enums\UserRoles;
+    use App\Enums\UserStatus;
+@endphp
 
-<form wire:submit="save" class="flex flex-col gap-4">
+<div class="flex flex-col gap-4">
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.members'), 'url' => route('admin.members.index', ['locale' => app()->getLocale()])],
+        ['label' => __('breadcrumbs.create_member')],
+    ]" />
+
+    <form wire:submit="save" class="flex flex-col gap-4">
     <div>
         <label>Prénom</label>
         <input type="text" wire:model="first_name">
@@ -19,21 +28,34 @@
         @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
 
-    <div>
+    <div x-data="{ show: false }">
         <label>Mot de passe</label>
-        <input type="password" wire:model="password">
+        <input :type="show ? 'text' : 'password'" wire:model="password">
+        <button type="button" @click="show = !show">
+            <span x-show="!show">Afficher</span>
+            <span x-show="show">Cacher</span>
+        </button>
         @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
 
     <div>
         <label>Rôle</label>
         <select wire:model="role">
-            <option value="">Choisir un role</option>
             @foreach(UserRoles::cases() as $role)
                 <option value="{{ $role->value }}">{{ $role->label() }}</option>
             @endforeach
         </select>
         @error('role') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+    </div>
+
+    <div>
+        <label>Statut</label>
+        <select wire:model="status">
+            @foreach(UserStatus::cases() as $status)
+                <option value="{{ $status->value }}">{{ $status->label() }}</option>
+            @endforeach
+        </select>
+        @error('status') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
 
     <div>
@@ -46,4 +68,5 @@
         <button type="submit">Créer</button>
         <a href="{{ route('admin.members.index', ['locale' => app()->getLocale()]) }}">Annuler</a>
     </div>
-</form>
+    </form>
+</div>

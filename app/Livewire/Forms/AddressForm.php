@@ -34,7 +34,7 @@ class AddressForm extends Form
 
     public function setUser(User $user): void
     {
-        $this->user = auth()->user();
+        $this->user = $user;
         $this->address = $this->user->address ?? '';
         $this->number = $this->user->number ?? '';
         $this->city = $this->user->city ?? '';

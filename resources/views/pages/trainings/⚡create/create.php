@@ -19,7 +19,7 @@ new #[Title('Ajouter une formation')] class extends Component
 
         $training = $this->form->store(auth()->user());
 
-        session()->flash('success', 'La formation a été créée.');
+        session()->flash('success', __('toast/trainings.created'));
 
         $this->redirectRoute('admin.trainings.edit', ['locale' => app()->getLocale(), 'training' => $training]);
     }

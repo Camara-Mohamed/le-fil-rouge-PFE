@@ -1,6 +1,10 @@
 <x-public.app title="{{ $camp->title }}">
 
-    <a href="{{ route('public.camps.index', ['locale' => app()->getLocale()]) }}">← Retour aux formations</a>
+    <livewire:widgets::breadcrumb :items="[
+        ['label' => __('breadcrumbs.home'), 'url' => route('public.home', ['locale' => app()->getLocale()])],
+        ['label' => __('breadcrumbs.camps'), 'url' => route('public.camps.index', ['locale' => app()->getLocale()])],
+        ['label' => $camp->title],
+    ]" />
 
     @if($camp->banner)
         <img src="{{ asset('storage/' . $camp->banner) }}" alt="{{ $camp->title }}">
@@ -12,12 +16,7 @@
         Du {{ $camp->start_date->format('d/m/Y H:i') }}
         au {{ $camp->end_date->format('d/m/Y H:i') }}
     </p>
-    <p>{{ $camp->type }}</p>
-
-    @if($camp->price)
-        <p>Prix : {{ $camp->getFormattedPrice() }}</p>
-        {{-- TODO : Si 0 -> gratuit --}}
-    @endif
+    <p>{{ $camp->type->label() }}</p>
 
     @if($camp->participants)
         <p>
@@ -43,7 +42,9 @@
     @if($camp->galeries->count())
         <div class="grid grid-cols-6 gap-4">
             @foreach($camp->galeries as $galerie)
-                <img src="{{ asset('storage/' . $galerie->path) }}">
+                <a href="{{ asset('storage/' . $galerie->path) }}" data-fancybox="galerie">
+                    <img src="{{ asset('storage/' . $galerie->path) }}" alt="{{ $camp->title }}">
+                </a>
             @endforeach
         </div>
     @endif

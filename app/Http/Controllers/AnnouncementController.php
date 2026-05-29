@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
+use App\Models\User;
 
 class AnnouncementController extends Controller
 {
@@ -24,8 +25,14 @@ class AnnouncementController extends Controller
         return view('public.announcements.index', compact('announcements'));
     }
 
-    public function show(string $locale, Announcement $announcement)
+    public function show(string $locale, Announcement $announcement, User $user)
     {
+        if (is_null($announcement->published_at)) {
+            if ($user?->isAdmin()){
+                abort(403);
+            }
+        }
+
         return view('public.announcements.show', compact('announcement', 'locale'));
     }
 }

@@ -6,6 +6,7 @@ use App\Livewire\Forms\DocumentForm;
 use App\Livewire\Forms\EmailForm;
 use App\Livewire\Forms\InfoForm;
 use App\Livewire\Forms\PasswordForm;
+use App\Models\Document;
 use App\Traits\HandlesAvatar;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\Title;
@@ -14,9 +15,7 @@ use Livewire\WithFileUploads;
 
 new #[Title('Mon Profil')] class extends Component
 {
-    use AuthorizesRequests;
-    use HandlesAvatar;
-    use WithFileUploads;
+    use AuthorizesRequests , HandlesAvatar, WithFileUploads;
 
     public InfoForm $info;
 
@@ -49,47 +48,43 @@ new #[Title('Mon Profil')] class extends Component
     public function saveInfo(): void
     {
         $this->info->update();
-        session()->flash('success', 'Info mis à jour');
+        $this->dispatch('toast', message: __('toast/profile.info_updated'), type: 'success');
     }
 
     public function saveEmail(): void
     {
         $this->email->update();
-        session()->flash('success', 'Mail mis à jour');
+        $this->dispatch('toast', message: __('toast/profile.email_updated'), type: 'success');
     }
 
     public function savePassword(): void
     {
         $this->password->update();
-        session()->flash('success', 'Mdp mis à jour');
+        $this->dispatch('toast', message: __('toast/profile.password_updated'), type: 'success');
     }
 
     public function saveAddress(): void
     {
         $this->address->update();
-        session()->flash('success', 'Adresse mis à jour');
+        $this->dispatch('toast', message: __('toast/profile.address_updated'), type: 'success');
     }
 
     public function saveDiet(): void
     {
         $this->diet->update();
-        session()->flash('success', 'Regime mis à jour');
+        $this->dispatch('toast', message: __('toast/profile.diet_updated'), type: 'success');
     }
 
     public function uploadDocument(): void
     {
         $this->document->upload();
-        session()->flash('success', 'Document ajouté.');
-
-        // Notification
+        $this->dispatch('toast', message: __('toast/profile.doc_added'), type: 'success');
     }
 
-    public function deleteDocument(int $id): void
+    public function deleteDocument(Document $document): void
     {
-        $this->document->delete($id);
-        session()->flash('success', 'Document supprimé.');
-
-        // Notification
+        $this->document->delete($document);
+        $this->dispatch('toast', message: __('toast/profile.doc_deleted'), type: 'success');
     }
 
     public function render()

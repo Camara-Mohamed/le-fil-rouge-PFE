@@ -15,6 +15,6 @@ enum Diets: string
 
     public function label(): string
     {
-        return __("enums.diets.{$this->value}");
+        return __("enums/diets.{$this->value}");
     }
 }

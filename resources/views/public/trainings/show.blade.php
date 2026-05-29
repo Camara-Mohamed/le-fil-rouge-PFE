@@ -1,12 +1,10 @@
 <x-public.app title="{{ $training->title }}">
 
-    <a href="{{ route('public.trainings.index', ['locale' => app()->getLocale()]) }}">← Retour aux formations</a>
-
     <livewire:widgets::breadcrumb :items="[
-    ['label' => 'Accueil', 'url' => route('public.home', ['locale' => app()->getLocale()])],
-    ['label' => 'Formations', 'url' => route('public.trainings.index', ['locale' => app()->getLocale()])],
-    ['label' => $training->title],
-]" />
+        ['label' => __('breadcrumbs.home'), 'url' => route('public.home', ['locale' => app()->getLocale()])],
+        ['label' => __('breadcrumbs.trainings'), 'url' => route('public.trainings.index', ['locale' => app()->getLocale()])],
+        ['label' => $training->title],
+    ]" />
 
     @if($training->banner)
         <img src="{{ asset('storage/' . $training->banner) }}" alt="{{ $training->title }}">
@@ -18,11 +16,10 @@
         Du {{ $training->start_date->format('d/m/Y H:i') }}
         au {{ $training->end_date->format('d/m/Y H:i') }}
     </p>
-    <p>{{ $training->type }}</p>
+    <p>{{ $training->type->label() }}</p>
 
-    @if($training->price)
+    @if($training->price !== null)
         <p>Prix : {{ $training->getFormattedPrice() }}</p>
-        {{-- TODO : Si 0 -> gratuit --}}
     @endif
 
     @if($training->participants)
@@ -49,7 +46,9 @@
     @if($training->galeries->count())
         <div class="grid grid-cols-6 gap-4">
             @foreach($training->galeries as $galerie)
-                <img src="{{ asset('storage/' . $galerie->path) }}">
+                <a href="{{ asset('storage/' . $galerie->path) }}" data-fancybox="galerie">
+                    <img src="{{ asset('storage/' . $galerie->path) }}" alt="{{ $training->title }}">
+                </a>
             @endforeach
         </div>
     @endif

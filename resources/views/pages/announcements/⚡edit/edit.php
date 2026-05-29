@@ -24,7 +24,6 @@ new class extends Component {
             'description' => $this->announcement->description,
             'details' => $this->announcement->details,
             'content' => $this->announcement->content,
-            // TODO : voir pour notre utc
             'published_at' => $announcement->published_at?->format('Y-m-d\TH:i'),
         ]);
     }
@@ -35,9 +34,7 @@ new class extends Component {
 
         $this->form->update($this->announcement);
 
-        // TODO : arranger
-        $this->dispatch('toast', message: 'Mise à jour.', type: 'success');
-        session()->flash('success', 'Mise à jour.');
+        $this->dispatch('toast', message: __('toast/announcements.updated'), type: 'success');
     }
 
     public function delete(): void
@@ -45,6 +42,8 @@ new class extends Component {
         $this->authorize('delete', $this->announcement);
 
         $this->announcement->delete();
+
+        session()->flash('success', __('toast/announcements.deleted'));
 
         $this->redirectRoute('public.announcements.index', ['locale' => app()->getLocale()]);
     }
@@ -57,6 +56,10 @@ new class extends Component {
 
         Storage::disk('public')->delete($galerie->path);
         $galerie->delete();
+
+        $this->announcement->unsetRelation('galeries');
+
+        $this->dispatch('toast', message: __('toast/announcements.image_deleted'), type: 'success');
     }
 
     public function render()

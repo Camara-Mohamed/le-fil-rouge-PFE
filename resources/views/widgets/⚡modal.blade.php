@@ -13,6 +13,7 @@ new class extends Component {
     public function open(array $payload): void
     {
         $this->current = $payload['form'];
+        $this->key = uniqid();
         $this->model_id = $payload['model_id'];
         $this->model_type = $payload['model_type'];
     }
@@ -21,7 +22,7 @@ new class extends Component {
     public function close(): void
     {
         $this->current = null;
-        $this->model_id = null;
+        $this->model_id = '';
         $this->model_type = null;
     }
 

@@ -24,7 +24,7 @@ new #[Title('Ajouter une actualité')] class extends Component
 
         Notification::send(User::all(), new AnnouncementNotification($announcement));
 
-        session()->flash('success', 'Une actualité à ete créee');
+        session()->flash('success', __('toast/announcements.created'));
 
         $this->redirectRoute('admin.announcements.edit', [
             'locale' => app()->getLocale(),

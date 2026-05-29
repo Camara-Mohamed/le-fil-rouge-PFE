@@ -46,7 +46,7 @@ new class extends Component
 
         $this->form->update($this->training);
 
-        session()->flash('success', 'Mise à jour.');
+        $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'success');
     }
 
     public function delete(): void
@@ -66,6 +66,10 @@ new class extends Component
 
         Storage::disk('public')->delete($galerie->path);
         $galerie->delete();
+
+        $this->training->unsetRelation('galeries');
+
+        $this->dispatch('toast', message: __('toast/trainings.image_deleted'), type: 'success');
     }
 
     public function render()

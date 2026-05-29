@@ -14,13 +14,13 @@ class EmailForm extends Form
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'unique:users,email'],
         ];
     }
 
     public function setUser(User $user): void
     {
-        $this->user = auth()->user();
+        $this->user = $user;
         $this->email = $this->user->email;
     }
 
