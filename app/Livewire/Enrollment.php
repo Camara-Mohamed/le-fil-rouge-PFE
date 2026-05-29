@@ -6,6 +6,7 @@ use App\Enums\RegisterStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\Locked;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Enrollment extends Component
@@ -46,6 +47,15 @@ class Enrollment extends Component
         $this->dispatch('toast', message: __('toast/enrollments.sent'), type: 'success');
     }
 
+    public function openCancelModal(string $status): void
+    {
+        $this->dispatch('open_modal', [
+            'form'       => 'modals::enrollment.confirm-cancel',
+            'model_id'   => '',
+            'model_type' => $status,
+        ]);
+    }
+
     public function cancel(): void
     {
         $user = auth()->user();
@@ -63,6 +73,12 @@ class Enrollment extends Component
             ->delete();
 
         $this->dispatch('toast', message: __('toast/enrollments.cancel'), type: 'info');
+    }
+
+    #[On('enrollment_cancel_confirmed')]
+    public function cancelConfirmed(): void
+    {
+        $this->cancel();
     }
 
     public function accept(int $registerId): void

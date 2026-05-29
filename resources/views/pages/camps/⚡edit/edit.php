@@ -4,6 +4,7 @@ use App\Livewire\Forms\CampForm;
 use App\Models\Camp;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -69,6 +70,30 @@ new class extends Component
         $this->camp->delete();
 
         $this->redirectRoute('public.camps.index', ['locale' => app()->getLocale()]);
+    }
+
+    public function openConfirmDeleteModal(): void
+    {
+        $this->dispatch('open_modal', payload: [
+            'form'       => 'modals::camps.confirm-delete',
+            'model_id'   => (string) $this->camp->id,
+            'model_type' => 'camp',
+        ]);
+    }
+
+    public function openConfirmDeleteGalerieModal(int $galerieId): void
+    {
+        $this->dispatch('open_modal', payload: [
+            'form'       => 'modals::camps.confirm-delete-galerie',
+            'model_id'   => (string) $galerieId,
+            'model_type' => 'galerie',
+        ]);
+    }
+
+    #[On('galerie_deleted')]
+    public function onGalerieDeleted(): void
+    {
+        $this->camp->unsetRelation('galeries');
     }
 
     public function render()

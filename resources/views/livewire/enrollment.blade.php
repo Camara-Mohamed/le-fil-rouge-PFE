@@ -14,7 +14,7 @@
             <p>Notes : {{ $register->notes }}</p>
         @endif
         @if($canCancel)
-            <button wire:click="cancel" wire:confirm="Ne plus s'inscrire ?">
+            <button wire:click="openCancelModal('pending')">
                 Ne plus s'inscrire
             </button>
         @endif
@@ -25,7 +25,7 @@
             <p>Notes : {{ $register->notes }}</p>
         @endif
         @if($canCancel)
-            <button wire:click="cancel" wire:confirm="Se désinscrire ?">
+            <button wire:click="openCancelModal('accepted')">
                 Se désinscrire
             </button>
         @endif

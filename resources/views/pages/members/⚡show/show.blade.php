@@ -92,8 +92,8 @@
                         href="{{ Storage::disk('public')->url($document->path) }}"
                         data-fancybox="member-document"
                         data-type="iframe"
-                        data-width="900"
-                        data-height="700"
+                        data-width="1000"
+                        data-height="900"
                     >Voir</a>
                 </div>
             @endforeach
@@ -106,7 +106,7 @@
         <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(), 'member' => $member]) }}">Modifier</a>
 
         @can('delete', $member)
-            <button wire:click="delete" wire:confirm="Supprimer ce membre ?">Supprimer</button>
+            <button type="button" wire:click="openConfirmDeleteModal">Supprimer</button>
         @endcan
     </div>
 

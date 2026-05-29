@@ -154,8 +154,7 @@
                         <img src="{{ asset('storage/'.$galerie->path) }}">
                         <button
                             type="button"
-                            wire:click="deleteGalerie({{ $galerie->id }})"
-                            wire:confirm="Supprimer"
+                            wire:click="openConfirmDeleteGalerieModal({{ $galerie->id }})"
                         >Supprimer
                         </button>
                     </div>
@@ -178,8 +177,6 @@
     </form>
 
     @can('delete', $camp)
-        <button wire:click="delete" wire:confirm="Supprimer la formation ?" type="button">
-            Supprimer
-        </button>
+        <button type="button" wire:click="openConfirmDeleteModal">Supprimer</button>
     @endcan
 </div>

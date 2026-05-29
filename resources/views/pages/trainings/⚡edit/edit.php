@@ -3,6 +3,7 @@
 use App\Livewire\Forms\TrainingForm;
 use App\Models\Training;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
@@ -70,6 +71,30 @@ new class extends Component
         $this->training->unsetRelation('galeries');
 
         $this->dispatch('toast', message: __('toast/trainings.image_deleted'), type: 'success');
+    }
+
+    public function openConfirmDeleteModal(): void
+    {
+        $this->dispatch('open_modal', payload: [
+            'form'       => 'modals::trainings.confirm-delete',
+            'model_id'   => (string) $this->training->id,
+            'model_type' => 'training',
+        ]);
+    }
+
+    public function openConfirmDeleteGalerieModal(int $galerieId): void
+    {
+        $this->dispatch('open_modal', payload: [
+            'form'       => 'modals::trainings.confirm-delete-galerie',
+            'model_id'   => (string) $galerieId,
+            'model_type' => 'galerie',
+        ]);
+    }
+
+    #[On('galerie_deleted')]
+    public function onGalerieDeleted(): void
+    {
+        $this->training->unsetRelation('galeries');
     }
 
     public function render()

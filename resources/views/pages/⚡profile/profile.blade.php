@@ -208,10 +208,10 @@
                     href="{{ Storage::disk('public')->url($document->path) }}"
                     data-fancybox="profile-document"
                     data-type="iframe"
-                    data-width="900"
-                    data-height="700"
+                    data-width="1000"
+                    data-height="900"
                 >Voir</a>
-                <button wire:click="deleteDocument({{ $document->id }})" wire:confirm="Supprimer ce document ?" type="button">
+                <button type="button" wire:click="openConfirmDeleteDocumentModal({{ $document->id }})">
                     Supprimer
                 </button>
             </div>

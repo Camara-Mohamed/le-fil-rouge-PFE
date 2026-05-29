@@ -52,25 +52,19 @@
                         @if ($message->type === 'volunteer')
 
                             @if ($message->status !== VolunteerRequestStatus::REJECTED)
-                                <button
-                                    wire:click="rejectVolunteer({{ $message->id }})"
-                                    wire:confirm="Refuser la demande ?"
-                                >
+                                <button type="button" wire:click="openRefuseModal({{ $message->id }})">
                                     Refuser
                                 </button>
                             @endif
 
                             @if ($message->status === VolunteerRequestStatus::PENDING)
-                                <button wire:click="openCreateMember({{ $message->id }})">
+                                <button type="button" wire:click="openCreateMember({{ $message->id }})">
                                     Créer un compte
                                 </button>
                             @endif
 
                             @if ($message->status !== VolunteerRequestStatus::PENDING)
-                                <button
-                                    wire:click="resetToPending({{ $message->id }})"
-                                    wire:confirm="Remettre la demande en attente ?"
-                                >
+                                <button type="button" wire:click="openResetPendingModal({{ $message->id }})">
                                     Remettre en attente
                                 </button>
                             @endif

@@ -5,6 +5,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
+
 new class extends Component
 {
     use AuthorizesRequests, WithFileUploads;
@@ -19,6 +20,15 @@ new class extends Component
 
         $this->redirectRoute('admin.members.index', [
             'locale' => app()->getLocale(),
+        ]);
+    }
+
+    public function openConfirmDeleteModal(): void
+    {
+        $this->dispatch('open_modal', payload: [
+            'form'       => 'modals::members.confirm-delete',
+            'model_id'   => (string) $this->member->id,
+            'model_type' => 'member',
         ]);
     }
 

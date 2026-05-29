@@ -44,8 +44,32 @@ new #[Title('Les messages')] class extends Component
         ]);
     }
 
+    public function openRefuseModal(int $id): void
+    {
+        $this->dispatch('open_modal', payload: [
+            'form'       => 'modals::volunteer.confirm-refuse',
+            'model_id'   => (string) $id,
+            'model_type' => 'volunteer',
+        ]);
+    }
+
+    public function openResetPendingModal(int $id): void
+    {
+        $this->dispatch('open_modal', payload: [
+            'form'       => 'modals::volunteer.confirm-reset-pending',
+            'model_id'   => (string) $id,
+            'model_type' => 'volunteer',
+        ]);
+    }
+
     #[On('volunteer_accepted')]
     public function onVolunteerAccepted(): void {}
+
+    #[On('volunteer_rejected')]
+    public function onVolunteerRejected(): void {}
+
+    #[On('volunteer_reset')]
+    public function onVolunteerReset(): void {}
 
     public function render()
     {

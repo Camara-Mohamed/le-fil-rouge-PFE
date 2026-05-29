@@ -9,6 +9,7 @@ use App\Livewire\Forms\PasswordForm;
 use App\Models\Document;
 use App\Traits\HandlesAvatar;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -81,11 +82,17 @@ new #[Title('Mon Profil')] class extends Component
         $this->dispatch('toast', message: __('toast/profile.doc_added'), type: 'success');
     }
 
-    public function deleteDocument(Document $document): void
+    public function openConfirmDeleteDocumentModal(int $id): void
     {
-        $this->document->delete($document);
-        $this->dispatch('toast', message: __('toast/profile.doc_deleted'), type: 'success');
+        $this->dispatch('open_modal', payload: [
+            'form'       => 'modals::documents.confirm-delete',
+            'model_id'   => (string) $id,
+            'model_type' => 'document',
+        ]);
     }
+
+    #[On('document_deleted')]
+    public function onDocumentDeleted(): void {}
 
     public function render()
     {

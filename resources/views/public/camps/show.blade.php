@@ -81,4 +81,6 @@
 
     // Galéries
 
+    <livewire:widgets::modal />
+
 </x-public.app>
