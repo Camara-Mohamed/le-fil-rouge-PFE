@@ -102,6 +102,32 @@
         @endif
     </section>
 
+    <section>
+        <h3>Formations</h3>
+        @forelse($trainingRegisters as $register)
+            <div wire:key="training-register-{{ $register->id }}">
+                <p>{{ $register->training->title }}</p>
+                <p>{{ $register->training->start_date->format('d/m/Y') }}</p>
+                <p>{{ $register->status->label() }}</p>
+            </div>
+        @empty
+            <p>Aucune formation</p>
+        @endforelse
+    </section>
+
+    <section>
+        <h3>Camps</h3>
+        @forelse($campRegisters as $register)
+            <div wire:key="camp-register-{{ $register->id }}">
+                <p>{{ $register->camp->title }}</p>
+                <p>{{ $register->camp->start_date->format('d/m/Y') }}</p>
+                <p>{{ $register->status->label() }}</p>
+            </div>
+        @empty
+            <p>Aucun camp</p>
+        @endforelse
+    </section>
+
     <div>
         <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(), 'member' => $member]) }}">Modifier</a>
 

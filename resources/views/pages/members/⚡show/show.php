@@ -34,7 +34,9 @@ new class extends Component
 
     public function render()
     {
-        return view('pages.members.⚡show.show')
-            ->title($this->member->fullName());
+        return view('pages.members.⚡show.show', [
+            'trainingRegisters' => $this->member->trainingRegisters()->with('training')->latest()->get(),
+            'campRegisters'     => $this->member->campRegisters()->with('camp')->latest()->get(),
+        ])->title($this->member->fullName());
     }
 };
