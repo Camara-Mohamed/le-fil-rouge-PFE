@@ -11,4 +11,5 @@ return [
     'create_training'     => 'Créer une nouvelle formation',
     'announcements'       => 'Les Actualités',
     'create_announcement' => 'Ajouter une nouvelle actualité',
+    'messages'            => 'Les Messages',
 ];

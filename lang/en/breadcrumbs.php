@@ -11,4 +11,5 @@ return [
     'create_training'     => 'Create a new training',
     'announcements'       => 'The News',
     'create_announcement' => 'Add a new article',
+    'messages'            => 'The Messages',
 ];

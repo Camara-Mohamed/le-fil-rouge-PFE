@@ -9,8 +9,10 @@ use App\Enums\UserStatus;
 use App\Models\Announcement;
 use App\Models\Camp;
 use App\Models\Comment;
+use App\Models\ContactMessage;
 use App\Models\Training;
 use App\Models\User;
+use App\Models\VolunteerRequest;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -112,5 +114,9 @@ class DatabaseSeeder extends Seeder
         Announcement::factory()->count(20)->create();
 
         Comment::factory()->count(20)->create();
+
+        ContactMessage::factory()->count(10)->create();
+
+        VolunteerRequest::factory()->count(6)->create();
     }
 }
