@@ -3,7 +3,7 @@
     <h3>Les commentaires :</h3>
 
     @forelse($comments as $comment)
-        <div class="flex flex-col gap-4">
+        <div wire:key="comment-{{ $comment->id }}" class="flex flex-col gap-4">
             <div>
                 <h4 class="{{ $comment->is_admin ? 'text-red-mid' : '' }}">{{ $comment->user->fullName() }}</h4>
                 <p>{{ $comment->created_at->diffForHumans() }}</p>

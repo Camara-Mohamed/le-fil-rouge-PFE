@@ -47,7 +47,7 @@
         <h3>En attente ({{ $pending->count() }})</h3>
         @forelse($pending as $registrant)
 
-            <table>
+            <table wire:key="pending-{{ $registrant->id }}">
                 <thead>
                 <tr>
                     <th>Nom</th>
@@ -100,7 +100,7 @@
         <h3>Acceptés ({{ $accepted->count() }})</h3>
         @forelse($accepted as $registrant)
 
-            <table>
+            <table wire:key="accepted-{{ $registrant->id }}">
                 <thead>
                 <tr>
                     <th>Nom</th>
@@ -146,7 +146,7 @@
         <h3>Refusés ({{ $refused->count() }})</h3>
         @forelse($refused as $registrant)
 
-            <table>
+            <table wire:key="refused-{{ $registrant->id }}">
                 <thead>
                 <tr>
                     <th>Nom</th>
@@ -202,7 +202,7 @@
 
         @forelse($accepted as $registrant)
 
-            <table>
+            <table wire:key="participant-{{ $registrant->id }}">
                 <thead>
                 <tr>
                     <th>Nom</th>

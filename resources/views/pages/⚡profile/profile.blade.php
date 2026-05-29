@@ -201,7 +201,7 @@
         </form>
 
         @forelse($documents as $document)
-            <div>
+            <div wire:key="document-{{ $document->id }}">
                 <span>{{ $document->name }}</span>
                 <span>{{ $document->type }}</span>
                 <a

@@ -156,7 +156,7 @@
             @if($form->galeries)
                 <div class="grid grid-cols-6 gap-4">
                     @foreach($form->galeries as $galerie)
-                            <img src="{{ $galerie->temporaryUrl() }}">
+                        <img src="{{ $galerie->temporaryUrl() }}">
                     @endforeach
                 </div>
             @endif

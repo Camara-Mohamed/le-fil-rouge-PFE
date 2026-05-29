@@ -45,7 +45,7 @@
                 $initials = strtoupper($member->first_name[0] . $member->last_name[0]);
             @endphp
 
-            <tr>
+            <tr wire:key="member-{{ $member->id }}">
                 <td class="px-4 py-2">
 
                     @if($member->avatar_path)

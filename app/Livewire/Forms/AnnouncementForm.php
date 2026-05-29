@@ -96,5 +96,8 @@ class AnnouncementForm extends Form
         }
 
         $announcement->update($data);
+
+        $this->banner = null;
+        $this->galeries = [];
     }
 }
