@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-8 p-8" wire:poll.30s>
+<div class="flex flex-col gap-8 p-8" wire:poll.10s>
 
     @if(auth()->user()->isIncomplete())
         <div>
@@ -32,6 +32,11 @@
                 <a href="{{ route('admin.announcements.create', ['locale' => app()->getLocale()]) }}">Ajouter une actualité</a>
             @endcan
         </div>
+    </section>
+
+    <section class="flex flex-col gap-4" wire:ignore>
+        <h2>Mon Calendrier</h2>
+        <div x-data="dashboardCalendar(@js($calendarEvents), '{{ app()->getLocale() }}')"></div>
     </section>
 
     @isset($pendingTrainingRegisters)

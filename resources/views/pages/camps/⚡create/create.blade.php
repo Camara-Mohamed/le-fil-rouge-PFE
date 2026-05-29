@@ -119,7 +119,7 @@
             @error('form.roles') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </fieldset>
 
-        @can('manage-camp')
+        @can('change-status')
             <div>
                 <label>Statut</label>
                 <select wire:model="form.status">
