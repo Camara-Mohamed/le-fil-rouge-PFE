@@ -125,7 +125,7 @@
             @error('form.roles') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </fieldset>
 
-        @can('manage-training')
+        @can('change-status')
             <div>
                 <label>Statut</label>
                 <select wire:model="form.status">
@@ -156,7 +156,7 @@
             @if($form->galeries)
                 <div class="grid grid-cols-6 gap-4">
                     @foreach($form->galeries as $galerie)
-                            <img src="{{ $galerie->temporaryUrl() }}">
+                        <img src="{{ $galerie->temporaryUrl() }}">
                     @endforeach
                 </div>
             @endif

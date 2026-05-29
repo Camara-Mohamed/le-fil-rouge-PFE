@@ -47,6 +47,9 @@
             @if($announcement->banner)
                 <img src="{{ asset('storage/' . $announcement->banner) }}" class="w-32 h-32 object-cover">
             @endif
+            @if($form->banner)
+                <img src="{{ $form->banner->temporaryUrl() }}">
+            @endif
             <input type="file" wire:model="form.banner" accept="image/*">
             @error('form.banner') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
@@ -56,7 +59,7 @@
 
             @if($announcement->galeries)
                 @foreach($announcement->galeries as $galerie)
-                    <div class="grid grid-cols-6 gap-4">
+                    <div wire:key="galerie-{{ $galerie->id }}" class="grid grid-cols-6 gap-4">
                         <img src="{{ asset('storage/'.$galerie->path) }}">
                         <button
                             type="button"
@@ -67,18 +70,16 @@
                 @endforeach
             @endif
 
-
             <input type="file" wire:model="form.galeries" multiple accept="image/*">
             @error('form.galeries.*') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
-
-            {{--@if($form->galeries)
+            @if($form->galeries)
                 <div class="grid grid-cols-6 gap-4">
                     @foreach($form->galeries as $galerie)
                         <img src="{{ $galerie->temporaryUrl() }}">
                     @endforeach
                 </div>
-            @endif--}}
+            @endif
         </div>
 
         <button type="submit">Enregistrer</button>

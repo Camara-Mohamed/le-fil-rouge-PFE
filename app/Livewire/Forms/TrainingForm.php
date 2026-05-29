@@ -159,5 +159,8 @@ class TrainingForm extends Form
         }
 
         $training->update($data);
+
+        $this->banner = null;
+        $this->galeries = [];
     }
 }

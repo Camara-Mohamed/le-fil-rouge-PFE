@@ -43,6 +43,9 @@
 
         <div>
             <label>Bannière</label>
+            @if($form->banner)
+                <img src="{{ $form->banner->temporaryUrl() }}">
+            @endif
             <input type="file" wire:model="form.banner" accept="image/*">
             @error('form.banner') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>

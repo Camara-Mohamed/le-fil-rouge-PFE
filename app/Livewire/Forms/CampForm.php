@@ -154,5 +154,8 @@ class CampForm extends Form
         }
 
         $camp->update($data);
+
+        $this->banner = null;
+        $this->galeries = [];
     }
 }
