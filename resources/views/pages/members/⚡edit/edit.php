@@ -47,6 +47,14 @@ class extends Component {
 
     public function save(): void
     {
+        if ($this->role !== $this->member->role->value) {
+            $this->authorize('changeRole', $this->member);
+        }
+
+        if ($this->status !== $this->member->status->value) {
+            $this->authorize('changeStatus', $this->member);
+        }
+
         // TODO: prefix input[nom.prenom . span('@lefilrouge.com')]
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],

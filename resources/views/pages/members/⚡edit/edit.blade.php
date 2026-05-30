@@ -33,6 +33,7 @@
             @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
+        @can('changeRole', $member)
         <div>
             <label>Rôle</label>
             <select wire:model="role">
@@ -42,6 +43,7 @@
             </select>
             @error('role') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
+        @endcan
 
         <div>
             <label>Téléphone</label>
@@ -55,6 +57,7 @@
             @error('birth_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
+        @can('changeStatus', $member)
         <div>
             <label>Statut</label>
             <select wire:model="status">
@@ -64,6 +67,7 @@
             </select>
             @error('status') <p>{{ $message }}</p> @enderror
         </div>
+        @endcan
 
         <div>
             <button type="submit">Enregistrer</button>
