@@ -31,7 +31,8 @@ new #[Title('Les membres')] class extends Component
 
     public function render()
     {
-        $query = User::query();
+        $query = User::query()
+            ->where('id', '!=', auth()->id());
 
         if ($this->search) {
             $query->where(function ($query) {

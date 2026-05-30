@@ -30,6 +30,11 @@ class extends Component {
 
     public function mount(User $member): void
     {
+        if ($member->id === auth()->id()) {
+            $this->redirectRoute('admin.profile', ['locale' => app()->getLocale()]);
+            return;
+        }
+
         $this->member = $member;
         $this->first_name = $member->first_name;
         $this->last_name = $member->last_name;

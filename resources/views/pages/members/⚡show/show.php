@@ -12,6 +12,13 @@ new class extends Component
 
     public User $member;
 
+    public function mount(User $member): void
+    {
+        if ($member->id === auth()->id()) {
+            $this->redirectRoute('admin.profile', ['locale' => app()->getLocale()]);
+        }
+    }
+
     public function delete(): void
     {
         $this->authorize('delete', $this->member);
