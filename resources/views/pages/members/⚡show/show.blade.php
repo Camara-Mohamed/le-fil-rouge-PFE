@@ -132,7 +132,11 @@
         <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(), 'member' => $member]) }}">Modifier</a>
 
         @can('delete', $member)
-            <button type="button" wire:click="openConfirmDeleteModal">Supprimer</button>
+            <button type="button" wire:click="openConfirmDeleteModal">Archiver</button>
+        @endcan
+
+        @can('forceDelete', $member)
+            <button type="button" wire:click="openConfirmForceDeleteModal">Supprimer définitivement</button>
         @endcan
     </div>
 

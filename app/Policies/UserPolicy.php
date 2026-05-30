@@ -36,12 +36,12 @@ class UserPolicy
 
     public function restore(User $user, User $model): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
     public function forceDelete(User $user, User $model): bool
     {
-        return false;
+        return $user->isAdmin() && $user->id !== $model->id;
     }
 
     public function changeRole(User $user, User $model): bool

@@ -29,10 +29,30 @@ new class extends Component
         ]);
     }
 
+    public function forceDelete(): void
+    {
+        $this->authorize('forceDelete', $this->member);
+
+        $this->member->forceDelete();
+
+        $this->redirectRoute('admin.members.index', [
+            'locale' => app()->getLocale(),
+        ]);
+    }
+
     public function openConfirmDeleteModal(): void
     {
         $this->dispatch('open_modal', payload: [
             'form' => 'modals::members.confirm-delete',
+            'model_id' => (string) $this->member->id,
+            'model_type' => 'member',
+        ]);
+    }
+
+    public function openConfirmForceDeleteModal(): void
+    {
+        $this->dispatch('open_modal', payload: [
+            'form' => 'modals::members.confirm-force-delete',
             'model_id' => (string) $this->member->id,
             'model_type' => 'member',
         ]);

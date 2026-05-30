@@ -6,6 +6,7 @@ use App\Enums\VolunteerRequestStatus;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable([
     'first_name',
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 ])]
 class VolunteerRequest extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected function casts(): array
     {

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('document')->nullable();
             $table->boolean('is_admin')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

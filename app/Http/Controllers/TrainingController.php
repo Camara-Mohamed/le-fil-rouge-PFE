@@ -54,6 +54,8 @@ class TrainingController extends Controller
             }
         }
 
+        $training->load('galeries');
+
         return view('public.trainings.show', compact('training', 'locale'));
     }
 }

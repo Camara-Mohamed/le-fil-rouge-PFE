@@ -33,6 +33,8 @@ class AnnouncementController extends Controller
             }
         }
 
+        $announcement->load('galeries');
+
         return view('public.announcements.show', compact('announcement', 'locale'));
     }
 }
