@@ -34,8 +34,8 @@ return [
     'component_namespaces' => [
         'layouts' => resource_path('views/layouts'),
         'pages' => resource_path('views/pages'),
-        'widgets'=> resource_path('views/widgets'),
-        'modals'  => resource_path('views/modals'),
+        'widgets' => resource_path('views/widgets'),
+        'modals' => resource_path('views/modals'),
     ],
 
     /*

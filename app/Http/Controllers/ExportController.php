@@ -13,9 +13,10 @@ use Illuminate\Support\Str;
 class ExportController extends Controller
 {
     use AuthorizesRequests;
+
     public function resumeTraining(string $locale, Training $training)
     {
-        if (!Gate::allows('update', $training) && $training->user_id !== auth()->id()) {
+        if (! Gate::allows('update', $training) && $training->user_id !== auth()->id()) {
             abort(403);
         }
 
@@ -23,12 +24,12 @@ class ExportController extends Controller
 
         $pdf = Pdf::loadView('pdf.training-resume', compact('training'));
 
-        return $pdf->download("resume-training-".Str::slug($training->title)."-{$training->id}.pdf");
+        return $pdf->download('resume-training-'.Str::slug($training->title)."-{$training->id}.pdf");
     }
 
     public function resumeCamp(string $locale, Camp $camp)
     {
-        if (!Gate::allows('update', $camp) && $camp->user_id !== auth()->id()) {
+        if (! Gate::allows('update', $camp) && $camp->user_id !== auth()->id()) {
             abort(403);
         }
 
@@ -36,7 +37,7 @@ class ExportController extends Controller
 
         $pdf = Pdf::loadView('pdf.camp-resume', compact('camp'));
 
-        return $pdf->download("resume-camp-".Str::slug($camp->title)."-{$camp->id}.pdf");
+        return $pdf->download('resume-camp-'.Str::slug($camp->title)."-{$camp->id}.pdf");
     }
 
     public function contract(string $locale, Camp $camp, CampRegister $register)
@@ -51,6 +52,6 @@ class ExportController extends Controller
 
         $pdf = Pdf::loadView('pdf.camp-contract', compact('camp', 'register'));
 
-        return $pdf->download("contrat-camp-".Str::slug($register->user->fullName())."-{$camp->id}.pdf");
+        return $pdf->download('contrat-camp-'.Str::slug($register->user->fullName())."-{$camp->id}.pdf");
     }
 }

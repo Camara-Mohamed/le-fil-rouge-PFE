@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'delete_title'   => 'Supprimer le membre',
+    'delete_title' => 'Supprimer le membre',
     'delete_message' => 'Voulez-vous supprimer ce membre ?',
-    'delete_toast'   => 'Le membre a été supprimé !',
+    'delete_toast' => 'Le membre a été supprimé !',
 
-    'cancel'  => 'Annuler',
+    'cancel' => 'Annuler',
     'confirm' => 'Supprimer',
 ];

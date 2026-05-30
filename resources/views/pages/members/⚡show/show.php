@@ -5,7 +5,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-
 new class extends Component
 {
     use AuthorizesRequests, WithFileUploads;
@@ -33,8 +32,8 @@ new class extends Component
     public function openConfirmDeleteModal(): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::members.confirm-delete',
-            'model_id'   => (string) $this->member->id,
+            'form' => 'modals::members.confirm-delete',
+            'model_id' => (string) $this->member->id,
             'model_type' => 'member',
         ]);
     }
@@ -43,7 +42,7 @@ new class extends Component
     {
         return view('pages.members.⚡show.show', [
             'trainingRegisters' => $this->member->trainingRegisters()->with('training')->latest()->get(),
-            'campRegisters'     => $this->member->campRegisters()->with('camp')->latest()->get(),
+            'campRegisters' => $this->member->campRegisters()->with('camp')->latest()->get(),
         ])->title($this->member->fullName());
     }
 };

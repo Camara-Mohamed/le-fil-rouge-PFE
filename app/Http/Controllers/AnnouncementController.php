@@ -28,7 +28,7 @@ class AnnouncementController extends Controller
     public function show(string $locale, Announcement $announcement, User $user)
     {
         if (is_null($announcement->published_at)) {
-            if ($user?->isAdmin()){
+            if ($user?->isAdmin()) {
                 abort(403);
             }
         }

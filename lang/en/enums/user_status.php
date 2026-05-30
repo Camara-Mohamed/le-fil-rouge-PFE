@@ -2,6 +2,6 @@
 
 return [
     'incomplet' => 'Incomplete',
-    'pending'   => 'Pending',
-    'complet'   => 'Complete',
+    'pending' => 'Pending',
+    'complet' => 'Complete',
 ];

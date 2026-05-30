@@ -75,8 +75,8 @@ new class extends Component
     public function openConfirmDeleteModal(): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::camps.confirm-delete',
-            'model_id'   => (string) $this->camp->id,
+            'form' => 'modals::camps.confirm-delete',
+            'model_id' => (string) $this->camp->id,
             'model_type' => 'camp',
         ]);
     }
@@ -84,8 +84,8 @@ new class extends Component
     public function openConfirmDeleteGalerieModal(int $galerieId): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::camps.confirm-delete-galerie',
-            'model_id'   => (string) $galerieId,
+            'form' => 'modals::camps.confirm-delete-galerie',
+            'model_id' => (string) $galerieId,
             'model_type' => 'galerie',
         ]);
     }

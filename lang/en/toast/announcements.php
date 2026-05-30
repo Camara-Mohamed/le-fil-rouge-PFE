@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'created'       => 'Announcement created successfully!',
-    'updated'       => 'Announcement updated!',
-    'deleted'       => 'Announcement deleted!',
+    'created' => 'Announcement created successfully!',
+    'updated' => 'Announcement updated!',
+    'deleted' => 'Announcement deleted!',
     'image_deleted' => 'Image deleted!',
 ];

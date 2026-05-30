@@ -9,6 +9,7 @@ use Livewire\Form;
 class CommentForm extends Form
 {
     public string $content = '';
+
     public $document = null;
 
     public function rules(): array
@@ -24,8 +25,8 @@ class CommentForm extends Form
         $this->validate();
 
         $data = [
-            'content'  => $this->content,
-            'user_id'  => auth()->id(),
+            'content' => $this->content,
+            'user_id' => auth()->id(),
             'is_admin' => auth()->user()->isAdmin(),
         ];
 

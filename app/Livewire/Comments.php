@@ -15,6 +15,7 @@ class Comments extends Component
     use AuthorizesRequests, WithFileUploads;
 
     public Model $model;
+
     public CommentForm $form;
 
     public function save(): void

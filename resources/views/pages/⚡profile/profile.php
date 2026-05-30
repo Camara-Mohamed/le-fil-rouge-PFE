@@ -6,7 +6,6 @@ use App\Livewire\Forms\DocumentForm;
 use App\Livewire\Forms\EmailForm;
 use App\Livewire\Forms\InfoForm;
 use App\Livewire\Forms\PasswordForm;
-use App\Models\Document;
 use App\Traits\HandlesAvatar;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\On;
@@ -85,8 +84,8 @@ new #[Title('Mon Profil')] class extends Component
     public function openConfirmDeleteDocumentModal(int $id): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::documents.confirm-delete',
-            'model_id'   => (string) $id,
+            'form' => 'modals::documents.confirm-delete',
+            'model_id' => (string) $id,
             'model_type' => 'document',
         ]);
     }

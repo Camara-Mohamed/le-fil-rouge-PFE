@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Enums\DocumentTypes;
+use App\Enums\UserStatus;
 use App\Models\Document;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -48,6 +49,10 @@ class DocumentForm extends Form
             'type' => $this->type,
             'path' => $path,
         ]);
+
+        if (! $this->user->isPending()) {
+            $this->user->update(['status' => UserStatus::PENDING]);
+        }
 
         $this->reset('file', 'name', 'type');
     }

@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'pending'   => 'En attente',
+    'pending' => 'En attente',
     'published' => 'Publié',
-    'refused'   => 'Refusé',
+    'refused' => 'Refusé',
     'confirmed' => 'Confirmé',
 ];

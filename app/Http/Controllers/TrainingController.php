@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Enums\TrainingStatus;
 use App\Models\Training;
-use Illuminate\Support\Carbon;
 
 class TrainingController extends Controller
 {
@@ -49,8 +48,8 @@ class TrainingController extends Controller
     {
         $user = auth()->user();
 
-        if (!$training->isPublished()) {
-            if (!$user || (!$user->isAdmin() && $user->id !== $training->user_id)) {
+        if (! $training->isPublished()) {
+            if (! $user || (! $user->isAdmin() && $user->id !== $training->user_id)) {
                 abort(403);
             }
         }

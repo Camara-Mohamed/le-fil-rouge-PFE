@@ -3,12 +3,13 @@
 use App\Livewire\Forms\AnnouncementForm;
 use App\Models\Announcement;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Storage;
 
-new class extends Component {
+new class extends Component
+{
     use AuthorizesRequests, WithFileUploads;
 
     public Announcement $announcement;
@@ -66,8 +67,8 @@ new class extends Component {
     public function openConfirmDeleteModal(): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::announcements.confirm-delete',
-            'model_id'   => (string) $this->announcement->id,
+            'form' => 'modals::announcements.confirm-delete',
+            'model_id' => (string) $this->announcement->id,
             'model_type' => 'announcement',
         ]);
     }
@@ -75,8 +76,8 @@ new class extends Component {
     public function openConfirmDeleteGalerieModal(int $galerieId): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::announcements.confirm-delete-galerie',
-            'model_id'   => (string) $galerieId,
+            'form' => 'modals::announcements.confirm-delete-galerie',
+            'model_id' => (string) $galerieId,
             'model_type' => 'galerie',
         ]);
     }

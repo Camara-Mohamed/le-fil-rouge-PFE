@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'stage'  => 'Stage',
+    'stage' => 'Stage',
     'sejour' => 'Séjour',
 ];

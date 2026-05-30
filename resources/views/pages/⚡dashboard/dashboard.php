@@ -12,13 +12,14 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 new #[Title('Dashboard')]
-class extends Component {
+class extends Component
+{
     public function acceptTrainingRegister(int $registerId): void
     {
         $user = auth()->user();
         $register = TrainingRegister::with('training')->findOrFail($registerId);
 
-        if ($register->training->user_id !== $user->id && !$user->isAdmin()) {
+        if ($register->training->user_id !== $user->id && ! $user->isAdmin()) {
             abort(403);
         }
 
@@ -31,7 +32,7 @@ class extends Component {
         $user = auth()->user();
         $register = TrainingRegister::with('training')->findOrFail($registerId);
 
-        if ($register->training->user_id !== $user->id && !$user->isAdmin()) {
+        if ($register->training->user_id !== $user->id && ! $user->isAdmin()) {
             abort(403);
         }
 
@@ -44,7 +45,7 @@ class extends Component {
         $user = auth()->user();
         $register = CampRegister::with('camp')->findOrFail($registerId);
 
-        if ($register->camp->user_id !== $user->id && !$user->isAdmin()) {
+        if ($register->camp->user_id !== $user->id && ! $user->isAdmin()) {
             abort(403);
         }
 
@@ -57,7 +58,7 @@ class extends Component {
         $user = auth()->user();
         $register = CampRegister::with('camp')->findOrFail($registerId);
 
-        if ($register->camp->user_id !== $user->id && !$user->isAdmin()) {
+        if ($register->camp->user_id !== $user->id && ! $user->isAdmin()) {
             abort(403);
         }
 
@@ -75,13 +76,11 @@ class extends Component {
     }
 
     #[On('dashboard_updated')]
-    public function onDashboardUpdated(): void
-    {
-    }
+    public function onDashboardUpdated(): void {}
 
     public function publishTraining(int $trainingId): void
     {
-        if (!auth()->user()->isAdmin()) {
+        if (! auth()->user()->isAdmin()) {
             abort(403);
         }
 
@@ -91,7 +90,7 @@ class extends Component {
 
     public function refuseTraining(int $trainingId): void
     {
-        if (!auth()->user()->isAdmin()) {
+        if (! auth()->user()->isAdmin()) {
             abort(403);
         }
 
@@ -101,7 +100,7 @@ class extends Component {
 
     public function publishCamp(int $campId): void
     {
-        if (!auth()->user()->isAdmin()) {
+        if (! auth()->user()->isAdmin()) {
             abort(403);
         }
 
@@ -111,7 +110,7 @@ class extends Component {
 
     public function refuseCamp(int $campId): void
     {
-        if (!auth()->user()->isAdmin()) {
+        if (! auth()->user()->isAdmin()) {
             abort(403);
         }
 
@@ -129,8 +128,8 @@ class extends Component {
                 ->with(['training', 'user'])
                 ->where('status', RegisterStatus::PENDING);
 
-            if (!$user->isAdmin()) {
-                $query->whereHas('training', fn($q) => $q->where('user_id', $user->id));
+            if (! $user->isAdmin()) {
+                $query->whereHas('training', fn ($q) => $q->where('user_id', $user->id));
             }
 
             $data['pendingTrainingRegisters'] = $query->latest()->get();
@@ -141,8 +140,8 @@ class extends Component {
                 ->with(['camp', 'user'])
                 ->where('status', RegisterStatus::PENDING);
 
-            if (!$user->isAdmin()) {
-                $query->whereHas('camp', fn($q) => $q->where('user_id', $user->id));
+            if (! $user->isAdmin()) {
+                $query->whereHas('camp', fn ($q) => $q->where('user_id', $user->id));
             }
 
             $data['pendingCampRegisters'] = $query->latest()->get();
@@ -178,7 +177,7 @@ class extends Component {
                     'start' => $training->start_date->toIso8601String(),
                     'end' => $training->end_date->toIso8601String(),
                     'url' => route('public.trainings.show', ['locale' => $locale, 'training' => $training]),
-                    'color' => 'red'
+                    'color' => 'red',
                 ];
             }
             foreach (Camp::where('status', CampStatus::PUBLISHED)->get() as $camp) {
@@ -188,7 +187,7 @@ class extends Component {
                     'start' => $camp->start_date->toIso8601String(),
                     'end' => $camp->end_date->toIso8601String(),
                     'url' => route('public.camps.show', ['locale' => $locale, 'camp' => $camp]),
-                    'color' => 'blue'
+                    'color' => 'blue',
                 ];
             }
         } elseif ($user->isFormateur()) {
@@ -199,7 +198,7 @@ class extends Component {
                     'start' => $training->start_date->toIso8601String(),
                     'end' => $training->end_date->toIso8601String(),
                     'url' => route('public.trainings.show', ['locale' => $locale, 'training' => $training]),
-                    'color' => 'red'
+                    'color' => 'red',
                 ];
             }
         } elseif ($user->isCoordinateur()) {
@@ -210,7 +209,7 @@ class extends Component {
                     'start' => $camp->start_date->toIso8601String(),
                     'end' => $camp->end_date->toIso8601String(),
                     'url' => route('public.camps.show', ['locale' => $locale, 'camp' => $camp]),
-                    'color' => 'bleu'
+                    'color' => 'bleu',
                 ];
             }
         } else {
@@ -222,7 +221,7 @@ class extends Component {
                     'start' => $register->training->start_date->toIso8601String(),
                     'end' => $register->training->end_date->toIso8601String(),
                     'url' => route('public.trainings.show', ['locale' => $locale, 'training' => $register->training]),
-                    'color' => 'red'
+                    'color' => 'red',
                 ];
             }
             foreach ($user->campRegisters()->where('status',
@@ -233,7 +232,7 @@ class extends Component {
                     'start' => $register->camp->start_date->toIso8601String(),
                     'end' => $register->camp->end_date->toIso8601String(),
                     'url' => route('public.camps.show', ['locale' => $locale, 'camp' => $register->camp]),
-                    'color' => 'blue'
+                    'color' => 'blue',
                 ];
             }
         }

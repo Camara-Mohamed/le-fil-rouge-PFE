@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Enums\CampStatus;
 use App\Models\Camp;
-use Illuminate\Support\Carbon;
 
 class CampController extends Controller
 {
@@ -47,8 +46,8 @@ class CampController extends Controller
     {
         $user = auth()->user();
 
-        if (!$camp->isPublished()) {
-            if (!$user || (!$user->isAdmin() && $user->id !== $camp->user_id)) {
+        if (! $camp->isPublished()) {
+            if (! $user || (! $user->isAdmin() && $user->id !== $camp->user_id)) {
                 abort(403);
             }
         }

@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'residential'     => 'Résidentiel',
+    'residential' => 'Résidentiel',
     'non_residential' => 'Non résidentiel',
 ];

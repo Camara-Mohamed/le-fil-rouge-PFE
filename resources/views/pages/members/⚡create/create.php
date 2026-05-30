@@ -24,7 +24,8 @@ new #[Title('Nouveau membre')] class extends Component
 
     public string $password = '';
 
-    public string $role   = UserRoles::ARRIVANT->value;
+    public string $role = UserRoles::ARRIVANT->value;
+
     public string $status = UserStatus::PENDING->value;
 
     public string $send_to = '';

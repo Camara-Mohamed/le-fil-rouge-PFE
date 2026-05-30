@@ -18,7 +18,8 @@ use Illuminate\Database\Eloquent\Model;
 ])]
 class VolunteerRequest extends Model
 {
-    use hasFactory;
+    use HasFactory;
+
     protected function casts(): array
     {
         return [

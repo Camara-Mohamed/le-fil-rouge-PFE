@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Enums\RegisterStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -14,6 +13,7 @@ class Enrollment extends Component
     use AuthorizesRequests;
 
     public Model $model;
+
     public string $notes = '';
 
     public function enroll(): void
@@ -24,16 +24,17 @@ class Enrollment extends Component
             return;
         }
 
-        if (!($user->isComplete() || $user->isPending())) {
+        if (! ($user->isComplete() || $user->isPending())) {
             return;
         }
 
-        if ($this->model->roles && !$this->model->roles($user)) {
+        if ($this->model->roles && ! $this->model->roles($user)) {
             return;
         }
 
         if ($this->model->registers()->where('user_id', $user->id)->exists()) {
             $this->dispatch('toast', message: __('toast/enrollments.already_register'), type: 'warning');
+
             return;
         }
 
@@ -50,8 +51,8 @@ class Enrollment extends Component
     public function openCancelModal(string $status): void
     {
         $this->dispatch('open_modal', [
-            'form'       => 'modals::enrollment.confirm-cancel',
-            'model_id'   => '',
+            'form' => 'modals::enrollment.confirm-cancel',
+            'model_id' => '',
             'model_type' => $status,
         ]);
     }
@@ -64,7 +65,7 @@ class Enrollment extends Component
             return;
         }
 
-        if (!($user->isComplete() || $user->isPending())) {
+        if (! ($user->isComplete() || $user->isPending())) {
             return;
         }
 
@@ -122,11 +123,11 @@ class Enrollment extends Component
             ->where('user_id', $user->id)
             ->first();
 
-        $canEnroll = !$this->model->isConfirmed()
+        $canEnroll = ! $this->model->isConfirmed()
             && ($user->isComplete() || $user->isPending())
-            && (!$this->model->roles || $this->model->roles($user));
+            && (! $this->model->roles || $this->model->roles($user));
 
-        $canCancel = !$this->model->isConfirmed()
+        $canCancel = ! $this->model->isConfirmed()
             && ($user->isComplete() || $user->isPending());
 
         $accepted = $this->model->acceptedRegisters()->with('user')->get();

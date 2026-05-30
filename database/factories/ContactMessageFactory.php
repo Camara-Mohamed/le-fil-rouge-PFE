@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\ContactMessage;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 class ContactMessageFactory extends Factory
 {
@@ -17,7 +16,7 @@ class ContactMessageFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'sujet' => $this->faker->word(),
             'message' => $this->faker->word(),
-            'read_at'   => fake()->optional(0.4)->dateTimeBetween('-30 days', 'now'),
+            'read_at' => fake()->optional(0.4)->dateTimeBetween('-30 days', 'now'),
         ];
     }
 }

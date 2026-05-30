@@ -14,8 +14,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'message',
     'read_at',
 ])]
-class ContactMessage extends Model {
-    use SoftDeletes, hasFactory;
+class ContactMessage extends Model
+{
+    use hasFactory, SoftDeletes;
 
     protected function casts(): array
     {

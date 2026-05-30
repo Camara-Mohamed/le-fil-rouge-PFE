@@ -140,7 +140,7 @@ class TrainingForm extends Form
             'postal_code' => $this->postal_code,
             'roles' => $this->roles,
             'status' => $this->status,
-            'user_id' =>  $training->user_id,
+            'user_id' => $training->user_id,
         ];
 
         if ($this->banner) {

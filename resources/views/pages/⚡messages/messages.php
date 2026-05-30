@@ -38,8 +38,8 @@ new #[Title('Les messages')] class extends Component
     public function openCreateMember(int $id): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::create-member',
-            'model_id'   => (string) $id,
+            'form' => 'modals::create-member',
+            'model_id' => (string) $id,
             'model_type' => 'volunteer_request',
         ]);
     }
@@ -47,8 +47,8 @@ new #[Title('Les messages')] class extends Component
     public function openRefuseModal(int $id): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::volunteer.confirm-refuse',
-            'model_id'   => (string) $id,
+            'form' => 'modals::volunteer.confirm-refuse',
+            'model_id' => (string) $id,
             'model_type' => 'volunteer',
         ]);
     }
@@ -56,8 +56,8 @@ new #[Title('Les messages')] class extends Component
     public function openResetPendingModal(int $id): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::volunteer.confirm-reset-pending',
-            'model_id'   => (string) $id,
+            'form' => 'modals::volunteer.confirm-reset-pending',
+            'model_id' => (string) $id,
             'model_type' => 'volunteer',
         ]);
     }
@@ -73,27 +73,27 @@ new #[Title('Les messages')] class extends Component
 
     public function render()
     {
-        $contacts = ContactMessage::latest()->get()->map(fn($contact) => (object) [
-            'type'       => 'contact',
-            'id'         => $contact->id,
-            'name'       => $contact->full_name,
-            'email'      => $contact->email,
-            'subject'    => $contact->sujet,
-            'message'    => $contact->message,
-            'read_at'    => $contact->read_at,
-            'status'     => null,
+        $contacts = ContactMessage::latest()->get()->map(fn ($contact) => (object) [
+            'type' => 'contact',
+            'id' => $contact->id,
+            'name' => $contact->full_name,
+            'email' => $contact->email,
+            'subject' => $contact->sujet,
+            'message' => $contact->message,
+            'read_at' => $contact->read_at,
+            'status' => null,
             'created_at' => $contact->created_at,
         ]);
 
-        $volunteers = VolunteerRequest::latest()->get()->map(fn($volunteer) => (object) [
-            'type'       => 'volunteer',
-            'id'         => $volunteer->id,
-            'name'       => $volunteer->fullName(),
-            'email'      => $volunteer->email,
-            'subject'    => null,
-            'message'    => $volunteer->message,
-            'read_at'    => $volunteer->read_at,
-            'status'     => $volunteer->status,
+        $volunteers = VolunteerRequest::latest()->get()->map(fn ($volunteer) => (object) [
+            'type' => 'volunteer',
+            'id' => $volunteer->id,
+            'name' => $volunteer->fullName(),
+            'email' => $volunteer->email,
+            'subject' => null,
+            'message' => $volunteer->message,
+            'read_at' => $volunteer->read_at,
+            'status' => $volunteer->status,
             'created_at' => $volunteer->created_at,
         ]);
 

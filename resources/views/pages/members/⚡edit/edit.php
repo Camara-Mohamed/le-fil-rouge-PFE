@@ -10,7 +10,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 
 new #[Title('Modifier un membre')]
-class extends Component {
+class extends Component
+{
     use AuthorizesRequests, WithFileUploads;
 
     public User $member;
@@ -22,6 +23,7 @@ class extends Component {
     public string $email = '';
 
     public string $role = '';
+
     public string $status = '';
 
     public string $phone = '';
@@ -32,6 +34,7 @@ class extends Component {
     {
         if ($member->id === auth()->id()) {
             $this->redirectRoute('admin.profile', ['locale' => app()->getLocale()]);
+
             return;
         }
 

@@ -19,7 +19,7 @@ class VolunteerRequestFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'message' => fake()->word(),
             'status' => fake()->randomElement(VolunteerRequestStatus::cases()),
-            'read_at'   => fake()->optional(0.4)->dateTimeBetween('-30 days', 'now'),
+            'read_at' => fake()->optional(0.4)->dateTimeBetween('-30 days', 'now'),
         ];
     }
 }

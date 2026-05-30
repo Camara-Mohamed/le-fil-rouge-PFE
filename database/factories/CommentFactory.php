@@ -8,7 +8,6 @@ use App\Models\Comment;
 use App\Models\Training;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 class CommentFactory extends Factory
 {

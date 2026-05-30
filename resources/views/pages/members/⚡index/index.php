@@ -12,6 +12,7 @@ new #[Title('Les membres')] class extends Component
     public string $search = '';
 
     public string $role = '';
+
     public string $status = '';
 
     public function updatingSearch(): void
