@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserStatus;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
@@ -20,7 +21,7 @@ new class extends Component
     {
         $member = User::findOrFail((int) $this->model_id);
         $this->authorize('delete', $member);
-        $member->delete();
+        $member->update(['status' => UserStatus::ARCHIVED]);
 
         $this->dispatch('toast', message: __('modals/members.delete_toast'), type: 'success');
         $this->dispatch('close_modal');

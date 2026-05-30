@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserStatus;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
@@ -13,7 +14,9 @@ new class extends Component
 
     public function mount(User $member): void
     {
-        if ($member->id === auth()->id()) {
+        $this->member = $member;
+
+        if ($this->member->id === auth()->id()) {
             $this->redirectRoute('admin.profile', ['locale' => app()->getLocale()]);
         }
     }
@@ -22,18 +25,27 @@ new class extends Component
     {
         $this->authorize('delete', $this->member);
 
-        $this->member->delete();
+        $this->member->update(['status' => UserStatus::ARCHIVED]);
 
         $this->redirectRoute('admin.members.index', [
             'locale' => app()->getLocale(),
         ]);
     }
 
+    public function restore(): void
+    {
+        $this->authorize('restore', $this->member);
+
+        $this->member->update(['status' => UserStatus::PENDING]);
+
+        $this->dispatch('toast', message: __('toast/members.restored'), type: 'success');
+    }
+
     public function forceDelete(): void
     {
         $this->authorize('forceDelete', $this->member);
 
-        $this->member->forceDelete();
+        $this->member->delete();
 
         $this->redirectRoute('admin.members.index', [
             'locale' => app()->getLocale(),

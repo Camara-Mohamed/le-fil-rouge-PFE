@@ -7,6 +7,7 @@ enum UserStatus: string
     case INCOMPLETE = 'incomplet';
     case PENDING = 'pending';
     case COMPLETE = 'complet';
+    case ARCHIVED = 'archived';
 
     public function label(): string
     {

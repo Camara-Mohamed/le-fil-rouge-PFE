@@ -129,15 +129,25 @@
     </section>
 
     <div>
-        <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(), 'member' => $member]) }}">Modifier</a>
+        @if($member->isArchived())
+            @can('restore', $member)
+                <button type="button" wire:click="restore">Restaurer</button>
+            @endcan
 
-        @can('delete', $member)
-            <button type="button" wire:click="openConfirmDeleteModal">Archiver</button>
-        @endcan
+            @can('forceDelete', $member)
+                <button type="button" wire:click="openConfirmForceDeleteModal">Supprimer définitivement</button>
+            @endcan
+        @else
+            <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(), 'member' => $member]) }}">Modifier</a>
 
-        @can('forceDelete', $member)
-            <button type="button" wire:click="openConfirmForceDeleteModal">Supprimer définitivement</button>
-        @endcan
+            @can('delete', $member)
+                <button type="button" wire:click="openConfirmDeleteModal">Archiver</button>
+            @endcan
+
+            @can('forceDelete', $member)
+                <button type="button" wire:click="openConfirmForceDeleteModal">Supprimer définitivement</button>
+            @endcan
+        @endif
     </div>
 
 </div>

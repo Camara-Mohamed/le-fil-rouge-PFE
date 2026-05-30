@@ -21,6 +21,10 @@
             @endforeach
         </select>
 
+        <button type="button" wire:click="$toggle('archived')">
+            {{ $archived ? 'Membres actifs' : 'Membres archivés' }}
+        </button>
+
         <a href="{{ route('admin.members.create', ['locale' => app()->getLocale()]) }}">
             Ajouter un membre
         </a>
@@ -85,16 +89,26 @@
                 </td>
 
                 <td class="px-4 py-2 flex gap-2">
-                    <a href="{{ route('admin.members.show', [
-                                'locale' => app()->getLocale(),
-                                'member' => $member
-                            ]) }}">
-                        Voir
-                    </a>
+                    @if($member->isArchived())
+                        <span>Archivé</span>
+                        <a href="{{ route('admin.members.show', [
+                                    'locale' => app()->getLocale(),
+                                    'member' => $member
+                                ]) }}">
+                            Voir
+                        </a>
+                    @else
+                        <a href="{{ route('admin.members.show', [
+                                    'locale' => app()->getLocale(),
+                                    'member' => $member
+                                ]) }}">
+                            Voir
+                        </a>
 
-                    <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(),'member' => $member]) }}">
-                        Modifier
-                    </a>
+                        <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(),'member' => $member]) }}">
+                            Modifier
+                        </a>
+                    @endif
                 </td>
             </tr>
 

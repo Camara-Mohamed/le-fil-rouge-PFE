@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', [
                 'arrivant', 'animateur_1', 'animateur_2', 'brevete', 'coordinateur', 'formateur', 'admin'])->default('arrivant');
-            $table->enum('status', ['incomplet', 'pending', 'complet'])->default('pending');
+            $table->enum('status', ['incomplet', 'pending', 'complet', 'archived'])->default('pending');
             $table->string('phone')->unique()->nullable();
             $table->date('birth_date')->default(now());
             $table->string('address')->nullable();
@@ -33,7 +33,6 @@ return new class extends Migration
             $table->string('avatar_path')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

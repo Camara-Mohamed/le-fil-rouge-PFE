@@ -18,9 +18,9 @@ new class extends Component
 
     public function confirm(): void
     {
-        $member = User::withTrashed()->findOrFail((int) $this->model_id);
+        $member = User::findOrFail((int) $this->model_id);
         $this->authorize('forceDelete', $member);
-        $member->forceDelete();
+        $member->delete();
 
         $this->dispatch('toast', message: __('modals/members.force_delete_toast'), type: 'success');
         $this->dispatch('close_modal');

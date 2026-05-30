@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserStatus;
 use App\Models\User;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -14,6 +15,8 @@ new #[Title('Les membres')] class extends Component
     public string $role = '';
 
     public string $status = '';
+
+    public bool $archived = false;
 
     public function updatingSearch(): void
     {
@@ -30,10 +33,20 @@ new #[Title('Les membres')] class extends Component
         $this->resetPage();
     }
 
+    public function updatingArchived(): void
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $query = User::query()
-            ->where('id', '!=', auth()->id());
+            ->where('id', '!=', auth()->id())
+            ->when(
+                $this->archived,
+                fn ($q) => $q->where('status', UserStatus::ARCHIVED),
+                fn ($q) => $q->where('status', '!=', UserStatus::ARCHIVED),
+            );
 
         if ($this->search) {
             $query->where(function ($query) {
