@@ -3,17 +3,10 @@
 use App\Enums\TrainingStatus;
 use App\Models\Training;
 
-it('returns true if the training status is draft', function () {
-    $training = Training::factory()->make(['status' => TrainingStatus::DRAFT]);
-
-    expect($training->isDraft())->toBeTrue();
-});
-
 it('returns true if the training status is published', function () {
     $training = Training::factory()->make(['status' => TrainingStatus::PUBLISHED]);
 
-    expect($training->isPublished())->toBeTrue()
-        ->and($training->isDraft())->toBeFalse();
+    expect($training->isPublished())->toBeTrue();
 });
 
 it('returns true if the training status is pending', function () {

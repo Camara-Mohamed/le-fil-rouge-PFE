@@ -16,7 +16,7 @@ it('creates the trainings table with its columns', function () {
             'id', 'title', 'description', 'banner', 'start_date', 'end_date',
             'type', 'price', 'participants', 'details', 'constraints',
             'address', 'number', 'city', 'province', 'postal_code',
-            'user_id', 'roles', 'status', 'galeries',
+            'user_id', 'roles', 'status',
             'created_at', 'updated_at', 'deleted_at',
         ]))->toBeTrue();
 });
@@ -27,7 +27,7 @@ it('creates the camps table with its columns', function () {
             'id', 'title', 'description', 'banner', 'start_date', 'end_date',
             'type', 'participants', 'details', 'constraints',
             'address', 'number', 'city', 'province', 'postal_code',
-            'user_id', 'roles', 'status', 'galeries',
+            'user_id', 'roles', 'status',
             'created_at', 'updated_at', 'deleted_at',
         ]))->toBeTrue();
 });

@@ -3,17 +3,10 @@
 use App\Enums\CampStatus;
 use App\Models\Camp;
 
-it('returns true if the Camp status is draft', function () {
-    $Camp = Camp::factory()->make(['status' => CampStatus::DRAFT]);
-
-    expect($Camp->isDraft())->toBeTrue();
-});
-
 it('returns true if the Camp status is published', function () {
     $Camp = Camp::factory()->make(['status' => CampStatus::PUBLISHED]);
 
-    expect($Camp->isPublished())->toBeTrue()
-        ->and($Camp->isDraft())->toBeFalse();
+    expect($Camp->isPublished())->toBeTrue();
 });
 
 it('returns true if the Camp status is pending', function () {

@@ -70,3 +70,27 @@ it('verifies if user with arrivant role can access his profile page', function (
         ->get(route('admin.profile', ['locale' => app()->getLocale()]))
         ->assertStatus(200);
 });
+
+it('admin can access messages page', function () {
+    $user = User::factory()->create(['role' => UserRoles::ADMIN]);
+
+    actingAs($user)
+        ->get(route('admin.messages.index', ['locale' => 'fr']))
+        ->assertStatus(200);
+});
+
+it('non-admin cannot access messages page', function () {
+    $user = User::factory()->create(['role' => UserRoles::BREVETE]);
+
+    actingAs($user)
+        ->get(route('admin.messages.index', ['locale' => 'fr']))
+        ->assertStatus(403);
+});
+
+it('admin can access members index', function () {
+    $user = User::factory()->create(['role' => UserRoles::ADMIN]);
+
+    actingAs($user)
+        ->get(route('admin.members.index', ['locale' => 'fr']))
+        ->assertStatus(200);
+});
