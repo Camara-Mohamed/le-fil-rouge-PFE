@@ -1,8 +1,5 @@
-<nav class="flex justify-between items-center bg-dark py-3 px-8">
+<nav class="flex justify-end items-center bg-dark py-3 px-8">
     <h3 class="sr-only">Navigation secondaire</h3>
-
-    <a href="mailto:contact@lefilrouge.com" title="Contactez-nous" class="font-serif text-white text font-normal
-    underline hover:text-red-mid focus:text-red-mid">contact@lefilrouge.com</a>
 
     <x-nav.lang-switch></x-nav.lang-switch>
 </nav>
