@@ -2,13 +2,14 @@
     'href',
     'title' => '',
     'route' => '',
+    'class' => '',
 ])
 
 @php
     $active = request()->routeIs($route);
 @endphp
 
-<li>
+<li {{ $attributes->merge(['class' => $class]) }}>
     <a href="{{ $href }}"
        wire:navigate
        title="{{ $title }}"
