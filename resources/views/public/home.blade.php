@@ -1,4 +1,4 @@
-<x-public.app title="{{ __('public/home.hero_title') }}">
+<x-public.app title="{{ __('public/home.title') }}">
 
     {{-- Hero --}}
     <x-public.home.hero />

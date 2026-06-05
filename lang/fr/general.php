@@ -12,5 +12,9 @@ return [
         'en' => 'anglais',
     ],
 
-    'free' => 'Gratuit',
+    'free'       => 'Gratuit',
+    'by'         => 'par',
+    'date_from'  => 'Du :start au :end',
+    'full'       => 'Complet',
+    'participants'      => ':current / :max',
 ];

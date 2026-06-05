@@ -1,48 +1,28 @@
-<x-public.app title="Liste des formations">
+<x-public.app title="{{ __('public/trainings.title') }}">
 
-    <h2>Liste des formations</h2>
+    {{-- Héro --}}
 
-    @can('create', App\Models\Training::class)
+@can('create', App\Models\Training::class)
         <a href="{{ route('admin.trainings.create', ['locale' => app()->getLocale()]) }}">Ajouter une formation</a>
     @endcan
 
-    <div class="grid grid-cols-3 gap-8">
+    {{-- Liste des formations --}}
+    <div class="px-4 md:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($trainings as $training)
-            <a href="{{ route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $training->id]) }}">
-                <article>
-                    @if($training->banner)
-                        <img src="{{ asset('storage/' . $training->banner) }}" alt="{{ $training->title }}">
-                    @endif
-                    <h3>{{ $training->title }}</h3>
-                    <p>{{ $training->start_date->format('d/m/Y H:i') }} — {{ $training->end_date->format('d/m/Y H:i')
-                     }}</p>
-                    @if($training->city)
-                        <p>{{ $training->city }}</p>
-                    @endif
-                    <p>{{ $training->description }}</p>
-                    @if($training->price)
-                        <p>{{ $training->getFormattedPrice() }}</p>
-                    @endif
-                    @auth
-                        <span>{{ $training->status->label() }}</span>
-                    @endauth
-                </article>
-            </a>
+            <x-public.trainings.card :training="$training" />
         @empty
-            <p>Aucune formation</p>
+            <p class="font-serif text-dark-mid col-span-3">Aucune formation disponible.</p>
         @endforelse
     </div>
 
-    <div>{{ $trainings->links() }}</div>
+    <div class="px-4 md:px-6 lg:px-8">{{ $trainings->links() }}</div>
 
-    // Héro
+    {{-- Recherche | Filtres | Tri --}}
 
-    // Recherche | Filtres | Tri
+    {{-- Liste des formations (Date - Desc) + Pagination --}}
 
-    // Liste des formations (Date - Desc) + Pagination
+    {{-- Image + Texte Descriptifs --}}
 
-    // Image + Texte Descriptifs
-
-    // Galéries
+    {{-- Galéries --}}
 
 </x-public.app>
