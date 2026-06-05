@@ -14,7 +14,7 @@
     /* BreakPoints */
     --breakpoint-sm: 640px;
     --breakpoint-md: 768px;
-    --breakpoint-xl: 1280px;
+    --breakpoint-lg: 1416px;
 
     /* Couleurs */
     --color-white: #FFFFFF;
@@ -87,7 +87,7 @@
 }
 
 /* Burger Menu */
-@media (max-width: 1023px) {
+@media (max-width: 1415px) {
     body:has(#nav-toggle:checked) {
         overflow: hidden;
     }
@@ -102,7 +102,7 @@
         flex-direction: column;
         gap: 1.5rem;
         position: fixed;
-        top: 4rem;
+        top: 0;
         left: 0;
         right: 0;
         bottom: 0;
@@ -110,7 +110,8 @@
         overflow-x: hidden;
         overflow-y: auto;
         background-color: var(--color-bg);
-        z-index: 50;
+        z-index: 100;
+        padding-top: calc(3rem + 1rem); /* 3 rem c'est la hauteur du before navigation  */
         padding-inline: 1rem;
     }
 
