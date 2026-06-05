@@ -6,7 +6,7 @@
     {{-- Burger Checkbox --}}
     <input type="checkbox" id="nav-toggle" class="sr-only" />
 
-    {{-- Logo }}
+    {{-- Logo --}}
     <a href="{{ route('public.home', ['locale' => app()->getLocale()]) }}"
        wire:navigate
        title="{{ __('navigation.home_title') }}"
@@ -26,7 +26,7 @@
 
     {{-- Liens --}}
     <ul id="main-nav-links"
-        class="hidden lg:flex lg:items-center lg:gap-2 xl:gap-4">
+        class="hidden lg:flex lg:items-center lg:gap-4">
 
         <li class="lg:hidden flex justify-between items-center pb-4 border-b border-bg-dark">
             <a href="{{ route('public.home', ['locale' => app()->getLocale()]) }}"
