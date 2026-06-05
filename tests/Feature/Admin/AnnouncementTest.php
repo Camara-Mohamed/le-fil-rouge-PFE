@@ -23,7 +23,7 @@ it('admin can access announcement create page', function () {
 });
 
 it('admin can access announcement edit page', function () {
-    $user         = User::factory()->create(['role' => UserRoles::ADMIN]);
+    $user = User::factory()->create(['role' => UserRoles::ADMIN]);
     $announcement = Announcement::factory()->create();
 
     actingAs($user)

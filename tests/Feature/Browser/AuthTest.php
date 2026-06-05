@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+
 use function Pest\Laravel\actingAs;
 
 beforeEach(function () {
@@ -29,8 +30,8 @@ it('login page has link back to home page', function () {
 it('authenticated user can access dashboard', function () {
     actingAs($this->user);
 
-    visit('/dashboard')
-        ->assertSee('Dashboard');
+    visit('/fr/dashboard')
+        ->assertPathIs('/fr/dashboard');
 
     $this->user->forceDelete();
 });
@@ -39,9 +40,9 @@ it('user can logout', function () {
     actingAs($this->user);
 
     visit(route('admin.dashboard', ['locale' => 'fr']))
-        ->click('Mon Profil')
-        ->click('Logout')
-        ->assertSee('Login');
+        ->click(__('navigation.profile'))
+        ->click(__('navigation.logout'))
+        ->assertSee(__('navigation.login'));
 
     $this->user->forceDelete();
 });

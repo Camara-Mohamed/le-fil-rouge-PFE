@@ -57,9 +57,9 @@ it('coordinateur can edit his own camp', function () {
 });
 
 it('coordinateur cannot edit another coordinateur camp', function () {
-    $user  = User::factory()->create(['role' => UserRoles::COORDINATEUR]);
+    $user = User::factory()->create(['role' => UserRoles::COORDINATEUR]);
     $camp_creator = User::factory()->create(['role' => UserRoles::COORDINATEUR]);
-    $camp  = Camp::factory()->create(['user_id' => $camp_creator->id]);
+    $camp = Camp::factory()->create(['user_id' => $camp_creator->id]);
 
     actingAs($user)
         ->get(route('admin.camps.edit', ['locale' => 'fr', 'camp' => $camp]))

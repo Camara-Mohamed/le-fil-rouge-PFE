@@ -2,6 +2,7 @@
 
 use App\Models\ContactMessage;
 use Illuminate\Support\Facades\Mail;
+
 use function Pest\Laravel\post;
 
 it('guest can submit the contact form', function () {
@@ -9,9 +10,9 @@ it('guest can submit the contact form', function () {
 
     $response = post(route('public.contact.store', ['locale' => 'fr']), [
         'full_name' => 'Jean Dupont',
-        'email'     => 'jean.dupont@gmail.com',
-        'sujet'     => 'Message',
-        'message'   => 'Bonjour !',
+        'email' => 'jean.dupont@gmail.com',
+        'sujet' => 'Message',
+        'message' => 'Bonjour !',
     ]);
 
     $response->assertRedirect();

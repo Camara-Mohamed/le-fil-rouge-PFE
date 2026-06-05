@@ -2,7 +2,7 @@
 
 return [
     'incomplet' => 'Incomplete',
-    'pending'   => 'Pending',
-    'complet'   => 'Complete',
-    'archived'  => 'Archived',
+    'pending' => 'Pending',
+    'complet' => 'Complete',
+    'archived' => 'Archived',
 ];

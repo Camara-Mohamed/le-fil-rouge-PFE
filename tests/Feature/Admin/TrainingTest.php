@@ -39,7 +39,7 @@ it('formateur can access training create page', function () {
 });
 
 it('admin can access training edit page', function () {
-    $user     = User::factory()->create(['role' => UserRoles::ADMIN]);
+    $user = User::factory()->create(['role' => UserRoles::ADMIN]);
     $training = Training::factory()->create(['user_id' => $user->id]);
 
     actingAs($user)
@@ -48,7 +48,7 @@ it('admin can access training edit page', function () {
 });
 
 it('formateur can edit his own training', function () {
-    $user     = User::factory()->create(['role' => UserRoles::FORMATEUR]);
+    $user = User::factory()->create(['role' => UserRoles::FORMATEUR]);
     $training = Training::factory()->create(['user_id' => $user->id]);
 
     actingAs($user)
@@ -57,8 +57,8 @@ it('formateur can edit his own training', function () {
 });
 
 it('formateur cannot edit another formateur training', function () {
-    $user     = User::factory()->create(['role' => UserRoles::FORMATEUR]);
-    $training_creator    = User::factory()->create(['role' => UserRoles::FORMATEUR]);
+    $user = User::factory()->create(['role' => UserRoles::FORMATEUR]);
+    $training_creator = User::factory()->create(['role' => UserRoles::FORMATEUR]);
     $training = Training::factory()->create(['user_id' => $training_creator->id]);
 
     actingAs($user)

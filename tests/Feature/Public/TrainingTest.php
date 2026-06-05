@@ -2,6 +2,7 @@
 
 use App\Enums\TrainingStatus;
 use App\Models\Training;
+
 use function Pest\Laravel\get;
 
 it('guest can see published trainings', function () {

@@ -85,3 +85,38 @@
         display: none;
     }
 }
+
+/* Burger Menu */
+@media (max-width: 1023px) {
+    body:has(#nav-toggle:checked) {
+        overflow: hidden;
+    }
+
+    #nav-toggle:checked ~ #nav-burger {
+        display: none;
+    }
+
+    /* Menu Ouvert */
+    #nav-toggle:checked ~ ul#main-nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        position: fixed;
+        top: 4rem;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: var(--color-bg);
+        z-index: 50;
+        padding-inline: 1rem;
+    }
+
+    @media (min-width: 768px) {
+        #nav-toggle:checked ~ ul#main-nav-links {
+            padding-inline: 1.5rem;
+        }
+    }
+}

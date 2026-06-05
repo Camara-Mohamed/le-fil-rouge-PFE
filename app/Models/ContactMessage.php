@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 ])]
 class ContactMessage extends Model
 {
-    use hasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected function casts(): array
     {

@@ -30,7 +30,7 @@ it('navigates to announcements page from nav', function () {
 it('navigates to about page from nav', function () {
     $page = visit('/fr');
 
-    $page->click('Qui sommes-nous')
+    $page->click('Qui sommes-nous ?')
         ->assertSee('Qui sommes-nous ?');
 });
 
@@ -63,7 +63,7 @@ it('volunteer page has the form', function () {
 it('nav login link goes to login page', function () {
     $page = visit('/fr');
 
-    $page->click('Login')
+    $page->click('Se Connecter')
         ->assertPathIs('/fr/login')
         ->assertSee('Connexion');
 });

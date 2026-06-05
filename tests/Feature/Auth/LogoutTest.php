@@ -17,7 +17,7 @@ it('does see the logout button as a connected', function () {
     $response = get(route('admin.dashboard', ['locale' => app()->getLocale()]));
 
     // Assert
-    $response->assertSee('Logout');
+    $response->assertSee(__('navigation.logout'));
 });
 
 it('does not show logout button as a guest', function () {
@@ -25,5 +25,5 @@ it('does not show logout button as a guest', function () {
     $response = get(route('public.home', ['locale' => app()->getLocale()]));
 
     // Assert
-    $response->assertDontSee('Logout');
+    $response->assertDontSee(__('navigation.logout'));
 });
