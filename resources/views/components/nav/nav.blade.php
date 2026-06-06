@@ -88,7 +88,7 @@
                 <a href="{{ route('login', ['locale' => app()->getLocale()]) }}"
                    wire:navigate
                    title="{{ __('navigation.login_title') }}"
-                   class="px-6 py-2 inline-flex border-2 border-red rounded bg-red text-white font-sans font-medium
+                   class="px-6 py-2 inline-flex border-2 border-red rounded-lg bg-red text-white font-sans font-medium
                           hover:bg-red-mid hover:border-red-mid transition duration-200">
                     {{ __('navigation.login') }}
                 </a>
@@ -135,7 +135,7 @@
                             title="{{ __('navigation.logout_title') }}"
                             class="font-sans font-medium text-red py-4 px-6
                              bg-bg-mid hover:bg-red hover:text-white focus:bg-red focus:text-white
-                            border-red rounded">
+                            border-red rounded-lg">
                         {{ __('navigation.logout') }}
                     </button>
                 </form>
