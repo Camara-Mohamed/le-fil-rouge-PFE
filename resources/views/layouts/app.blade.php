@@ -11,6 +11,8 @@
 </head>
 <body class="min-h-screen font-sans max-w-480 m-auto">
 
+<x-public.no-script/>
+
 <x-nav.skip-link></x-nav.skip-link>
 
 <h1 class="sr-only">{{ $title }}</h1>

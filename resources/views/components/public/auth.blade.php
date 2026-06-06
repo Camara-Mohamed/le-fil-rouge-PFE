@@ -9,19 +9,30 @@
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen font-sans max-w-480 m-auto">
+<body class="min-h-screen font-sans bg-bg flex items-center justify-center px-4 py-12">
 
-<x-nav.skip-link></x-nav.skip-link>
+<x-public.no-script/>
 
 <h1 class="sr-only">{{ $title }}</h1>
 
-<main id="main-content">
+<div class="w-full max-w-md flex flex-col gap-6">
 
-    {{ $slot }}
+    <div class="bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] p-8 flex flex-col items-center gap-8">
 
-</main>
+        <x-nav.logo />
 
-<x-partials.footer></x-partials.footer>
+        {{ $slot }}
+
+    </div>
+
+    @isset($more_cta)
+        <div class="flex flex-col gap-4">
+            <hr class="border-bg-dark" />
+            {{ $more_cta }}
+        </div>
+    @endisset
+
+</div>
 
 </body>
 </html>
