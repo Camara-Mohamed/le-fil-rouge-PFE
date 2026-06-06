@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\CampController;
 use App\Http\Controllers\ContactMessageController;
@@ -29,9 +30,8 @@ Route::prefix('{locale}')
             ->name('public.camps.show');
 
         // Page à propos
-        Route::get('/about', function () {
-            return view('public.about');
-        })->name('public.about');
+        Route::get('/about', [AboutController::class, 'index'])
+            ->name('public.about');
 
         // Pages des actualités
         Route::get('/announcements', [AnnouncementController::class, 'index'])

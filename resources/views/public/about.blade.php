@@ -1,17 +1,15 @@
-<x-public.app title="Qui sommes-nous ?">
+<x-public.app title="{{ __('public/about.title') }}">
 
-    <h2>Qui sommes-nous ?</h2>
+    {{-- Histoire + CTA(Volontaire) --}}
+    <x-public.about.histoire />
 
-    // Héro
+    {{-- Valeurs --}}
+    <x-public.about.valeurs />
 
-    // Texte + Image + CTA (Devenir Volontaire)
+    {{-- Statistiques --}}
+    <x-public.about.stats :stats="$stats" />
 
-    // Valeurs (Numéros + Texte) + Images
-
-    // Statistiques + CTA (Télécharger Rapport)
-
-    // Liste des partenaires
-
-    // FAQ
+    {{-- FAQ --}}
+    <x-public.about.faq />
 
 </x-public.app>
