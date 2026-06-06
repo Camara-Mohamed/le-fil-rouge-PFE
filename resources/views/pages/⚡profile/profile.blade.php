@@ -89,7 +89,7 @@
     <form wire:submit="savePassword">
         <div x-data="{ show: false }">
             <label>Mot de passe actuel</label>
-            <input :type="show ? 'text' : 'password'" wire:model="password.current_password">
+            <input type="password" :type="show ? 'text' : 'password'" wire:model="password.current_password">
             <button type="button" @click="show = !show">
                 <span x-show="!show">Afficher</span>
                 <span x-show="show">Cacher</span>
@@ -99,7 +99,7 @@
 
         <div x-data="{ show: false }">
             <label>Nouveau mot de passe</label>
-            <input :type="show ? 'text' : 'password'" wire:model="password.password">
+            <input type="password" :type="show ? 'text' : 'password'" wire:model="password.password">
             <button type="button" @click="show = !show">
                 <span x-show="!show">Afficher</span>
                 <span x-show="show">Cacher</span>

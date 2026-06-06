@@ -30,7 +30,7 @@
 
     <div x-data="{ show: false }">
         <label>Mot de passe</label>
-        <input :type="show ? 'text' : 'password'" wire:model="password">
+        <input type="password" :type="show ? 'text' : 'password'" wire:model="password">
         <button type="button" @click="show = !show">
             <span x-show="!show">Afficher</span>
             <span x-show="show">Cacher</span>

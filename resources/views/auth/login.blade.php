@@ -23,7 +23,7 @@
             <div class="relative">
                 <input
                     id="password"
-                    :type="show ? 'text' : 'password'"
+                    type="password" :type="show ? 'text' : 'password'"
                     name="password"
                     placeholder="{{ __('auth.login.password_placeholder') }}"
                     required

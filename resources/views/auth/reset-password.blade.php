@@ -24,7 +24,7 @@
             <div class="relative">
                 <input
                     id="password"
-                    :type="show ? 'text' : 'password'"
+                    type="password" :type="show ? 'text' : 'password'"
                     name="password"
                     placeholder="{{ __('auth.reset.password_placeholder') }}"
                     required
@@ -50,7 +50,7 @@
             <div class="relative">
                 <input
                     id="password_confirmation"
-                    :type="show ? 'text' : 'password'"
+                    type="password" :type="show ? 'text' : 'password'"
                     name="password_confirmation"
                     placeholder="{{ __('auth.reset.password_placeholder') }}"
                     required
