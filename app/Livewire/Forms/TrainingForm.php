@@ -7,6 +7,7 @@ use App\Enums\TrainingStatus;
 use App\Enums\TrainingTypes;
 use App\Models\Training;
 use App\Models\User;
+use App\Jobs\ProcessUploadedImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
@@ -103,16 +104,26 @@ class TrainingForm extends Form
         ];
 
         if ($this->banner) {
-            $data['banner'] = $this->banner->store('trainings', 'public');
+            $path = $this->banner->store('trainings/banners', 'public');
+            $data['banner'] = $path;
+            ProcessUploadedImage::dispatch(
+                $path,
+                config('banners.paths.trainings.variants'),
+                config('banners.sizes.banner')
+            );
         }
 
         $training = Training::create($data);
 
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
-                $training->galeries()->create([
-                    'path' => $galery->store('trainings/galeries', 'public'),
-                ]);
+                $path = $galery->store('trainings/galeries', 'public');
+                $training->galeries()->create(['path' => $path]);
+                ProcessUploadedImage::dispatch(
+                    $path,
+                    config('banners.paths.galeries.trainings'),
+                    config('banners.sizes.galerie')
+                );
             }
         }
 
@@ -147,14 +158,24 @@ class TrainingForm extends Form
             if ($training->banner) {
                 Storage::disk('public')->delete($training->banner);
             }
-            $data['banner'] = $this->banner->store('trainings/banners', 'public');
+            $path = $this->banner->store('trainings/banners', 'public');
+            $data['banner'] = $path;
+            ProcessUploadedImage::dispatch(
+                $path,
+                config('banners.paths.trainings.variants'),
+                config('banners.sizes.banner')
+            );
         }
 
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
-                $training->galeries()->create([
-                    'path' => $galery->store('trainings/galeries', 'public'),
-                ]);
+                $path = $galery->store('trainings/galeries', 'public');
+                $training->galeries()->create(['path' => $path]);
+                ProcessUploadedImage::dispatch(
+                    $path,
+                    config('banners.paths.galeries.trainings'),
+                    config('banners.sizes.galerie')
+                );
             }
         }
 

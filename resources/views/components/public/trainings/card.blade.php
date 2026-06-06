@@ -9,13 +9,24 @@
    title="{{ __('public/trainings.card_title', ['title' => $training->title]) }}"
    class="group flex flex-col bg-bg rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] border-b-4 border-success overflow-hidden h-[516px]">
 
-    <div class="relative h-60 shrink-0">
+    <div class="relative h-60 shrink-0 bg-dark-light">
         @if($training->banner)
+            @php
+                $variantName  = pathinfo(basename($training->banner), PATHINFO_FILENAME) . '.' . config('banners.image_type');
+                $variantsBase = config('banners.paths.trainings.variants');
+                $srcset       = collect(config('banners.sizes.banner'))
+                    ->map(fn($w) => asset("storage/{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
+                    ->implode(', ');
+            @endphp
             <img src="{{ asset('storage/' . $training->banner) }}"
+                 srcset="{{ $srcset }}"
+                 sizes="(max-width: 768px) 100vw, 33vw"
                  alt="{{ $training->title }}"
-                 class="absolute w-full h-full object-cover"
+                 class="absolute inset-0 w-full h-full object-cover"
                  loading="eager"
             />
+        @else
+            <div class="absolute inset-0 bg-gradient-to-br from-dark-light to-dark-mid opacity-60"></div>
         @endif
         <x-public.card-overlay
                 :label="$training->type?->label()"

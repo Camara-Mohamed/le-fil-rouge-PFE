@@ -1,28 +1,19 @@
 <x-public.app title="{{ __('public/trainings.title') }}">
 
-    {{-- Héro --}}
-
-@can('create', App\Models\Training::class)
-        <a href="{{ route('admin.trainings.create', ['locale' => app()->getLocale()]) }}">Ajouter une formation</a>
-    @endcan
-
-    {{-- Liste des formations --}}
-    <div class="px-4 md:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @forelse($trainings as $training)
-            <x-public.trainings.card :training="$training" />
-        @empty
-            <p class="font-serif text-dark-mid col-span-3">Aucune formation disponible.</p>
-        @endforelse
+    <div class="px-4 md:px-6 lg:px-8 py-12">
+        <livewire:public.trainings-index />
     </div>
 
-    <div class="px-4 md:px-6 lg:px-8">{{ $trainings->links() }}</div>
+    {{-- Les avantages --}}
+    <x-public.trainings.benefits />
 
-    {{-- Recherche | Filtres | Tri --}}
-
-    {{-- Liste des formations (Date - Desc) + Pagination --}}
-
-    {{-- Image + Texte Descriptifs --}}
-
-    {{-- Galéries --}}
+    {{-- Galerie --}}
+    <x-public.gallery
+        :images="['fun', 'fun_1', 'fun_2', 'fun_3', 'fun_4', 'fun_5']"
+        base="images/trainings"
+        title="{{ __('public/trainings.gallery_title') }}"
+        alt="{{ __('public/trainings.hero_alt') }}"
+        group="gallery-trainings"
+    />
 
 </x-public.app>
