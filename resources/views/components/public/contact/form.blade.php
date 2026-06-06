@@ -21,6 +21,7 @@
             name="full_name"
             :value="old('full_name')"
             :label="__('public/contact.full_name')"
+            placeholder="Dylan Piquin"
             :required="true"
         />
 
@@ -29,6 +30,7 @@
             name="email"
             :value="old('email')"
             :label="__('public/contact.email')"
+            placeholder="dylan.piquin@lefilrouge.be"
             :required="true"
         />
 
@@ -37,12 +39,14 @@
             name="sujet"
             :value="old('sujet')"
             :label="__('public/contact.sujet')"
+            placeholder="Demande d'inscription, question générale…"
             :required="true"
         />
 
         <x-public.form.textarea
             name="message"
             :label="__('public/contact.message')"
+            placeholder="Écris ton message ici…"
             :required="true"
         >{{ old('message') }}</x-public.form.textarea>
 

@@ -18,7 +18,7 @@
         rows="{{ $rows }}"
         {{ $attributes->merge(['class' =>
             'px-4 py-3 w-full bg-white border border-bg-dark rounded-lg resize-none ' .
-            'font-serif font-medium text-base text-dark placeholder:text-dark-mid ' .
+            'font-serif font-medium text-base text-dark placeholder:text-dark-mid placeholder:font-normal ' .
             'transition duration-200'
         ]) }}
     >{{ $slot }}</textarea>

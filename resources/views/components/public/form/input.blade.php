@@ -16,7 +16,7 @@
         @if($name) id="{{ $name }}" name="{{ $name }}" @endif
         {{ $attributes->merge(['class' =>
             'h-11 px-4 w-full bg-white border border-bg-dark rounded-lg ' .
-            'font-serif font-medium text-base text-dark placeholder:text-dark-mid ' .
+            'font-serif font-medium text-base text-dark placeholder:text-dark-mid placeholder:font-normal ' .
             'transition duration-200'
         ]) }}
     />
