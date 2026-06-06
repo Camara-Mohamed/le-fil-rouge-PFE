@@ -1,74 +1,75 @@
-@php use App\Enums\TrainingStatus; @endphp
 <x-public.auth title="{{ __('auth.login.title') }}">
 
-    <a href="{{ route('public.home', ['locale' => app()->getLocale()]) }}">Revenir à la page d'accueil</a>
-
-    <form method="POST" action="{{ route('login', ['locale'=>app()->getLocale()]) }}">
+    <form method="POST"
+          action="{{ route('login', ['locale' => app()->getLocale()]) }}"
+          class="w-full flex flex-col gap-6">
         @csrf
 
-        <h2>{{ __('auth.login.title') }}</h2>
+        <h2 class="font-sans font-black text-2xl text-dark">{{ __('auth.login.title') }}</h2>
 
-        <div>
-            <label for="email">{{ __('auth.login.email') }}</label>
-            <input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="{{ __('auth.login.email_placeholder') }}"
-                value="{{ old('email') }}"
-                required
-            >
-            @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        <x-public.form.input
+            type="email"
+            name="email"
+            :value="old('email')"
+            :label="__('auth.login.email')"
+            placeholder="{{ __('auth.login.email_placeholder') }}"
+            :required="true"
+        />
+
+        <div x-data="{ show: false }" class="flex flex-col gap-2">
+            <label for="password" class="font-sans font-bold text-base text-dark">
+                {{ __('auth.login.password') }} <span class="text-red">*</span>
+            </label>
+            <div class="relative">
+                <input
+                    id="password"
+                    :type="show ? 'text' : 'password'"
+                    name="password"
+                    placeholder="{{ __('auth.login.password_placeholder') }}"
+                    required
+                    class="h-11 px-4 pr-12 w-full bg-white border border-bg-dark rounded-lg font-serif font-medium text-base text-dark placeholder:text-dark-mid transition duration-200"
+                />
+                <button type="button" @click="show = !show"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-dark-mid hover:text-dark transition duration-200">
+                    <x-icons.eye class="size-5" x-show="!show" />
+                    <x-icons.eye-slash class="size-5" x-show="show" style="display:none" />
+                </button>
+            </div>
+            @error('password')
+                <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
+                    <p class="font-serif text-sm text-danger">{{ $message }}</p>
+                </div>
+            @enderror
         </div>
 
-        <div x-data="{ show: false }">
-            <label for="password">{{ __('auth.login.password') }}</label>
-
-            <input
-                id="password"
-                :type="show ? 'text' : 'password'"
-                name="password"
-                placeholder="{{ __('auth.login.password_placeholder') }}"
-                required
-            >
-
-            <button
-                type="button"
-                @click="show = !show"
-            >
-                <span x-show="!show">Afficher</span>
-                <span x-show="show">Cacher</span>
-            </button>
-            @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        <div class="flex justify-between items-center">
+            <label class="flex items-center gap-2 font-sans text-sm text-dark cursor-pointer">
+                <input type="checkbox" name="remember" class="rounded border-bg-dark" />
+                {{ __('auth.login.remember_me') }}
+            </label>
+            <a href="{{ route('password.request', ['locale' => app()->getLocale()]) }}"
+               class="font-sans text-sm text-red hover:text-red-mid underline transition duration-200">
+                {{ __('auth.login.forgot_password') }}
+            </a>
         </div>
 
-        <div>
-            <input
-                id="remember"
-                type="checkbox"
-                name="remember"
-            >
-            <label for="remember">Se souvenir</label>
-        </div>
-
-        <button type="submit">
+        <button type="submit"
+                class="w-full py-3 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
             {{ __('auth.login.submit') }}
         </button>
 
-        <a href="{{ route('password.request', ['locale'=>app()->getLocale()]) }}">
-            {{ __('auth.login.forgot_password') }}
-        </a>
-
-        <p>Vous n'êtes pas encore membre ? <a href="{{ route('public.volunteer', ['locale' => app()->getLocale()])
-        }}">Devenez volontaire</a></p>
-
     </form>
 
-    // Retour
+    <div class="flex flex-col gap-4">
+        <hr class="border-bg-dark" />
 
-    // Présentation
-
-    // Formulaire + CTA (Volontaire)
-
+        <p class="font-sans text-sm text-dark-mid text-center">
+            {{ __('auth.login.no_account') }}
+            <a href="{{ route('public.volunteer', ['locale' => app()->getLocale()]) }}"
+               class="text-red font-medium underline hover:text-red-mid transition duration-200">
+                {{ __('auth.login.be_volunteer') }}
+            </a>
+        </p>
+    </div>
 
 </x-public.auth>

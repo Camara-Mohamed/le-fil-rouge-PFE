@@ -15,6 +15,9 @@ return [
         'password_placeholder' => 'Entrer le mot de passe',
         'submit' => 'Se connecter',
         'forgot_password' => 'Mot de passe oublié ?',
+        'remember_me' => 'Se souvenir de moi',
+        'no_account' => 'T\'as pas encore de compte ?',
+        'be_volunteer' => 'Devenir volontaire',
     ],
 
     // Réinitialiser le mot de passe
@@ -23,6 +26,7 @@ return [
         'email' => 'Email',
         'email_placeholder' => 'dylan.piquin@lefilrouge.com',
         'submit' => 'Réinitialiser',
+        'back'         => 'Retour à la connexion',
     ],
 
     // Modifier le mot de passe

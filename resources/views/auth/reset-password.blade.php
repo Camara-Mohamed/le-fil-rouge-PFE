@@ -1,65 +1,79 @@
-<x-public.auth title="{{ __('auth.reset.title') }}">
-    <form method="POST" action="{{ route('password.update', ['locale'=>app()->getLocale()]) }}">
+<x-public.auth title="{{ __('auth.reset.title') }}" :back="false">
+
+    <form method="POST"
+          action="{{ route('password.update', ['locale' => app()->getLocale()]) }}"
+          class="w-full flex flex-col gap-6">
         @csrf
-
-        <h2>{{ __('auth.reset.title') }}</h2>
-
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-        <div>
-            <label for="email">{{ __('auth.reset.email') }}</label>
-            <input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="{{ __('auth.reset.email_placeholder') }}"
-                value="{{ old('email') }}"
-                required
-            >
-            @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        <h2 class="font-sans font-black text-2xl text-dark">{{ __('auth.reset.title') }}</h2>
+
+        <x-public.form.input
+            type="email"
+            name="email"
+            :value="old('email')"
+            :label="__('auth.reset.email')"
+            placeholder="{{ __('auth.reset.email_placeholder') }}"
+            :required="true"
+        />
+
+        <div x-data="{ show: false }" class="flex flex-col gap-2">
+            <label for="password" class="font-sans font-bold text-base text-dark">
+                {{ __('auth.reset.password') }} <span class="text-red">*</span>
+            </label>
+            <div class="relative">
+                <input
+                    id="password"
+                    :type="show ? 'text' : 'password'"
+                    name="password"
+                    placeholder="{{ __('auth.reset.password_placeholder') }}"
+                    required
+                    class="h-11 px-4 pr-12 w-full bg-white border border-bg-dark rounded-lg font-serif font-medium text-base text-dark placeholder:text-dark-mid placeholder:font-normal transition duration-200"
+                />
+                <button type="button" @click="show = !show"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-dark-mid hover:text-dark transition duration-200">
+                    <x-icons.eye class="size-5" x-show="!show" />
+                    <x-icons.eye-slash class="size-5" x-show="show" style="display:none" />
+                </button>
+            </div>
+            @error('password')
+                <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
+                    <p class="font-serif text-sm text-danger">{{ $message }}</p>
+                </div>
+            @enderror
         </div>
 
-        <div x-data="{ show: false }">
-            <label for="password">{{ __('auth.reset.password') }}</label>
-            <input
-                id="password"
-                :type="show ? 'text' : 'password'"
-                name="password"
-                placeholder="{{ __('auth.reset.password_placeholder') }}"
-                required
-            >
-            <button
-                type="button"
-                @click="show = !show"
-            >
-                <span x-show="!show">Afficher</span>
-                <span x-show="show">Cacher</span>
-            </button>
-            @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        <div x-data="{ show: false }" class="flex flex-col gap-2">
+            <label for="password_confirmation" class="font-sans font-bold text-base text-dark">
+                {{ __('auth.reset.password_confirmation') }} <span class="text-red">*</span>
+            </label>
+            <div class="relative">
+                <input
+                    id="password_confirmation"
+                    :type="show ? 'text' : 'password'"
+                    name="password_confirmation"
+                    placeholder="{{ __('auth.reset.password_placeholder') }}"
+                    required
+                    class="h-11 px-4 pr-12 w-full bg-white border border-bg-dark rounded-lg font-serif font-medium text-base text-dark placeholder:text-dark-mid placeholder:font-normal transition duration-200"
+                />
+                <button type="button" @click="show = !show"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 text-dark-mid hover:text-dark transition duration-200">
+                    <x-icons.eye class="size-5" x-show="!show" />
+                    <x-icons.eye-slash class="size-5" x-show="show" style="display:none" />
+                </button>
+            </div>
+            @error('password_confirmation')
+                <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
+                    <p class="font-serif text-sm text-danger">{{ $message }}</p>
+                </div>
+            @enderror
         </div>
 
-        <div x-data="{ show: false }">
-            <label for="password_confirmation">{{ __('auth.reset.password_confirmation') }}</label>
-            <input
-                id="password_confirmation"
-                :type="show ? 'text' : 'password'"
-                name="password_confirmation"
-                placeholder="{{ __('auth.reset.password_placeholder') }}"
-                required
-            >
-            <button
-                type="button"
-                @click="show = !show"
-            >
-                <span x-show="!show">Afficher</span>
-                <span x-show="show">Cacher</span>
-            </button>
-            @error('password_confirmation') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
-
-        <button type="submit">
+        <button type="submit"
+                class="w-full py-3 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
             {{ __('auth.reset.submit') }}
         </button>
 
     </form>
+
 </x-public.auth>

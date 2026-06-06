@@ -1,28 +1,41 @@
 <x-public.auth title="{{ __('auth.forgot_password.title') }}">
 
-    <a href="{{ route('login', ['locale'=>app()->getLocale()]) }}">Revenir à la page de connexion</a>
+    @if(session('status'))
+        <div class="w-full px-4 py-3 bg-success-bg border-l-[3px] border-success rounded-lg">
+            <p class="font-serif text-sm text-success">{{ session('status') }}</p>
+        </div>
+    @endif
 
-    <form method="POST" action="{{ route('password.email', ['locale'=>app()->getLocale()]) }}">
+    <form method="POST"
+          action="{{ route('password.email', ['locale' => app()->getLocale()]) }}"
+          class="w-full flex flex-col gap-6">
         @csrf
 
-        <h2>{{ __('auth.forgot_password.title') }}</h2>
+        <h2 class="font-sans font-black text-2xl text-dark">{{ __('auth.forgot_password.title') }}</h2>
 
-        <div>
-            <label for="email">{{ __('auth.forgot_password.email') }}</label>
-            <input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="{{ __('auth.forgot_password.email_placeholder') }}"
-                value="{{ old('email') }}"
-                required
-            >
-            @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+        <x-public.form.input
+            type="email"
+            name="email"
+            :value="old('email')"
+            :label="__('auth.forgot_password.email')"
+            placeholder="{{ __('auth.forgot_password.email_placeholder') }}"
+            :required="true"
+        />
 
-        <button type="submit">
+        <button type="submit"
+                class="w-full py-3 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
             {{ __('auth.forgot_password.submit') }}
         </button>
 
     </form>
+
+    <x-slot:more_cta>
+        <p class="font-sans text-sm text-dark-mid text-center">
+            <a href="{{ route('login', ['locale' => app()->getLocale()]) }}"
+               class="text-red font-medium underline hover:text-red-mid transition duration-200">
+                {{ __('auth.forgot_password.back') }}
+            </a>
+        </p>
+    </x-slot:more_cta>
+
 </x-public.auth>
