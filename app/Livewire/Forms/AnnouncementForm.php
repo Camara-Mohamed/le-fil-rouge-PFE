@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Models\Announcement;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Livewire\WithFileUploads;
 
@@ -34,9 +35,9 @@ class AnnouncementForm extends Form
             'content' => ['required', 'string'],
             'details' => ['nullable', 'string'],
             'published_at' => ['nullable', 'date'],
-            'banner' => ['nullable', 'image', 'max:2048'],
+            'banner' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif,webp', 'max:2048'],
             'galeries' => ['nullable', 'array'],
-            'galeries.*' => ['nullable', 'image', 'max:2048'],
+            'galeries.*' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif,webp', 'max:2048'],
         ];
     }
 

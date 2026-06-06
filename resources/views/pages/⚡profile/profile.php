@@ -10,6 +10,7 @@ use App\Traits\HandlesAvatar;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -29,6 +30,7 @@ new #[Title('Mon Profil')] class extends Component
 
     public DocumentForm $document;
 
+    #[Validate(['image', 'mimes:jpg,jpeg,png,gif,webp', 'max:2048'])]
     public $avatar;
 
     public function mount(): void

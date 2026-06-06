@@ -69,9 +69,9 @@ class CampForm extends Form
             'roles' => ['nullable', 'array'],
             'roles.*' => ['nullable', 'string'],
             'status' => ['required', Rule::enum(CampStatus::class)],
-            'banner' => ['nullable', 'image', 'max:2048'],
+            'banner' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif,webp', 'max:2048'],
             'galeries' => ['nullable', 'array'],
-            'galeries.*' => ['nullable', 'image', 'max:2048'],
+            'galeries.*' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif,webp', 'max:2048'],
         ];
     }
 

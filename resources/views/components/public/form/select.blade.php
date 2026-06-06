@@ -40,9 +40,9 @@
         </div>
     </div>
 
-    @if($error)
+    @error($name)
         <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
-            <p class="text-danger text-sm font-serif">{{ $error }}</p>
+            <p class="text-danger text-sm font-serif">{{ $message }}</p>
         </div>
-    @endif
+    @enderror
 </div>
