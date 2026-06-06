@@ -7,14 +7,7 @@
     <input type="checkbox" id="nav-toggle" class="sr-only" />
 
     {{-- Logo --}}
-    <a href="{{ route('public.home', ['locale' => app()->getLocale()]) }}"
-       wire:navigate
-       title="{{ __('navigation.home_title') }}"
-       aria-label="{{ config('app.name') }}"
-       aria-current="{{ request()->routeIs('public.home') ? 'page' : 'false' }}"
-       class="text-red font-sans text-xl lg:text-2xl font-black hover:text-red-mid transition duration-200">
-        {{ __('navigation.home') }}
-    </a>
+    <x-nav.logo />
 
     {{-- Burger icon --}}
     <label id="nav-burger" for="nav-toggle"
