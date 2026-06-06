@@ -2,7 +2,6 @@
     'label'    => null,
     'name'     => null,
     'required' => false,
-    'error'    => null,
     'rows'     => 6,
 ])
 
@@ -18,15 +17,15 @@
         @if($name) id="{{ $name }}" name="{{ $name }}" @endif
         rows="{{ $rows }}"
         {{ $attributes->merge(['class' =>
-            'px-4 py-3 w-full bg-white border border-bg-dark rounded-lg' .
+            'px-4 py-3 w-full bg-white border border-bg-dark rounded-lg resize-none ' .
             'font-serif font-medium text-base text-dark placeholder:text-dark-mid ' .
             'transition duration-200'
         ]) }}
     >{{ $slot }}</textarea>
 
-    @if($error)
+    @error($name)
         <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
-            <p class="text-danger text-sm font-serif">{{ $error }}</p>
+            <p class="font-serif text-sm text-danger">{{ $message }}</p>
         </div>
-    @endif
+    @enderror
 </div>
