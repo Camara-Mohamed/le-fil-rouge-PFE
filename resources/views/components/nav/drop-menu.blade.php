@@ -2,7 +2,7 @@
     <details :open="open" @click.outside="open = false">
 
         <summary
-            class="list-none cursor-pointer px-6 py-2 inline-flex items-center gap-2 border-2 border-red rounded bg-red
+            class="list-none cursor-pointer px-6 py-2 inline-flex items-center gap-2 border-2 border-red rounded-lg bg-red
                    text-white font-sans font-medium hover:bg-red-mid transition duration-200"
             title="{{ __('navigation.profile_title') }}"
             @click.prevent="open = !open"
