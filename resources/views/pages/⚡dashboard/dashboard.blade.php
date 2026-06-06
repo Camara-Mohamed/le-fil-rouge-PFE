@@ -1,137 +1,260 @@
-<div class="flex flex-col gap-8 p-8" wire:poll.10s>
+<div class="flex flex-col gap-8 px-4 py-8 md:px-8" wire:poll.10s>
 
-    @if(auth()->user()->isIncomplete())
-        <div>
-            <p>Votre dossier est incomplet.</p>
-            <a href="{{ route('admin.profile', ['locale' => app()->getLocale()]) }}">Mon Profil</a>
-        </div>
-    @endif
+    <x-public.missing-document/>
 
-    <section class="flex flex-col gap-4">
-        <h2 class="sr-only">CTA</h2>
-        <div class="flex flex-wrap gap-4">
+    {{-- CTA --}}
+    @canany(['manage-members', 'manage-messages', 'manage-training', 'manage-camp', 'manage-announcement'])
+        <section aria-label="Actions principales">
+            <div class="flex flex-wrap gap-3">
 
-            @can('manage-members')
-                <a href="{{ route('admin.members.create', ['locale' => app()->getLocale()]) }}">Ajouter un membre</a>
-                <a href="{{ route('admin.members.index', ['locale' => app()->getLocale()]) }}">Gérer les membres</a>
-            @endcan
+                @can('manage-members')
+                    <x-public.link
+                        href="{{ route('admin.members.create', ['locale' => app()->getLocale()]) }}"
+                        class="px-6 py-2 rounded-lg bg-red text-white hover:bg-red-mid">
+                        <x-icons.plus class="size-4" fill="fill-current" />
+                        Ajouter un membre
+                    </x-public.link>
+                    <x-public.link
+                        href="{{ route('admin.members.index', ['locale' => app()->getLocale()]) }}"
+                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark hover:border-dark">
+                        Gérer les membres
+                    </x-public.link>
+                @endcan
 
-            @can('manage-messages')
-                <a href="{{ route('admin.messages.index', ['locale' => app()->getLocale()]) }}">Voir les messages</a>
-            @endcan
+                @can('manage-messages')
+                    <x-public.link
+                        href="{{ route('admin.messages.index', ['locale' => app()->getLocale()]) }}"
+                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark hover:border-dark">
+                        Voir les messages
+                    </x-public.link>
+                @endcan
 
-            @can('manage-training')
-                <a href="{{ route('admin.trainings.create', ['locale' => app()->getLocale()]) }}">Créer une formation</a>
-            @endcan
+                @can('manage-training')
+                    <x-public.link
+                        href="{{ route('admin.trainings.create', ['locale' => app()->getLocale()]) }}"
+                        class="px-6 py-2 rounded-lg bg-red text-white hover:bg-red-mid">
+                        <x-icons.plus class="size-4" fill="fill-current" />
+                        Créer une formation
+                    </x-public.link>
+                @endcan
 
-            @can('manage-camp')
-                <a href="{{ route('admin.camps.create', ['locale' => app()->getLocale()]) }}">Créer un camp</a>
-            @endcan
+                @can('manage-camp')
+                    <x-public.link
+                        href="{{ route('admin.camps.create', ['locale' => app()->getLocale()]) }}"
+                        class="px-6 py-2 rounded-lg bg-red text-white hover:bg-red-mid">
+                        <x-icons.plus class="size-4" fill="fill-current" />
+                        Créer un camp
+                    </x-public.link>
+                @endcan
 
-            @can('manage-announcement')
-                <a href="{{ route('admin.announcements.create', ['locale' => app()->getLocale()]) }}">Ajouter une actualité</a>
-            @endcan
-        </div>
-    </section>
+                @can('manage-announcement')
+                    <x-public.link
+                        href="{{ route('admin.announcements.create', ['locale' => app()->getLocale()]) }}"
+                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark hover:border-dark">
+                        <x-icons.plus class="size-4" fill="fill-current" />
+                        Ajouter une actualité
+                    </x-public.link>
+                @endcan
 
-    <section class="flex flex-col gap-4" wire:ignore>
-        <h2>Mon Calendrier</h2>
-        <div x-data="dashboardCalendar(@js($calendarEvents), '{{ app()->getLocale() }}')"></div>
-    </section>
+            </div>
+        </section>
+    @endcanany
 
-    @isset($pendingTrainingRegisters)
-        <section class="flex flex-col gap-4">
-            <h2>Inscriptions ({{ $pendingTrainingRegisters->count() }})</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 items-start">
 
-            @forelse($pendingTrainingRegisters as $register)
-                <div wire:key="training-register-{{ $register->id }}">
-                    <p>
-                        <strong>{{ $register->user->fullName() }}</strong>
-                        - {{ $register->training->title }}
-                        ({{ $register->training->start_date->format('d/m/Y') }})
-                    </p>
-                    @if($register->notes)
-                        <p>Notes : {{ $register->notes }}</p>
-                    @endif
-                    <div>
-                        <button wire:click="acceptTrainingRegister({{ $register->id }})">Accepter</button>
-                        <button wire:click="openConfirmRefuseModal({{ $register->id }}, 'training_register')">Refuser</button>
+        {{-- Calendrier --}}
+        <section aria-label="Mon calendrier" wire:ignore>
+            <div x-data="dashboardCalendar(@js($calendarEvents), '{{ app()->getLocale() }}')" class="flex flex-col gap-4">
+
+                <div class="flex items-center justify-between flex-wrap gap-3">
+                    <h2 class="font-sans font-bold text-xl text-dark">Mon calendrier</h2>
+                    <div class="flex gap-1 bg-bg rounded-lg p-1">
+                        <button
+                            x-on:click="changeView('listMonth')"
+                            :class="currentView === 'listMonth' ? 'bg-white text-dark shadow-sm' : 'text-dark-mid hover:text-dark'"
+                            class="px-3 py-1.5 font-sans font-medium text-xs rounded-md transition">
+                            Liste
+                        </button>
+                        <button
+                            x-on:click="changeView('dayGridWeek')"
+                            :class="currentView === 'dayGridWeek' ? 'bg-white text-dark shadow-sm' : 'text-dark-mid hover:text-dark'"
+                            class="px-3 py-1.5 font-sans font-medium text-xs rounded-md transition">
+                            Semaine
+                        </button>
+                        <button
+                            x-on:click="changeView('dayGridMonth')"
+                            :class="currentView === 'dayGridMonth' ? 'bg-white text-dark shadow-sm' : 'text-dark-mid hover:text-dark'"
+                            class="px-3 py-1.5 font-sans font-medium text-xs rounded-md transition">
+                            Mois
+                        </button>
                     </div>
                 </div>
-            @empty
-                <p>Aucune inscription en attente.</p>
-            @endforelse
+
+                <div x-ref="calendarEl"></div>
+
+            </div>
         </section>
-    @endisset
 
-    @isset($pendingCampRegisters)
-        <section class="flex flex-col gap-4">
-            <h2>Inscriptions ({{ $pendingCampRegisters->count() }})</h2>
+        @canany(['manage-training', 'manage-camp', 'manage-members'])
+            <aside aria-label="Validations en attente" class="flex flex-col gap-6">
 
-            @forelse($pendingCampRegisters as $register)
-                <div wire:key="camp-register-{{ $register->id }}">
-                    <p>
-                        <strong>{{ $register->user->fullName() }}</strong>
-                        - {{ $register->camp->title }}
-                        ({{ $register->camp->start_date->format('d/m/Y') }})
-                    </p>
-                    @if($register->notes)
-                        <p>Notes : {{ $register->notes }}</p>
-                    @endif
-                    <div>
-                        <button wire:click="acceptCampRegister({{ $register->id }})">Accepter</button>
-                        <button wire:click="openConfirmRefuseModal({{ $register->id }}, 'camp_register')">Refuser</button>
-                    </div>
-                </div>
-            @empty
-                <p>Aucune inscription en attente.</p>
-            @endforelse
-        </section>
-    @endisset
+                {{-- Inscriptions en attente --}}
+                @if(isset($pendingTrainingRegisters) || isset($pendingCampRegisters))
+                    @php
+                        $totalPendingRegisters = (isset($pendingTrainingRegisters) ? $pendingTrainingRegisters->count() : 0)
+                                              + (isset($pendingCampRegisters) ? $pendingCampRegisters->count() : 0);
+                    @endphp
+                    <section aria-label="Inscriptions à valider" class="flex flex-col gap-4">
 
-    @isset($pendingTrainings)
-        <section class="flex flex-col gap-4">
-            <h2>Formations ({{ $pendingTrainings->count() }})</h2>
+                        <div class="flex items-center gap-2">
+                            <h2 class="font-sans font-bold text-base text-dark">Inscriptions à valider</h2>
+                            @if($totalPendingRegisters > 0)
+                                <x-public.badge variant="danger">{{ $totalPendingRegisters }}</x-public.badge>
+                            @endif
+                        </div>
 
-            @forelse($pendingTrainings as $training)
-                <div wire:key="training-{{ $training->id }}">
-                    <p>
-                        <strong>{{ $training->title }}</strong>
-                        - par {{ $training->user->fullName() }}
-                        ({{ $training->start_date->format('d/m/Y') }})
-                    </p>
-                    <div>
-                        <a href="{{ route('admin.trainings.edit', ['locale' => app()->getLocale(), 'training' => $training]) }}">Voir</a>
-                        <button wire:click="publishTraining({{ $training->id }})">Publier</button>
-                        <button wire:click="openConfirmRefuseModal({{ $training->id }}, 'training')">Refuser</button>
-                    </div>
-                </div>
-            @empty
-                <p>Aucune formation en attente de validation.</p>
-            @endforelse
-        </section>
-    @endisset
+                        <div class="flex flex-col gap-3">
 
-    @isset($pendingCamps)
-        <section class="flex flex-col gap-4">
-            <h2>Camps ({{ $pendingCamps->count() }})</h2>
+                            @isset($pendingTrainingRegisters)
+                                @forelse($pendingTrainingRegisters as $register)
+                                    <div wire:key="training-register-{{ $register->id }}"
+                                         class="bg-white rounded-xl px-4 py-3 shadow-[0px_2px_10px_0px_rgba(0,0,0,0.07)] flex flex-col gap-3">
+                                        <div class="flex flex-col gap-0.5">
+                                            <p class="font-sans font-bold text-sm text-dark">{{ $register->user->fullName() }}</p>
+                                            <p class="font-serif text-sm text-dark-mid">{{ $register->training->title }}</p>
+                                            <x-public.badge variant="success" class="self-start">Formation · {{ $register->training->start_date->format('d/m/Y') }}</x-public.badge>
+                                            @if($register->notes)
+                                                <p class="font-serif text-xs text-dark-mid italic mt-1">{{ $register->notes }}</p>
+                                            @endif
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <x-forms.button wire:click="acceptTrainingRegister({{ $register->id }})" class="flex-1 bg-success text-white border-success">
+                                                Accepter
+                                            </x-forms.button>
+                                            <x-forms.button wire:click="openConfirmRefuseModal({{ $register->id }}, 'training_register')" class="flex-1 text-danger border-danger hover:bg-danger hover:text-white">
+                                                Refuser
+                                            </x-forms.button>
+                                        </div>
+                                    </div>
+                                @empty
+                                @endforelse
+                            @endisset
 
-            @forelse($pendingCamps as $camp)
-                <div wire:key="camp-{{ $camp->id }}">
-                    <p>
-                        <strong>{{ $camp->title }}</strong>
-                        - par {{ $camp->user->fullName() }}
-                        ({{ $camp->start_date->format('d/m/Y') }})
-                    </p>
-                    <div>
-                        <a href="{{ route('admin.camps.edit', ['locale' => app()->getLocale(), 'camp' => $camp]) }}">Voir</a>
-                        <button wire:click="publishCamp({{ $camp->id }})">Publier</button>
-                        <button wire:click="openConfirmRefuseModal({{ $camp->id }}, 'camp')">Refuser</button>
-                    </div>
-                </div>
-            @empty
-                <p>Aucun camp en attente de validation.</p>
-            @endforelse
-        </section>
-    @endisset
+                            @isset($pendingCampRegisters)
+                                @forelse($pendingCampRegisters as $register)
+                                    <div wire:key="camp-register-{{ $register->id }}"
+                                         class="bg-white rounded-xl px-4 py-3 shadow-[0px_2px_10px_0px_rgba(0,0,0,0.07)] flex flex-col gap-3">
+                                        <div class="flex flex-col gap-0.5">
+                                            <p class="font-sans font-bold text-sm text-dark">{{ $register->user->fullName() }}</p>
+                                            <p class="font-serif text-sm text-dark-mid">{{ $register->camp->title }}</p>
+                                            <x-public.badge variant="info" class="self-start">Camp · {{ $register->camp->start_date->format('d/m/Y') }}</x-public.badge>
+                                            @if($register->notes)
+                                                <p class="font-serif text-xs text-dark-mid italic mt-1">{{ $register->notes }}</p>
+                                            @endif
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <x-forms.button wire:click="acceptCampRegister({{ $register->id }})" class="flex-1 bg-success text-white border-success">
+                                                Accepter
+                                            </x-forms.button>
+                                            <x-forms.button wire:click="openConfirmRefuseModal({{ $register->id }}, 'camp_register')" class="flex-1 text-danger border-danger hover:bg-danger hover:text-white">
+                                                Refuser
+                                            </x-forms.button>
+                                        </div>
+                                    </div>
+                                @empty
+                                @endforelse
+                            @endisset
+
+                            @if($totalPendingRegisters === 0)
+                                <p class="font-serif text-sm text-dark-mid">Aucune inscription en attente.</p>
+                            @endif
+
+                        </div>
+                    </section>
+                @endif
+
+                {{-- Événements en attente --}}
+                @if(isset($pendingTrainings) || isset($pendingCamps))
+                    @php
+                        $totalPendingEvents = (isset($pendingTrainings) ? $pendingTrainings->count() : 0)
+                                           + (isset($pendingCamps) ? $pendingCamps->count() : 0);
+                    @endphp
+                    <section aria-label="Événements à valider" class="flex flex-col gap-4">
+
+                        <div class="flex items-center gap-2">
+                            <h2 class="font-sans font-bold text-base text-dark">Événements à valider</h2>
+                            @if($totalPendingEvents > 0)
+                                <x-public.badge variant="warning">{{ $totalPendingEvents }}</x-public.badge>
+                            @endif
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+
+                            @isset($pendingTrainings)
+                                @forelse($pendingTrainings as $training)
+                                    <div wire:key="training-{{ $training->id }}"
+                                         class="bg-white rounded-xl px-4 py-3 shadow-[0px_2px_10px_0px_rgba(0,0,0,0.07)] flex flex-col gap-3">
+                                        <div class="flex flex-col gap-0.5">
+                                            <p class="font-sans font-bold text-sm text-dark">{{ $training->title }}</p>
+                                            <p class="font-serif text-sm text-dark-mid">par {{ $training->user->fullName() }}</p>
+                                            <x-public.badge variant="success" class="self-start">Formation · {{ $training->start_date->format('d/m/Y') }}</x-public.badge>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <x-public.link
+                                                href="{{ route('admin.trainings.edit', ['locale' => app()->getLocale(), 'training' => $training]) }}"
+                                                class="flex-1 border-2 border-dark-light text-dark hover:border-dark justify-center">
+                                                Voir
+                                            </x-public.link>
+                                            <x-forms.button wire:click="publishTraining({{ $training->id }})" class="flex-1 bg-success text-white border-success">
+                                                Publier
+                                            </x-forms.button>
+                                            <x-forms.button wire:click="openConfirmRefuseModal({{ $training->id }}, 'training')" class="flex-1 text-danger border-danger hover:bg-danger hover:text-white">
+                                                Refuser
+                                            </x-forms.button>
+                                        </div>
+                                    </div>
+                                @empty
+                                @endforelse
+                            @endisset
+
+                            @isset($pendingCamps)
+                                @forelse($pendingCamps as $camp)
+                                    <div wire:key="camp-{{ $camp->id }}"
+                                         class="bg-white rounded-xl px-4 py-3 shadow-[0px_2px_10px_0px_rgba(0,0,0,0.07)] flex flex-col gap-3">
+                                        <div class="flex flex-col gap-0.5">
+                                            <p class="font-sans font-bold text-sm text-dark">{{ $camp->title }}</p>
+                                            <p class="font-serif text-sm text-dark-mid">par {{ $camp->user->fullName() }}</p>
+                                            <x-public.badge variant="info" class="self-start">Camp · {{ $camp->start_date->format('d/m/Y') }}</x-public.badge>
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <x-public.link
+                                                href="{{ route('admin.camps.edit', ['locale' => app()->getLocale(), 'camp' => $camp]) }}"
+                                                class="flex-1 border-2 border-dark-light text-dark hover:border-dark justify-center">
+                                                Voir
+                                            </x-public.link>
+                                            <x-forms.button wire:click="publishCamp({{ $camp->id }})" class="flex-1 bg-success text-white border-success">
+                                                Publier
+                                            </x-forms.button>
+                                            <x-forms.button wire:click="openConfirmRefuseModal({{ $camp->id }}, 'camp')" class="flex-1 text-danger border-danger hover:bg-danger hover:text-white">
+                                                Refuser
+                                            </x-forms.button>
+                                        </div>
+                                    </div>
+                                @empty
+                                @endforelse
+                            @endisset
+
+                            @if($totalPendingEvents === 0)
+                                <p class="font-serif text-sm text-dark-mid">Aucun événement en attente.</p>
+                            @endif
+
+                        </div>
+                    </section>
+                @endif
+
+            </aside>
+        @endcanany
+
+    </div>
+
 </div>

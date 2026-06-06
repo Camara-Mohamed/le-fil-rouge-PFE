@@ -4,18 +4,24 @@ import listPlugin from '@fullcalendar/list'
 
 export function dashboardCalendar(events, locale) {
     return {
+        currentView: 'dayGridMonth',
+        calendar: null,
+
         init() {
-            const calendar = new Calendar(this.$el, {
+            this.calendar = new Calendar(this.$refs.calendarEl, {
                 plugins: [dayGridPlugin, listPlugin],
-                initialView: 'listMonth',
+                initialView: this.currentView,
                 locale: locale ?? 'fr',
                 events,
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,listMonth',
+                    right: '',
                 },
                 noEventsText: 'Aucun événement',
+                viewDidMount: (info) => {
+                    this.currentView = info.view.type
+                },
                 eventClick(info) {
                     if (info.event.url) {
                         info.jsEvent.preventDefault()
@@ -23,7 +29,12 @@ export function dashboardCalendar(events, locale) {
                     }
                 },
             })
-            calendar.render()
+            this.calendar.render()
+        },
+
+        changeView(view) {
+            this.currentView = view
+            this.calendar.changeView(view)
         },
     }
 }

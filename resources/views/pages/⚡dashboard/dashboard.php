@@ -172,67 +172,69 @@ class extends Component
         if ($user->isAdmin()) {
             foreach (Training::where('status', TrainingStatus::PUBLISHED)->get() as $training) {
                 $events[] = [
-                    'id' => 'training-'.$training->id,
-                    'title' => $training->title,
-                    'start' => $training->start_date->toIso8601String(),
-                    'end' => $training->end_date->toIso8601String(),
-                    'url' => route('public.trainings.show', ['locale' => $locale, 'training' => $training]),
-                    'color' => 'red',
+                    'id'         => 'training-'.$training->id,
+                    'title'      => $training->title,
+                    'start'      => $training->start_date->toIso8601String(),
+                    'end'        => $training->end_date->toIso8601String(),
+                    'url'        => route('public.trainings.show', ['locale' => $locale, 'training' => $training]),
+                    'classNames' => ['bg-success-bg border-success text-sky-500 rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
             foreach (Camp::where('status', CampStatus::PUBLISHED)->get() as $camp) {
                 $events[] = [
-                    'id' => 'camp-'.$camp->id,
-                    'title' => $camp->title,
-                    'start' => $camp->start_date->toIso8601String(),
-                    'end' => $camp->end_date->toIso8601String(),
-                    'url' => route('public.camps.show', ['locale' => $locale, 'camp' => $camp]),
-                    'color' => 'blue',
+                    'id'         => 'camp-'.$camp->id,
+                    'title'      => $camp->title,
+                    'start'      => $camp->start_date->toIso8601String(),
+                    'end'        => $camp->end_date->toIso8601String(),
+                    'url'        => route('public.camps.show', ['locale' => $locale, 'camp' => $camp]),
+                    'classNames' => ['bg-info-bg border-info text-green-500 rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
         } elseif ($user->isFormateur()) {
             foreach ($user->trainings()->whereIn('status',
                 [TrainingStatus::PUBLISHED->value, TrainingStatus::CONFIRMED->value])->get() as $training) {
                 $events[] = [
-                    'id' => 'training-'.$training->id, 'title' => $training->title,
-                    'start' => $training->start_date->toIso8601String(),
-                    'end' => $training->end_date->toIso8601String(),
-                    'url' => route('public.trainings.show', ['locale' => $locale, 'training' => $training]),
-                    'color' => 'red',
+                    'id'         => 'training-'.$training->id,
+                    'title'      => $training->title,
+                    'start'      => $training->start_date->toIso8601String(),
+                    'end'        => $training->end_date->toIso8601String(),
+                    'url'        => route('public.trainings.show', ['locale' => $locale, 'training' => $training]),
+                    'classNames' => ['bg-success-bg border-success text-sky-500 rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
         } elseif ($user->isCoordinateur()) {
             foreach ($user->camps()->whereIn('status',
                 [CampStatus::PUBLISHED->value, CampStatus::CONFIRMED->value])->get() as $camp) {
                 $events[] = [
-                    'id' => 'camp-'.$camp->id, 'title' => $camp->title,
-                    'start' => $camp->start_date->toIso8601String(),
-                    'end' => $camp->end_date->toIso8601String(),
-                    'url' => route('public.camps.show', ['locale' => $locale, 'camp' => $camp]),
-                    'color' => 'bleu',
+                    'id'         => 'camp-'.$camp->id,
+                    'title'      => $camp->title,
+                    'start'      => $camp->start_date->toIso8601String(),
+                    'end'        => $camp->end_date->toIso8601String(),
+                    'url'        => route('public.camps.show', ['locale' => $locale, 'camp' => $camp]),
+                    'classNames' => ['bg-info-bg border-info text-green-500 rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
         } else {
             foreach ($user->trainingRegisters()->where('status',
                 RegisterStatus::ACCEPTED)->with('training')->get() as $register) {
                 $events[] = [
-                    'id' => 'training-'.$register->training->id,
-                    'title' => $register->training->title,
-                    'start' => $register->training->start_date->toIso8601String(),
-                    'end' => $register->training->end_date->toIso8601String(),
-                    'url' => route('public.trainings.show', ['locale' => $locale, 'training' => $register->training]),
-                    'color' => 'red',
+                    'id'         => 'training-'.$register->training->id,
+                    'title'      => $register->training->title,
+                    'start'      => $register->training->start_date->toIso8601String(),
+                    'end'        => $register->training->end_date->toIso8601String(),
+                    'url'        => route('public.trainings.show', ['locale' => $locale, 'training' => $register->training]),
+                    'classNames' => ['bg-success-bg border-success text-sky-500 rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
             foreach ($user->campRegisters()->where('status',
                 RegisterStatus::ACCEPTED)->with('camp')->get() as $register) {
                 $events[] = [
-                    'id' => 'camp-'.$register->camp->id,
-                    'title' => $register->camp->title,
-                    'start' => $register->camp->start_date->toIso8601String(),
-                    'end' => $register->camp->end_date->toIso8601String(),
-                    'url' => route('public.camps.show', ['locale' => $locale, 'camp' => $register->camp]),
-                    'color' => 'blue',
+                    'id'         => 'camp-'.$register->camp->id,
+                    'title'      => $register->camp->title,
+                    'start'      => $register->camp->start_date->toIso8601String(),
+                    'end'        => $register->camp->end_date->toIso8601String(),
+                    'url'        => route('public.camps.show', ['locale' => $locale, 'camp' => $register->camp]),
+                    'classNames' => ['bg-info-bg border-info text-green-500 rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
         }
