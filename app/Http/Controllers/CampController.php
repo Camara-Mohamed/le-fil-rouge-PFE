@@ -26,7 +26,7 @@ class CampController extends Controller
             ->where('user_id', auth()->id())
             ->first();
 
-        $camp->load('galeries');
+        $camp->load(['galeries', 'acceptedRegisters.user']);
 
         return view('public.camps.show', compact('camp', 'locale', 'myRegister'));
     }

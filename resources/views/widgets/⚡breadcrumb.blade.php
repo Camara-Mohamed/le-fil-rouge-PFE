@@ -7,12 +7,18 @@ new class extends Component {
 };
 ?>
 
-<nav>
+<nav aria-label="Fil d'ariane" class="flex items-center flex-wrap gap-1">
     @foreach ($items as $item)
         @if (! $loop->last)
-            <a href="{{ $item['url'] }}">{{ $item['label'] }}</a> /
+            <a href="{{ $item['url'] }}"
+               class="font-sans text-sm text-dark-mid hover:text-dark transition duration-200">
+                {{ $item['label'] }}
+            </a>
+            <x-icons.chevron-right class="size-3 shrink-0 text-dark-light" fill="fill-current" />
         @else
-            <span>{{ $item['label'] }}</span>
+            <span class="font-sans text-sm text-dark font-medium" aria-current="page">
+                {{ $item['label'] }}
+            </span>
         @endif
     @endforeach
 </nav>

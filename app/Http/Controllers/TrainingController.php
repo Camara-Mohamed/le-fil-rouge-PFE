@@ -21,7 +21,7 @@ class TrainingController extends Controller
             }
         }
 
-        $training->load('galeries');
+        $training->load(['galeries', 'acceptedRegisters.user']);
 
         return view('public.trainings.show', compact('training', 'locale'));
     }
