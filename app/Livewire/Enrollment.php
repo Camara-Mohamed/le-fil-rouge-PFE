@@ -20,7 +20,7 @@ class Enrollment extends Component
     {
         $user = auth()->user();
 
-        if ($this->model->isConfirmed()) {
+        if (! $this->model->isPublished()) {
             return;
         }
 
@@ -61,7 +61,7 @@ class Enrollment extends Component
     {
         $user = auth()->user();
 
-        if ($this->model->isConfirmed()) {
+        if (! $this->model->isPublished()) {
             return;
         }
 
@@ -123,11 +123,11 @@ class Enrollment extends Component
             ->where('user_id', $user->id)
             ->first();
 
-        $canEnroll = ! $this->model->isConfirmed()
+        $canEnroll = $this->model->isPublished()
             && ($user->isComplete() || $user->isPending())
             && (! $this->model->roles || $this->model->roles($user));
 
-        $canCancel = ! $this->model->isConfirmed()
+        $canCancel = $this->model->isPublished()
             && ($user->isComplete() || $user->isPending());
 
         $accepted = $this->model->acceptedRegisters()->with('user')->get();

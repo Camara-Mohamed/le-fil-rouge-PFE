@@ -1,227 +1,79 @@
-<div wire:poll.20s>
+<div wire:poll.20s class="flex flex-col gap-8">
 
-    {{-- Utilisateur stade d'inscription --}}
+    {{-- Inscription --}}
     @if($register === null && $canEnroll)
-        <div>
-            <label>Notes (optionnel)</label>
-            <textarea wire:model="notes"></textarea>
+        <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-2">
+                <label class="font-sans font-bold text-base text-dark">
+                    {{ __('livewire/enrollment.notes') }}
+                    <span class="font-serif font-normal text-sm text-dark-mid">{{ __('livewire/enrollment.notes_optional') }}</span>
+                </label>
+                <textarea wire:model="notes"
+                          rows="4"
+                          placeholder="{{ __('livewire/enrollment.notes_placeholder') }}"
+                          class="w-full p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark placeholder:text-dark-light resize-none focus:outline-none focus:border-red transition duration-200"></textarea>
+            </div>
+            <button wire:click="enroll"
+                    class="self-start px-8 py-3 bg-red border-2 border-red rounded-lg font-sans font-bold text-sm text-white hover:bg-red-mid hover:border-red-mid transition duration-200">
+                {{ __('livewire/enrollment.enroll') }}
+            </button>
         </div>
-        <button wire:click="enroll">S'inscrire</button>
 
     @elseif($register?->isPending())
-        <p>Inscription en attente</p>
-        @if($register->notes)
-            <p>Notes : {{ $register->notes }}</p>
-        @endif
-        @if($canCancel)
-            <button wire:click="openCancelModal('pending')">
-                Ne plus s'inscrire
-            </button>
-        @endif
+        <div class="flex flex-col gap-4">
+            <div class="px-4 py-3 bg-warning-bg border border-warning rounded-lg">
+                <span class="font-sans text-sm font-medium text-warning">{{ __('livewire/enrollment.status_pending') }}</span>
+            </div>
+            @if($register->notes)
+                <div class="flex flex-col gap-2">
+                    <span class="font-sans font-bold text-base text-dark">{{ __('livewire/enrollment.notes') }}</span>
+                    <div class="p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark">{{ $register->notes }}</div>
+                </div>
+            @endif
+            @if($canCancel)
+                <button wire:click="openCancelModal('pending')"
+                        class="self-start px-8 py-3 bg-red-light border-2 border-red rounded-lg font-sans font-bold text-sm text-red hover:bg-red hover:text-white transition duration-200">
+                    {{ __('livewire/enrollment.cancel_pending') }}
+                </button>
+            @endif
+        </div>
 
     @elseif($register?->isAccepted())
-        <p>Inscription acceptée</p>
-        @if($register->notes)
-            <p>Notes : {{ $register->notes }}</p>
-        @endif
-        @if($canCancel)
-            <button wire:click="openCancelModal('accepted')">
-                Se désinscrire
-            </button>
-        @endif
+        <div class="flex flex-col gap-4">
+            <div class="px-4 py-3 bg-success-bg border border-success rounded-lg">
+                <span class="font-sans text-sm font-medium text-success">{{ __('livewire/enrollment.status_accepted') }}</span>
+            </div>
+            @if($register->notes)
+                <div class="flex flex-col gap-2">
+                    <span class="font-sans font-bold text-base text-dark">{{ __('livewire/enrollment.notes') }}</span>
+                    <div class="p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark">{{ $register->notes }}</div>
+                </div>
+            @endif
+            @if($canCancel)
+                <button wire:click="openCancelModal('accepted')"
+                        class="self-start px-8 py-3 bg-red border-2 border-red rounded-lg font-sans font-bold text-sm text-white hover:bg-red-mid hover:border-red-mid transition duration-200">
+                    {{ __('livewire/enrollment.deregister') }}
+                </button>
+            @endif
+        </div>
 
     @elseif($register?->isRefused())
-        <p>Inscription refusée</p>
-        @if($register->notes)
-            <p>Notes : {{ $register->notes }}</p>
-        @endif
+        <div class="flex flex-col gap-4">
+            <div class="px-4 py-3 bg-danger-bg border border-danger rounded-lg">
+                <span class="font-sans text-sm font-medium text-danger">{{ __('livewire/enrollment.status_refused') }}</span>
+            </div>
+            @if($register->notes)
+                <div class="flex flex-col gap-2">
+                    <span class="font-sans font-bold text-base text-dark">{{ __('livewire/enrollment.notes') }}</span>
+                    <div class="p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark">{{ $register->notes }}</div>
+                </div>
+            @endif
+        </div>
 
-    @elseif($model->isConfirmed() && $register === null)
-        <p>Les inscriptions sont finies</p>
+    @elseif(! $model->isPublished() && $register === null)
+        <div class="px-4 py-3 bg-bg-mid border border-bg-dark rounded-lg">
+            <span class="font-sans text-sm font-medium text-dark-mid">{{ __('livewire/enrollment.not_open') }}</span>
+        </div>
     @endif
-
-
-    {{-- Admin et créateur listes des inscriptions --}}
-    @can('update', $model)
-
-        <h3>En attente ({{ $pending->count() }})</h3>
-        @forelse($pending as $registrant)
-
-            <table wire:key="pending-{{ $registrant->id }}">
-                <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>Rôle</th>
-                    <th>Statut</th>
-                    <th>Notes</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr>
-                    <td>{{ $registrant->user->fullName() }}</td>
-                    <td>{{ $registrant->user->email }}</td>
-                    <td>{{ $registrant->user->role->label() }}</td>
-                    <td>{{ $registrant->user->status->label() }}</td>
-
-                    <td>
-                        @if($registrant->notes)
-                            {{ $registrant->notes }}
-                        @endif
-                    </td>
-
-                    <td>
-                        <button wire:click="accept({{ $registrant->id }})">
-                            Accepter
-                        </button>
-
-                        <button wire:click="pending({{ $registrant->id }})">
-                            Mettre en attente
-                        </button>
-
-                        <button
-                            wire:click="refuse({{ $registrant->id }})"
-                            wire:confirm="Refuser ?"
-                        >
-                            Refuser
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-        @empty
-            <p>Aucune inscription en attente</p>
-        @endforelse
-
-
-        <h3>Acceptés ({{ $accepted->count() }})</h3>
-        @forelse($accepted as $registrant)
-
-            <table wire:key="accepted-{{ $registrant->id }}">
-                <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>Rôle</th>
-                    <th>Statut</th>
-                    <th>Notes</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr>
-                    <td>{{ $registrant->user->fullName() }}</td>
-                    <td>{{ $registrant->user->email }}</td>
-                    <td>{{ $registrant->user->role->label() }}</td>
-                    <td>{{ $registrant->user->status->label() }}</td>
-
-                    <td>
-                        @if($registrant->notes)
-                            {{ $registrant->notes }}
-                        @endif
-                    </td>
-
-                    <td>
-                        <button wire:click="refuse({{ $registrant->id }})">
-                            Refuser
-                        </button>
-
-                        <button wire:click="pending({{ $registrant->id }})">
-                            Mettre en attente
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-        @empty
-            <p>Aucune inscription acceptée</p>
-        @endforelse
-
-
-        <h3>Refusés ({{ $refused->count() }})</h3>
-        @forelse($refused as $registrant)
-
-            <table wire:key="refused-{{ $registrant->id }}">
-                <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>Rôle</th>
-                    <th>Statut</th>
-                    <th>Notes</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr>
-                    <td>{{ $registrant->user->fullName() }}</td>
-                    <td>{{ $registrant->user->email }}</td>
-                    <td>{{ $registrant->user->role->label() }}</td>
-                    <td>{{ $registrant->user->status->label() }}</td>
-
-                    <td>
-                        @if($registrant->notes)
-                            {{ $registrant->notes }}
-                        @endif
-                    </td>
-
-                    <td>
-                        <button wire:click="accept({{ $registrant->id }})">
-                            Accepter
-                        </button>
-
-                        <button wire:click="pending({{ $registrant->id }})">
-                            Mettre en attente
-                        </button>
-
-                        <button
-                            wire:click="refuse({{ $registrant->id }})"
-                            wire:confirm="Refuser ?"
-                        >
-                            Refuser
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-        @empty
-            <p>Aucune inscription refusée</p>
-        @endforelse
-
-    @else
-
-        {{-- User : liste des inscrits --}}
-        <h3>Participants ({{ $accepted->count() }})</h3>
-
-        @forelse($accepted as $registrant)
-
-            <table wire:key="participant-{{ $registrant->id }}">
-                <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Rôle</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr>
-                    <td>{{ $registrant->user->fullName() }}</td>
-                    <td>{{ $registrant->user->role->label() }}</td>
-                </tr>
-                </tbody>
-            </table>
-
-        @empty
-            <p>Aucun inscrit</p>
-        @endforelse
-
-    @endcan
 
 </div>

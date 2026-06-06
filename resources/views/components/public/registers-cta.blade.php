@@ -1,0 +1,184 @@
+@props([
+    /** @var \Illuminate\Database\Eloquent\Model */
+    'model',
+    'accepted',
+    /** @var \void */
+    'pending',
+    'refused'
+])
+
+{{-- Inscrits --}}
+@can('update', $model)
+
+    {{-- Admin / créateur : 3 colonnes --}}
+    <div {{ $attributes->class(['flex flex-col gap-6 pt-6 border-t border-bg-dark']) }}>
+        <h3 class="font-sans font-black text-3xl text-dark">
+            Les inscrits ({{ $accepted->count() + $pending->count() + $refused->count() }})
+        </h3>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            {{-- Acceptés --}}
+            <div class="flex flex-col gap-4">
+                <h4 class="font-sans font-black text-base text-dark border-b border-success pb-2">
+                    Acceptés ({{ $accepted->count() }})
+                </h4>
+                @forelse($accepted as $registrant)
+                    <div wire:key="accepted-{{ $registrant->id }}"
+                         class="p-4 bg-bg rounded-lg border border-bg-dark flex flex-col gap-3">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $registrant->user->id]) }}"
+                                   wire:navigate
+                                   class="size-8 bg-success-bg rounded-full shrink-0 flex items-center justify-center hover:bg-success transition duration-200 group">
+                                        <span class="font-sans font-black text-xs text-success group-hover:text-white uppercase transition duration-200">
+                                            {{ strtoupper($registrant->user->first_name[0] . $registrant->user->last_name[0]) }}
+                                        </span>
+                                </a>
+                                <div class="min-w-0">
+                                    <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $registrant->user->id]) }}"
+                                       wire:navigate
+                                       class="font-sans font-bold text-sm text-dark hover:text-red transition duration-200 block truncate">
+                                        {{ $registrant->user->fullName() }}
+                                    </a>
+                                    <span class="font-sans text-xs text-dark-mid truncate">{{ $registrant->user->role->label() }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        @if($registrant->notes)
+                            <p class="font-serif text-xs text-dark-mid italic border-l-2 border-bg-dark pl-2">{{ $registrant->notes }}</p>
+                        @endif
+                        <div class="flex gap-4">
+                            <button wire:click="refuse({{ $registrant->id }})"
+                                    class="font-sans text-xs font-bold text-danger underline hover:opacity-70 transition duration-200">
+                                Refuser
+                            </button>
+                            <button wire:click="pending({{ $registrant->id }})"
+                                    class="font-sans text-xs font-bold text-warning underline hover:opacity-70 transition duration-200">
+                                Mettre en attente
+                            </button>
+                        </div>
+                    </div>
+                @empty
+                    <p class="font-serif text-sm text-dark-mid">Aucun inscrit.</p>
+                @endforelse
+            </div>
+
+            {{-- En attente --}}
+            <div class="flex flex-col gap-4">
+                <h4 class="font-sans font-black text-base text-dark border-b border-warning pb-2">
+                    En attente ({{ $pending->count() }})
+                </h4>
+                @forelse($pending as $registrant)
+                    <div wire:key="pending-{{ $registrant->id }}"
+                         class="p-4 bg-bg rounded-lg border border-bg-dark flex flex-col gap-3">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $registrant->user->id]) }}"
+                                   wire:navigate
+                                   class="size-8 bg-warning-bg rounded-full shrink-0 flex items-center justify-center hover:bg-warning transition duration-200 group">
+                                        <span class="font-sans font-black text-xs text-warning group-hover:text-white uppercase transition duration-200">
+                                            {{ strtoupper($registrant->user->first_name[0] . $registrant->user->last_name[0]) }}
+                                        </span>
+                                </a>
+                                <div class="min-w-0">
+                                    <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $registrant->user->id]) }}"
+                                       wire:navigate
+                                       class="font-sans font-bold text-sm text-dark hover:text-red transition duration-200 block truncate">
+                                        {{ $registrant->user->fullName() }}
+                                    </a>
+                                    <span class="font-sans text-xs text-dark-mid">{{ $registrant->user->role->label() }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        @if($registrant->notes)
+                            <p class="font-serif text-xs text-dark-mid italic border-l-2 border-bg-dark pl-2">{{ $registrant->notes }}</p>
+                        @endif
+                        <div class="flex gap-4">
+                            <button wire:click="accept({{ $registrant->id }})"
+                                    class="font-sans text-xs font-bold text-success underline hover:opacity-70 transition duration-200">
+                                Accepter
+                            </button>
+                            <button wire:click="refuse({{ $registrant->id }})"
+                                    class="font-sans text-xs font-bold text-danger underline hover:opacity-70 transition duration-200">
+                                Refuser
+                            </button>
+                        </div>
+                    </div>
+                @empty
+                    <p class="font-serif text-sm text-dark-mid">Aucune inscription en attente.</p>
+                @endforelse
+            </div>
+
+            {{-- Refusés --}}
+            <div class="flex flex-col gap-4">
+                <h4 class="font-sans font-black text-base text-dark border-b border-danger pb-2">
+                    Refusés ({{ $refused->count() }})
+                </h4>
+                @forelse($refused as $registrant)
+                    <div wire:key="refused-{{ $registrant->id }}"
+                         class="p-4 bg-bg rounded-lg border border-bg-dark flex flex-col gap-3">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $registrant->user->id]) }}"
+                               wire:navigate
+                               class="size-8 bg-danger-bg rounded-full shrink-0 flex items-center justify-center hover:bg-danger transition duration-200 group">
+                                    <span class="font-sans font-black text-xs text-danger group-hover:text-white uppercase transition duration-200">
+                                        {{ strtoupper($registrant->user->first_name[0] . $registrant->user->last_name[0]) }}
+                                    </span>
+                            </a>
+                            <div class="min-w-0">
+                                <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $registrant->user->id]) }}"
+                                   wire:navigate
+                                   class="font-sans font-bold text-sm text-dark hover:text-red transition duration-200 block truncate">
+                                    {{ $registrant->user->fullName() }}
+                                </a>
+                                <span class="font-sans text-xs text-dark-mid">{{ $registrant->user->role->label() }}</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <button wire:click="accept({{ $registrant->id }})"
+                                    class="font-sans text-xs font-bold text-success underline hover:opacity-70 transition duration-200">
+                                Accepter
+                            </button>
+                            <button wire:click="pending({{ $registrant->id }})"
+                                    class="font-sans text-xs font-bold text-warning underline hover:opacity-70 transition duration-200">
+                                Mettre en attente
+                            </button>
+                        </div>
+                    </div>
+                @empty
+                    <p class="font-serif text-sm text-dark-mid">Aucun refusé.</p>
+                @endforelse
+            </div>
+
+        </div>
+    </div>
+
+@else
+
+    {{-- Utilisateur : inscrits acceptés sans notes --}}
+    @if($accepted->count())
+        <div class="flex flex-col gap-4 pt-6 border-t border-bg-dark">
+            <h3 class="font-sans font-black text-3xl text-dark">
+                Les inscrits ({{ $accepted->count() }})
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @foreach($accepted as $registrant)
+                    <div wire:key="user-accepted-{{ $registrant->id }}"
+                         class="p-4 bg-bg rounded-lg border border-bg-dark flex items-center gap-3">
+                        <div class="size-9 bg-info-bg rounded-full shrink-0 flex items-center justify-center">
+                                <span class="font-sans font-black text-xs text-info uppercase">
+                                    {{ strtoupper($registrant->user->first_name[0] . $registrant->user->last_name[0]) }}
+                                </span>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <p class="font-sans font-bold text-sm text-dark truncate">{{ $registrant->user->fullName() }}</p>
+                            <span class="font-sans text-xs text-dark-mid">{{ $registrant->user->role->label() }}</span>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+@endcan
