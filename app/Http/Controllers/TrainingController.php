@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\TrainingStatus;
 use App\Models\Training;
 
 class TrainingController extends Controller

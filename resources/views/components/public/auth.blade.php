@@ -9,12 +9,13 @@
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen font-sans bg-bg flex items-center justify-center px-4 py-12">
+<body class="min-h-screen font-sans bg-bg">
 
 <x-public.no-script/>
 
 <h1 class="sr-only">{{ $title }}</h1>
 
+<div class="flex items-center justify-center px-4 py-12 min-h-screen">
 <div class="w-full max-w-md flex flex-col gap-6">
 
     <div class="bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] p-8 flex flex-col items-center gap-8">
@@ -32,6 +33,7 @@
         </div>
     @endisset
 
+</div>
 </div>
 
 </body>

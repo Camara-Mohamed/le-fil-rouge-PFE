@@ -26,7 +26,7 @@ return [
         'email' => 'Email',
         'email_placeholder' => 'dylan.piquin@lefilrouge.com',
         'submit' => 'Réinitialiser',
-        'back'         => 'Retour à la connexion',
+        'back' => 'Retour à la connexion',
     ],
 
     // Modifier le mot de passe

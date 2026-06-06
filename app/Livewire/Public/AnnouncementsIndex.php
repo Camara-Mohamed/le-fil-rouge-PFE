@@ -22,13 +22,20 @@ class AnnouncementsIndex extends Component
         $request = request();
 
         $this->search = $request->string('q')->trim()->toString();
-        $this->sort   = in_array($request->input('sort'), ['asc', 'desc'])
+        $this->sort = in_array($request->input('sort'), ['asc', 'desc'])
             ? $request->input('sort')
             : 'desc';
     }
 
-    public function updatingSearch(): void { $this->resetPage(); }
-    public function updatingSort(): void   { $this->resetPage(); }
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSort(): void
+    {
+        $this->resetPage();
+    }
 
     public function filter(): void
     {
@@ -38,7 +45,7 @@ class AnnouncementsIndex extends Component
     public function resetFilters(): void
     {
         $this->search = '';
-        $this->sort   = 'desc';
+        $this->sort = 'desc';
         $this->resetPage();
     }
 
@@ -53,8 +60,8 @@ class AnnouncementsIndex extends Component
         }
 
         if ($this->search) {
-            $s = '%' . $this->search . '%';
-            $query->where(fn($q) => $q->where('title', 'like', $s)->orWhere('description', 'like', $s));
+            $s = '%'.$this->search.'%';
+            $query->where(fn ($q) => $q->where('title', 'like', $s)->orWhere('description', 'like', $s));
         }
 
         return view('livewire.public.announcements-index', [

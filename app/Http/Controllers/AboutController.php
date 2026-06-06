@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Enums\CampStatus;
 use App\Enums\TrainingStatus;
-use App\Models\Announcement;
 use App\Models\Camp;
 use App\Models\Training;
 use App\Models\User;
@@ -15,19 +14,19 @@ class AboutController extends Controller
     {
         $stats = [
             [
-                'value' => now()->year - 2009 . ' ans',
+                'value' => now()->year - 2009 .' ans',
                 'label' => __('public/about.stat_years'),
             ],
             [
-                'value' => '+' . Training::where('status', TrainingStatus::PUBLISHED)->count(),
+                'value' => '+'.Training::where('status', TrainingStatus::PUBLISHED)->count(),
                 'label' => __('public/about.stat_trainings'),
             ],
             [
-                'value' => '+' . Camp::where('status', CampStatus::PUBLISHED)->count(),
+                'value' => '+'.Camp::where('status', CampStatus::PUBLISHED)->count(),
                 'label' => __('public/about.stat_camps'),
             ],
             [
-                'value' => '+' . User::count(),
+                'value' => '+'.User::count(),
                 'label' => __('public/about.stat_members'),
             ],
         ];

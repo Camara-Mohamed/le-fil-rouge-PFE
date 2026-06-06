@@ -14,22 +14,22 @@ class ProcessUploadedImage implements ShouldQueue
     public function __construct(
         public string $storedPath,
         public string $variantsPath,
-        public array  $sizes,
+        public array $sizes,
     ) {}
 
     public function handle(): void
     {
-        $image   = Image::read(Storage::disk('public')->get($this->storedPath));
+        $image = Image::read(Storage::disk('public')->get($this->storedPath));
         $quality = config('banners.quality');
-        $type    = config('banners.image_type');
-        $name    = pathinfo(basename($this->storedPath), PATHINFO_FILENAME) . '.' . $type;
+        $type = config('banners.image_type');
+        $name = pathinfo(basename($this->storedPath), PATHINFO_FILENAME).'.'.$type;
 
         foreach ($this->sizes as $width) {
             $variant = clone $image;
             $variant->scale($width);
 
             Storage::disk('public')->put(
-                $this->variantsPath . '/' . $width . '/' . $name,
+                $this->variantsPath.'/'.$width.'/'.$name,
                 $variant->encodeByExtension($type, quality: $quality)
             );
         }

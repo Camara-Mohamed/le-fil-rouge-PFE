@@ -2,6 +2,6 @@
 
 return [
     'previous' => 'Précédent',
-    'next'     => 'Suivant',
-    'of'       => 'sur',
+    'next' => 'Suivant',
+    'of' => 'sur',
 ];

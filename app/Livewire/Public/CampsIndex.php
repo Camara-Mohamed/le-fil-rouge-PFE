@@ -28,18 +28,33 @@ class CampsIndex extends Component
     {
         $request = request();
 
-        $this->search   = $request->string('q')->trim()->toString();
-        $this->type     = $request->string('type')->toString();
+        $this->search = $request->string('q')->trim()->toString();
+        $this->type = $request->string('type')->toString();
         $this->province = $request->string('province')->toString();
-        $this->sort     = in_array($request->input('sort'), ['asc', 'desc'])
+        $this->sort = in_array($request->input('sort'), ['asc', 'desc'])
             ? $request->input('sort')
             : 'desc';
     }
 
-    public function updatingSearch(): void   { $this->resetPage(); }
-    public function updatingType(): void     { $this->resetPage(); }
-    public function updatingProvince(): void { $this->resetPage(); }
-    public function updatingSort(): void     { $this->resetPage(); }
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingType(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingProvince(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSort(): void
+    {
+        $this->resetPage();
+    }
 
     public function filter(): void
     {
@@ -48,10 +63,10 @@ class CampsIndex extends Component
 
     public function resetFilters(): void
     {
-        $this->search   = '';
-        $this->type     = '';
+        $this->search = '';
+        $this->type = '';
         $this->province = '';
-        $this->sort     = 'desc';
+        $this->sort = 'desc';
         $this->resetPage();
     }
 
@@ -65,8 +80,8 @@ class CampsIndex extends Component
             $query = Camp::query()
                 ->where(function ($q) use ($user) {
                     $q->where('status', CampStatus::PUBLISHED)
-                      ->orWhere('user_id', $user->id)
-                      ->orWhereHas('registers', fn($r) => $r->where('user_id', $user->id));
+                        ->orWhere('user_id', $user->id)
+                        ->orWhereHas('registers', fn ($r) => $r->where('user_id', $user->id));
                 });
         } else {
             $query = Camp::query()
@@ -74,12 +89,16 @@ class CampsIndex extends Component
         }
 
         if ($this->search) {
-            $s = '%' . $this->search . '%';
-            $query->where(fn($q) => $q->where('title', 'like', $s)->orWhere('description', 'like', $s));
+            $s = '%'.$this->search.'%';
+            $query->where(fn ($q) => $q->where('title', 'like', $s)->orWhere('description', 'like', $s));
         }
 
-        if ($this->type)     { $query->where('type', $this->type); }
-        if ($this->province) { $query->where('province', $this->province); }
+        if ($this->type) {
+            $query->where('type', $this->type);
+        }
+        if ($this->province) {
+            $query->where('province', $this->province);
+        }
 
         return view('livewire.public.camps-index', [
             'camps' => $query->orderBy('start_date', $this->sort)->paginate(6),

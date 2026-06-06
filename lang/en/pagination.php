@@ -14,7 +14,7 @@ return [
     */
 
     'previous' => 'Previous',
-    'next'     => 'Next',
-    'of'       => 'of',
+    'next' => 'Next',
+    'of' => 'of',
 
 ];

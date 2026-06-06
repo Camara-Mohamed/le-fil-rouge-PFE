@@ -2,11 +2,11 @@
 
 return [
     'image_type' => 'webp',
-    'quality'    => 85,
+    'quality' => 85,
 
     'sizes' => [
-        'banner'  => [640, 1024, 1440],
-        'avatar'  => [64, 128, 256],
+        'banner' => [640, 1024, 1440],
+        'avatar' => [64, 128, 256],
         'galerie' => [640, 1024],
     ],
 
@@ -28,8 +28,8 @@ return [
             'variants' => 'users/avatars/variants',
         ],
         'galeries' => [
-            'trainings'     => 'trainings/galeries/variants',
-            'camps'         => 'camps/galeries/variants',
+            'trainings' => 'trainings/galeries/variants',
+            'camps' => 'camps/galeries/variants',
             'announcements' => 'announcements/galeries/variants',
         ],
     ],
