@@ -26,7 +26,17 @@ class Comments extends Component
         $this->dispatch('toast', message: __('toast/comments.created'), type: 'success');
     }
 
-    public function delete(int $commentId): void
+    public function openDeleteModal(int $commentId): void
+    {
+        $this->dispatch('open_modal', payload: [
+            'form'       => 'modals::comments.confirm-delete',
+            'model_id'   => (string) $commentId,
+            'model_type' => 'comment',
+        ]);
+    }
+
+    #[On('comment_delete_confirmed')]
+    public function deleteConfirmed(int $commentId): void
     {
         $comment = Comment::findOrFail($commentId);
 

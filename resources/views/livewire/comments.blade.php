@@ -1,57 +1,130 @@
-<div wire:poll.10s>
+<section aria-labelledby="section-commentaires" wire:poll.10s class="flex flex-col gap-12">
 
-    <h3>Les commentaires :</h3>
+    <h2 id="section-commentaires" class="font-sans font-black text-5xl text-dark capitalize">
+        Les commentaires ({{ $comments->count() }})
+    </h2>
 
-    @forelse($comments as $comment)
-        <div wire:key="comment-{{ $comment->id }}" class="flex flex-col gap-4">
-            <div>
-                <h4 class="{{ $comment->is_admin ? 'text-red-mid' : '' }}">{{ $comment->user->fullName() }}</h4>
-                <p>{{ $comment->created_at->diffForHumans() }}</p>
+    <div class="bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] px-6 py-8 flex flex-col gap-8">
+
+        <form wire:submit="save" class="flex items-start gap-3">
+
+            <div class="size-20 bg-info-bg rounded-full shrink-0 flex items-center justify-center">
+                @auth
+                    <span class="font-sans font-black text-xl text-info uppercase">
+                        {{ strtoupper(auth()->user()->first_name[0] . auth()->user()->last_name[0]) }}
+                    </span>
+                @endauth
             </div>
 
-            <p>{{ $comment->content }}</p>
+            {{-- Champ --}}
+            <div class="flex-1 flex flex-col items-end gap-2">
+                <div class="w-full flex flex-col gap-2">
+                    <textarea wire:model="form.content"
+                              rows="6"
+                              placeholder="Écrivez votre commentaire..."
+                              class="w-full px-6 py-4 bg-bg border border-bg-dark rounded-lg font-sans text-sm text-dark placeholder:text-dark-light resize-none focus:outline-none focus:border-red transition duration-200"></textarea>
+                    @error('form.content')
+                        <span class="self-start font-sans text-sm text-danger">{{ $message }}</span>
+                    @enderror
 
-            @if($comment->document)
-                <!-- TODO : Est-ce que ce ne serait pas plus intéressant de lier via $comment->user_id -->
-                <a
-                    href="{{ asset('storage/' . $comment->document) }}"
-                    data-fancybox="comment-document-{{ $comment->id }}"
-                    data-type="iframe"
-                    data-width="900"
-                    data-height="700"
-                >
-                    Voir le document
-                </a>
-            @endif
+                    <label class="flex items-center gap-2 cursor-pointer self-start">
+                        <input type="file" wire:model="form.document" class="hidden" />
+                        <span class="font-sans text-sm font-medium text-red underline hover:text-red-mid transition duration-200">
+                            Ajouter un document
+                        </span>
+                    </label>
+                    @error('form.document')
+                        <span class="self-start font-sans text-sm text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
 
-            @can('delete', $comment)
-                <button wire:click="delete({{ $comment->id }})" wire:confirm="Supprimer ce commentaire ?">
-                    Supprimer
+                <button type="submit"
+                        class="px-8 py-4 bg-red border-2 border-red rounded-lg font-sans font-bold text-sm text-white hover:bg-red-mid hover:border-red-mid transition duration-200">
+                    Publier
                 </button>
-            @endcan
-        </div>
-    @empty
-        <p>Aucun commentaire</p>
-    @endforelse
-
-    @auth
-        <form wire:submit="save" class="flex flex-col gap-4">
-
-            <div>
-                <label>Commentaire</label>
-                <textarea wire:model="form.content" rows="3"></textarea>
-                @error('form.content') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
-
-            <div>
-                <label>Document</label>
-                <input type="file" wire:model="form.document">
-                @error('form.document') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-            </div>
-
-            <button type="submit">Envoyer</button>
 
         </form>
-    @endauth
 
-</div>
+        {{-- Liste des commentaires --}}
+        <div class="flex flex-col gap-12">
+            @forelse($comments as $comment)
+                <div wire:key="comment-{{ $comment->id }}" class="flex flex-col gap-1">
+
+                    <p class="font-sans text-sm font-medium text-dark-mid uppercase ml-16">
+                        {{ $comment->created_at->diffForHumans() }}
+                    </p>
+
+                    <div class="flex items-start gap-6">
+
+                        {{-- Avatar --}}
+                        <div @class([
+                            'size-10 rounded-full shrink-0 flex items-center justify-center',
+                            'bg-red-light'   => $comment->is_admin,
+                            'bg-info-bg'     => !$comment->is_admin,
+                        ])>
+                            <span @class([
+                                'font-sans font-black text-xs uppercase',
+                                'text-red'  => $comment->is_admin,
+                                'text-info' => !$comment->is_admin,
+                            ])>
+                                {{ strtoupper($comment->user->first_name[0] . $comment->user->last_name[0]) }}
+                            </span>
+                        </div>
+
+                        {{-- Contenu --}}
+                        <div class="flex-1 flex flex-col gap-4">
+
+                            <div class="flex flex-col gap-4">
+                                <div class="flex justify-between items-start gap-4">
+                                    <div class="flex flex-col gap-1">
+                                        <p class="font-sans font-black text-base text-dark">
+                                            {{ $comment->user->fullName() }}
+                                        </p>
+                                        <p class="font-serif text-sm text-dark-mid">
+                                            {{ $comment->user->email }}
+                                        </p>
+                                    </div>
+                                    <span class="shrink-0 px-4 py-0.5 bg-warning-bg border border-warning rounded-2xl font-sans text-sm font-medium leading-6 text-red">
+                                        {{ $comment->user->role->label() }}
+                                    </span>
+                                </div>
+
+                                <p class="font-serif text-base leading-6 text-dark">
+                                    {{ $comment->content }}
+                                </p>
+                            </div>
+
+                            <div class="flex justify-between items-center gap-4">
+                                @if($comment->document)
+                                    <a href="{{ asset('storage/' . $comment->document) }}"
+                                       data-fancybox="comment-document-{{ $comment->id }}"
+                                       data-type="iframe"
+                                       data-width="900"
+                                       data-height="700"
+                                       class="font-sans text-sm font-medium text-red underline hover:text-red-mid transition duration-200">
+                                        Voir le document
+                                    </a>
+                                @else
+                                    <span></span>
+                                @endif
+
+                                @can('delete', $comment)
+                                    <button wire:click="openDeleteModal({{ $comment->id }})"
+                                            class="font-sans text-sm font-medium text-dark underline hover:text-danger transition duration-200">
+                                        Supprimer
+                                    </button>
+                                @endcan
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <p class="font-serif text-dark-mid text-center py-8">Aucun commentaire pour l'instant.</p>
+            @endforelse
+        </div>
+
+    </div>
+
+</section>
