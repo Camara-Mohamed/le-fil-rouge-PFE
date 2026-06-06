@@ -20,6 +20,8 @@ return [
     'reset_filters'      => 'Effacer les filtres',
     'create_link'        => 'Ajouter une formation',
 
+    'benefits_title' => 'Pourquoi se former avec nous',
+
     // Bénéfices
     'benefit_1_title' => 'Des outils concrets',
     'benefit_1_desc'  => "On repart avec des méthodes qu'on peut utiliser directement sur le terrain. Pas de blabla.",

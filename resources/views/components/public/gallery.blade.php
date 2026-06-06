@@ -6,9 +6,11 @@
     'alt'     => '',
 ])
 
-<section class="px-4 md:px-6 lg:px-8 pb-16 md:pb-20">
+<section aria-labelledby="section-{{ $group }}" class="px-4 md:px-6 lg:px-8 pb-16 md:pb-20">
     @if($title)
-        <h2 class="font-sans font-black text-3xl text-dark mb-6">{{ $title }}</h2>
+        <h2 id="section-{{ $group }}" class="font-sans font-black text-3xl text-dark mb-6">{{ $title }}</h2>
+    @else
+        <h2 id="section-{{ $group }}" class="sr-only">{{ $alt }}</h2>
     @endif
     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
         @foreach($images as $name)

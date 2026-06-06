@@ -1,4 +1,4 @@
-<section class="px-4 md:px-6 lg:px-8 py-16 md:py-20">
+<section aria-labelledby="section-camps-feature" class="px-4 md:px-6 lg:px-8 py-16 md:py-20">
     <div class="flex flex-col lg:flex-row gap-10 lg:gap-16">
 
         <div class="flex flex-col gap-8 lg:w-1/2">
@@ -18,7 +18,7 @@
         </div>
 
         <div class="flex flex-col gap-6 lg:w-1/2">
-            <h2 class="font-sans font-black text-4xl text-dark capitalize">
+            <h2 id="section-camps-feature" class="font-sans font-black text-4xl text-dark capitalize">
                 {{ __('public/camps.feature_section_title') }}
             </h2>
             <div class="relative flex-1 min-h-64 rounded-lg overflow-hidden">
