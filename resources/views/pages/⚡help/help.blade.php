@@ -26,7 +26,7 @@
     {{-- Genially --}}
     <div class="w-full aspect-video bg-danger-bg rounded-2xl overflow-hidden">
         <iframe
-            src="{{ $src }}"
+            src="{{ $src ? '' : 'https://view.genially.com/6a243d5b3d6405980476e19e' }}"
             allowfullscreen
             allow="autoplay; fullscreen"
             class="w-full h-full border-0"
