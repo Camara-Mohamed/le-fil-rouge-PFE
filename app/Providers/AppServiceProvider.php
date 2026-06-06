@@ -15,6 +15,7 @@ use App\Policies\DocumentPolicy;
 use App\Policies\TrainingPolicy;
 use App\Policies\UserPolicy;
 use Gate;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Paginator::defaultView('vendor.pagination.tailwind');
+
         // Policies
         Gate::policy(User::class, UserPolicy::class);
         Gate::policy(Training::class, TrainingPolicy::class);
