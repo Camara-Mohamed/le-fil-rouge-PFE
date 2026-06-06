@@ -16,6 +16,7 @@ use App\Policies\TrainingPolicy;
 use App\Policies\UserPolicy;
 use Gate;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,6 +35,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::defaultView('vendor.pagination.tailwind');
+
+        // Locale
+        URL::defaults(['locale' => app()->getLocale()]);
 
         // Policies
         Gate::policy(User::class, UserPolicy::class);
