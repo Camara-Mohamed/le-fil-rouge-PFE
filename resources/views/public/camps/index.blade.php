@@ -1,7 +1,7 @@
-<x-public.app title="{{ __('public/camps.title') }}">
+<x-public.app :title="__('public/camps.title')">
 
     {{-- Hero --}}
-    <x-public.hero title="{{ __('public/camps.title') }}" />
+    <x-public.hero :title="__('public/camps.title')" />
 
     <div class="px-4 md:px-6 lg:px-8 py-12">
         <livewire:public.camps-index />

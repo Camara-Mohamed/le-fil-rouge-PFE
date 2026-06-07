@@ -2,9 +2,11 @@
     use App\Enums\VolunteerRequestStatus;
 @endphp
 
-<div class="flex flex-col gap-8 px-4 py-8 md:px-8">
+<div>
 
-    <h2 class="font-sans font-black text-3xl text-dark">Les messages</h2>
+    <x-public.hero title="{{ __('navigation.messages') }}" />
+
+    <div class="flex flex-col gap-8 px-4 py-8 md:px-8">
 
     {{-- Tabs --}}
     <div class="flex gap-1 bg-bg rounded-lg p-1 self-start">
@@ -88,5 +90,7 @@
             <div class="flex justify-center">{{ $volunteers->links() }}</div>
         @endif
     @endif
+
+    </div>
 
 </div>

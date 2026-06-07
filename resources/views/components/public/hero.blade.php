@@ -6,7 +6,7 @@
 ])
 
 @if($banner)
-    <div class="relative h-64 md:h-96">
+    <div class="relative h-[32rem] md:h-[48rem]">
         <img
             src="{{ $banner }}"
             @if($srcset) srcset="{{ $srcset }}" sizes="100vw" @endif
@@ -27,7 +27,7 @@
         </div>
     </div>
 @else
-    <div class="px-4 md:px-8 py-12 bg-bg border-b border-bg-dark">
+    <div class="px-4 md:px-8 py-24 bg-bg border-b border-bg-dark">
         @if($title)
             <h1 class="font-sans font-black text-4xl md:text-5xl text-dark">{{ $title }}</h1>
         @endif

@@ -1,11 +1,12 @@
 @php
     use App\Enums\RegisterStatus;
+@endphp
 
-    @endphp
+<div>
 
-<div class="flex flex-col gap-8 px-4 py-8 md:px-8">
+    <x-public.hero title="{{ __('navigation.history') }}" />
 
-    <h2 class="font-sans font-black text-3xl text-dark">Mon historique</h2>
+    <div class="flex flex-col gap-8 px-4 py-8 md:px-8">
 
     {{-- Formations --}}
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
@@ -74,5 +75,7 @@
             <p class="font-serif text-dark-mid">Aucune inscription à un camp ou séjour.</p>
         @endforelse
     </section>
+
+    </div>
 
 </div>

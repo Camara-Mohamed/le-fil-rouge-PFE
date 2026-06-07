@@ -9,7 +9,11 @@
     $initials = strtoupper($user->first_name[0] . $user->last_name[0]);
 @endphp
 
-<div class="flex flex-col gap-6 px-4 py-8 md:px-8">
+<div>
+
+    <x-public.hero title="{{ __('navigation.profile') }}" />
+
+    <div class="flex flex-col gap-6 px-4 py-8 md:px-8">
 
     {{-- Profil --}}
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-8">
@@ -313,5 +317,7 @@
             </x-forms.button>
         </form>
     </section>
+
+    </div>
 
 </div>

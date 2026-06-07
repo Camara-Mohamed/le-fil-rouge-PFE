@@ -4,7 +4,7 @@
     $days   = max(1, (int) ceil($camp->start_date->floatDiffInDays($camp->end_date)));
 @endphp
 
-<x-public.app title="{{ $camp->title }}">
+<x-public.app :title="$camp->title">
 
     @php
         $srcset = null;
@@ -19,7 +19,7 @@
 
     {{-- Hero --}}
     <x-public.hero
-        title="{{ $camp->title }}"
+        :title="$camp->title"
         :banner="$camp->banner ? asset('storage/' . $camp->banner) : null"
         :srcset="$srcset"
     />
