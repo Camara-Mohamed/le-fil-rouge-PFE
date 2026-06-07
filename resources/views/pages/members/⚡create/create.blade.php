@@ -12,25 +12,25 @@
     <form wire:submit="save" class="flex flex-col gap-4">
     <div>
         <label>Prénom</label>
-        <input type="text" wire:model="first_name">
+        <input type="text" wire:model.live="first_name">
         @error('first_name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
 
     <div>
         <label>Nom</label>
-        <input type="text" wire:model="last_name">
+        <input type="text" wire:model.live="last_name">
         @error('last_name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
 
     <div>
         <label>Email</label>
-        <input type="email" wire:model="email">
+        <input type="email" wire:model.live="email">
         @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
 
     <div x-data="{ show: false }">
         <label>Mot de passe</label>
-        <input type="password" :type="show ? 'text' : 'password'" wire:model="password">
+        <input type="password" :type="show ? 'text' : 'password'" wire:model.live="password">
         <button type="button" @click="show = !show">
             <span x-show="!show">Afficher</span>
             <span x-show="show">Cacher</span>
@@ -40,7 +40,7 @@
 
     <div>
         <label>Rôle</label>
-        <select wire:model="role">
+        <select wire:model.live="role">
             @foreach(UserRoles::cases() as $role)
                 <option value="{{ $role->value }}">{{ $role->label() }}</option>
             @endforeach
@@ -50,7 +50,7 @@
 
     <div>
         <label>Statut</label>
-        <select wire:model="status">
+        <select wire:model.live="status">
             @foreach(UserStatus::cases() as $status)
                 <option value="{{ $status->value }}">{{ $status->label() }}</option>
             @endforeach
@@ -60,7 +60,7 @@
 
     <div>
         <label>Envoyer à :</label>
-        <input type="email" wire:model="send_to">
+        <input type="email" wire:model.live="send_to">
         @error('send_to') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
     </div>
 

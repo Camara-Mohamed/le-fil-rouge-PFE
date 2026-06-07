@@ -5,7 +5,9 @@ use App\Enums\UserStatus;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum as EnumRule;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -16,18 +18,25 @@ class extends Component
 
     public User $member;
 
+    #[Validate('required|min:2|max:255')]
     public string $first_name = '';
 
+    #[Validate('required|min:2|max:255')]
     public string $last_name = '';
 
+    #[Validate('required|email|ends_with:@lefilrouge.com')]
     public string $email = '';
 
+    #[Validate(['required', new EnumRule(UserRoles::class)])]
     public string $role = '';
 
+    #[Validate(['required', new EnumRule(UserStatus::class)])]
     public string $status = '';
 
+    #[Validate('nullable|string')]
     public string $phone = '';
 
+    #[Validate('nullable|date')]
     public ?string $birth_date = null;
 
     public function mount(User $member): void

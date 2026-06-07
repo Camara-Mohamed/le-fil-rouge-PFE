@@ -3,29 +3,24 @@
 namespace App\Livewire\Forms;
 
 use App\Models\User;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class InfoForm extends Form
 {
     public User $user;
 
+    #[Validate('required|min:2|max:255')]
     public string $first_name = '';
 
+    #[Validate('required|min:2|max:255')]
     public string $last_name = '';
 
+    #[Validate('nullable|string')]
     public ?string $phone = null;
 
+    #[Validate('nullable|date')]
     public ?string $birth_date = null;
-
-    public function rules(): array
-    {
-        return [
-            'first_name' => ['required', 'min:2', 'max:255'],
-            'last_name' => ['required', 'min:2', 'max:255'],
-            'phone' => ['nullable', 'string'],
-            'birth_date' => ['nullable', 'date'],
-        ];
-    }
 
     public function setUser(User $user): void
     {

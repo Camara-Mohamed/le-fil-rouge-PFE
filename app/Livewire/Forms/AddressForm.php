@@ -5,32 +5,28 @@ namespace App\Livewire\Forms;
 use App\Enums\Provinces;
 use App\Models\User;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum as EnumRule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class AddressForm extends Form
 {
     public User $user;
 
+    #[Validate('nullable|max:255')]
     public string $address = '';
 
+    #[Validate('nullable|max:50')]
     public string $number = '';
 
+    #[Validate('nullable|max:255')]
     public string $city = '';
 
+    #[Validate(['required', new EnumRule(Provinces::class)])]
     public ?string $province = null;
 
+    #[Validate('nullable|max:20')]
     public string $postal_code = '';
-
-    public function rules(): array
-    {
-        return [
-            'address' => ['nullable', 'max:255'],
-            'number' => ['nullable', 'max:50'],
-            'city' => ['nullable', 'max:255'],
-            'province' => ['required', Rule::enum(Provinces::class)],
-            'postal_code' => ['nullable', 'max:20'],
-        ];
-    }
 
     public function setUser(User $user): void
     {

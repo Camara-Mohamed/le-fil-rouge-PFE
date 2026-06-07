@@ -54,7 +54,7 @@
                     <label for="avatar-input"
                            class="w-full py-1.5 rounded-lg border-2 border-dark-light text-dark font-sans font-medium text-sm cursor-pointer hover:border-dark transition text-center">
                         Changer la photo
-                        <input id="avatar-input" type="file" wire:model="avatar"
+                        <input id="avatar-input" type="file" wire:model.live="avatar"
                                accept="image/jpeg,image/png,image/gif,image/webp" class="sr-only">
                     </label>
 
@@ -83,11 +83,11 @@
             {{-- Informations personnelles --}}
             <form wire:submit="saveInfo" class="flex flex-col gap-4">
                 <div class="grid grid-cols-2 gap-4">
-                    <x-public.form.input label="Prénom" name="info.first_name" wire:model="info.first_name" required />
-                    <x-public.form.input label="Nom" name="info.last_name" wire:model="info.last_name" required />
+                    <x-public.form.input label="Prénom" name="info.first_name" wire:model.live="info.first_name" required />
+                    <x-public.form.input label="Nom" name="info.last_name" wire:model.live="info.last_name" required />
                 </div>
-                <x-public.form.input label="Téléphone" name="info.phone" wire:model="info.phone" type="tel" />
-                <x-public.form.input label="Date de naissance" name="info.birth_date" wire:model="info.birth_date" type="date" />
+                <x-public.form.input label="Téléphone" name="info.phone" wire:model.live="info.phone" type="tel" />
+                <x-public.form.input label="Date de naissance" name="info.birth_date" wire:model.live="info.birth_date" type="date" />
                 <button type="submit"
                         class="w-full py-4 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
                     Enregistrer
@@ -102,7 +102,7 @@
         <h2 class="font-sans font-black text-3xl text-dark">Adresse e-mail</h2>
 
         <form wire:submit.prevent="saveEmail" class="flex flex-col gap-6">
-            <x-public.form.input label="E-mail" name="email.email" wire:model="email.email" type="email" required />
+            <x-public.form.input label="E-mail" name="email.email" wire:model.live="email.email" type="email" required />
             <button type="submit"
                     class="w-full py-4 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
                 Enregistrer
@@ -120,8 +120,8 @@
                 <div class="flex flex-col gap-2">
                     <label for="current-password" class="font-sans font-bold text-base text-dark">Mot de passe actuel</label>
                     <div class="relative">
-                        <input id="current-password" :type="show1 ? 'text' : 'password'"
-                               wire:model="password.current_password"
+                        <input id="current-password" type="password" :type="show1 ? 'text' : 'password'"
+                               wire:model.live="password.current_password"
                                class="h-11 px-4 pr-12 w-full bg-white border border-bg-dark rounded-lg font-serif font-medium text-base text-dark transition duration-200">
                         <button type="button" @click="show1 = !show1"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-dark-mid hover:text-dark transition">
@@ -139,8 +139,8 @@
                 <div class="flex flex-col gap-2">
                     <label for="new-password" class="font-sans font-bold text-base text-dark">Nouveau mot de passe</label>
                     <div class="relative">
-                        <input id="new-password" :type="show2 ? 'text' : 'password'"
-                               wire:model="password.password"
+                        <input id="new-password" type="password" :type="show2 ? 'text' : 'password'"
+                               wire:model.live="password.password"
                                class="h-11 px-4 pr-12 w-full bg-white border border-bg-dark rounded-lg font-serif font-medium text-base text-dark transition duration-200">
                         <button type="button" @click="show2 = !show2"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-dark-mid hover:text-dark transition">
@@ -170,13 +170,13 @@
         <form wire:submit="saveAddress" class="flex flex-col gap-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="md:col-span-2">
-                    <x-public.form.input label="Rue" name="address.address" wire:model="address.address" />
+                    <x-public.form.input label="Rue" name="address.address" wire:model.live="address.address" />
                 </div>
-                <x-public.form.input label="Numéro" name="address.number" wire:model="address.number" />
-                <x-public.form.input label="Ville" name="address.city" wire:model="address.city" />
-                <x-public.form.input label="Code postal" name="address.postal_code" wire:model="address.postal_code" />
+                <x-public.form.input label="Numéro" name="address.number" wire:model.live="address.number" />
+                <x-public.form.input label="Ville" name="address.city" wire:model.live="address.city" />
+                <x-public.form.input label="Code postal" name="address.postal_code" wire:model.live="address.postal_code" />
                 <x-public.form.select label="Province" name="address.province"
-                    :options="Provinces::cases()" wire:model="address.province"
+                    :options="Provinces::cases()" wire:model.live="address.province"
                     :error="$errors->first('address.province')" />
             </div>
             <button type="submit"
@@ -191,10 +191,10 @@
 
         <form wire:submit="saveDiet" class="flex flex-col gap-6">
             <x-public.form.select label="Régime" name="diet.diet"
-                :options="Diets::cases()" wire:model="diet.diet"
+                :options="Diets::cases()" wire:model.live="diet.diet"
                 :error="$errors->first('diet.diet')" />
             <x-public.form.textarea label="Allergies" name="diet.allergies"
-                wire:model="diet.allergies"
+                wire:model.live="diet.allergies"
                 placeholder="Décrivez vos allergies si vous en avez…"
                 :rows="4" />
             <button type="submit"
@@ -257,9 +257,9 @@
 
                     <div class="flex flex-col gap-4">
                         <x-public.form.input label="Nom du document" name="document.name"
-                            wire:model="document.name" placeholder="Ex : Casier judiciaire" />
+                            wire:model.live="document.name" placeholder="Ex : Casier judiciaire" />
                         <x-public.form.select label="Type" name="document.type"
-                            :options="DocumentTypes::cases()" wire:model="document.type"
+                            :options="DocumentTypes::cases()" wire:model.live="document.type"
                             :error="$errors->first('document.type')" />
                         <button type="submit"
                                 class="w-full py-4 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">

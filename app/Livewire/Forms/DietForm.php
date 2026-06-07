@@ -5,23 +5,19 @@ namespace App\Livewire\Forms;
 use App\Enums\Diets;
 use App\Models\User;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum as EnumRule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class DietForm extends Form
 {
     public User $user;
 
+    #[Validate(['required', new EnumRule(Diets::class)])]
     public ?string $diet = null;
 
+    #[Validate('nullable|string')]
     public ?string $allergies = null;
-
-    public function rules(): array
-    {
-        return [
-            'diet' => ['required', Rule::enum(Diets::class)],
-            'allergies' => ['nullable', 'string'],
-        ];
-    }
 
     public function setUser(User $user): void
     {

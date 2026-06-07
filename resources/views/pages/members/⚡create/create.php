@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum as EnumRule;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -16,18 +18,25 @@ new #[Title('Nouveau membre')] class extends Component
 {
     use AuthorizesRequests, WithFileUploads;
 
+    #[Validate('required|min:2|max:255')]
     public string $first_name = '';
 
+    #[Validate('required|min:2|max:255')]
     public string $last_name = '';
 
+    #[Validate('required|email|ends_with:@lefilrouge.com')]
     public string $email = '';
 
+    #[Validate('required|min:8')]
     public string $password = '';
 
+    #[Validate(['required', new EnumRule(UserRoles::class)])]
     public string $role = UserRoles::ARRIVANT->value;
 
+    #[Validate(['required', new EnumRule(UserStatus::class)])]
     public string $status = UserStatus::PENDING->value;
 
+    #[Validate('nullable|email')]
     public string $send_to = '';
 
     public function mount(): void

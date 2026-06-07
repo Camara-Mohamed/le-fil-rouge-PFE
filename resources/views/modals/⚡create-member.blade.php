@@ -9,6 +9,8 @@ use App\Models\VolunteerRequest;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum as EnumRule;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 new class extends Component
@@ -16,12 +18,25 @@ new class extends Component
     public string $model_id   = '';
     public string $model_type = '';
 
+    #[Validate('required|min:2|max:255')]
     public string $first_name = '';
+
+    #[Validate('required|min:2|max:255')]
     public string $last_name  = '';
+
+    #[Validate('required|email|ends_with:@lefilrouge.com')]
     public string $email      = '';
+
+    #[Validate('required|min:8')]
     public string $password   = '';
+
+    #[Validate(['required', new EnumRule(UserRoles::class)])]
     public string $role       = UserRoles::ARRIVANT->value;
+
+    #[Validate(['required', new EnumRule(UserStatus::class)])]
     public string $status     = UserStatus::PENDING->value;
+
+    #[Validate('nullable|email')]
     public string $send_to    = '';
 
     public function mount(): void
@@ -93,25 +108,25 @@ new class extends Component
 
             <div>
                 <label>Prénom</label>
-                <input type="text" wire:model="first_name">
+                <input type="text" wire:model.live="first_name">
                 @error('first_name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
             <div>
                 <label>Nom</label>
-                <input type="text" wire:model="last_name">
+                <input type="text" wire:model.live="last_name">
                 @error('last_name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
             <div>
                 <label>Email</label>
-                <input type="email" wire:model="email">
+                <input type="email" wire:model.live="email">
                 @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 
             <div x-data="{ show: false }">
                 <label>Mot de passe</label>
-                <input type="password" :type="show ? 'text' : 'password'" wire:model="password">
+                <input type="password" :type="show ? 'text' : 'password'" wire:model.live="password">
                 <button type="button" @click="show = !show">
                     <span x-show="!show">Afficher</span>
                     <span x-show="show">Cacher</span>
@@ -121,7 +136,7 @@ new class extends Component
 
             <div>
                 <label>Rôle</label>
-                <select wire:model="role">
+                <select wire:model.live="role">
                     @foreach(UserRoles::cases() as $role)
                         <option value="{{ $role->value }}">{{ $role->label() }}</option>
                     @endforeach
@@ -131,7 +146,7 @@ new class extends Component
 
             <div>
                 <label>Statut</label>
-                <select wire:model="status">
+                <select wire:model.live="status">
                     @foreach(UserStatus::cases() as $status)
                         <option value="{{ $status->value }}">{{ $status->label() }}</option>
                     @endforeach
@@ -141,7 +156,7 @@ new class extends Component
 
             <div>
                 <label>Envoyer à :</label>
-                <input type="email" wire:model="send_to">
+                <input type="email" wire:model.live="send_to">
                 @error('send_to') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
 

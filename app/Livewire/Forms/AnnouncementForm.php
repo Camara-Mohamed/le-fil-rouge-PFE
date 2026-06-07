@@ -13,33 +13,26 @@ class AnnouncementForm extends Form
 {
     use WithFileUploads;
 
+    #[Validate('required|string|max:255')]
     public string $title = '';
 
+    #[Validate('required|string|max:255')]
     public string $description = '';
 
+    #[Validate('required|string')]
     public string $content = '';
 
+    #[Validate('nullable|string')]
     public ?string $details = null;
 
+    #[Validate('nullable|date')]
     public ?string $published_at = null;
 
+    #[Validate('nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048')]
     public $banner = null;
 
+    #[Validate(['galeries' => 'nullable|array', 'galeries.*' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'])]
     public array $galeries = [];
-
-    public function rules(): array
-    {
-        return [
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string'],
-            'details' => ['nullable', 'string'],
-            'published_at' => ['nullable', 'date'],
-            'banner' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif,webp', 'max:2048'],
-            'galeries' => ['nullable', 'array'],
-            'galeries.*' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif,webp', 'max:2048'],
-        ];
-    }
 
     public function store(User $user): Announcement
     {

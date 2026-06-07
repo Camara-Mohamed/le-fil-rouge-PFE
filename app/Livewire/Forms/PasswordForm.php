@@ -4,23 +4,18 @@ namespace App\Livewire\Forms;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class PasswordForm extends Form
 {
     public User $user;
 
+    #[Validate('required|current_password')]
     public string $current_password = '';
 
+    #[Validate('required|min:8|different:current_password')]
     public string $password = '';
-
-    public function rules(): array
-    {
-        return [
-            'current_password' => ['required', 'current_password'],
-            'password' => ['required', 'min:8', 'different:current_password'],
-        ];
-    }
 
     public function setUser(User $user): void
     {

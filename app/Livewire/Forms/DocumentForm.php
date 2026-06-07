@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum as EnumRule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Livewire\WithFileUploads;
 
@@ -18,20 +20,14 @@ class DocumentForm extends Form
 
     public User $user;
 
+    #[Validate('required|file|max:10240')]
     public $file = null;
 
+    #[Validate('required|string|max:255')]
     public string $name = '';
 
+    #[Validate(['nullable', new EnumRule(DocumentTypes::class)])]
     public string $type = DocumentTypes::AUTRE->value;
-
-    public function rules(): array
-    {
-        return [
-            'file' => ['required', 'file', 'max:10240'],
-            'name' => ['required', 'string', 'max:255'],
-            'type' => ['nullable', Rule::enum(DocumentTypes::class)],
-        ];
-    }
 
     public function setUser(User $user): void
     {

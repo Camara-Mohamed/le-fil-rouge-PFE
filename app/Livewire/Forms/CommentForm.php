@@ -4,21 +4,16 @@ namespace App\Livewire\Forms;
 
 use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class CommentForm extends Form
 {
+    #[Validate('required|string')]
     public string $content = '';
 
+    #[Validate('nullable|file|max:10240')]
     public $document = null;
-
-    public function rules(): array
-    {
-        return [
-            'content' => ['required', 'string'],
-            'document' => ['nullable', 'file', 'max:10240'],
-        ];
-    }
 
     public function store(Model $model): Comment
     {
