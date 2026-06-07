@@ -3,6 +3,7 @@
 use App\Enums\UserRoles;
 use App\Enums\UserStatus;
 use App\Models\User;
+use App\Notifications\MemberChangedNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum as EnumRule;
@@ -59,11 +60,14 @@ class extends Component
 
     public function save(): void
     {
-        if ($this->role !== $this->member->role->value) {
+        $roleChanged   = $this->role !== $this->member->role->value;
+        $statusChanged = $this->status !== $this->member->status->value;
+
+        if ($roleChanged) {
             $this->authorize('changeRole', $this->member);
         }
 
-        if ($this->status !== $this->member->status->value) {
+        if ($statusChanged) {
             $this->authorize('changeStatus', $this->member);
         }
 
@@ -87,6 +91,13 @@ class extends Component
             'phone' => $this->phone,
             'birth_date' => $this->birth_date,
         ]);
+
+        if ($roleChanged || $statusChanged) {
+            $this->member->notify(new MemberChangedNotification(
+                newRole:   $roleChanged   ? UserRoles::from($this->role)->label()     : null,
+                newStatus: $statusChanged ? UserStatus::from($this->status)->label()  : null,
+            ));
+        }
 
         $this->dispatch('toast', message: __('toast/members.updated', ['name' => $this->member->fullName()]), type: 'success');
     }

@@ -1,8 +1,12 @@
 <?php
 
+use App\Enums\UserRoles;
 use App\Livewire\Forms\CampForm;
 use App\Models\Camp;
+use App\Models\User;
+use App\Notifications\ModelChangedNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -45,6 +49,9 @@ new class extends Component
         $this->authorize('update', $this->camp);
 
         $this->form->update($this->camp);
+
+        $admins = User::where('role', UserRoles::ADMIN->value)->where('id', '!=', auth()->id())->get();
+        Notification::send($admins, new ModelChangedNotification($this->camp, 'le camp', auth()->user(), created: false));
 
         $this->dispatch('toast', message: __('toast/camps.updated', ['type' => $this->camp->type->label()]), type: 'success');
     }

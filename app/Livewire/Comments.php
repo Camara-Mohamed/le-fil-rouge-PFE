@@ -4,9 +4,11 @@ namespace App\Livewire;
 
 use App\Livewire\Forms\CommentForm;
 use App\Models\Comment;
+use App\Notifications\NewCommentNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -24,6 +26,11 @@ class Comments extends Component
 
         $this->form->store($this->model);
         $this->dispatch('toast', message: __('toast/comments.created'), type: 'success');
+
+        $creator = $this->model->user;
+        if ($creator && $creator->id !== auth()->id()) {
+            $creator->notify(new NewCommentNotification($this->model, auth()->user()));
+        }
     }
 
     public function openDeleteModal(int $commentId): void

@@ -1,8 +1,12 @@
 <?php
 
+use App\Enums\UserRoles;
 use App\Livewire\Forms\TrainingForm;
 use App\Models\Training;
+use App\Models\User;
+use App\Notifications\ModelChangedNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -46,6 +50,9 @@ new class extends Component
         $this->authorize('update', $this->training);
 
         $this->form->update($this->training);
+
+        $admins = User::where('role', UserRoles::ADMIN->value)->where('id', '!=', auth()->id())->get();
+        Notification::send($admins, new ModelChangedNotification($this->training, 'la formation', auth()->user(), created: false));
 
         $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'success');
     }
