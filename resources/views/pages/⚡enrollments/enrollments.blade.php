@@ -1,43 +1,78 @@
-<div class="flex flex-col gap-8">
+@php
+    use App\Enums\RegisterStatus;
 
-    <h2>Mes formations</h2>
+    @endphp
 
-    @forelse($trainingRegisters as $register)
-        <div>
-            <a href="{{ route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $register->training]) }}">
-                {{ $register->training->title }}
-            </a>
-            <span>{{ $register->training->start_date->format('d/m/Y') }} → {{ $register->training->end_date->format('d/m/Y') }}</span>
-            <p>{{ $register->status->label() }}</p>
-            @if($register->notes)
-                <p>{{ $register->notes }}</p>
-            @endif
-        </div>
-    @empty
-        <p>Aucune inscription à une formation</p>
-    @endforelse
+<div class="flex flex-col gap-8 px-4 py-8 md:px-8">
 
-    <h2>Mes camps</h2>
+    <h2 class="font-sans font-black text-3xl text-dark">Mon historique</h2>
 
-    @forelse($campRegisters as $register)
-        <div>
-            <a href="{{ route('public.camps.show', ['locale' => app()->getLocale(), 'camp' => $register->camp]) }}">
-                {{ $register->camp->title }}
-            </a>
-            <span>{{ $register->camp->start_date->format('d/m/Y') }} → {{ $register->camp->end_date->format('d/m/Y') }}</span>
-            <span>{{ $register->status->label() }}</span>
-            @if($register->notes)
-                <p>{{ $register->notes }}</p>
-            @endif
-        </div>
-    @empty
-        <p>Aucune inscription à un stage ou séjour</p>
-    @endforelse
+    {{-- Formations --}}
+    <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
+        <h3 class="font-sans font-bold text-xl text-dark">Mes formations</h3>
 
-    // Liste des inscriptions actuelles
+        @forelse($trainingRegisters as $register)
+            <div class="flex flex-col gap-2 p-4 rounded-xl border border-bg-dark bg-bg">
+                <div class="flex items-start justify-between gap-4 flex-wrap">
+                    <a href="{{ route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $register->training]) }}"
+                       class="font-sans font-semibold text-dark hover:text-red transition">
+                        {{ $register->training->title }}
+                    </a>
+                    <x-public.badge variant="{{ match($register->status) {
+                        RegisterStatus::ACCEPTED => 'success',
+                        RegisterStatus::REFUSED  => 'danger',
+                        RegisterStatus::PENDING                             => 'warning',
+                    } }}">
+                        {{ $register->status->label() }}
+                    </x-public.badge>
+                </div>
 
-    // Liste des formations
+                <p class="font-serif text-sm text-dark-mid">
+                    Du {{ $register->training->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                    au {{ $register->training->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                </p>
 
-    // Liste des camps
+                @if($register->notes)
+                    <p class="font-serif text-sm text-dark-mid italic">{{ $register->notes }}</p>
+                @endif
+            </div>
+        @empty
+            <p class="font-serif text-dark-mid">Aucune inscription à une formation.</p>
+        @endforelse
+    </section>
+
+    {{-- Camps --}}
+    <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
+        <h3 class="font-sans font-bold text-xl text-dark">Mes camps & séjours</h3>
+
+        @forelse($campRegisters as $register)
+            <div class="flex flex-col gap-2 p-4 rounded-xl border border-bg-dark bg-bg">
+                <div class="flex items-start justify-between gap-4 flex-wrap">
+                    <a href="{{ route('public.camps.show', ['locale' => app()->getLocale(), 'camp' => $register->camp]) }}"
+                       class="font-sans font-semibold text-dark hover:text-red transition">
+                        {{ $register->camp->title }}
+                    </a>
+                    <x-public.badge variant="{{ match($register->status) {
+                        RegisterStatus::ACCEPTED => 'success',
+                        RegisterStatus::REFUSED  => 'danger',
+                        RegisterStatus::PENDING             => 'warning',
+                    } }}">
+                        {{ $register->status->label() }}
+                    </x-public.badge>
+                </div>
+
+                <p class="font-serif text-sm text-dark-mid">
+                    Du {{ $register->camp->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                    au {{ $register->camp->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                </p>
+
+                @if($register->notes)
+                    <p class="font-serif text-sm text-dark-mid italic">{{ $register->notes }}</p>
+                @endif
+            </div>
+        @empty
+            <p class="font-serif text-dark-mid">Aucune inscription à un camp ou séjour.</p>
+        @endforelse
+    </section>
 
 </div>
