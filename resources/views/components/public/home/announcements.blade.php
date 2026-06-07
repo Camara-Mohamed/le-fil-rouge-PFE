@@ -22,7 +22,7 @@
             {{-- Cards --}}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 self-stretch ">
                 @foreach($announcements as $announcement)
-                    <a href="{{ route('public.announcements.show', ['locale' => app()->getLocale(), 'announcement' => $announcement->id]) }}"
+                    <a wire:key="announcement-{{ $announcement->id }}" href="{{ route('public.announcements.show', ['locale' => app()->getLocale(), 'announcement' => $announcement->id]) }}"
                        wire:navigate
                        class="h-[420px] bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col">
 

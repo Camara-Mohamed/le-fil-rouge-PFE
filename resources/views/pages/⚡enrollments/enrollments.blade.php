@@ -12,7 +12,7 @@
         <h3 class="font-sans font-bold text-xl text-dark">Mes formations</h3>
 
         @forelse($trainingRegisters as $register)
-            <div class="flex flex-col gap-2 p-4 rounded-xl border border-bg-dark bg-bg">
+            <div wire:key="training-register-{{ $register->id }}" class="flex flex-col gap-2 p-4 rounded-xl border border-bg-dark bg-bg">
                 <div class="flex items-start justify-between gap-4 flex-wrap">
                     <a href="{{ route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $register->training]) }}"
                        class="font-sans font-semibold text-dark hover:text-red transition">
@@ -46,7 +46,7 @@
         <h3 class="font-sans font-bold text-xl text-dark">Mes camps & séjours</h3>
 
         @forelse($campRegisters as $register)
-            <div class="flex flex-col gap-2 p-4 rounded-xl border border-bg-dark bg-bg">
+            <div wire:key="camp-register-{{ $register->id }}" class="flex flex-col gap-2 p-4 rounded-xl border border-bg-dark bg-bg">
                 <div class="flex items-start justify-between gap-4 flex-wrap">
                     <a href="{{ route('public.camps.show', ['locale' => app()->getLocale(), 'camp' => $register->camp]) }}"
                        class="font-sans font-semibold text-dark hover:text-red transition">
