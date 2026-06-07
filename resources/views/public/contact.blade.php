@@ -1,5 +1,19 @@
 <x-public.app title="{{ __('public/contact.title') }}">
 
+@push('schema')
+<script type="application/ld+json">{!! json_encode([
+    '@context'  => 'https://schema.org',
+    '@type'     => 'ContactPage',
+    'name'      => __('public/contact.title'),
+    'url'       => route('public.contact', ['locale' => app()->getLocale()]),
+    'publisher' => [
+        '@type' => 'Organization',
+        'name'  => config('app.name'),
+        'url'   => config('app.url'),
+    ],
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+@endpush
+
     {{-- Hero --}}
     <x-public.hero title="{{ __('public/contact.title') }}" />
 

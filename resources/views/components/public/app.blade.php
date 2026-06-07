@@ -8,6 +8,8 @@
     <meta name="description" content="{{ __('partials.meta.public.description') }}">
     <meta name="keywords" content="{{ __('partials.meta.public.keywords') }}">
 
+    @stack('schema')
+
     <title>{{ $title . ' | ' . config('app.name') }}</title>
 
     <!-- Logo -->
