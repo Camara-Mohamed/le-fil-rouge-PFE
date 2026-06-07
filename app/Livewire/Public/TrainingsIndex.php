@@ -70,6 +70,8 @@ class TrainingsIndex extends Component
         $this->resetPage();
     }
 
+    public function paginationView(): string { return 'vendor.pagination.tailwind'; }
+
     public function render()
     {
         $user = auth()->user();
@@ -101,7 +103,7 @@ class TrainingsIndex extends Component
         }
 
         return view('livewire.public.trainings-index', [
-            'trainings' => $query->orderBy('start_date', $this->sort)->paginate(6),
+            'trainings' => $query->orderBy('start_date', $this->sort)->paginate(6)->withQueryString()->setPath(route('public.trainings.index', ['locale' => app()->getLocale()])),
         ]);
     }
 }

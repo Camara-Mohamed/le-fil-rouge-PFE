@@ -51,10 +51,6 @@
 
     @if($search)
         <div class="mt-3 flex justify-end">
-            <button wire:click="resetFilters"
-                    class="font-sans text-sm text-dark-mid hover:text-dark underline transition duration-200">
-                {{ __('public/announcements.reset_filters') }}
-            </button>
             <noscript>
                 <a href="{{ route('public.announcements.index', ['locale' => app()->getLocale()]) }}"
                    class="font-sans text-sm text-dark-mid hover:text-dark underline transition duration-200">

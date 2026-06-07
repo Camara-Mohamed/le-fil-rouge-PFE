@@ -70,7 +70,7 @@
         </div>
 
         @if($contacts->hasPages())
-            <div>{{ $contacts->links() }}</div>
+            <div class="flex justify-center">{{ $contacts->links() }}</div>
         @endif
     @endif
 
@@ -85,7 +85,7 @@
         </div>
 
         @if($volunteers->hasPages())
-            <div>{{ $volunteers->links() }}</div>
+            <div class="flex justify-center">{{ $volunteers->links() }}</div>
         @endif
     @endif
 

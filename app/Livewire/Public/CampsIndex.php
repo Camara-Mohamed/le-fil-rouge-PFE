@@ -70,6 +70,8 @@ class CampsIndex extends Component
         $this->resetPage();
     }
 
+    public function paginationView(): string { return 'vendor.pagination.tailwind'; }
+
     public function render()
     {
         $user = auth()->user();
@@ -101,7 +103,7 @@ class CampsIndex extends Component
         }
 
         return view('livewire.public.camps-index', [
-            'camps' => $query->orderBy('start_date', $this->sort)->paginate(6),
+            'camps' => $query->orderBy('start_date', $this->sort)->paginate(6)->withQueryString()->setPath(route('public.camps.index', ['locale' => app()->getLocale()])),
         ]);
     }
 }

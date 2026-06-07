@@ -49,6 +49,8 @@ class AnnouncementsIndex extends Component
         $this->resetPage();
     }
 
+    public function paginationView(): string { return 'vendor.pagination.tailwind'; }
+
     public function render()
     {
         $user = auth()->user();
@@ -65,7 +67,7 @@ class AnnouncementsIndex extends Component
         }
 
         return view('livewire.public.announcements-index', [
-            'announcements' => $query->orderBy('published_at', $this->sort)->paginate(9),
+            'announcements' => $query->orderBy('published_at', $this->sort)->paginate(9)->withQueryString()->setPath(route('public.announcements.index', ['locale' => app()->getLocale()])),
         ]);
     }
 }

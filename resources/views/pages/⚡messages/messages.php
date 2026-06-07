@@ -35,8 +35,6 @@ new #[Title('Les messages')] class extends Component
         $this->resetPage();
     }
 
-    public function paginationView(): string { return 'vendor.pagination.tailwind'; }
-
     public function markAsRead(int $id, string $type): void
     {
         $model = $type === 'contact'

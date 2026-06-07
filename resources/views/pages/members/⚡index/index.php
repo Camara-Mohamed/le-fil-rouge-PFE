@@ -1,8 +1,10 @@
 <?php
 
+use App\Enums\UserRoles;
 use App\Enums\UserStatus;
 use App\Models\User;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,50 +12,47 @@ new #[Title('Les membres')] class extends Component
 {
     use WithPagination;
 
-    public string $search = '';
+    #[Url] public string $search   = '';
+    #[Url] public string $role     = '';
+    #[Url] public string $status   = '';
+    #[Url] public bool   $archived = false;
 
-    public string $role = '';
+    public function updatingSearch(): void   { $this->resetPage(); }
+    public function updatingRole(): void     { $this->resetPage(); }
+    public function updatingStatus(): void   { $this->resetPage(); }
+    public function updatingArchived(): void { $this->resetPage(); }
 
-    public string $status = '';
-
-    public bool $archived = false;
-
-    public function updatingSearch(): void
+    public function resetFilters(): void
     {
+        $this->reset('search', 'role', 'status');
         $this->resetPage();
     }
 
-    public function updatingRole(): void
+    public function openDeleteModal(int $id): void
     {
-        $this->resetPage();
-    }
-
-    public function updatingStatus(): void
-    {
-        $this->resetPage();
-    }
-
-    public function updatingArchived(): void
-    {
-        $this->resetPage();
+        $this->dispatch('open_modal', payload: [
+            'form'       => 'modals::members.confirm-delete',
+            'model_id'   => (string) $id,
+            'model_type' => 'member',
+        ]);
     }
 
     public function render()
     {
-        $query = User::query()
-            ->where('id', '!=', auth()->id())
-            ->when(
-                $this->archived,
-                fn ($q) => $q->where('status', UserStatus::ARCHIVED),
-                fn ($q) => $q->where('status', '!=', UserStatus::ARCHIVED),
-            );
+        $query = User::query()->where('id', '!=', auth()->id());
+
+        if ($this->archived) {
+            $query->where('status', UserStatus::ARCHIVED);
+        } else {
+            $query->where('status', '!=', UserStatus::ARCHIVED);
+        }
 
         if ($this->search) {
-            $query->where(function ($query) {
-                $query->where('first_name', 'like', "%{$this->search}%")
-                    ->orWhere('last_name', 'like', "%{$this->search}%")
-                    ->orWhere('email', 'like', "%{$this->search}%");
-            });
+            $query->where(fn ($q) =>
+                $q->where('first_name', 'like', "%{$this->search}%")
+                  ->orWhere('last_name',  'like', "%{$this->search}%")
+                  ->orWhere('email',      'like', "%{$this->search}%")
+            );
         }
 
         if ($this->role) {
@@ -64,6 +63,8 @@ new #[Title('Les membres')] class extends Component
             $query->where('status', $this->status);
         }
 
-        return view('pages.members.⚡index.index', ['members' => $query->paginate(10)]);
+        $members = $query->paginate(15);
+
+        return view('pages.members.⚡index.index', compact('members'));
     }
 };
