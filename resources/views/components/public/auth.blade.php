@@ -2,9 +2,18 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="author" content="Mohamed Camara - Le Fil Rouge">
+    <meta name="description" content="{{ __('partials.meta.auth.description') }}">
 
     <title>{{ $title . ' | ' . config('app.name') }}</title>
+
+    <!-- Logo -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
