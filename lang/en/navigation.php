@@ -32,4 +32,6 @@ return [
     'account_title' => 'Manage my account',
     'history_title' => 'View my registration history',
     'logout_title' => 'Log out',
+
+    'legal' => 'Legal notice',
 ];

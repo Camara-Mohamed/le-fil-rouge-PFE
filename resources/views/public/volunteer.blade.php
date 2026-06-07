@@ -1,3 +1,18 @@
+@push('schema')
+<script type="application/ld+json">{!! json_encode([
+    '@context'    => 'https://schema.org',
+    '@type'       => 'WebPage',
+    'name'        => __('public/volunteer-request.title'),
+    'url'         => route('public.volunteer', ['locale' => app()->getLocale()]),
+    'description' => __('partials.meta.public.description'),
+    'publisher'   => [
+        '@type' => 'Organization',
+        'name'  => config('app.name'),
+        'url'   => config('app.url'),
+    ],
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+@endpush
+
 <x-public.app title="{{ __('public/volunteer-request.title') }}">
 
     {{-- Hero --}}

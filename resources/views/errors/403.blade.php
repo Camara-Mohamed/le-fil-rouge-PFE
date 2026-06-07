@@ -1,17 +1,17 @@
-<x-public.app :title="__('errors.404_title')">
+<x-public.app :title="__('errors.403_title')">
 
     <section aria-labelledby="error-heading" class="px-4 md:px-6 lg:px-8 py-24 md:py-32 flex flex-col items-center text-center gap-8">
 
         <p class="font-sans font-black text-[10rem] md:text-[14rem] leading-none text-red select-none" aria-hidden="true">
-            404
+            403
         </p>
 
         <div class="flex flex-col gap-4 max-w-lg">
             <h2 id="error-heading" class="font-sans font-black text-3xl md:text-4xl text-dark">
-                {{ __('errors.404_title') }}
+                {{ __('errors.403_title') }}
             </h2>
             <p class="font-serif text-lg text-dark-mid leading-7">
-                {{ __('errors.404_message') }}
+                {{ __('errors.403_message') }}
             </p>
         </div>
 
@@ -27,6 +27,7 @@
                 {{ __('errors.contact') }}
             </x-public.link>
         </div>
+
     </section>
 
 </x-public.app>

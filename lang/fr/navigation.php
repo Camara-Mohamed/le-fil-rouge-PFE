@@ -32,4 +32,6 @@ return [
     'account_title' => 'Gérer mon compte',
     'history_title' => 'Voir mon historique d\'inscriptions',
     'logout_title' => 'Se déconnecter',
+
+    'legal' => 'Mentions légales',
 ];

@@ -49,4 +49,8 @@ Route::prefix('{locale}')
             ->name('public.volunteer');
         Route::post('/volunteer', [VolunteerRequestController::class, 'store'])
             ->name('public.volunteer.store');
+
+        // Mentions légales
+        Route::get('/legal', fn() => view('public.legal'))
+            ->name('public.legal');
     });
