@@ -2,79 +2,91 @@
     use App\Enums\VolunteerRequestStatus;
 @endphp
 
-<div>
-    <livewire:widgets::breadcrumb :items="[
-        ['label' => __('breadcrumbs.messages')],
-    ]"/>
+<div class="flex flex-col gap-8 px-4 py-8 md:px-8">
 
-    <div>
-        @forelse ($messages as $message)
-            <div wire:key="{{ $message->type }}-{{ $message->id }}">
-                <div>
-                    <div>
-                        <div>
-                            <div>
-                                <span>
-                                    {{ $message->type === 'contact' ? 'Contact' : 'Bénévole' }}
-                                </span>
+    <h2 class="font-sans font-black text-3xl text-dark">Les messages</h2>
 
-                                @if ($message->status)
-                                    <span>{{ $message->status->label() }}</span>
-                                @endif
-
-                                <p>{{ $message->created_at->diffForHumans() }}</p>
-                            </div>
-
-                            <p>{{ $message->name }}</p>
-                            <p>{{ $message->email }}</p>
-
-                            @if ($message->subject)
-                                <p>{{ $message->subject }}</p>
-                            @endif
-
-                            <p>{{ $message->message }}</p>
-                        </div>
-                    </div>
-
-                    <div>
-                        @if (!$message->read_at)
-                            <button wire:click="markAsRead({{ $message->id }}, '{{ $message->type }}')">
-                                Marquer comme lu
-                            </button>
-                        @endif
-
-                        @if ($message->type === 'contact')
-                            <a href="mailto:{{ $message->email }}">Répondre</a>
-                        @else
-                            <a href="mailto:{{ $message->email }}">Contacter</a>
-                        @endif
-
-                        @if ($message->type === 'volunteer')
-
-                            @if ($message->status !== VolunteerRequestStatus::REJECTED)
-                                <button type="button" wire:click="openRefuseModal({{ $message->id }})">
-                                    Refuser
-                                </button>
-                            @endif
-
-                            @if ($message->status === VolunteerRequestStatus::PENDING)
-                                <button type="button" wire:click="openCreateMember({{ $message->id }})">
-                                    Créer un compte
-                                </button>
-                            @endif
-
-                            @if ($message->status !== VolunteerRequestStatus::PENDING)
-                                <button type="button" wire:click="openResetPendingModal({{ $message->id }})">
-                                    Remettre en attente
-                                </button>
-                            @endif
-
-                        @endif
-                    </div>
-                </div>
-            </div>
-        @empty
-            <p>Aucun message.</p>
-        @endforelse
+    {{-- Tabs --}}
+    <div class="flex gap-1 bg-bg rounded-lg p-1 self-start">
+        <button
+            wire:click="switchTab('contact')"
+            class="flex items-center gap-2 px-4 py-2 rounded-md font-sans font-medium text-sm transition
+                   {{ $tab === 'contact' ? 'bg-white text-dark shadow-sm' : 'text-dark-mid hover:text-dark' }}">
+            Contacts
+            @if($unreadContacts > 0)
+                <x-public.badge variant="danger">{{ $unreadContacts }}</x-public.badge>
+            @endif
+        </button>
+        <button
+            wire:click="switchTab('volunteer')"
+            class="flex items-center gap-2 px-4 py-2 rounded-md font-sans font-medium text-sm transition
+                   {{ $tab === 'volunteer' ? 'bg-white text-dark shadow-sm' : 'text-dark-mid hover:text-dark' }}">
+            Bénévoles
+            @if($unreadVolunteers > 0)
+                <x-public.badge variant="danger">{{ $unreadVolunteers }}</x-public.badge>
+            @endif
+        </button>
     </div>
+
+    {{-- Recherche + Filtres --}}
+    <div class="flex flex-wrap gap-3">
+        <input
+            type="search"
+            wire:model.live.debounce.300ms="search"
+            placeholder="Rechercher par nom ou email…"
+            class="flex-1 min-w-48 px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark placeholder:text-dark-mid focus:outline-none focus:border-dark"
+        />
+
+        <select wire:model.live="filterRead" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
+            <option value="">Tous</option>
+            <option value="unread">Non lus</option>
+            <option value="read">Lus</option>
+        </select>
+
+        @if($tab === 'volunteer')
+            <select wire:model.live="filterStatus" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
+                <option value="">Tous les statuts</option>
+                @foreach(VolunteerRequestStatus::cases() as $status)
+                    <option value="{{ $status->value }}">{{ $status->label() }}</option>
+                @endforeach
+            </select>
+        @endif
+
+        @if($search || $filterRead || $filterStatus)
+            <button wire:click="resetFilters" class="px-4 py-2 rounded-lg border border-bg-dark text-dark-mid font-serif text-sm hover:border-dark hover:text-dark transition">
+                Réinitialiser
+            </button>
+        @endif
+    </div>
+
+    {{-- Tab Contacts --}}
+    @if($tab === 'contact')
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+            @forelse ($contacts as $contact)
+                <x-messages.contact-card :contact="$contact" />
+            @empty
+                <p class="font-serif text-dark-mid col-span-2">Aucun message de contact.</p>
+            @endforelse
+        </div>
+
+        @if($contacts->hasPages())
+            <div>{{ $contacts->links() }}</div>
+        @endif
+    @endif
+
+    {{-- Tab Bénévoles --}}
+    @if($tab === 'volunteer')
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+            @forelse ($volunteers as $volunteer)
+                <x-messages.volunteer-card :volunteer="$volunteer" />
+            @empty
+                <p class="font-serif text-dark-mid col-span-2">Aucune demande de bénévole.</p>
+            @endforelse
+        </div>
+
+        @if($volunteers->hasPages())
+            <div>{{ $volunteers->links() }}</div>
+        @endif
+    @endif
+
 </div>
