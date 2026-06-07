@@ -40,9 +40,33 @@
 
     @elseif($register?->isAccepted())
         <div class="flex flex-col gap-4">
-            <div class="px-4 py-3 bg-success-bg border border-success rounded-lg">
-                <span class="font-sans text-sm font-medium text-success">{{ __('livewire/enrollment.status_accepted') }}</span>
-            </div>
+
+            @if(isset($model->price) && $model->price > 0)
+                {{-- Payante --}}
+                <div class="flex flex-col gap-3 p-4 bg-success-bg border border-success rounded-lg">
+                    <span class="font-sans font-black text-sm text-danger">{{ __('admin.payment.title') }}</span>
+                    <p class="font-serif text-sm text-dark">
+                        {{ __('admin.payment.content', [
+                            'amount'   => $model->getFormattedPrice(),
+                            'deadline' => $model->end_date->translatedFormat('j F Y'),
+                        ]) }}
+                    </p>
+                    <ul class="flex flex-col gap-1">
+                        <li class="font-sans text-sm text-dark">
+                            <span class="font-bold">Compte :</span> {{ __('admin.iban') }}
+                        </li>
+                        <li class="font-sans text-sm text-dark">
+                            <span class="font-bold">Communication :</span> {{ $model->title }} – {{ auth()->user()->fullName() }}
+                        </li>
+                    </ul>
+                </div>
+            @else
+                {{-- Gratuit --}}
+                <div class="px-4 py-3 bg-success-bg border border-success rounded-lg">
+                    <span class="font-sans text-sm font-medium text-success">{{ __('livewire/enrollment.status_accepted') }}</span>
+                </div>
+            @endif
+
             @if($register->notes)
                 <div class="flex flex-col gap-2">
                     <span class="font-sans font-bold text-base text-dark">{{ __('livewire/enrollment.notes') }}</span>
