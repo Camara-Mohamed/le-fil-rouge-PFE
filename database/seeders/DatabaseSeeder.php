@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        /* User::factory()->create([
             'first_name' => 'Mohamed',
             'last_name' => 'Camara',
             'email' => 'mohamed.camara@lefilrouge.com',
@@ -105,18 +105,18 @@ class DatabaseSeeder extends Seeder
             'role' => UserRoles::ARRIVANT,
             'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
-        ]);
+        ]); */
 
-        Camp::factory()->count(12)->create();
+        // Camp::factory()->count(12)->create();
 
-        Training::factory()->count(12)->create();
+        // Training::factory()->count(12)->create();
 
-        Announcement::factory()->count(20)->create();
+        // Announcement::factory()->count(20)->create();
 
-        Comment::factory()->count(20)->create();
+        // Comment::factory()->count(20)->create();
 
-        ContactMessage::factory()->count(10)->create();
+        // ContactMessage::factory()->count(10)->create();
 
-        VolunteerRequest::factory()->count(6)->create();
+        // VolunteerRequest::factory()->count(6)->create();
     }
 }
