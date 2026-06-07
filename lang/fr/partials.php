@@ -5,7 +5,7 @@ return [
     'meta' => [
         'public' => [
             'description' => 'Le Fil Rouge — formations, camps et actualités pour les jeunes en Belgique.',
-            'keywords'    => 'Le Fil Rouge, Mohamed Camara, organisation de jeunesse, formations, camps, bénévoles, Belgique',
+            'keywords' => 'Le Fil Rouge, Mohamed Camara, organisation de jeunesse, formations, camps, bénévoles, Belgique',
         ],
         'admin' => [
             'description' => 'Le Fil Rouge — espace d\'administration.',

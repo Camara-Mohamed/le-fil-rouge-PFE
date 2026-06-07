@@ -22,7 +22,7 @@ return [
     'coord_label_adresse' => 'Adresse',
     'coord_label_email' => 'Email',
     'coord_label_tel' => 'Téléphone',
-    'coord_label_heures' => 'Heures de bureau',
+    'coord_label_heures' => "Heures d'ouverture",
 
     // Formulaire
     'form_title' => 'Formulaire de contact',

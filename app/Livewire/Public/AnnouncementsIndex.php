@@ -49,7 +49,10 @@ class AnnouncementsIndex extends Component
         $this->resetPage();
     }
 
-    public function paginationView(): string { return 'vendor.pagination.tailwind'; }
+    public function paginationView(): string
+    {
+        return 'vendor.pagination.tailwind';
+    }
 
     public function render()
     {

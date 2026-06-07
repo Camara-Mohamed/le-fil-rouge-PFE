@@ -26,6 +26,6 @@ class ParticipantsFullNotification extends Notification
         return (new MailMessage)
             ->subject("Complet : {$this->model->title}")
             ->line("{$this->modelLabel} **{$this->model->title}** a atteint le nombre maximum de participants.")
-            ->line('Vous pouvez passer son statut à **Confirmé**.');
+            ->line('Tu peux passer son statut à **Confirmé**.');
     }
 }

@@ -8,13 +8,13 @@
 <body>
 
 <header>
-    <h1>Nouveau Membre</h1>
+    <h1>Bienvenue chez Le Fil Rouge !</h1>
 </header>
 
 <main>
-    <p>Bienvenue <strong>{{ $user->fullName() }}</strong> !</p>
+    <p>Salut <strong>{{ $user->fullName() }}</strong> !</p>
 
-    <p>Ton compte à été crée. Voici tes identifiants :</p>
+    <p>Ton compte a été créé. Voici tes identifiants pour te connecter :</p>
 
     <p>
         <strong>Email :</strong>
@@ -22,14 +22,18 @@
     </p>
 
     <p>
-        <strong>Mdp :</strong>
+        <strong>Mot de passe :</strong>
         {{ $password }}
     </p>
 
-    <a href="{{ route('login', ['locale'=>app()->getLocale()]) }}">Se connecter</a>
+    <a href="{{ route('login', ['locale' => app()->getLocale()]) }}">Se connecter</a>
 
-    <small>Oublie pas de changer de mdp.</small>
+    <small>Pense à changer ton mot de passe dès ta première connexion.</small>
 </main>
+
+<footer>
+    <p>Le Fil Rouge</p>
+</footer>
 
 </body>
 </html>

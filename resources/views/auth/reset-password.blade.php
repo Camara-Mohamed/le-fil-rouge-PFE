@@ -19,7 +19,7 @@
 
         <div x-data="{ show: false }" class="flex flex-col gap-2">
             <label for="password" class="font-sans font-bold text-base text-dark">
-                {{ __('auth.reset.password') }} <span class="text-red">*</span>
+                {{ __('auth.reset.password') }} <abbr title="{{ __('general.required') }}" class="text-red">*</abbr>
             </label>
             <div class="relative">
                 <input
@@ -45,7 +45,7 @@
 
         <div x-data="{ show: false }" class="flex flex-col gap-2">
             <label for="password_confirmation" class="font-sans font-bold text-base text-dark">
-                {{ __('auth.reset.password_confirmation') }} <span class="text-red">*</span>
+                {{ __('auth.reset.password_confirmation') }} <abbr title="{{ __('general.required') }}" class="text-red">*</abbr>
             </label>
             <div class="relative">
                 <input

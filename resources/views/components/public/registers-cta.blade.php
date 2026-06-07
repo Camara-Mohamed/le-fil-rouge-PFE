@@ -13,7 +13,7 @@
     {{-- Admin / créateur : 3 colonnes --}}
     <div {{ $attributes->class(['flex flex-col gap-6 pt-6 border-t border-bg-dark']) }}>
         <h3 class="font-sans font-black text-3xl text-dark">
-            Les inscrits ({{ $accepted->count() + $pending->count() + $refused->count() }})
+            {{ __('livewire/enrollment.inscrits_title', ['count' => $accepted->count() + $pending->count() + $refused->count()]) }}
         </h3>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -21,7 +21,7 @@
             {{-- Acceptés --}}
             <div class="flex flex-col gap-4">
                 <h4 class="font-sans font-black text-base text-dark border-b border-success pb-2">
-                    Acceptés ({{ $accepted->count() }})
+                    {{ __('livewire/enrollment.accepted_title', ['count' => $accepted->count()]) }}
                 </h4>
                 @forelse($accepted as $registrant)
                     <div wire:key="accepted-{{ $registrant->id }}"
@@ -51,23 +51,23 @@
                         <div class="flex gap-4">
                             <button wire:click="refuse({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-danger underline hover:opacity-70 transition duration-200">
-                                Refuser
+                                {{ __('livewire/enrollment.action_refuse') }}
                             </button>
                             <button wire:click="pending({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-warning underline hover:opacity-70 transition duration-200">
-                                Mettre en attente
+                                {{ __('livewire/enrollment.action_pending') }}
                             </button>
                         </div>
                     </div>
                 @empty
-                    <p class="font-serif text-sm text-dark-mid">Aucun inscrit.</p>
+                    <p class="font-serif text-sm text-dark-mid">{{ __('livewire/enrollment.empty_accepted') }}</p>
                 @endforelse
             </div>
 
             {{-- En attente --}}
             <div class="flex flex-col gap-4">
                 <h4 class="font-sans font-black text-base text-dark border-b border-warning pb-2">
-                    En attente ({{ $pending->count() }})
+                    {{ __('livewire/enrollment.pending_title', ['count' => $pending->count()]) }}
                 </h4>
                 @forelse($pending as $registrant)
                     <div wire:key="pending-{{ $registrant->id }}"
@@ -97,23 +97,23 @@
                         <div class="flex gap-4">
                             <button wire:click="accept({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-success underline hover:opacity-70 transition duration-200">
-                                Accepter
+                                {{ __('livewire/enrollment.action_accept') }}
                             </button>
                             <button wire:click="refuse({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-danger underline hover:opacity-70 transition duration-200">
-                                Refuser
+                                {{ __('livewire/enrollment.action_refuse') }}
                             </button>
                         </div>
                     </div>
                 @empty
-                    <p class="font-serif text-sm text-dark-mid">Aucune inscription en attente.</p>
+                    <p class="font-serif text-sm text-dark-mid">{{ __('livewire/enrollment.empty_pending') }}</p>
                 @endforelse
             </div>
 
             {{-- Refusés --}}
             <div class="flex flex-col gap-4">
                 <h4 class="font-sans font-black text-base text-dark border-b border-danger pb-2">
-                    Refusés ({{ $refused->count() }})
+                    {{ __('livewire/enrollment.refused_title', ['count' => $refused->count()]) }}
                 </h4>
                 @forelse($refused as $registrant)
                     <div wire:key="refused-{{ $registrant->id }}"
@@ -138,16 +138,16 @@
                         <div class="flex gap-4">
                             <button wire:click="accept({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-success underline hover:opacity-70 transition duration-200">
-                                Accepter
+                                {{ __('livewire/enrollment.action_accept') }}
                             </button>
                             <button wire:click="pending({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-warning underline hover:opacity-70 transition duration-200">
-                                Mettre en attente
+                                {{ __('livewire/enrollment.action_pending') }}
                             </button>
                         </div>
                     </div>
                 @empty
-                    <p class="font-serif text-sm text-dark-mid">Aucun refusé.</p>
+                    <p class="font-serif text-sm text-dark-mid">{{ __('livewire/enrollment.empty_refused') }}</p>
                 @endforelse
             </div>
 
@@ -160,7 +160,7 @@
     @if($accepted->count())
         <div class="flex flex-col gap-4 pt-6 border-t border-bg-dark">
             <h3 class="font-sans font-black text-3xl text-dark">
-                Les inscrits ({{ $accepted->count() }})
+                {{ __('livewire/enrollment.inscrits_title', ['count' => $accepted->count()]) }}
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @foreach($accepted as $registrant)

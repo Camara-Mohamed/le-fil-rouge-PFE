@@ -21,6 +21,9 @@ class TrainingsIndex extends Component
     #[Url(except: '')]
     public string $province = '';
 
+    #[Url(except: '')]
+    public string $status = '';
+
     #[Url(except: 'desc')]
     public string $sort = 'desc';
 
@@ -31,6 +34,7 @@ class TrainingsIndex extends Component
         $this->search = $request->string('q')->trim()->toString();
         $this->type = $request->string('type')->toString();
         $this->province = $request->string('province')->toString();
+        $this->status = $request->string('status')->toString();
         $this->sort = in_array($request->input('sort'), ['asc', 'desc'])
             ? $request->input('sort')
             : 'desc';
@@ -51,6 +55,11 @@ class TrainingsIndex extends Component
         $this->resetPage();
     }
 
+    public function updatingStatus(): void
+    {
+        $this->resetPage();
+    }
+
     public function updatingSort(): void
     {
         $this->resetPage();
@@ -66,11 +75,15 @@ class TrainingsIndex extends Component
         $this->search = '';
         $this->type = '';
         $this->province = '';
+        $this->status = '';
         $this->sort = 'desc';
         $this->resetPage();
     }
 
-    public function paginationView(): string { return 'vendor.pagination.tailwind'; }
+    public function paginationView(): string
+    {
+        return 'vendor.pagination.tailwind';
+    }
 
     public function render()
     {
@@ -100,6 +113,9 @@ class TrainingsIndex extends Component
         }
         if ($this->province) {
             $query->where('province', $this->province);
+        }
+        if ($this->status) {
+            $query->where('status', $this->status);
         }
 
         return view('livewire.public.trainings-index', [

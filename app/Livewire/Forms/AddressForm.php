@@ -4,7 +4,6 @@ namespace App\Livewire\Forms;
 
 use App\Enums\Provinces;
 use App\Models\User;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum as EnumRule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;

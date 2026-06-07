@@ -8,18 +8,18 @@
 <body>
 
 <header>
-    <h1>Bonjour {{ $volunteerRequest->fullName() }},</h1>
+    <h1>Salut {{ $volunteerRequest->fullName() }} !</h1>
 </header>
 
 <main>
     <p>
-        Nous avons reçu votre demande.
+        On a bien reçu ta demande pour rejoindre le Fil Rouge. On te recontacte rapidement pour la suite !
     </p>
 </main>
 
 <footer>
     <p>
-        Le Fil Rouge
+        L'équipe du Fil Rouge
     </p>
 </footer>
 

@@ -18,7 +18,7 @@
 
         <div x-data="{ show: false }" class="flex flex-col gap-2">
             <label for="password" class="font-sans font-bold text-base text-dark">
-                {{ __('auth.login.password') }} <span class="text-red">*</span>
+                {{ __('auth.login.password') }} <abbr title="{{ __('general.required') }}" class="text-red">*</abbr>
             </label>
             <div class="relative">
                 <input

@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\UserRoles;
 use App\Enums\UserStatus;
 use App\Models\User;
 use Livewire\Attributes\Title;
@@ -12,15 +11,37 @@ new #[Title('Les membres')] class extends Component
 {
     use WithPagination;
 
-    #[Url] public string $search   = '';
-    #[Url] public string $role     = '';
-    #[Url] public string $status   = '';
-    #[Url] public bool   $archived = false;
+    #[Url]
+    public string $search = '';
 
-    public function updatingSearch(): void   { $this->resetPage(); }
-    public function updatingRole(): void     { $this->resetPage(); }
-    public function updatingStatus(): void   { $this->resetPage(); }
-    public function updatingArchived(): void { $this->resetPage(); }
+    #[Url]
+    public string $role = '';
+
+    #[Url]
+    public string $status = '';
+
+    #[Url]
+    public bool $archived = false;
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingRole(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatus(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingArchived(): void
+    {
+        $this->resetPage();
+    }
 
     public function resetFilters(): void
     {
@@ -31,8 +52,8 @@ new #[Title('Les membres')] class extends Component
     public function openDeleteModal(int $id): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::members.confirm-delete',
-            'model_id'   => (string) $id,
+            'form' => 'modals::members.confirm-delete',
+            'model_id' => (string) $id,
             'model_type' => 'member',
         ]);
     }
@@ -48,10 +69,9 @@ new #[Title('Les membres')] class extends Component
         }
 
         if ($this->search) {
-            $query->where(fn ($q) =>
-                $q->where('first_name', 'like', "%{$this->search}%")
-                  ->orWhere('last_name',  'like', "%{$this->search}%")
-                  ->orWhere('email',      'like', "%{$this->search}%")
+            $query->where(fn ($q) => $q->where('first_name', 'like', "%{$this->search}%")
+                ->orWhere('last_name', 'like', "%{$this->search}%")
+                ->orWhere('email', 'like', "%{$this->search}%")
             );
         }
 

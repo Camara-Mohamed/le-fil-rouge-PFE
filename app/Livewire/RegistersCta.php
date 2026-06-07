@@ -65,8 +65,8 @@ class RegistersCta extends Component
     {
         return view('livewire.registers-cta', [
             'accepted' => $this->model->acceptedRegisters()->with('user')->get(),
-            'pending'  => $this->model->pendingRegisters()->with('user')->get(),
-            'refused'  => $this->model->refusedRegisters()->with('user')->get(),
+            'pending' => $this->model->pendingRegisters()->with('user')->get(),
+            'refused' => $this->model->refusedRegisters()->with('user')->get(),
         ]);
     }
 }

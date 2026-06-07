@@ -123,7 +123,7 @@ new class extends Component
 
                 <div x-data="{ show: false }" class="flex flex-col gap-2">
                     <label for="password" class="font-sans font-bold text-base text-dark">
-                        Mot de passe <span class="text-red"> *</span>
+                        Mot de passe <abbr title="{{ __('general.required') }}" class="text-red">*</abbr>
                     </label>
                     <div class="relative">
                         <input

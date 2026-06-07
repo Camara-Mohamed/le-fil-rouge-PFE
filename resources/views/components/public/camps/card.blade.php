@@ -2,6 +2,12 @@
 
 @php
     $isFull = $camp->participants && $camp->acceptedRegisters->count() >= $camp->participants;
+    $statusVariant = match($camp->status->value) {
+        'published' => 'success',
+        'confirmed' => 'info',
+        'refused'   => 'danger',
+        default     => 'warning',
+    };
 @endphp
 
 <a href="{{ route('public.camps.show', ['locale' => app()->getLocale(), 'camp' => $camp->id]) }}"
@@ -28,10 +34,16 @@
         @else
             <div class="absolute inset-0 bg-gradient-to-br from-dark-light to-dark-mid opacity-60"></div>
         @endif
-        <x-public.card-overlay
-            :label="$camp->type?->label()"
-            variant="danger"
-        />
+        <div class="absolute inset-0 bg-gray-900/40 flex flex-col justify-end items-end p-3 gap-1.5">
+            @if($camp->type)
+                <span class="px-3 py-0.5 bg-danger-bg text-danger rounded-2xl font-sans text-sm font-medium leading-6 capitalize">
+                    {{ $camp->type->label() }}
+                </span>
+            @endif
+            @auth
+                <x-public.badge :variant="$statusVariant">{{ $camp->status->label() }}</x-public.badge>
+            @endauth
+        </div>
     </div>
 
     <div class="flex-1 flex flex-col justify-between gap-2 pb-4">

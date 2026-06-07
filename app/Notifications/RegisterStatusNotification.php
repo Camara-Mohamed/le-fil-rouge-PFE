@@ -28,8 +28,8 @@ class RegisterStatusNotification extends Notification
         return (new MailMessage)
             ->subject(($accepted ? 'Inscription acceptée' : 'Inscription refusée').' : '.$this->model->title)
             ->line($accepted
-                ? "Votre inscription à **{$this->model->title}** a été acceptée."
-                : "Votre inscription à **{$this->model->title}** a été refusée."
+                ? "Ton inscription à **{$this->model->title}** a été acceptée."
+                : "Ton inscription à **{$this->model->title}** a été refusée."
             );
     }
 }

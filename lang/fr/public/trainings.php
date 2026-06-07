@@ -11,6 +11,7 @@ return [
     'search_placeholder' => 'Titre, description…',
     'filter_type' => 'Type',
     'filter_province' => 'Province',
+    'filter_status' => 'Statut',
     'filter_all' => 'Toutes',
     'sort_label' => 'Date',
     'sort_recent' => 'Plus récentes',
@@ -19,6 +20,14 @@ return [
     'search_submit' => 'Filtrer',
     'reset_filters' => 'Effacer les filtres',
     'create_link' => 'Ajouter une formation',
+
+    // Page détail (show)
+    'show_info_title' => 'Les Informations',
+    'show_description_accordion' => 'Description',
+    'show_objectives_accordion' => 'Objectifs',
+    'show_constraints_accordion' => 'Contraintes',
+    'show_details_title' => 'Description',
+    'show_download_summary' => 'Télécharger le récapitulatif (PDF)',
 
     'benefits_title' => 'Pourquoi se former avec nous',
 

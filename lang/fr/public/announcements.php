@@ -4,6 +4,7 @@ return [
     'title' => 'Actualités',
     'hero_alt' => 'Actualités du Fil Rouge',
     'card_title' => 'Lire : :title',
+    'gallery_title' => 'Galerie',
 
     // Filtres
     'search_label' => 'Rechercher',
@@ -11,7 +12,7 @@ return [
     'sort_label' => 'Date',
     'sort_recent' => 'Plus récentes',
     'sort_oldest' => 'Plus anciennes',
-    'empty' => 'Pas d\'actualité pour le moment.',
+    'empty' => "Pas d'actualité pour le moment.",
     'search_submit' => 'Filtrer',
     'reset_filters' => 'Effacer les filtres',
     'create_link' => 'Ajouter une actualité',

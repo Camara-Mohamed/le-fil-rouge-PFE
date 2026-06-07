@@ -2,7 +2,7 @@
 
 return [
     'delete_title' => 'Archiver le membre',
-    'delete_message' => 'Le membre sera archivé. Vous pourrez le restaurer.',
+    'delete_message' => 'Le membre sera archivé. Tu pourras le restaurer.',
     'delete_toast' => 'Le membre a été archivé.',
 
     'force_delete_title' => 'Supprimer définitivement le membre',

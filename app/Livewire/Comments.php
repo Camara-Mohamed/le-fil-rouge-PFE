@@ -36,8 +36,8 @@ class Comments extends Component
     public function openDeleteModal(int $commentId): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::comments.confirm-delete',
-            'model_id'   => (string) $commentId,
+            'form' => 'modals::comments.confirm-delete',
+            'model_id' => (string) $commentId,
             'model_type' => 'comment',
         ]);
     }

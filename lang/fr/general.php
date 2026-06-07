@@ -17,4 +17,22 @@ return [
     'date_from' => 'Du :start au :end',
     'full' => 'Complet',
     'participants' => ':current / :max',
+
+    // Actions globales
+    'edit' => 'Modifier',
+    'delete' => 'Supprimer',
+
+    // Labels show
+    'date_label' => 'Date',
+    'address_label' => 'Adresse',
+    'day' => '{1} :count jour|[2,*] :count jours',
+
+    // Champ obligatoire
+    'required' => 'Requis',
+
+    // Composant document manquant
+    'missing_document_title' => 'Il manque un document',
+    'missing_document_desc' => 'Ton dossier est presque complet. Il te reste à envoyer les documents demandés.',
+    'pending_document_title' => 'Dossier en attente',
+    'pending_document_desc' => 'Tes documents ont bien été envoyés. Ton dossier est en cours de révision.',
 ];

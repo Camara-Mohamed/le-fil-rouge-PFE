@@ -60,7 +60,7 @@ class extends Component
 
     public function save(): void
     {
-        $roleChanged   = $this->role !== $this->member->role->value;
+        $roleChanged = $this->role !== $this->member->role->value;
         $statusChanged = $this->status !== $this->member->status->value;
 
         if ($roleChanged) {
@@ -94,8 +94,8 @@ class extends Component
 
         if ($roleChanged || $statusChanged) {
             $this->member->notify(new MemberChangedNotification(
-                newRole:   $roleChanged   ? UserRoles::from($this->role)->label()     : null,
-                newStatus: $statusChanged ? UserStatus::from($this->status)->label()  : null,
+                newRole: $roleChanged ? UserRoles::from($this->role)->label() : null,
+                newStatus: $statusChanged ? UserStatus::from($this->status)->label() : null,
             ));
         }
 

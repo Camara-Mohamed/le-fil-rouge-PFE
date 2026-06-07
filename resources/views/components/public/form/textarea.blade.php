@@ -9,7 +9,7 @@
     @if($label)
         <label @if($name) for="{{ $name }}" @endif
                class="font-sans font-bold text-base text-dark">
-            {{ $label }}@if($required)<span class="text-red"> *</span>@endif
+            {{ $label }}@if($required)<abbr title="{{ __('general.required') }}" class="text-red"> *</abbr>@endif
         </label>
     @endif
 

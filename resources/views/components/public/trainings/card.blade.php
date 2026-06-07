@@ -1,7 +1,13 @@
 @props(['training'])
 
 @php
-    $isFull   = $training->participants && $training->acceptedRegisters->count() >= $training->participants;
+    $isFull        = $training->participants && $training->acceptedRegisters->count() >= $training->participants;
+    $statusVariant = match($training->status->value) {
+        'published' => 'success',
+        'confirmed' => 'info',
+        'refused'   => 'danger',
+        default     => 'warning',
+    };
 @endphp
 
 <a href="{{ route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $training->id]) }}"
@@ -28,10 +34,16 @@
         @else
             <div class="absolute inset-0 bg-gradient-to-br from-dark-light to-dark-mid opacity-60"></div>
         @endif
-        <x-public.card-overlay
-                :label="$training->type?->label()"
-                variant="danger"
-        />
+        <div class="absolute inset-0 bg-gray-900/40 flex flex-col justify-end items-end p-3 gap-1.5">
+            @if($training->type)
+                <span class="px-3 py-0.5 bg-danger-bg text-danger rounded-2xl font-sans text-sm font-medium leading-6 capitalize">
+                    {{ $training->type->label() }}
+                </span>
+            @endif
+            @auth
+                <x-public.badge :variant="$statusVariant">{{ $training->status->label() }}</x-public.badge>
+            @endauth
+        </div>
     </div>
 
     {{-- Contenu --}}

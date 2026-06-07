@@ -1,4 +1,5 @@
 @php
+    use App\Enums\CampStatus;
     use App\Enums\CampTypes;
     use App\Enums\Provinces;
     use App\Models\Camp;
@@ -41,6 +42,18 @@
             />
         </div>
 
+        @auth
+            <div class="flex w-40">
+                <x-public.form.select
+                    wire:model.live="status"
+                    name="status"
+                    label="{{ __('public/camps.filter_status') }}"
+                    :options="CampStatus::cases()"
+                    placeholder="{{ __('public/camps.filter_all') }}"
+                />
+            </div>
+        @endauth
+
         <div class="flex w-48">
             <x-public.form.select
                 wire:model.live="sort"
@@ -71,18 +84,17 @@
 
     </form>
 
-    @if($search || $type || $province)
+    @if($search || $type || $province || $status)
         <div class="mt-3 flex justify-end">
-            <noscript>
-                <a href="{{ route('public.camps.index', ['locale' => app()->getLocale()]) }}"
-                   class="font-sans text-sm text-dark-mid hover:text-dark underline transition duration-200">
-                    {{ __('public/camps.reset_filters') }}
-                </a>
-            </noscript>
+            <button wire:click="resetFilters"
+                    class="font-sans text-sm text-dark-mid hover:text-dark underline transition duration-200">
+                {{ __('public/camps.reset_filters') }}
+            </button>
         </div>
     @endif
 
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div wire:loading.class="opacity-50 transition-opacity duration-200"
+         class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($camps as $camp)
             <x-public.camps.card :camp="$camp" />
         @empty
@@ -94,7 +106,7 @@
 
     @if($camps->hasPages())
         <div class="mt-10 flex justify-center">
-            {{ $camps->links('pagination::tailwind')  }}
+            {{ $camps->links('pagination::tailwind') }}
         </div>
     @endif
 </div>

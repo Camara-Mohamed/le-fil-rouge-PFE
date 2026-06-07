@@ -22,14 +22,14 @@ class MemberChangedNotification extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
-        $mail = (new MailMessage)->subject('Modification de votre compte');
+        $mail = (new MailMessage)->subject('Modification de ton compte');
 
         if ($this->newRole) {
-            $mail->line("Votre rôle a été mis à jour : **{$this->newRole}**.");
+            $mail->line("Ton rôle a été mis à jour : **{$this->newRole}**.");
         }
 
         if ($this->newStatus) {
-            $mail->line("Votre statut a été mis à jour : **{$this->newStatus}**.");
+            $mail->line("Ton statut a été mis à jour : **{$this->newStatus}**.");
         }
 
         return $mail;

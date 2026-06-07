@@ -1,4 +1,5 @@
 @php
+    use App\Enums\TrainingStatus;
     use App\Enums\TrainingTypes;
     use App\Enums\Provinces;
     use App\Models\Training;
@@ -41,6 +42,18 @@
             />
         </div>
 
+        @auth
+            <div class="flex w-40">
+                <x-public.form.select
+                    wire:model.live="status"
+                    name="status"
+                    label="{{ __('public/trainings.filter_status') }}"
+                    :options="TrainingStatus::cases()"
+                    placeholder="{{ __('public/trainings.filter_all') }}"
+                />
+            </div>
+        @endauth
+
         <div class="flex w-48">
             <x-public.form.select
                 wire:model.live="sort"
@@ -71,18 +84,17 @@
 
     </form>
 
-    @if($search || $type || $province)
+    @if($search || $type || $province || $status)
         <div class="mt-3 flex justify-end">
-            <noscript>
-                <a href="{{ route('public.trainings.index', ['locale' => app()->getLocale()]) }}"
-                   class="font-sans text-sm text-dark-mid hover:text-dark underline transition duration-200">
-                    {{ __('public/trainings.reset_filters') }}
-                </a>
-            </noscript>
+            <button wire:click="resetFilters"
+                    class="font-sans text-sm text-dark-mid hover:text-dark underline transition duration-200">
+                {{ __('public/trainings.reset_filters') }}
+            </button>
         </div>
     @endif
 
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div wire:loading.class="opacity-50 transition-opacity duration-200"
+         class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($trainings as $training)
             <x-public.trainings.card :training="$training" />
         @empty

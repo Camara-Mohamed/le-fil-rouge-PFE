@@ -13,14 +13,32 @@ new #[Title('Les messages')] class extends Component
 {
     use WithPagination;
 
-    #[Url] public string $tab = 'contact';
-    #[Url] public string $search = '';
-    #[Url] public string $filterRead = '';
-    #[Url] public string $filterStatus = '';
+    #[Url]
+    public string $tab = 'contact';
 
-    public function updatingSearch(): void       { $this->resetPage(); }
-    public function updatingFilterRead(): void   { $this->resetPage(); }
-    public function updatingFilterStatus(): void { $this->resetPage(); }
+    #[Url]
+    public string $search = '';
+
+    #[Url]
+    public string $filterRead = '';
+
+    #[Url]
+    public string $filterStatus = '';
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilterRead(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilterStatus(): void
+    {
+        $this->resetPage();
+    }
 
     public function switchTab(string $tab): void
     {
@@ -60,8 +78,8 @@ new #[Title('Les messages')] class extends Component
     public function openCreateMember(int $id): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::create-member',
-            'model_id'   => (string) $id,
+            'form' => 'modals::create-member',
+            'model_id' => (string) $id,
             'model_type' => 'volunteer_request',
         ]);
     }
@@ -69,8 +87,8 @@ new #[Title('Les messages')] class extends Component
     public function openRefuseModal(int $id): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::volunteer.confirm-refuse',
-            'model_id'   => (string) $id,
+            'form' => 'modals::volunteer.confirm-refuse',
+            'model_id' => (string) $id,
             'model_type' => 'volunteer',
         ]);
     }
@@ -78,8 +96,8 @@ new #[Title('Les messages')] class extends Component
     public function openResetPendingModal(int $id): void
     {
         $this->dispatch('open_modal', payload: [
-            'form'       => 'modals::volunteer.confirm-reset-pending',
-            'model_id'   => (string) $id,
+            'form' => 'modals::volunteer.confirm-reset-pending',
+            'model_id' => (string) $id,
             'model_type' => 'volunteer',
         ]);
     }
@@ -96,27 +114,25 @@ new #[Title('Les messages')] class extends Component
     public function render()
     {
         $contactsQuery = ContactMessage::latest()
-            ->when($this->search, fn ($query) => $query->where(fn ($q) =>
-                $q->where('full_name', 'like', "%{$this->search}%")
-                  ->orWhere('email', 'like', "%{$this->search}%")
+            ->when($this->search, fn ($query) => $query->where(fn ($q) => $q->where('full_name', 'like', "%{$this->search}%")
+                ->orWhere('email', 'like', "%{$this->search}%")
             ))
-            ->when($this->filterRead === 'read',   fn ($query) => $query->whereNotNull('read_at'))
+            ->when($this->filterRead === 'read', fn ($query) => $query->whereNotNull('read_at'))
             ->when($this->filterRead === 'unread', fn ($query) => $query->whereNull('read_at'));
 
         $volunteersQuery = VolunteerRequest::latest()
-            ->when($this->search, fn ($query) => $query->where(fn ($q) =>
-                $q->where('first_name', 'like', "%{$this->search}%")
-                  ->orWhere('last_name', 'like', "%{$this->search}%")
-                  ->orWhere('email', 'like', "%{$this->search}%")
+            ->when($this->search, fn ($query) => $query->where(fn ($q) => $q->where('first_name', 'like', "%{$this->search}%")
+                ->orWhere('last_name', 'like', "%{$this->search}%")
+                ->orWhere('email', 'like', "%{$this->search}%")
             ))
-            ->when($this->filterRead === 'read',   fn ($query) => $query->whereNotNull('read_at'))
+            ->when($this->filterRead === 'read', fn ($query) => $query->whereNotNull('read_at'))
             ->when($this->filterRead === 'unread', fn ($query) => $query->whereNull('read_at'))
             ->when($this->filterStatus, fn ($query) => $query->where('status', $this->filterStatus));
 
-        $contacts   = $this->tab === 'contact'   ? $contactsQuery->paginate(6)   : collect();
-        $volunteers = $this->tab === 'volunteer'  ? $volunteersQuery->paginate(6) : collect();
+        $contacts = $this->tab === 'contact' ? $contactsQuery->paginate(6) : collect();
+        $volunteers = $this->tab === 'volunteer' ? $volunteersQuery->paginate(6) : collect();
 
-        $unreadContacts   = ContactMessage::whereNull('read_at')->count();
+        $unreadContacts = ContactMessage::whereNull('read_at')->count();
         $unreadVolunteers = VolunteerRequest::whereNull('read_at')->count();
 
         return view('pages.⚡messages.messages', compact(

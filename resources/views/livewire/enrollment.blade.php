@@ -4,11 +4,12 @@
     @if($register === null && $canEnroll)
         <div class="flex flex-col gap-4">
             <div class="flex flex-col gap-2">
-                <label class="font-sans font-bold text-base text-dark">
+                <label for="enrollment-notes" class="font-sans font-bold text-base text-dark">
                     {{ __('livewire/enrollment.notes') }}
                     <span class="font-serif font-normal text-sm text-dark-mid">{{ __('livewire/enrollment.notes_optional') }}</span>
                 </label>
-                <textarea wire:model="notes"
+                <textarea id="enrollment-notes"
+                          wire:model="notes"
                           rows="4"
                           placeholder="{{ __('livewire/enrollment.notes_placeholder') }}"
                           class="w-full p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark placeholder:text-dark-light resize-none focus:outline-none focus:border-red transition duration-200"></textarea>
@@ -53,10 +54,10 @@
                     </p>
                     <ul class="flex flex-col gap-1">
                         <li class="font-sans text-sm text-dark">
-                            <span class="font-bold">Compte :</span> {{ __('admin.iban') }}
+                            <span class="font-bold">{{ __('admin.account_label') }} :</span> {{ __('admin.iban') }}
                         </li>
                         <li class="font-sans text-sm text-dark">
-                            <span class="font-bold">Communication :</span> {{ $model->title }} – {{ auth()->user()->fullName() }}
+                            <span class="font-bold">{{ __('admin.communication_label') }} :</span> {{ $model->title }} – {{ auth()->user()->fullName() }}
                         </li>
                     </ul>
                 </div>

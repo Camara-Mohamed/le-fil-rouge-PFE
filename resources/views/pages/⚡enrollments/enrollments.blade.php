@@ -10,7 +10,7 @@
 
     {{-- Formations --}}
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
-        <h3 class="font-sans font-bold text-xl text-dark">Mes formations</h3>
+        <h3 class="font-sans font-bold text-xl text-dark">{{ __('pages/enrollments.trainings_title') }}</h3>
 
         @forelse($trainingRegisters as $register)
             <div wire:key="training-register-{{ $register->id }}" class="flex flex-col gap-2 p-4 rounded-xl border border-bg-dark bg-bg">
@@ -29,8 +29,8 @@
                 </div>
 
                 <p class="font-serif text-sm text-dark-mid">
-                    Du {{ $register->training->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
-                    au {{ $register->training->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                    {{ $register->training->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                    – {{ $register->training->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
                 </p>
 
                 @if($register->notes)
@@ -38,13 +38,13 @@
                 @endif
             </div>
         @empty
-            <p class="font-serif text-dark-mid">Aucune inscription à une formation.</p>
+            <p class="font-serif text-dark-mid">{{ __('pages/enrollments.trainings_empty') }}</p>
         @endforelse
     </section>
 
     {{-- Camps --}}
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
-        <h3 class="font-sans font-bold text-xl text-dark">Mes camps & séjours</h3>
+        <h3 class="font-sans font-bold text-xl text-dark">{{ __('pages/enrollments.camps_title') }}</h3>
 
         @forelse($campRegisters as $register)
             <div wire:key="camp-register-{{ $register->id }}" class="flex flex-col gap-2 p-4 rounded-xl border border-bg-dark bg-bg">
@@ -63,8 +63,8 @@
                 </div>
 
                 <p class="font-serif text-sm text-dark-mid">
-                    Du {{ $register->camp->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
-                    au {{ $register->camp->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                    {{ $register->camp->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                    – {{ $register->camp->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
                 </p>
 
                 @if($register->notes)
@@ -72,7 +72,7 @@
                 @endif
             </div>
         @empty
-            <p class="font-serif text-dark-mid">Aucune inscription à un camp ou séjour.</p>
+            <p class="font-serif text-dark-mid">{{ __('pages/enrollments.camps_empty') }}</p>
         @endforelse
     </section>
 

@@ -36,20 +36,20 @@
                 <a href="{{ route('admin.trainings.edit', ['locale' => app()->getLocale(), 'training' => $training]) }}"
                    wire:navigate
                    class="font-sans font-bold text-sm text-dark underline hover:text-red transition duration-200">
-                    Modifier
+                    {{ __('general.edit') }}
                 </a>
                 <button
                     x-data
                     @click="Livewire.dispatch('open_modal', { payload: { form: 'modals::trainings.confirm-delete', model_id: '{{ $training->id }}', model_type: 'training' } })"
                     class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">
-                    Supprimer
+                    {{ __('general.delete') }}
                 </button>
             </div>
         @endcan
     </div>
 
     {{-- Content --}}
-    <section aria-labelledby="training-heading" class="px-4 md:px-6 lg:px-8 pb-16">
+    <section aria-label="{{ $training->title }}" class="px-4 md:px-6 lg:px-8 pb-16">
 
         @can('update', $training)
             @php
@@ -69,21 +69,21 @@
 
             {{-- Les Informations --}}
             <div class="flex flex-col gap-12">
-                <h3 class="font-sans font-black text-3xl text-dark">Les Informations</h3>
+                <h3 class="font-sans font-black text-3xl text-dark">{{ __('public/trainings.show_info_title') }}</h3>
                 <div class="flex flex-col gap-6">
 
-                    <x-public.accordion summary="Description" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
+                    <x-public.accordion :summary="__('public/trainings.show_description_accordion')" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
                         <x-public.content class="text-sm leading-5">{{ $training->description }}</x-public.content>
                     </x-public.accordion>
 
                     @if($training->details)
-                        <x-public.accordion summary="Objectifs" :open="true" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
+                        <x-public.accordion :summary="__('public/trainings.show_objectives_accordion')" :open="true" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
                             <div class="font-serif text-sm leading-5 text-dark">{!! $training->details !!}</div>
                         </x-public.accordion>
                     @endif
 
                     @if($training->constraints)
-                        <x-public.accordion summary="Contraintes" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
+                        <x-public.accordion :summary="__('public/trainings.show_constraints_accordion')" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
                             <div class="font-serif text-sm leading-5 text-dark">{!! $training->constraints !!}</div>
                         </x-public.accordion>
                     @endif
@@ -91,18 +91,18 @@
                 </div>
             </div>
 
-            {{-- Description --}}
+            {{-- Détails --}}
             <div class="flex flex-col gap-8">
                 <div class="flex flex-col gap-6">
 
-                    <h3 class="font-sans font-black text-3xl text-dark">Description</h3>
+                    <h3 class="font-sans font-black text-3xl text-dark">{{ __('public/trainings.show_details_title') }}</h3>
 
                     <div class="flex flex-wrap gap-4">
                         @if($training->price !== null)
                             <x-public.badge variant="danger">{{ $training->getFormattedPrice() }}</x-public.badge>
                         @endif
                         <x-public.badge variant="info">
-                            {{ $days }} {{ $days > 1 ? 'jours' : 'jour' }}
+                            {{ trans_choice('general.day', $days, ['count' => $days]) }}
                         </x-public.badge>
                         @if($training->participants)
                             <x-public.badge variant="{{ $isFull ? 'danger' : 'success' }}">
@@ -118,15 +118,15 @@
 
                     <div class="flex flex-col gap-2">
                         <p class="font-sans text-base">
-                            <span class="font-bold underline uppercase">Date :</span>
+                            <span class="font-bold underline uppercase">{{ __('general.date_label') }} :</span>
                             <span class="uppercase">
-                                Du {{ $training->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
-                                au {{ $training->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                                {{ $training->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                                – {{ $training->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
                             </span>
                         </p>
                         @if($training->city)
                             <p class="font-sans text-base">
-                                <span class="font-bold underline uppercase">Adresse :</span>
+                                <span class="font-bold underline uppercase">{{ __('general.address_label') }} :</span>
                                 <span class="uppercase">
                                     @if($training->address) {{ $training->address }} {{ $training->number }}, @endif
                                     @if($training->postal_code) {{ $training->postal_code }} @endif
@@ -159,7 +159,7 @@
                             <a href="{{ route('admin.trainings.pdf', ['locale' => app()->getLocale(), 'training' => $training]) }}"
                                target="_blank"
                                class="self-start font-sans font-bold text-sm text-dark underline hover:text-red transition duration-200">
-                                Télécharger le récapitulatif (PDF)
+                                {{ __('public/trainings.show_download_summary') }}
                             </a>
                         @endcan
                     @endif
@@ -171,7 +171,8 @@
 
     {{-- Inscrits --}}
     @auth
-        <section class="px-4 md:px-6 lg:px-8 pb-16">
+        <section aria-labelledby="inscrits-heading" class="px-4 md:px-6 lg:px-8 pb-16">
+            <h2 id="inscrits-heading" class="sr-only">{{ __('livewire/enrollment.inscrits_section') }}</h2>
             <livewire:registers-cta :model="$training" />
         </section>
     @endauth
@@ -179,7 +180,7 @@
     {{-- Galerie --}}
     @if($training->galeries->count())
         <section aria-labelledby="galerie-heading" class="px-4 md:px-6 lg:px-8 pb-16">
-            <h2 id="galerie-heading" class="font-sans font-black text-3xl text-dark mb-6">Galerie</h2>
+            <h2 id="galerie-heading" class="font-sans font-black text-3xl text-dark mb-6">{{ __('public/trainings.gallery_title') }}</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                 @foreach($training->galeries as $galerie)
                     <a href="{{ asset('storage/' . $galerie->path) }}" data-fancybox="galerie-training">
@@ -194,7 +195,7 @@
 
     {{-- Commentaires --}}
     @auth
-        <section class="px-4 md:px-6 lg:px-8 pb-16">
+        <section aria-labelledby="section-commentaires" class="px-4 md:px-6 lg:px-8 pb-16">
             <livewire:comments :model="$training" />
         </section>
     @endauth

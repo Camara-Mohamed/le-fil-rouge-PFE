@@ -30,13 +30,13 @@
                 <a href="{{ route('admin.announcements.edit', ['locale' => app()->getLocale(), 'announcement' => $announcement]) }}"
                    wire:navigate
                    class="font-sans font-bold text-sm text-dark underline hover:text-red transition duration-200">
-                    Modifier
+                    {{ __('general.edit') }}
                 </a>
                 <button
                     x-data
                     @click="Livewire.dispatch('open_modal', { payload: { form: 'modals::announcements.confirm-delete', model_id: '{{ $announcement->id }}', model_type: 'announcement' } })"
                     class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">
-                    Supprimer
+                    {{ __('general.delete') }}
                 </button>
             </div>
         @endcan
@@ -60,7 +60,7 @@
                 {{ $announcement->title }}
             </h2>
 
-            {{-- Descriptio --}}
+            {{-- Description --}}
             @if($announcement->description)
                 <x-public.content class="text-lg text-dark-mid mb-8 leading-7">
                     {{ $announcement->description }}
@@ -83,7 +83,7 @@
     {{-- Galerie --}}
     @if($announcement->galeries->count())
         <section aria-labelledby="galerie-heading" class="px-4 md:px-6 lg:px-8 pb-16">
-            <h2 id="galerie-heading" class="font-sans font-black text-3xl text-dark mb-6">Galerie</h2>
+            <h2 id="galerie-heading" class="font-sans font-black text-3xl text-dark mb-6">{{ __('public/announcements.gallery_title') }}</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                 @foreach($announcement->galeries as $galerie)
                     <a href="{{ asset('storage/' . $galerie->path) }}" data-fancybox="galerie-announcement">
@@ -98,7 +98,7 @@
 
     {{-- Commentaires --}}
     @auth
-        <section class="px-4 md:px-6 lg:px-8 pb-16">
+        <section aria-labelledby="section-commentaires" class="px-4 md:px-6 lg:px-8 pb-16">
             <livewire:comments :model="$announcement" />
         </section>
     @endauth

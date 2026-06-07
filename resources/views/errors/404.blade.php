@@ -1,9 +1,9 @@
-<x-public.app title="Erreur 404">
+<x-public.app :title="__('errors.404_title')">
 
-    <h2>Erreur 404</h2>
+    <h2>{{ __('errors.404_title') }}</h2>
 
-    <p>Page introuvable.</p>
+    <p>{{ __('errors.404_message') }}</p>
 
-    <a href="{{ route('public.home', ['locale' => app()->getLocale()]) }}">Accueil</a>
+    <a href="{{ route('public.home', ['locale' => app()->getLocale()]) }}">{{ __('errors.back_home') }}</a>
 
 </x-public.app>
