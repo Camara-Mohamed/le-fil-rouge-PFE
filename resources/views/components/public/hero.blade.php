@@ -6,7 +6,7 @@
 ])
 
 @if($banner)
-    <div class="relative h-[32rem] md:h-[48rem]">
+    <div class="relative h-64">
         <img
             src="{{ $banner }}"
             @if($srcset) srcset="{{ $srcset }}" sizes="100vw" @endif
