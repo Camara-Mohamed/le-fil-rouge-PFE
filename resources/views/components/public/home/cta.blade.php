@@ -12,9 +12,7 @@
                   border-t-8 border-success flex flex-col justify-between gap-6">
 
             <img src="{{ asset('images/home/formations.webp') }}"
-                 srcset="{{ asset('images/home/formations-640.webp') }} 640w,
-                         {{ asset('images/home/formations-1024.webp') }} 1024w,
-                         {{ asset('images/home/formations-1440.webp') }} 1440w"
+                 srcset="{{ asset('images/home/formations-640.webp') }} 640w, {{ asset('images/home/formations-1024.webp') }} 1024w, {{ asset('images/home/formations-1440.webp') }} 1440w"
                  sizes="(max-width: 1500px) 100vw, 50vw"
                  alt="{{ __('public/home.cta_trainings_title') }}"
                  class="w-full h-80 object-cover rounded-lg"
@@ -58,9 +56,7 @@
             </div>
 
             <img src="{{ asset('images/home/camps.webp') }}"
-                 srcset="{{ asset('images/home/camps-640.webp') }} 640w,
-                         {{ asset('images/home/camps-1024.webp') }} 1024w,
-                         {{ asset('images/home/camps-1440.webp') }} 1440w"
+                 srcset="{{ asset('images/home/camps-640.webp') }} 640w, {{ asset('images/home/camps-1024.webp') }} 1024w, {{ asset('images/home/camps-1440.webp') }} 1440w"
                  sizes="(max-width: 1500px) 100vw, 50vw"
                  alt="{{ __('public/home.cta_camps_title') }}"
                  class="w-full h-80 object-cover rounded-lg"

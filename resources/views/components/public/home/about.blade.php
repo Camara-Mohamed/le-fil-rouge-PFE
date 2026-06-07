@@ -6,9 +6,7 @@
         {{-- Image --}}
         <div class="w-full lg:w-1/2 shrink-0 self-stretch relative min-h-64">
             <img src="{{ asset('images/home/about.webp') }}"
-                 srcset="{{ asset('images/home/about-640.webp') }} 640w,
-                         {{ asset('images/home/about-1024.webp') }} 1024w,
-                         {{ asset('images/home/about-1440.webp') }} 1440w"
+                 srcset="{{ asset('images/home/about-640.webp') }} 640w, {{ asset('images/home/about-1024.webp') }} 1024w, {{ asset('images/home/about-1440.webp') }} 1440w"
                  sizes="(max-width: 1500px) 100vw, 50vw"
                  alt="{{ __('public/home.about_img_alt') }}"
                  class="absolute inset-0 w-full h-full object-cover rounded-lg"

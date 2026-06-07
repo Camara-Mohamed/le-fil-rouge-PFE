@@ -10,7 +10,7 @@
             {{ __('navigation.profile') }}
         </summary>
 
-        <ul class="absolute right-0 mt-4 min-w-48 bg-white border border-bg-dark rounded shadow-lg z-50">
+        <ul role="menu" class="absolute right-0 mt-4 min-w-48 bg-white border border-bg-dark rounded shadow-lg z-50">
 
             <x-nav.drop-item href="{{ route('admin.dashboard', ['locale' => app()->getLocale()]) }}"
                              title="{{ __('navigation.dashboard_title') }}"

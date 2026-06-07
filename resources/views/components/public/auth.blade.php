@@ -17,6 +17,7 @@
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireScripts
 </head>
 <body class="min-h-screen font-sans bg-bg">
 

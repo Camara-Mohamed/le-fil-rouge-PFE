@@ -12,8 +12,8 @@
     {{-- Burger icon --}}
     <label id="nav-burger" for="nav-toggle"
            class="lg:hidden cursor-pointer text-dark hover:text-red-mid transition-colors"
-           tabindex="0"
-           aria-label="{{ __('navigation.open_menu') }}">
+           tabindex="0">
+        <span class="sr-only">{{ __('navigation.open_menu') }}</span>
         <x-icons.burger fill="fill-dark" />
     </label>
 
@@ -31,8 +31,8 @@
             </a>
             <label for="nav-toggle"
                    tabindex="0"
-                   class="cursor-pointer text-dark hover:text-red-mid transition-colors"
-                   aria-label="{{ __('navigation.close_menu') }}">
+                   class="cursor-pointer text-dark hover:text-red-mid transition-colors">
+                <span class="sr-only">{{ __('navigation.close_menu') }}</span>
                 <x-icons.close />
             </label>
         </li>

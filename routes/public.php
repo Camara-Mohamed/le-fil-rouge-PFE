@@ -51,6 +51,6 @@ Route::prefix('{locale}')
             ->name('public.volunteer.store');
 
         // Mentions légales
-        Route::get('/legal', fn() => view('public.legal'))
+        Route::get('/legal', fn () => view('public.legal'))
             ->name('public.legal');
     });

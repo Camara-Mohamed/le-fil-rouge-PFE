@@ -3,8 +3,8 @@
 return [
 
     'footer' => [
-        'made_by'   => 'Mohamed Camara',
-        'rights'    => 'All rights reserved.',
+        'made_by' => 'Mohamed Camara',
+        'rights' => 'All rights reserved.',
         'nav_label' => 'Legal links',
     ],
 

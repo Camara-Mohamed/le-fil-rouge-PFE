@@ -4,9 +4,7 @@
 
     {{-- Image --}}
     <img src="{{ asset('images/home/hero.webp') }}"
-         srcset="{{ asset('images/home/hero-640.webp') }} 640w,
-                 {{ asset('images/home/hero-1024.webp') }} 1024w,
-                 {{ asset('images/home/hero-1440.webp') }} 1440w"
+         srcset="{{ asset('images/home/hero-640.webp') }} 640w, {{ asset('images/home/hero-1024.webp') }} 1024w, {{ asset('images/home/hero-1440.webp') }} 1440w"
          sizes="100vw"
          alt="{{ __('public/home.hero_img_alt') }}"
          width="1440"

@@ -117,7 +117,7 @@
                 @foreach($announcement->galeries as $galerie)
                     <a href="{{ asset('storage/' . $galerie->path) }}" data-fancybox="galerie-announcement">
                         <img src="{{ asset('storage/' . $galerie->path) }}"
-                             alt="{{ $announcement->title }}"
+                             alt="Photo {{ $loop->iteration }} — {{ $announcement->title }}"
                              class="w-full h-48 object-cover rounded-2xl" />
                     </a>
                 @endforeach

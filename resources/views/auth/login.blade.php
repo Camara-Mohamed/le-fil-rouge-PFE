@@ -13,6 +13,7 @@
             :value="old('email')"
             :label="__('auth.login.email')"
             placeholder="{{ __('auth.login.email_placeholder') }}"
+            autocomplete="email"
             :required="true"
         />
 
@@ -25,6 +26,7 @@
                     id="password"
                     type="password" :type="show ? 'text' : 'password'"
                     name="password"
+                    autocomplete="current-password"
                     placeholder="{{ __('auth.login.password_placeholder') }}"
                     required
                     class="h-11 px-4 pr-12 w-full bg-white border border-bg-dark rounded-lg font-serif font-medium text-base text-dark placeholder:text-dark-mid transition duration-200"

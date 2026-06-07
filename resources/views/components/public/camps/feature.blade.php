@@ -24,9 +24,7 @@
             <div class="relative flex-1 min-h-64 rounded-lg overflow-hidden">
                 <x-public.image
                     src="{{ asset('images/camps/holiday_1.webp') }}"
-                    srcset="{{ asset('images/camps/holiday_1-640.webp') }} 640w,
-                            {{ asset('images/camps/holiday_1-1024.webp') }} 1024w,
-                            {{ asset('images/camps/holiday_1-1440.webp') }} 1440w"
+                    srcset="{{ asset('images/camps/holiday_1-640.webp') }} 640w, {{ asset('images/camps/holiday_1-1024.webp') }} 1024w, {{ asset('images/camps/holiday_1-1440.webp') }} 1440w"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     alt="{{ __('public/camps.hero_alt') }}"
                     class="w-full h-full object-cover"

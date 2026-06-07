@@ -5,7 +5,8 @@
 
         <span class="font-sans font-black text-2xl text-red">{{ config('app.name') }}</span>
 
-        <nav aria-label="{{ __('partials.footer.nav_label') }}" class="flex flex-wrap items-center gap-4">
+        <nav aria-labelledby="footer-nav-heading" class="flex flex-wrap items-center gap-4">
+            <h3 id="footer-nav-heading" class="sr-only">{{ __('partials.footer.nav_label') }}</h3>
             <x-public.link
                 href="{{ route('public.trainings.index', ['locale' => app()->getLocale()]) }}"
                 :title="__('navigation.trainings_title')"

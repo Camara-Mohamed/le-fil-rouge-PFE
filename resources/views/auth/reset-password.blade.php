@@ -14,6 +14,7 @@
             :value="old('email')"
             :label="__('auth.reset.email')"
             placeholder="{{ __('auth.reset.email_placeholder') }}"
+            autocomplete="email"
             :required="true"
         />
 
@@ -26,6 +27,7 @@
                     id="password"
                     type="password" :type="show ? 'text' : 'password'"
                     name="password"
+                    autocomplete="new-password"
                     placeholder="{{ __('auth.reset.password_placeholder') }}"
                     required
                     class="h-11 px-4 pr-12 w-full bg-white border border-bg-dark rounded-lg font-serif font-medium text-base text-dark placeholder:text-dark-mid placeholder:font-normal transition duration-200"
@@ -52,6 +54,7 @@
                     id="password_confirmation"
                     type="password" :type="show ? 'text' : 'password'"
                     name="password_confirmation"
+                    autocomplete="new-password"
                     placeholder="{{ __('auth.reset.password_placeholder') }}"
                     required
                     class="h-11 px-4 pr-12 w-full bg-white border border-bg-dark rounded-lg font-serif font-medium text-base text-dark placeholder:text-dark-mid placeholder:font-normal transition duration-200"

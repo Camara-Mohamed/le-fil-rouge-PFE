@@ -19,6 +19,7 @@
             :value="old('email')"
             :label="__('auth.forgot_password.email')"
             placeholder="{{ __('auth.forgot_password.email_placeholder') }}"
+            autocomplete="email"
             :required="true"
         />
 
