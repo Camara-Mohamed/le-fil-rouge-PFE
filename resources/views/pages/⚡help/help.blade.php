@@ -4,11 +4,11 @@
     $user    = auth()->user();
     $info  = 'pages/help.' . $user->role->value;
     $links = [
-        'admin'        => '',
-        'formateur'    => '',
-        'coordinateur' => '',
-        'animateur'    => '',
-        'arrivant'     => '',
+        'admin'        => 'https://view.genially.com/6a25a88fb82c05aec6835bd2',
+        'formateur'    => 'https://view.genially.com/6a25a8da14d0173ade961a1a',
+        'coordinateur' => 'https://view.genially.com/6a25a9050d730ce916bfe2fa',
+        'animateur'    => 'https://view.genially.com/6a243d5b3d6405980476e19e',
+        'arrivant'     => 'https://view.genially.com/6a25a937c0d655315b9501fd',
     ];
 
     $src = match($user->role) {
