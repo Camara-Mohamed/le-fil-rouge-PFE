@@ -6,24 +6,23 @@
 
 <x-public.app title="{{ $camp->title }}">
 
-    {{-- Bannière --}}
-    @if($camp->banner)
-        @php
+    @php
+        $srcset = null;
+        if ($camp->banner) {
             $variantName  = pathinfo(basename($camp->banner), PATHINFO_FILENAME) . '.' . config('banners.image_type');
             $variantsBase = config('banners.paths.camps.variants');
             $srcset       = collect(config('banners.sizes.banner'))
                 ->map(fn($w) => asset("storage/{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
                 ->implode(', ');
-        @endphp
-        <div class="px-4 md:px-6 lg:px-8 pb-10">
-            <img src="{{ asset('storage/' . $camp->banner) }}"
-                 srcset="{{ $srcset }}"
-                 sizes="100vw"
-                 alt="{{ $camp->title }}"
-                 class="w-full h-64 md:h-96 object-cover rounded-2xl"
-                 loading="eager" />
-        </div>
-    @endif
+        }
+    @endphp
+
+    {{-- Hero --}}
+    <x-public.hero
+        title="{{ $camp->title }}"
+        :banner="$camp->banner ? asset('storage/' . $camp->banner) : null"
+        :srcset="$srcset"
+    />
 
     <div class="px-4 md:px-6 lg:px-8 pt-8 pb-4 flex items-center justify-between gap-6 flex-wrap">
         <livewire:widgets::breadcrumb :items="[
@@ -52,22 +51,19 @@
     {{-- Content --}}
     <section aria-labelledby="camp-heading" class="px-4 md:px-6 lg:px-8 pb-16">
 
-        <div class="flex items-center gap-4 mb-12">
-            <h2 id="camp-heading" class="font-sans font-black text-3xl text-dark">{{ $camp->title }}</h2>
-            @can('update', $camp)
-                @php
-                    $statusVariant = match($camp->status->value) {
-                        'published' => 'success',
-                        'confirmed' => 'info',
-                        'refused'   => 'danger',
-                        default     => 'warning',
-                    };
-                @endphp
-                <x-public.badge :variant="$statusVariant" class="shrink-0">
-                    {{ $camp->status->label() }}
-                </x-public.badge>
-            @endcan
-        </div>
+        @can('update', $camp)
+            @php
+                $statusVariant = match($camp->status->value) {
+                    'published' => 'success',
+                    'confirmed' => 'info',
+                    'refused'   => 'danger',
+                    default     => 'warning',
+                };
+            @endphp
+            <div class="mb-12">
+                <x-public.badge :variant="$statusVariant">{{ $camp->status->label() }}</x-public.badge>
+            </div>
+        @endcan
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
 

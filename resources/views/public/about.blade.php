@@ -1,5 +1,8 @@
 <x-public.app title="{{ __('public/about.title') }}">
 
+    {{-- Hero --}}
+    <x-public.hero title="{{ __('public/about.title') }}" />
+
     {{-- Histoire + CTA(Volontaire) --}}
     <x-public.about.histoire />
 

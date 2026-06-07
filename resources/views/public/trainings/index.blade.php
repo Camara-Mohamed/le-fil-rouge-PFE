@@ -1,5 +1,8 @@
 <x-public.app title="{{ __('public/trainings.title') }}">
 
+    {{-- Hero --}}
+    <x-public.hero title="{{ __('public/trainings.title') }}" />
+
     <div class="px-4 md:px-6 lg:px-8 py-12">
         <livewire:public.trainings-index />
     </div>

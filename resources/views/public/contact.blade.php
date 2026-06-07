@@ -1,5 +1,8 @@
 <x-public.app title="{{ __('public/contact.title') }}">
 
+    {{-- Hero --}}
+    <x-public.hero title="{{ __('public/contact.title') }}" />
+
     <div class="px-4 md:px-6 lg:px-8 py-16 md:py-20 grid grid-cols-1 md:grid-cols-3 gap-12">
 
         {{-- Coordonnées --}}

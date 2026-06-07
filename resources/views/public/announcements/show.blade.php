@@ -1,33 +1,22 @@
 <x-public.app title="{{ $announcement->title }}">
 
-    {{-- Bannière --}}
-    @if($announcement->banner)
-        @php
+    @php
+        $srcset = null;
+        if ($announcement->banner) {
             $variantName  = pathinfo(basename($announcement->banner), PATHINFO_FILENAME) . '.' . config('banners.image_type');
             $variantsBase = config('banners.paths.announcements.variants');
             $srcset       = collect(config('banners.sizes.banner'))
                 ->map(fn($w) => asset("storage/{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
                 ->implode(', ');
-        @endphp
-        <div class="px-4 md:px-6 lg:px-8 pb-10">
-            <div class="relative">
-                <img src="{{ asset('storage/' . $announcement->banner) }}"
-                     srcset="{{ $srcset }}"
-                     sizes="100vw"
-                     alt="{{ $announcement->title }}"
-                     class="w-full h-64 md:h-[480px] object-cover rounded-2xl"
-                     loading="eager" />
-                <div class="absolute inset-0 bg-dark/30 rounded-2xl"></div>
-                @if($announcement->user)
-                    <div class="absolute bottom-6 right-6 px-4 py-1.5 bg-bg rounded-2xl border border-bg-dark">
-                        <p class="font-sans text-sm text-dark leading-6">
-                            Par <span class="font-bold">{{ $announcement->user->fullName() }}</span>
-                        </p>
-                    </div>
-                @endif
-            </div>
-        </div>
-    @endif
+        }
+    @endphp
+
+    {{-- Hero --}}
+    <x-public.hero
+        title="{{ $announcement->title }}"
+        :banner="$announcement->banner ? asset('storage/' . $announcement->banner) : null"
+        :srcset="$srcset"
+    />
 
     <div class="px-4 md:px-6 lg:px-8 pt-8 pb-4 flex items-center justify-between gap-6 flex-wrap">
         <livewire:widgets::breadcrumb :items="[
