@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Document;
 use App\Models\Training;
 use App\Models\User;
+use App\Observers\DocumentObserver;
 use App\Policies\AnnouncementPolicy;
 use App\Policies\CampPolicy;
 use App\Policies\CommentPolicy;
@@ -34,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Observers
+        Document::observe(DocumentObserver::class);
+
+        // Paginations
         Paginator::defaultView('vendor.pagination.tailwind');
 
         // Locale
