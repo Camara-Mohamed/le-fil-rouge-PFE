@@ -4,6 +4,47 @@
     $days   = max(1, (int) ceil($training->start_date->floatDiffInDays($training->end_date)));
 @endphp
 
+@php
+    $trainingSchema = [
+        '@context'    => 'https://schema.org',
+        '@type'       => 'EducationEvent',
+        'name'        => $training->title,
+        'description' => $training->description,
+        'startDate'   => $training->start_date->toIso8601String(),
+        'endDate'     => $training->end_date->toIso8601String(),
+        'url'         => route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $training]),
+        'organizer'   => [
+            '@type' => 'Organization',
+            'name'  => config('app.name'),
+            'url'   => config('app.url'),
+        ],
+    ];
+    if ($training->banner) {
+        $trainingSchema['image'] = asset('storage/' . $training->banner);
+    }
+    if ($training->city) {
+        $addr = ['@type' => 'PostalAddress', 'addressLocality' => $training->city, 'addressCountry' => 'BE'];
+        if ($training->address) $addr['streetAddress'] = trim($training->address . ' ' . ($training->number ?? ''));
+        if ($training->postal_code) $addr['postalCode'] = $training->postal_code;
+        $trainingSchema['location'] = ['@type' => 'Place', 'address' => $addr];
+    }
+    if ($training->participants) {
+        $trainingSchema['maximumAttendeeCapacity']   = $training->participants;
+        $trainingSchema['remainingAttendeeCapacity'] = max(0, $training->participants - $training->acceptedRegisters->count());
+    }
+    if ($training->price !== null) {
+        $trainingSchema['offers'] = [
+            '@type'         => 'Offer',
+            'price'         => $training->price,
+            'priceCurrency' => 'EUR',
+            'availability'  => $isFull ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+        ];
+    }
+@endphp
+@push('schema')
+<script type="application/ld+json">{!! json_encode($trainingSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+@endpush
+
 <x-public.app title="{{ $training->title }}">
 
     @php

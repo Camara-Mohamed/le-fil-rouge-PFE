@@ -4,6 +4,39 @@
     $days   = max(1, (int) ceil($camp->start_date->floatDiffInDays($camp->end_date)));
 @endphp
 
+@php
+    $campSchema = [
+        '@context'    => 'https://schema.org',
+        '@type'       => 'Event',
+        'name'        => $camp->title,
+        'description' => $camp->description,
+        'startDate'   => $camp->start_date->toIso8601String(),
+        'endDate'     => $camp->end_date->toIso8601String(),
+        'url'         => route('public.camps.show', ['locale' => app()->getLocale(), 'camp' => $camp]),
+        'organizer'   => [
+            '@type' => 'Organization',
+            'name'  => config('app.name'),
+            'url'   => config('app.url'),
+        ],
+    ];
+    if ($camp->banner) {
+        $campSchema['image'] = asset('storage/' . $camp->banner);
+    }
+    if ($camp->city) {
+        $addr = ['@type' => 'PostalAddress', 'addressLocality' => $camp->city, 'addressCountry' => 'BE'];
+        if ($camp->address) $addr['streetAddress'] = trim($camp->address . ' ' . ($camp->number ?? ''));
+        if ($camp->postal_code) $addr['postalCode'] = $camp->postal_code;
+        $campSchema['location'] = ['@type' => 'Place', 'address' => $addr];
+    }
+    if ($camp->participants) {
+        $campSchema['maximumAttendeeCapacity']   = $camp->participants;
+        $campSchema['remainingAttendeeCapacity'] = max(0, $camp->participants - $camp->acceptedRegisters->count());
+    }
+@endphp
+@push('schema')
+<script type="application/ld+json">{!! json_encode($campSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+@endpush
+
 <x-public.app :title="$camp->title">
 
     @php

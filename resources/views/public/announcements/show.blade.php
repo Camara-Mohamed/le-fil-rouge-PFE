@@ -1,3 +1,32 @@
+@php
+    $articleSchema = [
+        '@context'  => 'https://schema.org',
+        '@type'     => 'NewsArticle',
+        'headline'  => $announcement->title,
+        'url'       => route('public.announcements.show', ['locale' => app()->getLocale(), 'announcement' => $announcement]),
+        'publisher' => [
+            '@type' => 'Organization',
+            'name'  => config('app.name'),
+            'url'   => config('app.url'),
+        ],
+    ];
+    if ($announcement->description) {
+        $articleSchema['description'] = $announcement->description;
+    }
+    if ($announcement->published_at) {
+        $articleSchema['datePublished'] = $announcement->published_at->toIso8601String();
+    }
+    if ($announcement->banner) {
+        $articleSchema['image'] = asset('storage/' . $announcement->banner);
+    }
+    if ($announcement->user) {
+        $articleSchema['author'] = ['@type' => 'Person', 'name' => $announcement->user->fullName()];
+    }
+@endphp
+@push('schema')
+<script type="application/ld+json">{!! json_encode($articleSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+@endpush
+
 <x-public.app title="{{ $announcement->title }}">
 
     @php
