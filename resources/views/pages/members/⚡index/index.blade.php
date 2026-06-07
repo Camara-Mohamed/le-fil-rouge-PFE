@@ -38,7 +38,7 @@
             <select wire:model.live="status" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
                 <option value="">Tous les statuts</option>
                 @foreach(UserStatus::cases() as $statut)
-                    @if($s !== UserStatus::ARCHIVED)
+                    @if($statut !== UserStatus::ARCHIVED)
                         <option value="{{ $statut->value }}">{{ $statut->label() }}</option>
                     @endif
                 @endforeach
