@@ -1,7 +1,7 @@
 <footer class="bg-dark">
     <h2 class="sr-only">Footer</h2>
 
-    <div class="px-4 md:px-8 lg:px-40 py-6 flex items-center justify-between gap-6 flex-wrap">
+    <div class="px-4 md:px-8 lg:px-8 py-6 flex items-center justify-between gap-6 flex-wrap">
 
         <span class="font-sans font-black text-2xl text-red">{{ config('app.name') }}</span>
 
@@ -41,7 +41,7 @@
 
     </div>
 
-    <div class="px-4 md:px-8 lg:px-40 py-3 border-t border-dark-mid flex items-center justify-between gap-4 flex-wrap">
+    <div class="px-4 md:px-8 lg:px-8 py-3 border-t border-dark-mid flex items-center justify-between gap-4 flex-wrap">
 
         <div class="flex items-center gap-3">
             <a href="https://mohamed-camara.com/"
