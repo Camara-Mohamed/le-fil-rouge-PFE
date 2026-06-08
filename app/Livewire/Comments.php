@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Livewire\Forms\CommentForm;
+use Illuminate\Support\Facades\Notification;
 use App\Models\Comment;
 use App\Notifications\NewCommentNotification;
 use Illuminate\Database\Eloquent\Model;
@@ -29,7 +30,9 @@ class Comments extends Component
 
         $creator = $this->model->user;
         if ($creator && $creator->id !== auth()->id()) {
-            $creator->notify(new NewCommentNotification($this->model, auth()->user()));
+            $notif = new NewCommentNotification($this->model, auth()->user());
+            $creator->notify($notif);
+            Notification::route('mail', config('mail.reply_to.address'))->notify($notif);
         }
     }
 

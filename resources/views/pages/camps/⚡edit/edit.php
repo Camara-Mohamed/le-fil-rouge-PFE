@@ -51,7 +51,10 @@ new class extends Component
         $this->form->update($this->camp);
 
         $admins = User::where('role', UserRoles::ADMIN->value)->where('id', '!=', auth()->id())->get();
-        Notification::send($admins, new ModelChangedNotification($this->camp, 'le camp', auth()->user(), created: false));
+        foreach ($admins as $admin) {
+            $admin->notify(new ModelChangedNotification($this->camp, 'le camp', auth()->user(), created: false));
+        }
+        Notification::route('mail', config('mail.reply_to.address'))->notify(new ModelChangedNotification($this->camp, 'le camp', auth()->user(), created: false));
 
         $this->dispatch('toast', message: __('toast/camps.updated', ['type' => $this->camp->type->label()]), type: 'success');
     }

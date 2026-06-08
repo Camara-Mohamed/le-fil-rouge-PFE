@@ -25,6 +25,6 @@ class NewVolunteerMail extends Mailable
 
     public function content(): Content
     {
-        return new Content(markdown: 'emails.new-volunteer');
+        return new Content(view: 'emails.new-volunteer');
     }
 }

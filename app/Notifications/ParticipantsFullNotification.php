@@ -24,8 +24,10 @@ class ParticipantsFullNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("Complet : {$this->model->title}")
-            ->line("{$this->modelLabel} **{$this->model->title}** a atteint le nombre maximum de participants.")
-            ->line('Tu peux passer son statut à **Confirmé**.');
+            ->subject(__('emails.participants_full_subject', ['title' => $this->model->title]))
+            ->view('emails.notifications.participants-full', [
+                'model'      => $this->model,
+                'modelLabel' => $this->modelLabel,
+            ]);
     }
 }

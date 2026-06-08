@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Enums\RegisterStatus;
 use App\Enums\UserRoles;
-use App\Models\Camp;
 use App\Models\User;
 use App\Notifications\ParticipantsFullNotification;
 use App\Notifications\RegisterStatusNotification;
@@ -27,12 +26,14 @@ class RegistersCta extends Component
         $register->update(['status' => RegisterStatus::ACCEPTED]);
 
         $register->user->notify(new RegisterStatusNotification($this->model, 'accepted'));
+        Notification::route('mail', config('mail.reply_to.address'))->notify(new RegisterStatusNotification($this->model, 'accepted'));
 
         if ($this->model->participants && $this->model->acceptedRegisters()->count() >= $this->model->participants) {
-            Notification::send(
-                User::where('role', UserRoles::ADMIN->value)->get()->merge([$this->model->user])->unique('id'),
-                new ParticipantsFullNotification($this->model, $this->model instanceof Camp ? 'Le camp' : 'La formation')
-            );
+            $admins = User::where('role', UserRoles::ADMIN->value)->get()->merge([$this->model->user])->unique('id');
+            foreach ($admins as $admin) {
+                $admin->notify(new ParticipantsFullNotification($this->model, $this->model->modelLabel()));
+            }
+            Notification::route('mail', config('mail.reply_to.address'))->notify(new ParticipantsFullNotification($this->model, $this->model->modelLabel()));
         }
 
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
@@ -46,6 +47,7 @@ class RegistersCta extends Component
         $register->update(['status' => RegisterStatus::REFUSED]);
 
         $register->user->notify(new RegisterStatusNotification($this->model, 'refused'));
+        Notification::route('mail', config('mail.reply_to.address'))->notify(new RegisterStatusNotification($this->model, 'refused'));
 
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
     }

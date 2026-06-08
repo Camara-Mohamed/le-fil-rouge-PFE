@@ -1,39 +1,21 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name') }}</title>
-</head>
-<body>
+@extends('emails.layout')
 
-<header>
-    <h1>Bienvenue chez Le Fil Rouge !</h1>
-</header>
+@section('content')
+    <h1>{{ __('emails.new_volunteer_title') }}</h1>
 
-<main>
-    <p>Salut <strong>{{ $user->fullName() }}</strong> !</p>
+    <p>{{ __('emails.new_volunteer_hello', ['name' => $user->fullName()]) }}</p>
+    <p>{{ __('emails.new_volunteer_created') }}</p>
 
-    <p>Ton compte a été créé. Voici tes identifiants pour te connecter :</p>
+    <hr class="divider">
 
-    <p>
-        <strong>Email :</strong>
-        {{ $user->email }}
-    </p>
+    <p><strong>{{ __('emails.new_volunteer_email') }} :</strong> {{ $user->email }}</p>
+    <p><strong>{{ __('emails.new_volunteer_password') }} :</strong> {{ $password }}</p>
 
-    <p>
-        <strong>Mot de passe :</strong>
-        {{ $password }}
-    </p>
+    <hr class="divider">
 
-    <a href="{{ route('login', ['locale' => app()->getLocale()]) }}">Se connecter</a>
+    <a href="{{ route('login', ['locale' => app()->getLocale()]) }}" class="btn">
+        {{ __('emails.new_volunteer_cta') }}
+    </a>
 
-    <small>Pense à changer ton mot de passe dès ta première connexion.</small>
-</main>
-
-<footer>
-    <p>Le Fil Rouge</p>
-</footer>
-
-</body>
-</html>
+    <p class="note">{{ __('emails.new_volunteer_note') }}</p>
+@endsection

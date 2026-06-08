@@ -1,40 +1,14 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name') }}</title>
-</head>
-<body>
+@extends('emails.layout')
 
-<header>
-    <h1>Nouvelle demande de volontaire</h1>
-</header>
+@section('content')
+    <h1>{{ __('emails.volunteer_request_title') }}</h1>
 
-<main>
-    <p>
-        <strong>Nom :</strong>
-        {{ $volunteerRequest->fullName() }}
-    </p>
+    <p><strong>{{ __('emails.volunteer_request_name') }} :</strong> {{ $volunteerRequest->fullName() }}</p>
+    <p><strong>{{ __('emails.volunteer_request_email') }} :</strong> {{ $volunteerRequest->email }}</p>
+    <p><strong>{{ __('emails.volunteer_request_phone') }} :</strong> {{ $volunteerRequest->phone }}</p>
 
-    <p>
-        <strong>Email :</strong>
-        {{ $volunteerRequest->email }}
-    </p>
+    <hr class="divider">
 
-    <p>
-        <strong>Téléphone :</strong>
-        {{ $volunteerRequest->phone }}
-    </p>
-
-    <p>
-        <strong>Message :</strong>
-    </p>
-
-    <p>
-        {{ $volunteerRequest->message }}
-    </p>
-</main>
-
-</body>
-</html>
+    <p><strong>{{ __('emails.volunteer_request_message') }} :</strong></p>
+    <p>{{ $volunteerRequest->message }}</p>
+@endsection

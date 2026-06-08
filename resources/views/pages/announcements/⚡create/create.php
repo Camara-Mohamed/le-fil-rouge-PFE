@@ -22,7 +22,10 @@ new #[Title('Ajouter une actualité')] class extends Component
 
         $announcement = $this->form->store(auth()->user());
 
-        Notification::send(User::all(), new AnnouncementNotification($announcement));
+        foreach (User::all() as $user) {
+            $user->notify(new AnnouncementNotification($announcement));
+        }
+        Notification::route('mail', config('mail.reply_to.address'))->notify(new AnnouncementNotification($announcement));
 
         session()->flash('success', __('toast/announcements.created'));
 

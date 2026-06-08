@@ -120,4 +120,9 @@ class Training extends Model
     {
         return $this->hasMany(Comment::class)->latest();
     }
+
+    public function modelLabel(): string
+    {
+        return 'la formation';
+    }
 }

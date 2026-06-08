@@ -21,8 +21,7 @@ class UpcomingEventNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject(__('notifications.upcoming_event.subject', ['title' => $this->model->title]))
-            ->line(__('notifications.upcoming_event.line1', ['title' => $this->model->title]))
-            ->line(__('notifications.upcoming_event.line2', ['date' => $this->model->start_date->translatedFormat('d MMMM Y')]));
+            ->subject(__('emails.upcoming_event_subject', ['title' => $this->model->title]))
+            ->view('emails.notifications.upcoming-event', ['model' => $this->model]);
     }
 }

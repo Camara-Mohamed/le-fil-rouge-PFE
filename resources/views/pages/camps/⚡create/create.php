@@ -27,7 +27,10 @@ new #[Title('Ajouter un camp')] class extends Component
         $type = $this->form->type === CampTypes::STAGE->value ? 'stage' : 'camp';
 
         $admins = User::where('role', UserRoles::ADMIN->value)->where('id', '!=', auth()->id())->get();
-        Notification::send($admins, new ModelChangedNotification($camp, 'le camp', auth()->user(), created: true));
+        foreach ($admins as $admin) {
+            $admin->notify(new ModelChangedNotification($camp, 'le camp', auth()->user(), created: true));
+        }
+        Notification::route('mail', config('mail.reply_to.address'))->notify(new ModelChangedNotification($camp, 'le camp', auth()->user(), created: true));
 
         session()->flash('success', __('toast/camps.created', ['type' => $type]));
 

@@ -25,7 +25,10 @@ class NewCommentNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("Nouveau commentaire : {$this->model->title}")
-            ->line("{$this->author->fullName()} a laissé un commentaire sur **{$this->model->title}**.");
+            ->subject(__('emails.new_comment_subject', ['title' => $this->model->title]))
+            ->view('emails.notifications.new-comment', [
+                'model'  => $this->model,
+                'author' => $this->author,
+            ]);
     }
 }
