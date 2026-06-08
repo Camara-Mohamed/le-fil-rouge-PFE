@@ -28,7 +28,7 @@
 
                         {{-- Image --}}
                         @if($announcement->banner)
-                            <img src="{{ asset('storage/' . $announcement->banner) }}"
+                            <img src="{{ Storage::url($announcement->banner) }}"
                                  alt="{{ $announcement->title }}"
                                  class="w-full h-52 object-cover rounded-tl-2xl rounded-tr-2xl"
                                  loading="lazy"

@@ -20,7 +20,7 @@
         ],
     ];
     if ($camp->banner) {
-        $campSchema['image'] = asset('storage/' . $camp->banner);
+        $campSchema['image'] = Storage::url($camp->banner);
     }
     if ($camp->city) {
         $addr = ['@type' => 'PostalAddress', 'addressLocality' => $camp->city, 'addressCountry' => 'BE'];
@@ -45,7 +45,7 @@
             $variantName  = pathinfo(basename($camp->banner), PATHINFO_FILENAME) . '.' . config('banners.image_type');
             $variantsBase = config('banners.paths.camps.variants');
             $srcset       = collect(config('banners.sizes.banner'))
-                ->map(fn($w) => asset("storage/{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
+                ->map(fn($w) => Storage::url("{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
                 ->implode(', ');
         }
     @endphp
@@ -53,7 +53,7 @@
     {{-- Hero --}}
     <x-public.hero
         :title="$camp->title"
-        :banner="$camp->banner ? asset('storage/' . $camp->banner) : null"
+        :banner="$camp->banner ? Storage::url($camp->banner) : null"
         :srcset="$srcset"
     />
 
@@ -223,8 +223,8 @@
             <h2 id="galerie-heading" class="font-sans font-black text-3xl text-dark mb-6">{{ __('public/camps.gallery_title') }}</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                 @foreach($camp->galeries as $galerie)
-                    <a href="{{ asset('storage/' . $galerie->path) }}" data-fancybox="galerie-camp">
-                        <img src="{{ asset('storage/' . $galerie->path) }}"
+                    <a href="{{ Storage::url($galerie->path) }}" data-fancybox="galerie-camp">
+                        <img src="{{ Storage::url($galerie->path) }}"
                              alt="Photo {{ $loop->iteration }} — {{ $camp->title }}"
                              class="w-full h-48 object-cover rounded-2xl" />
                     </a>

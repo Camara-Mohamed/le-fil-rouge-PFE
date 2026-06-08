@@ -21,10 +21,10 @@
                 $variantName  = pathinfo(basename($training->banner), PATHINFO_FILENAME) . '.' . config('banners.image_type');
                 $variantsBase = config('banners.paths.trainings.variants');
                 $srcset       = collect(config('banners.sizes.banner'))
-                    ->map(fn($w) => asset("storage/{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
+                    ->map(fn($w) => Storage::url("{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
                     ->implode(', ');
             @endphp
-            <img src="{{ asset('storage/' . $training->banner) }}"
+            <img src="{{ Storage::url($training->banner) }}"
                  srcset="{{ $srcset }}"
                  sizes="(max-width: 768px) 100vw, 33vw"
                  alt="{{ $training->title }}"

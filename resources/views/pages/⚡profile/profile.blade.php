@@ -27,9 +27,9 @@
                     <img src="{{ $avatar->temporaryUrl() }}" alt="Aperçu"
                          class="size-28 rounded-full object-cover ring-4 ring-white shadow">
                 @elseif($user->avatar_path)
-                    <a href="{{ asset('storage/avatars/originals/' . $user->avatar_path) }}" data-fancybox="avatar">
-                        <img src="{{ asset('storage/avatars/originals/' . $user->avatar_path) }}"
-                             srcset="@foreach($sizes as $size){{ asset('storage/' . sprintf(config('avatar.variant_pattern'), $size['width'], $size['height']) . '/' . $user->avatar_path) }} {{ $size['width'] }}w,@endforeach"
+                    <a href="{{ Storage::url('avatars/originals/' . $user->avatar_path) }}" data-fancybox="avatar">
+                        <img src="{{ Storage::url('avatars/originals/' . $user->avatar_path) }}"
+                             srcset="@foreach($sizes as $size){{ Storage::url(sprintf(config('avatar.variant_pattern'), $size['width'], $size['height']) . '/' . $user->avatar_path) }} {{ $size['width'] }}w,@endforeach"
                              alt="Avatar de {{ $user->fullName() }}"
                              class="size-28 rounded-full object-cover ring-4 ring-white shadow cursor-pointer">
                     </a>
@@ -282,7 +282,7 @@
                              class="px-6 py-4 bg-bg rounded-lg flex items-center justify-between gap-4">
                             <p class="font-sans font-bold text-base text-dark">{{ $document->name }}</p>
                             <div class="flex items-center gap-4 shrink-0">
-                                <a href="{{ Storage::disk('public')->url($document->path) }}"
+                                <a href="{{ Storage::url($document->path) }}"
                                    data-fancybox="profile-document"
                                    data-type="iframe"
                                    data-width="1000"

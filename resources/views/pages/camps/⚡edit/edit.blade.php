@@ -113,7 +113,7 @@
                 <div class="flex flex-col gap-3">
                     <span class="font-sans font-bold text-base text-dark">Bannière</span>
                     @if($camp->banner && !$form->banner)
-                        <img src="{{ asset('storage/' . $camp->banner) }}" alt="{{ $camp->title }}" class="w-full h-48 object-cover rounded-xl" />
+                        <img src="{{ Storage::url($camp->banner) }}" alt="{{ $camp->title }}" class="w-full h-48 object-cover rounded-xl" />
                     @endif
                     @if($form->banner)
                         <img src="{{ $form->banner->temporaryUrl() }}" alt="Image temporaire" class="w-full h-48 object-cover rounded-xl" />
@@ -136,7 +136,7 @@
                         <div class="grid grid-cols-3 md:grid-cols-4 gap-3">
                             @foreach($camp->galeries as $galerie)
                                 <div wire:key="galerie-{{ $galerie->id }}" class="relative group">
-                                    <img src="{{ asset('storage/' . $galerie->path) }}" alt="{{ $camp->title }}" class="w-full h-24 object-cover rounded-lg" />
+                                    <img src="{{ Storage::url($galerie->path) }}" alt="{{ $camp->title }}" class="w-full h-24 object-cover rounded-lg" />
                                     <button type="button"
                                             wire:click="openConfirmDeleteGalerieModal({{ $galerie->id }})"
                                             class="absolute inset-0 flex items-center justify-center bg-dark/50 text-white font-sans text-xs font-bold rounded-lg opacity-0 group-hover:opacity-100 transition">

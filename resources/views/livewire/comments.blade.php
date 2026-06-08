@@ -99,7 +99,7 @@
 
                             <div class="flex justify-between items-center gap-4">
                                 @if($comment->document)
-                                    <a href="{{ asset('storage/' . $comment->document) }}"
+                                    <a href="{{ Storage::url($comment->document) }}"
                                        data-fancybox="comment-document-{{ $comment->id }}"
                                        data-type="iframe"
                                        data-width="900"

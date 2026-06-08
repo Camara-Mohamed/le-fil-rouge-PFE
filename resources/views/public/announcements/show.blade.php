@@ -17,7 +17,7 @@
         $articleSchema['datePublished'] = $announcement->published_at->toIso8601String();
     }
     if ($announcement->banner) {
-        $articleSchema['image'] = asset('storage/' . $announcement->banner);
+        $articleSchema['image'] = Storage::url($announcement->banner);
     }
     if ($announcement->user) {
         $articleSchema['author'] = ['@type' => 'Person', 'name' => $announcement->user->fullName()];
@@ -35,7 +35,7 @@
             $variantName  = pathinfo(basename($announcement->banner), PATHINFO_FILENAME) . '.' . config('banners.image_type');
             $variantsBase = config('banners.paths.announcements.variants');
             $srcset       = collect(config('banners.sizes.banner'))
-                ->map(fn($w) => asset("storage/{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
+                ->map(fn($w) => Storage::url("{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
                 ->implode(', ');
         }
     @endphp
@@ -43,7 +43,7 @@
     {{-- Hero --}}
     <x-public.hero
         title="{{ $announcement->title }}"
-        :banner="$announcement->banner ? asset('storage/' . $announcement->banner) : null"
+        :banner="$announcement->banner ? Storage::url($announcement->banner) : null"
         :srcset="$srcset"
     />
 
@@ -115,8 +115,8 @@
             <h2 id="galerie-heading" class="font-sans font-black text-3xl text-dark mb-6">{{ __('public/announcements.gallery_title') }}</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                 @foreach($announcement->galeries as $galerie)
-                    <a href="{{ asset('storage/' . $galerie->path) }}" data-fancybox="galerie-announcement">
-                        <img src="{{ asset('storage/' . $galerie->path) }}"
+                    <a href="{{ Storage::url($galerie->path) }}" data-fancybox="galerie-announcement">
+                        <img src="{{ Storage::url($galerie->path) }}"
                              alt="Photo {{ $loop->iteration }} — {{ $announcement->title }}"
                              class="w-full h-48 object-cover rounded-2xl" />
                     </a>

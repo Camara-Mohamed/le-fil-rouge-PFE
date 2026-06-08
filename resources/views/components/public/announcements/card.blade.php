@@ -16,10 +16,10 @@
                 $variantName  = pathinfo(basename($announcement->banner), PATHINFO_FILENAME) . '.' . config('banners.image_type');
                 $variantsBase = config('banners.paths.announcements.variants');
                 $srcset       = collect(config('banners.sizes.banner'))
-                    ->map(fn($w) => asset("storage/{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
+                    ->map(fn($w) => Storage::url("{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
                     ->implode(', ');
             @endphp
-            <img src="{{ asset('storage/' . $announcement->banner) }}"
+            <img src="{{ Storage::url($announcement->banner) }}"
                  srcset="{{ $srcset }}"
                  sizes="{{ $large ? '66vw' : '33vw' }}"
                  alt="{{ $announcement->title }}"

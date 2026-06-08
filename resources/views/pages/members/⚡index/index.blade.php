@@ -82,9 +82,9 @@
 
                         <td class="px-6 py-4">
                             @if($member->avatar_path)
-                                <a href="{{ asset('storage/avatars/originals/' . $member->avatar_path) }}" data-fancybox="members">
+                                <a href="{{ Storage::url('avatars/originals/' . $member->avatar_path) }}" data-fancybox="members">
                                     <img
-                                        src="{{ asset('storage/avatars/originals/' . $member->avatar_path) }}"
+                                        src="{{ Storage::url('avatars/originals/' . $member->avatar_path) }}"
                                         alt="{{ $member->fullName() }}"
                                         class="w-10 h-10 rounded-full object-cover"
                                     >
