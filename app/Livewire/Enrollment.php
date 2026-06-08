@@ -45,9 +45,11 @@ class Enrollment extends Component
             return;
         }
 
+        $isCreator = $this->model->user_id === $user->id;
+
         $this->model->registers()->create([
             'user_id' => $user->id,
-            'status' => RegisterStatus::PENDING,
+            'status' => $isCreator ? RegisterStatus::ACCEPTED : RegisterStatus::PENDING,
             'notes' => $this->notes ?: null,
         ]);
 

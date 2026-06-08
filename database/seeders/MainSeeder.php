@@ -40,19 +40,27 @@ class MainSeeder extends Seeder
         return $storagePath;
     }
 
-    //Bannière et ses variants
+    // Bannière + variants (640, 1024, 1440)
     private function storeBanner(string $publicRelativePath, string $storagePath): string
     {
         $this->storeImage($publicRelativePath, $storagePath);
-
         $filename = basename($storagePath);
         $variantsBase = dirname($storagePath) . '/variants';
-
         foreach (config('banners.sizes.banner') as $size) {
             $this->storeImage($publicRelativePath, "{$variantsBase}/{$size}/{$filename}");
         }
-
         return $storagePath;
+    }
+
+    // Avatar + variants (80x80, 300x300, 600x600)
+    private function storeAvatar(string $publicRelativePath, string $fileName): string
+    {
+        $this->storeImage($publicRelativePath, config('avatar.original_path') . '/' . $fileName);
+        foreach (config('avatar.sizes') as $size) {
+            $variantPath = sprintf(config('avatar.variant_pattern'), $size['width'], $size['height']);
+            $this->storeImage($publicRelativePath, $variantPath . '/' . $fileName);
+        }
+        return $fileName;
     }
 
     public function run(): void
@@ -67,6 +75,7 @@ class MainSeeder extends Seeder
             'address' => 'Rue du Vallon', 'number' => '12',
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
             'diet' => Diets::NORMAL,
+            'avatar_path' => $this->storeAvatar('images/trainings/fun.webp', 'avatar_admin.jpg'),
         ]);
 
         $stephanie = User::factory()->create([
@@ -74,6 +83,7 @@ class MainSeeder extends Seeder
             'email' => 'stephanie.admin@lefilrouge.com',
             'role' => UserRoles::ADMIN, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
+            'avatar_path' => $this->storeAvatar('images/trainings/fun_1.webp', 'avatar_stephanie.jpg'),
         ]);
 
         $hugo = User::factory()->create([
@@ -81,6 +91,7 @@ class MainSeeder extends Seeder
             'email' => 'hugo.formateur@lefilrouge.com',
             'role' => UserRoles::FORMATEUR, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
+            'avatar_path' => $this->storeAvatar('images/trainings/fun_2.webp', 'avatar_hugo.jpg'),
         ]);
 
         $paul = User::factory()->create([
@@ -88,6 +99,7 @@ class MainSeeder extends Seeder
             'email' => 'paul.coordinateur@lefilrouge.com',
             'role' => UserRoles::COORDINATEUR, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
+            'avatar_path' => $this->storeAvatar('images/camps/holiday.webp', 'avatar_paul.jpg'),
         ]);
 
         $tiffany = User::factory()->create([
@@ -95,20 +107,23 @@ class MainSeeder extends Seeder
             'email' => 'tiffany.brevete@lefilrouge.com',
             'role' => UserRoles::BREVETE, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
+            'avatar_path' => $this->storeAvatar('images/trainings/fun_3.webp', 'avatar_tiffany.jpg'),
         ]);
 
         $luc = User::factory()->create([
-            'first_name' => 'Luc', 'last_name' => 'Animateur_2e',
-            'email' => 'paul.animateur2e@lefilrouge.com',
+            'first_name' => 'Luc', 'last_name' => 'Animateur',
+            'email' => 'luc.animateur2e@lefilrouge.com',
             'role' => UserRoles::ANIMATEUR_2, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
+            'avatar_path' => $this->storeAvatar('images/camps/holiday_1.webp', 'avatar_luc.jpg'),
         ]);
 
         $lea = User::factory()->create([
-            'first_name' => 'Léa', 'last_name' => 'Animateur_1re',
+            'first_name' => 'Léa', 'last_name' => 'Animateur',
             'email' => 'lea.animateur1re@lefilrouge.com',
             'role' => UserRoles::ANIMATEUR_1, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
+            'avatar_path' => $this->storeAvatar('images/camps/holiday_2.webp', 'avatar_lea.jpg'),
         ]);
 
         $sam = User::factory()->create([
@@ -116,6 +131,7 @@ class MainSeeder extends Seeder
             'email' => 'sam.arrivant@lefilrouge.com',
             'role' => UserRoles::ARRIVANT, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
+            'avatar_path' => $this->storeAvatar('images/trainings/fun_4.webp', 'avatar_sam.jpg'),
         ]);
 
         // ── Camps ──────────────────────────────────────────────────────────
@@ -124,7 +140,7 @@ class MainSeeder extends Seeder
             'description' => 'Un stage de 8 jours pour apprendre les bases de l\'anim avec des jeunes de 6 à 12 ans. Au programme : techniques d\'animation, gestion de groupe et sécurité.',
             'details' => 'Tu vas bosser sur les fondamentaux : dynamique de groupe, activités créatives, gestion des conflits et cadre légal quand tu travailles avec des mineurs.',
             'constraints' => 'T\'as besoin d\'au moins 16 ans. Engagement sur les 8 jours complets, pas de demi-mesure.',
-            'start_date' => '2025-07-07 09:00', 'end_date' => '2025-07-14 17:00',
+            'start_date' => now()->addDays(10)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(17)->setTime(17,0)->toDateTimeString(),
             'type' => CampTypes::STAGE, 'status' => CampStatus::CONFIRMED,
             'participants' => 20,
             'address' => 'Rue de la Lienne', 'number' => '5',
@@ -138,7 +154,7 @@ class MainSeeder extends Seeder
             'title' => 'Séjour Découverte Ardennes',
             'description' => '5 jours en pleine nature ardennaise pour développer tes compétences terrain avec une équipe sympa.',
             'details' => 'Randos, veillées, ateliers nature et travail en équipe dans un cadre de ouf. Viens avec l\'envie d\'apprendre et de rigoler.',
-            'start_date' => '2025-08-04 10:00', 'end_date' => '2025-08-08 16:00',
+            'start_date' => now()->addDays(30)->setTime(10,0)->toDateTimeString(), 'end_date' => now()->addDays(34)->setTime(16,0)->toDateTimeString(),
             'type' => CampTypes::SEJOUR, 'status' => CampStatus::PUBLISHED,
             'participants' => 15,
             'address' => 'Rue du Moulin', 'number' => '3',
@@ -153,7 +169,7 @@ class MainSeeder extends Seeder
             'description' => 'Le stage brevet reconnu par la FWB. 10 jours intensifs pour décrocher ton brevet et passer au niveau supérieur.',
             'details' => 'Programme officiel FWB. Théorie et pratique en alternance, mises en situation réelles et éval en fin de stage. On ne rigole pas mais on s\'amuse quand même.',
             'constraints' => '18 ans min. T\'as besoin d\'avoir fait le stage 1er niveau avant.',
-            'start_date' => '2025-10-27 09:00', 'end_date' => '2025-11-05 17:00',
+            'start_date' => now()->addDays(60)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(69)->setTime(17,0)->toDateTimeString(),
             'type' => CampTypes::STAGE, 'status' => CampStatus::PUBLISHED,
             'participants' => 12,
             'address' => 'Avenue des Tilleuls', 'number' => '18',
@@ -166,22 +182,24 @@ class MainSeeder extends Seeder
         $camp4 = Camp::create([
             'title' => 'Camp Solidarité – Projet de quartier',
             'description' => '5 jours d\'engagement concret dans des quartiers liégeois. On fait des trucs qui ont du sens, ensemble.',
-            'start_date' => '2025-04-14 09:00', 'end_date' => '2025-04-18 17:00',
+            'start_date' => now()->subDays(20)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->subDays(16)->setTime(17,0)->toDateTimeString(),
             'type' => CampTypes::SEJOUR, 'status' => CampStatus::PENDING,
             'participants' => 25,
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
             'user_id' => $paul->id,
+            'banner' => $this->storeBanner('images/camps/holiday_3.webp', 'camps/banners/holiday_3.webp'),
         ]);
 
         $camp5 = Camp::create([
             'title' => 'Stage Coordination d\'équipe',
             'description' => 'T\'anime depuis un moment et t\'as envie de coordonner ? Ce stage est fait pour toi. Gestion d\'équipe, planif et communication au menu.',
             'details' => 'Mises en situation de coord, gestion de galères imprévues, travail sur le leadership sans prendre la tête.',
-            'start_date' => '2025-03-10 09:00', 'end_date' => '2025-03-14 17:00',
+            'start_date' => now()->subDays(45)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->subDays(41)->setTime(17,0)->toDateTimeString(),
             'type' => CampTypes::STAGE, 'status' => CampStatus::REFUSED,
             'participants' => 10,
             'city' => 'Namur', 'province' => Provinces::NAMUR, 'postal_code' => '5000',
-            'user_id' => $hugo->id,
+            'user_id' => $paul->id,
+            'banner' => $this->storeBanner('images/camps/holiday_4.webp', 'camps/banners/holiday_4.webp'),
         ]);
 
         // ── Galeries camps ─────────────────────────────────────────────────
@@ -220,7 +238,7 @@ class MainSeeder extends Seeder
             'title' => 'Formation Premiers Secours (PSC1)',
             'description' => 'Tu bosses avec des jeunes ? La formation premiers secours c\'est la base. Reconnue par la Croix-Rouge de Belgique, une journée qui peut tout changer.',
             'details' => 'Gestes de survie, RCP, défibrillateur, prise en charge des bobos courants. Tout ce qu\'il faut savoir.',
-            'start_date' => '2025-05-10 09:00', 'end_date' => '2025-05-10 17:00',
+            'start_date' => now()->addDays(5)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(5)->setTime(17,0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::CONFIRMED,
             'price' => 3500, 'participants' => 16,
             'address' => 'Rue Douffet', 'number' => '36',
@@ -234,7 +252,7 @@ class MainSeeder extends Seeder
             'title' => 'Formation Pédagogie Active et Jeu',
             'description' => 'Le jeu c\'est sérieux. Cette formation te donne des outils concrets pour rendre tes anims plus dynamiques et faire apprendre sans que ça ressemble à de l\'école.',
             'details' => 'Ateliers ludiques, jeux coopératifs, débriefing pédago et création d\'outils sur mesure. On expérimente ensemble.',
-            'start_date' => '2025-06-14 09:00', 'end_date' => '2025-06-15 17:00',
+            'start_date' => now()->addDays(20)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(21)->setTime(17,0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => null, 'participants' => 20,
             'address' => 'Rue Douffet', 'number' => '36',
@@ -248,7 +266,7 @@ class MainSeeder extends Seeder
             'description' => 'Les conflits dans un groupe, ça arrive. Cette formation t\'aide à les repérer, les prévenir et les désamorcer sans te prendre la tête.',
             'details' => 'Communication non-violente, médiation entre jeunes, gestion des émotions et posture de l\'anim. Du concret, pas du théorique.',
             'constraints' => 'Faut avoir au moins 6 mois d\'expérience en animation.',
-            'start_date' => '2025-09-20 09:00', 'end_date' => '2025-09-21 17:00',
+            'start_date' => now()->addDays(45)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(46)->setTime(17,0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => 5000, 'participants' => 14,
             'city' => 'Namur', 'province' => Provinces::NAMUR, 'postal_code' => '5000',
@@ -259,7 +277,7 @@ class MainSeeder extends Seeder
         $training4 = Training::create([
             'title' => 'Week-end Résidentiel Leadership',
             'description' => '2 jours en résidentiel pour bosser ton leadership et apprendre à faire avancer une équipe autour d\'un projet commun. Intensif mais utile.',
-            'start_date' => '2025-11-15 14:00', 'end_date' => '2025-11-16 17:00',
+            'start_date' => now()->addDays(75)->setTime(14,0)->toDateTimeString(), 'end_date' => now()->addDays(76)->setTime(17,0)->toDateTimeString(),
             'type' => TrainingTypes::RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => 7500, 'participants' => 10,
             'address' => 'Chemin des Fagnes', 'number' => '2',
@@ -271,11 +289,12 @@ class MainSeeder extends Seeder
         $training5 = Training::create([
             'title' => 'Formation Inclusion et Handicap',
             'description' => 'Comment accueillir un jeune en situation de handicap dans ton groupe ? Cette formation te donne les clés pour que tout le monde trouve sa place.',
-            'start_date' => '2025-04-05 09:00', 'end_date' => '2025-04-05 17:00',
+            'start_date' => now()->subDays(30)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->subDays(30)->setTime(17,0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PENDING,
             'price' => null, 'participants' => 18,
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
-            'user_id' => $paul->id,
+            'user_id' => $hugo->id,
+            'banner' => $this->storeBanner('images/trainings/fun_4.webp', 'trainings/banners/fun_4.webp'),
         ]);
 
         // ── Galeries trainings ─────────────────────────────────────────────
@@ -325,7 +344,7 @@ class MainSeeder extends Seeder
             'description' => 'T\'as du temps cet printemps ? On a besoin de toi pour encadrer nos stages. Viens nous rejoindre !',
             'content' => 'Si t\'es anim, coord ou formateur et que t\'as des dispo ce printemps 2025, on a des postes pour toi. Réunion d\'info le 15 février à 18h au local. Viens, y\'aura des croque-monsieurs.',
             'published_at' => now()->subMonths(2),
-            'user_id' => $stephanie->id,
+            'user_id' => $admin->id,
             'banner' => $this->storeBanner('images/home/camps.webp', 'announcements/banners/camps.webp'),
         ]);
 
@@ -335,6 +354,7 @@ class MainSeeder extends Seeder
             'content' => 'Suite à l\'AG du 12 janvier 2025, on a mis à jour quelques articles. Les principaux changements : procédures d\'inscription aux stages, conditions d\'annulation et règles en résidentiel. Le doc complet est dispo sur demande.',
             'published_at' => now()->subWeeks(3),
             'user_id' => $stephanie->id,
+            'banner' => $this->storeBanner('images/home/formations.webp', 'announcements/banners/regl.webp'),
         ]);
 
         Announcement::create([
@@ -352,6 +372,7 @@ class MainSeeder extends Seeder
             'content' => 'Cet été, le secrétariat est fermé du 15 juillet au 15 août. Pour toute urgence, écris-nous à contact@lefilrouge.com. Les inscriptions aux formations restent ouvertes via la plateforme, on répond dès la rentrée.',
             'published_at' => now()->subWeeks(1),
             'user_id' => $stephanie->id,
+            'banner' => $this->storeBanner('images/home/about.webp', 'announcements/banners/fermeture.webp'),
         ]);
 
         $ann6 = Announcement::create([
