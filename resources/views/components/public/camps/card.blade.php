@@ -29,7 +29,7 @@
                  sizes="(max-width: 768px) 100vw, 33vw"
                  alt="{{ $camp->title }}"
                  class="absolute inset-0 w-full h-full object-cover"
-                 loading="eager"
+                 loading="lazy"
             />
         @else
             <div class="absolute inset-0 bg-gradient-to-br from-dark-light to-dark-mid opacity-60"></div>

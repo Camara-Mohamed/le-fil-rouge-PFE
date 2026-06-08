@@ -1,7 +1,7 @@
 /* Montserrat Fonts */
 @font-face {
     font-family: 'Montserrat';
-    src: url('../fonts/Montserrat-Regular.ttf') format('truetype');
+    src: url('../fonts/Montserrat-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -9,7 +9,7 @@
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('../fonts/Montserrat-Medium.ttf') format('truetype');
+    src: url('../fonts/Montserrat-Medium.woff2') format('woff2');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -17,7 +17,7 @@
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('../fonts/Montserrat-Bold.ttf') format('truetype');
+    src: url('../fonts/Montserrat-Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -25,7 +25,7 @@
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('../fonts/Montserrat-Black.ttf') format('truetype');
+    src: url('../fonts/Montserrat-Black.woff2') format('woff2');
     font-weight: 900;
     font-style: normal;
     font-display: swap;
@@ -34,7 +34,7 @@
 /* Lora Fonts */
 @font-face {
     font-family: 'Lora';
-    src: url('../fonts/Lora-Regular.ttf') format('truetype');
+    src: url('../fonts/Lora-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -42,7 +42,7 @@
 
 @font-face {
     font-family: 'Lora';
-    src: url('../fonts/Lora-Italic.ttf') format('truetype');
+    src: url('../fonts/Lora-Italic.woff2') format('woff2');
     font-weight: 400;
     font-style: italic;
     font-display: swap;
@@ -50,7 +50,7 @@
 
 @font-face {
     font-family: 'Lora';
-    src: url('../fonts/Lora-Medium.ttf') format('truetype');
+    src: url('../fonts/Lora-Medium.woff2') format('woff2');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -58,7 +58,7 @@
 
 @font-face {
     font-family: 'Lora';
-    src: url('../fonts/Lora-Bold.ttf') format('truetype');
+    src: url('../fonts/Lora-Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;

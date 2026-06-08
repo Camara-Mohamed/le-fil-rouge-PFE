@@ -18,6 +18,8 @@ class ContactMessageMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: config('mail.from.address'),
+            replyTo: config('mail.reply_to.address'),
             subject: 'Nouveau Message — '.$this->contactMessage->sujet,
         );
     }

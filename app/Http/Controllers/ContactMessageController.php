@@ -22,6 +22,7 @@ class ContactMessageController extends Controller
 
         $admins = User::where('role', UserRoles::ADMIN)->get();
         Mail::to($admins)->send(new ContactMessageMail($message));
+        Mail::to(config('mail.reply_to.address'))->send(new ContactMessageMail($message));
 
         return redirect()->back()->with('send', __('/public/contact.send'));
     }

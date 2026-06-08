@@ -15,7 +15,7 @@
           action="{{ route('public.volunteer.store', ['locale' => app()->getLocale()]) }}"
           class="flex flex-col gap-6">
         @csrf
-
+        
         <div class="grid grid-cols-2 gap-4">
             <x-public.form.input
                 type="text"
