@@ -177,7 +177,7 @@ class extends Component
                     'start' => $training->start_date->toIso8601String(),
                     'end' => $training->end_date->toIso8601String(),
                     'url' => route('public.trainings.show', ['locale' => $locale, 'training' => $training]),
-                    'classNames' => ['bg-success-bg border-success text-sky-500 rounded font-semibold text-[0.72rem] font-sans'],
+                    'backgroundColor' => '#DBEAFE', 'borderColor' => '#1D4ED8', 'textColor' => '#1D4ED8', 'classNames' => ['rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
             foreach (Camp::where('status', CampStatus::PUBLISHED)->get() as $camp) {
@@ -187,7 +187,7 @@ class extends Component
                     'start' => $camp->start_date->toIso8601String(),
                     'end' => $camp->end_date->toIso8601String(),
                     'url' => route('public.camps.show', ['locale' => $locale, 'camp' => $camp]),
-                    'classNames' => ['bg-info-bg border-info text-green-500 rounded font-semibold text-[0.72rem] font-sans'],
+                    'backgroundColor' => '#FEE2E2', 'borderColor' => '#DC2626', 'textColor' => '#DC2626', 'classNames' => ['rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
         } elseif ($user->isFormateur()) {
@@ -199,7 +199,7 @@ class extends Component
                     'start' => $training->start_date->toIso8601String(),
                     'end' => $training->end_date->toIso8601String(),
                     'url' => route('public.trainings.show', ['locale' => $locale, 'training' => $training]),
-                    'classNames' => ['bg-success-bg border-success text-sky-500 rounded font-semibold text-[0.72rem] font-sans'],
+                    'backgroundColor' => '#DBEAFE', 'borderColor' => '#1D4ED8', 'textColor' => '#1D4ED8', 'classNames' => ['rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
         } elseif ($user->isCoordinateur()) {
@@ -211,7 +211,7 @@ class extends Component
                     'start' => $camp->start_date->toIso8601String(),
                     'end' => $camp->end_date->toIso8601String(),
                     'url' => route('public.camps.show', ['locale' => $locale, 'camp' => $camp]),
-                    'classNames' => ['bg-info-bg border-info text-green-500 rounded font-semibold text-[0.72rem] font-sans'],
+                    'backgroundColor' => '#FEE2E2', 'borderColor' => '#DC2626', 'textColor' => '#DC2626', 'classNames' => ['rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
         } else {
@@ -223,7 +223,7 @@ class extends Component
                     'start' => $register->training->start_date->toIso8601String(),
                     'end' => $register->training->end_date->toIso8601String(),
                     'url' => route('public.trainings.show', ['locale' => $locale, 'training' => $register->training]),
-                    'classNames' => ['bg-success-bg border-success text-sky-500 rounded font-semibold text-[0.72rem] font-sans'],
+                    'backgroundColor' => '#DBEAFE', 'borderColor' => '#1D4ED8', 'textColor' => '#1D4ED8', 'classNames' => ['rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
             foreach ($user->campRegisters()->where('status',
@@ -234,7 +234,7 @@ class extends Component
                     'start' => $register->camp->start_date->toIso8601String(),
                     'end' => $register->camp->end_date->toIso8601String(),
                     'url' => route('public.camps.show', ['locale' => $locale, 'camp' => $register->camp]),
-                    'classNames' => ['bg-info-bg border-info text-green-500 rounded font-semibold text-[0.72rem] font-sans'],
+                    'backgroundColor' => '#FEE2E2', 'borderColor' => '#DC2626', 'textColor' => '#DC2626', 'classNames' => ['rounded font-semibold text-[0.72rem] font-sans'],
                 ];
             }
         }
