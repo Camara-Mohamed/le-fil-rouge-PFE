@@ -22,7 +22,10 @@ class VolunteerRequestController extends Controller
         $volunteer = VolunteerRequest::create($request->validated());
 
         $admins = User::where('role', UserRoles::ADMIN)->get();
-        Mail::to($admins)->send(new VolunteerRequestMail($volunteer));
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new VolunteerRequestMail($volunteer));
+        }
+
         Mail::to(config('mail.reply_to.address'))->send(new VolunteerRequestMail($volunteer));
 
         Mail::to($volunteer->email)->send(new VolunteerRequestConfirmationMail($volunteer));
