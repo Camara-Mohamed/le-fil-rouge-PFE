@@ -30,11 +30,16 @@
                     @enderror
 
                     <label class="flex items-center gap-2 cursor-pointer self-start">
-                        <input type="file" wire:model="form.document" class="hidden" />
+                        <input type="file" wire:model="form.document" class="hidden" id="comment-document-input" />
                         <span class="font-sans text-sm font-medium text-red underline hover:text-red-mid transition duration-200">
                             {{ __('livewire/comments.add_document') }}
                         </span>
                     </label>
+                    @if($form->document)
+                        <span class="self-start font-sans text-xs text-dark-mid">
+                            {{ $form->document->getClientOriginalName() }}
+                        </span>
+                    @endif
                     @error('form.document')
                         <span class="self-start font-sans text-sm text-danger">{{ $message }}</span>
                     @enderror
@@ -99,7 +104,7 @@
 
                             <div class="flex justify-between items-center gap-4">
                                 @if($comment->document)
-                                    <a href="{{ Storage::url($comment->document) }}"
+                                    <a href="{{ Storage::disk('s3')->temporaryUrl($comment->document, now()->addMinutes(30)) }}"
                                        data-fancybox="comment-document-{{ $comment->id }}"
                                        data-type="iframe"
                                        data-width="900"

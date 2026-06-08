@@ -92,7 +92,7 @@ class CampForm extends Form
         ];
 
         if ($this->banner) {
-            $data['banner'] = $this->banner->store('camps', 'public');
+            $data['banner'] = $this->banner->store('camps', 's3');
         }
 
         $camp = Camp::create($data);
@@ -100,7 +100,7 @@ class CampForm extends Form
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
                 $camp->galeries()->create([
-                    'path' => $galery->store('camps/galeries', 'public'),
+                    'path' => $galery->store('camps/galeries', 's3'),
                 ]);
             }
         }
@@ -133,15 +133,15 @@ class CampForm extends Form
 
         if ($this->banner) {
             if ($camp->banner) {
-                Storage::disk('public')->delete($camp->banner);
+                Storage::disk('s3')->delete($camp->banner);
             }
-            $data['banner'] = $this->banner->store('camps/banners', 'public');
+            $data['banner'] = $this->banner->store('camps/banners', 's3');
         }
 
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
                 $camp->galeries()->create([
-                    'path' => $galery->store('camps/galeries', 'public'),
+                    'path' => $galery->store('camps/galeries', 's3'),
                 ]);
             }
         }

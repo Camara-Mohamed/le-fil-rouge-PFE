@@ -48,7 +48,7 @@ class AnnouncementForm extends Form
         ];
 
         if ($this->banner) {
-            $data['banner'] = $this->banner->store('announcements', 'public');
+            $data['banner'] = $this->banner->store('announcements', 's3');
         }
 
         $announcement = Announcement::create($data);
@@ -56,7 +56,7 @@ class AnnouncementForm extends Form
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
                 $announcement->galeries()->create([
-                    'path' => $galery->store('announcements/galeries', 'public'),
+                    'path' => $galery->store('announcements/galeries', 's3'),
                 ]);
             }
         }
@@ -78,14 +78,14 @@ class AnnouncementForm extends Form
 
         if ($this->banner) {
             if ($announcement->banner) {
-                Storage::disk('public')->delete($announcement->banner);
+                Storage::disk('s3')->delete($announcement->banner);
             }
-            $data['banner'] = $this->banner->store('announcements/banners', 'public');
+            $data['banner'] = $this->banner->store('announcements/banners', 's3');
         }
 
         foreach ($this->galeries as $galery) {
             $announcement->galeries()->create([
-                'path' => $galery->store('announcements/galeries', 'public'),
+                'path' => $galery->store('announcements/galeries', 's3'),
             ]);
         }
 

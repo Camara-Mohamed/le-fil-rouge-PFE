@@ -40,6 +40,21 @@ class MainSeeder extends Seeder
         return $storagePath;
     }
 
+    //Bannière et ses variants
+    private function storeBanner(string $publicRelativePath, string $storagePath): string
+    {
+        $this->storeImage($publicRelativePath, $storagePath);
+
+        $filename = basename($storagePath);
+        $variantsBase = dirname($storagePath) . '/variants';
+
+        foreach (config('banners.sizes.banner') as $size) {
+            $this->storeImage($publicRelativePath, "{$variantsBase}/{$size}/{$filename}");
+        }
+
+        return $storagePath;
+    }
+
     public function run(): void
     {
         // ── Users ──────────────────────────────────────────────────────────
@@ -116,7 +131,7 @@ class MainSeeder extends Seeder
             'city' => 'Stoumont', 'province' => Provinces::LIEGE, 'postal_code' => '4987',
             'roles' => [UserRoles::ARRIVANT->value, UserRoles::ANIMATEUR_1->value],
             'user_id' => $admin->id,
-            'banner' => $this->storeImage('images/camps/holiday.webp', 'camps/banners/holiday.webp'),
+            'banner' => $this->storeBanner('images/camps/holiday.webp', 'camps/banners/holiday.webp'),
         ]);
 
         $camp2 = Camp::create([
@@ -130,7 +145,7 @@ class MainSeeder extends Seeder
             'city' => 'La Roche-en-Ardenne', 'province' => Provinces::LUXEMBOURG, 'postal_code' => '6980',
             'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value],
             'user_id' => $stephanie->id,
-            'banner' => $this->storeImage('images/camps/holiday_1.webp', 'camps/banners/holiday_1.webp'),
+            'banner' => $this->storeBanner('images/camps/holiday_1.webp', 'camps/banners/holiday_1.webp'),
         ]);
 
         $camp3 = Camp::create([
@@ -145,7 +160,7 @@ class MainSeeder extends Seeder
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
             'roles' => [UserRoles::ANIMATEUR_1->value],
             'user_id' => $admin->id,
-            'banner' => $this->storeImage('images/camps/holiday_2.webp', 'camps/banners/holiday_2.webp'),
+            'banner' => $this->storeBanner('images/camps/holiday_2.webp', 'camps/banners/holiday_2.webp'),
         ]);
 
         $camp4 = Camp::create([
@@ -212,7 +227,7 @@ class MainSeeder extends Seeder
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4020',
             'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $stephanie->id,
-            'banner' => $this->storeImage('images/trainings/fun.webp', 'trainings/banners/fun.webp'),
+            'banner' => $this->storeBanner('images/trainings/fun.webp', 'trainings/banners/fun.webp'),
         ]);
 
         $training2 = Training::create([
@@ -225,7 +240,7 @@ class MainSeeder extends Seeder
             'address' => 'Rue Douffet', 'number' => '36',
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4020',
             'user_id' => $hugo->id,
-            'banner' => $this->storeImage('images/trainings/fun_1.webp', 'trainings/banners/fun_1.webp'),
+            'banner' => $this->storeBanner('images/trainings/fun_1.webp', 'trainings/banners/fun_1.webp'),
         ]);
 
         $training3 = Training::create([
@@ -238,7 +253,7 @@ class MainSeeder extends Seeder
             'price' => 5000, 'participants' => 14,
             'city' => 'Namur', 'province' => Provinces::NAMUR, 'postal_code' => '5000',
             'user_id' => $admin->id,
-            'banner' => $this->storeImage('images/trainings/fun_2.webp', 'trainings/banners/fun_2.webp'),
+            'banner' => $this->storeBanner('images/trainings/fun_2.webp', 'trainings/banners/fun_2.webp'),
         ]);
 
         $training4 = Training::create([
@@ -250,7 +265,7 @@ class MainSeeder extends Seeder
             'address' => 'Chemin des Fagnes', 'number' => '2',
             'city' => 'Malmedy', 'province' => Provinces::LIEGE, 'postal_code' => '4960',
             'user_id' => $stephanie->id,
-            'banner' => $this->storeImage('images/trainings/fun_3.webp', 'trainings/banners/fun_3.webp'),
+            'banner' => $this->storeBanner('images/trainings/fun_3.webp', 'trainings/banners/fun_3.webp'),
         ]);
 
         $training5 = Training::create([
@@ -302,7 +317,7 @@ class MainSeeder extends Seeder
             'content' => 'Quelle saison ! On a accueilli 152 jeunes sur 12 stages répartis partout en Wallonie. Merci à tous les anim, coord et formateurs qui ont rendu ça possible. On remet ça encore mieux l\'année prochaine.',
             'published_at' => now()->subMonths(4),
             'user_id' => $admin->id,
-            'banner' => $this->storeImage('images/home/about.webp', 'announcements/banners/about.webp'),
+            'banner' => $this->storeBanner('images/home/about.webp', 'announcements/banners/about.webp'),
         ]);
 
         Announcement::create([
@@ -311,7 +326,7 @@ class MainSeeder extends Seeder
             'content' => 'Si t\'es anim, coord ou formateur et que t\'as des dispo ce printemps 2025, on a des postes pour toi. Réunion d\'info le 15 février à 18h au local. Viens, y\'aura des croque-monsieurs.',
             'published_at' => now()->subMonths(2),
             'user_id' => $stephanie->id,
-            'banner' => $this->storeImage('images/home/camps.webp', 'announcements/banners/camps.webp'),
+            'banner' => $this->storeBanner('images/home/camps.webp', 'announcements/banners/camps.webp'),
         ]);
 
         Announcement::create([
@@ -328,7 +343,7 @@ class MainSeeder extends Seeder
             'content' => '8 sur 10, c\'est le résultat du stage brevet de décembre 2024. Un grand bravo à Anaïs, Romain, Charlotte, Théo, Jade, Bastien, Inès et Mathieu ! Vos brevets vous seront remis à la prochaine réunion.',
             'published_at' => now()->subMonths(3),
             'user_id' => $admin->id,
-            'banner' => $this->storeImage('images/home/formations.webp', 'announcements/banners/formations.webp'),
+            'banner' => $this->storeBanner('images/home/formations.webp', 'announcements/banners/formations.webp'),
         ]);
 
         Announcement::create([
@@ -345,7 +360,7 @@ class MainSeeder extends Seeder
             'content' => 'On lance une formation gestion des conflits en septembre à Namur. 2 jours pour apprendre à gérer les tensions dans un groupe de jeunes, sans perdre les pédales. Places limitées, inscris-toi vite !',
             'published_at' => now()->subDays(4),
             'user_id' => $admin->id,
-            'banner' => $this->storeImage('images/home/hero.webp', 'announcements/banners/hero.webp'),
+            'banner' => $this->storeBanner('images/home/hero.webp', 'announcements/banners/hero.webp'),
         ]);
 
         // ── Galeries announcements ─────────────────────────────────────────

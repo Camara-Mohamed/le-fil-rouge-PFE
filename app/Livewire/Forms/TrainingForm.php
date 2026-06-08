@@ -97,7 +97,7 @@ class TrainingForm extends Form
         ];
 
         if ($this->banner) {
-            $path = $this->banner->store('trainings/banners', 'public');
+            $path = $this->banner->store('trainings/banners', 's3');
             $data['banner'] = $path;
             ProcessUploadedImage::dispatch(
                 $path,
@@ -110,7 +110,7 @@ class TrainingForm extends Form
 
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
-                $path = $galery->store('trainings/galeries', 'public');
+                $path = $galery->store('trainings/galeries', 's3');
                 $training->galeries()->create(['path' => $path]);
                 ProcessUploadedImage::dispatch(
                     $path,
@@ -149,9 +149,9 @@ class TrainingForm extends Form
 
         if ($this->banner) {
             if ($training->banner) {
-                Storage::disk('public')->delete($training->banner);
+                Storage::disk('s3')->delete($training->banner);
             }
-            $path = $this->banner->store('trainings/banners', 'public');
+            $path = $this->banner->store('trainings/banners', 's3');
             $data['banner'] = $path;
             ProcessUploadedImage::dispatch(
                 $path,
@@ -162,7 +162,7 @@ class TrainingForm extends Form
 
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
-                $path = $galery->store('trainings/galeries', 'public');
+                $path = $galery->store('trainings/galeries', 's3');
                 $training->galeries()->create(['path' => $path]);
                 ProcessUploadedImage::dispatch(
                     $path,
