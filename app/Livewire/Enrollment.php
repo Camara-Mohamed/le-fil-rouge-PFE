@@ -151,6 +151,7 @@ class Enrollment extends Component
             ->first();
 
         $canEnroll = $this->model->isPublished()
+            && ! $user->isAdmin()
             && ($user->isComplete() || $user->isPending())
             && (! $this->model->roles || $this->model->roles($user));
 

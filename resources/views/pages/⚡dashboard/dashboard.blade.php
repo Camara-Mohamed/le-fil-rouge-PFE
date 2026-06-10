@@ -60,7 +60,11 @@
         </section>
     @endcanany
 
+    @canany(['manage-training', 'manage-camp', 'manage-members'])
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 items-start">
+    @else
+    <div class="flex flex-col gap-8 max-w-4xl">
+    @endcanany
 
         {{-- Calendrier --}}
         <section aria-label="{{ __('pages/dashboard.calendar_title') }}" wire:ignore>
