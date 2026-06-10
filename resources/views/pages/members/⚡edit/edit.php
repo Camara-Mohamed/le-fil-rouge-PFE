@@ -87,7 +87,7 @@ class extends Component
             'last_name' => $this->last_name,
             'email' => $this->email,
             'role' => $this->role,
-            'status' => $this->status,
+            'status' => $this->role === UserRoles::ARRIVANT->value ? UserStatus::INCOMPLETE->value : $this->status,
             'phone' => $this->phone,
             'birth_date' => $this->birth_date,
         ]);

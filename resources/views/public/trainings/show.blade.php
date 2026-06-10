@@ -212,10 +212,12 @@
 
     {{-- Inscrits --}}
     @auth
+        @unless(auth()->user()->isArrivant())
         <section aria-labelledby="inscrits-heading" class="px-4 md:px-6 lg:px-8 pb-16">
             <h2 id="inscrits-heading" class="sr-only">{{ __('livewire/enrollment.inscrits_section') }}</h2>
             <livewire:registers-cta :model="$training" />
         </section>
+        @endunless
     @endauth
 
     {{-- Galerie --}}

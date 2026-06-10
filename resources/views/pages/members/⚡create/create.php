@@ -65,7 +65,7 @@ new #[Title('Nouveau membre')] class extends Component
             'email' => $this->email,
             'password' => $this->password,
             'role' => $this->role,
-            'status' => $this->status,
+            'status' => $this->role === UserRoles::ARRIVANT->value ? UserStatus::INCOMPLETE : $this->status,
         ]);
 
         if ($this->send_to) {

@@ -30,6 +30,10 @@ class Enrollment extends Component
             return;
         }
 
+        if ($user->isAdmin() || $user->isArrivant()) {
+            return;
+        }
+
         if (! ($user->isComplete() || $user->isPending())) {
             return;
         }
@@ -152,6 +156,7 @@ class Enrollment extends Component
 
         $canEnroll = $this->model->isPublished()
             && ! $user->isAdmin()
+            && ! $user->isArrivant()
             && ($user->isComplete() || $user->isPending())
             && (! $this->model->roles || $this->model->roles($user));
 

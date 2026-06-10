@@ -67,7 +67,7 @@
                 <tr class="border-b border-bg-dark">
                     <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Avatar</th>
                     <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Nom</th>
-                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid hidden md:table-cell">Email</th>
+                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Email</th>
                     <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid hidden lg:table-cell">Rôle</th>
                     <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid hidden lg:table-cell">Statut</th>
                     <th class="px-6 py-4 text-right font-sans font-semibold text-sm text-dark-mid">Actions</th>
@@ -83,11 +83,9 @@
                         <td class="px-6 py-4">
                             @if($member->avatar_path)
                                 <a href="{{ Storage::url('avatars/originals/' . $member->avatar_path) }}" data-fancybox="members">
-                                    <img
-                                        src="{{ Storage::url('avatars/originals/' . $member->avatar_path) }}"
-                                        alt="{{ $member->fullName() }}"
-                                        class="w-10 h-10 rounded-full object-cover"
-                                    >
+                                    <img src="{{ Storage::url('avatars/originals/' . $member->avatar_path) }}"
+                                         alt="{{ $member->fullName() }}"
+                                         class="w-10 h-10 rounded-full object-cover">
                                 </a>
                             @else
                                 <div class="w-10 h-10 rounded-full bg-bg-dark flex items-center justify-center font-sans font-bold text-sm text-dark-mid">
@@ -97,11 +95,15 @@
                         </td>
 
                         <td class="px-6 py-4">
-                            <p class="font-sans font-semibold text-dark">{{ $member->fullName() }}</p>
+                            <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $member]) }}"
+                               wire:navigate
+                               class="font-sans font-semibold text-dark hover:text-red transition duration-200">
+                                {{ $member->fullName() }}
+                            </a>
                             <p class="font-serif text-sm text-dark-mid md:hidden">{{ $member->email }}</p>
                         </td>
 
-                        <td class="px-6 py-4 hidden md:table-cell">
+                        <td class="px-6 py-4">
                             <p class="font-serif text-sm text-dark-mid">{{ $member->email }}</p>
                         </td>
 
@@ -123,19 +125,20 @@
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-end gap-2">
                                 <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $member]) }}"
+                                   wire:navigate
                                    class="px-3 py-1.5 rounded-lg border-2 border-dark-light text-dark text-sm font-sans font-medium hover:border-dark transition">
                                     Voir
                                 </a>
                                 @if(!$member->isArchived())
                                     <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(), 'member' => $member]) }}"
+                                       wire:navigate
                                        class="px-3 py-1.5 rounded-lg bg-dark text-white text-sm font-sans font-medium hover:bg-dark-mid transition">
                                         Modifier
                                     </a>
                                     @can('delete', $member)
-                                        <button
-                                            type="button"
-                                            wire:click="openDeleteModal({{ $member->id }})"
-                                            class="px-3 py-1.5 rounded-lg border-2 border-red text-red text-sm font-sans font-medium hover:bg-red-light transition">
+                                        <button type="button"
+                                                wire:click="openDeleteModal({{ $member->id }})"
+                                                class="px-3 py-1.5 rounded-lg border-2 border-red text-red text-sm font-sans font-medium hover:bg-red-light transition">
                                             Supprimer
                                         </button>
                                     @endcan

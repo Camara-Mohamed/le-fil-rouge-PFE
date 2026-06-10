@@ -282,7 +282,7 @@
                              class="px-6 py-4 bg-bg rounded-lg flex items-center justify-between gap-4">
                             <p class="font-sans font-bold text-base text-dark">{{ $document->name }}</p>
                             <div class="flex items-center gap-4 shrink-0">
-                                <a href="{{ Storage::disk('s3')->temporaryUrl($document->path, now()->addMinutes(30)) }}"
+                                <a href="{{ config('filesystems.default') === 's3' ? Storage::disk('s3')->temporaryUrl($document->path, now()->addMinutes(30)) : Storage::url($document->path) }}"
                                    data-fancybox="profile-document"
                                    data-type="iframe"
                                    data-width="1000"
@@ -303,6 +303,12 @@
 
         </div>
     </section>
+
+    {{-- Info documents --}}
+    <div class="px-6 py-4 bg-white rounded-tl-sm rounded-bl-sm shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] border-l-[6px] border-red flex flex-col gap-2">
+        <p class="font-sans font-black text-base text-dark">{{ __('pages/profile.documents_info_title') }}</p>
+        <p class="font-serif font-medium text-base text-dark">{{ __('pages/profile.documents_info_desc') }}</p>
+    </div>
 
     {{-- Déconnexion --}}
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex items-center justify-between gap-4" aria-label="Déconnexion">
