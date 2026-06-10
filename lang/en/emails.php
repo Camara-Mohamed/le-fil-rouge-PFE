@@ -34,11 +34,17 @@ return [
     'member_changed_role'        => 'Your role has been updated:',
     'member_changed_status'      => 'Your status has been updated:',
 
-    // Contact
+    // Contact (admin)
     'contact_title'   => 'New contact message',
     'contact_from'    => 'From',
     'contact_subject' => 'Subject',
     'contact_message' => 'Message',
+
+    // Contact confirmation (sender)
+    'contact_confirmation_title' => 'Message received!',
+    'contact_confirmation_hello' => 'Hi :name!',
+    'contact_confirmation_body'  => 'We have received your message and will get back to you as soon as possible.',
+    'contact_confirmation_sign'  => 'The Le Fil Rouge team',
 
     // Volunteer request (admin)
     'volunteer_request_title'   => 'New volunteer request',

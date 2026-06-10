@@ -34,11 +34,17 @@ return [
     'member_changed_role'        => 'Ton rôle a été mis à jour :',
     'member_changed_status'      => 'Ton statut a été mis à jour :',
 
-    // Contact
+    // Contact (admin)
     'contact_title'   => 'Nouveau message de contact',
     'contact_from'    => 'De',
     'contact_subject' => 'Sujet',
     'contact_message' => 'Message',
+
+    // Confirmation contact (expéditeur)
+    'contact_confirmation_title' => 'Message bien reçu !',
+    'contact_confirmation_hello' => 'Salut :name !',
+    'contact_confirmation_body'  => 'On a bien reçu ton message et on te répondra dans les plus brefs délais.',
+    'contact_confirmation_sign'  => "L'équipe du Fil Rouge",
 
     // Demande volontaire (admin)
     'volunteer_request_title'   => 'Nouvelle demande de volontaire',

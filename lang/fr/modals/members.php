@@ -11,4 +11,16 @@ return [
 
     'cancel' => 'Annuler',
     'confirm' => 'Confirmer',
+
+    // Modal créer un compte bénévole
+    'create_title'         => 'Créer un compte bénévole',
+    'create_close'         => 'Fermer',
+    'create_label_first'   => 'Prénom',
+    'create_label_last'    => 'Nom',
+    'create_label_email'   => 'Email',
+    'create_label_password'=> 'Mot de passe',
+    'create_label_role'    => 'Rôle',
+    'create_label_status'  => 'Statut',
+    'create_label_send_to' => 'Envoyer les identifiants à',
+    'create_btn_submit'    => 'Créer le compte',
 ];

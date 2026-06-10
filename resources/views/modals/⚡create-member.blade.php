@@ -34,7 +34,7 @@ new class extends Component
     public string $role       = UserRoles::ARRIVANT->value;
 
     #[Validate(['required', new EnumRule(UserStatus::class)])]
-    public string $status     = UserStatus::PENDING->value;
+    public string $status     = UserStatus::INCOMPLETE->value;
 
     #[Validate('nullable|email')]
     public string $send_to    = '';
@@ -106,24 +106,24 @@ new class extends Component
 
             <button type="button" wire:click="close"
                     class="absolute top-4 right-4 text-dark-mid hover:text-dark transition"
-                    aria-label="Fermer">
+                    aria-label="{{ __('modals/members.create_close') }}">
                 <x-icons.close class="size-5" />
             </button>
 
-            <h2 class="font-sans font-black text-2xl text-dark">Créer un compte bénévole</h2>
+            <h2 class="font-sans font-black text-2xl text-dark">{{ __('modals/members.create_title') }}</h2>
 
             <form wire:submit="save" class="flex flex-col gap-4">
 
                 <div class="grid grid-cols-2 gap-4">
-                    <x-public.form.input label="Prénom" name="first_name" wire:model.live="first_name" required />
-                    <x-public.form.input label="Nom" name="last_name" wire:model.live="last_name" required />
+                    <x-public.form.input :label="__('modals/members.create_label_first')" name="first_name" wire:model.live="first_name" required />
+                    <x-public.form.input :label="__('modals/members.create_label_last')" name="last_name" wire:model.live="last_name" required />
                 </div>
 
-                <x-public.form.input label="Email" name="email" type="email" wire:model.live="email" required />
+                <x-public.form.input :label="__('modals/members.create_label_email')" name="email" type="email" wire:model.live="email" required />
 
                 <div x-data="{ show: false }" class="flex flex-col gap-2">
                     <label for="password" class="font-sans font-bold text-base text-dark">
-                        Mot de passe <abbr title="{{ __('general.required') }}" class="text-red">*</abbr>
+                        {{ __('modals/members.create_label_password') }} <abbr title="{{ __('general.required') }}" class="text-red">*</abbr>
                     </label>
                     <div class="relative">
                         <input
@@ -146,20 +146,20 @@ new class extends Component
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <x-public.form.select label="Rôle" name="role" wire:model.live="role" :options="UserRoles::cases()" />
-                    <x-public.form.select label="Statut" name="status" wire:model.live="status" :options="UserStatus::cases()" />
+                    <x-public.form.select :label="__('modals/members.create_label_role')" name="role" wire:model.live="role" :options="UserRoles::ARRIVANT" />
+                    <x-public.form.select :label="__('modals/members.create_label_status')" name="status" wire:model.live="status" :options="UserStatus::INCOMPLETE" />
                 </div>
 
-                <x-public.form.input label="Envoyer les identifiants à" name="send_to" type="email" wire:model.live="send_to" placeholder="email@exemple.com" />
+                <x-public.form.input :label="__('modals/members.create_label_send_to')" name="send_to" type="email" wire:model.live="send_to" placeholder="email@exemple.com" />
 
                 <div class="flex items-center justify-end gap-4 pt-2">
                     <button type="button" wire:click="close"
                             class="px-6 py-2.5 rounded-lg border-2 border-dark-light text-dark font-sans font-medium text-sm hover:border-dark transition">
-                        Annuler
+                        {{ __('modals/members.cancel') }}
                     </button>
                     <button type="submit"
                             class="px-6 py-2.5 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition">
-                        Créer le compte
+                        {{ __('modals/members.create_btn_submit') }}
                     </button>
                 </div>
 

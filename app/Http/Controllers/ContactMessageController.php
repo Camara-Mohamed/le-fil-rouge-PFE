@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\UserRoles;
 use App\Http\Requests\ContactMessageRequest;
+use App\Mail\ContactConfirmationMail;
 use App\Mail\ContactMessageMail;
 use App\Models\ContactMessage;
 use App\Models\User;
@@ -27,6 +28,8 @@ class ContactMessageController extends Controller
         }
 
         Mail::to(config('mail.notification_for_mails'))->send(new ContactMessageMail($message));
+
+        Mail::to($message->email)->send(new ContactConfirmationMail($message));
 
         return redirect()->back()->with('send', __('/public/contact.send'));
     }

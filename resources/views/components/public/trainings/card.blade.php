@@ -13,7 +13,7 @@
 <a href="{{ route('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $training->id]) }}"
    wire:navigate
    title="{{ __('public/trainings.card_title', ['title' => $training->title]) }}"
-   class="group flex flex-col bg-bg rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] border-b-4 border-success overflow-hidden h-[516px]">
+   class="group flex flex-col bg-bg rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] hover:shadow-[0px_16px_40px_0px_rgba(0,0,0,0.18)] border-b-4 border-success overflow-hidden h-[516px] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02]">
 
     <div class="relative h-60 shrink-0 bg-dark-light">
         @if($training->banner)

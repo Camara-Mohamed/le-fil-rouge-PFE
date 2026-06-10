@@ -23,6 +23,6 @@ return [
     'phone' => 'Phone number',
     'message' => 'Why do you want to join us?',
     'submit' => 'Send my request',
-    'send' => 'Your request has been sent!',
+    'send' => 'Your request has been sent! Check your inbox — we\'ve sent you a confirmation.',
 
 ];
