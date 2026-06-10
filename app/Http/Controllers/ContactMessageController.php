@@ -26,7 +26,7 @@ class ContactMessageController extends Controller
             Mail::to($admin->email)->send(new ContactMessageMail($message));
         }
 
-        Mail::to(config('mail.reply_to.address'))->send(new ContactMessageMail($message));
+        Mail::to(config('mail.notification_for_mails'))->send(new ContactMessageMail($message));
 
         return redirect()->back()->with('send', __('/public/contact.send'));
     }

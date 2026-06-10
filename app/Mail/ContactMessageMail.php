@@ -19,7 +19,7 @@ class ContactMessageMail extends Mailable
     {
         return new Envelope(
             from: config('mail.from.address'),
-            replyTo: config('mail.reply_to.address'),
+            replyTo: config('mail.notification_for_mails'),
             subject: 'Nouveau Message — '.$this->contactMessage->sujet,
         );
     }

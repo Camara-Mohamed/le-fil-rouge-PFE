@@ -21,7 +21,7 @@ class VolunteerRequestMail extends Mailable
     {
         return new Envelope(
             from: config('mail.from.address'),
-            replyTo: config('mail.reply_to.address'),
+            replyTo: config('mail.notification_for_mails'),
             subject: 'Nouvelle Demande de Volontaire — '.$this->volunteerRequest->fullName(),
         );
     }

@@ -21,7 +21,7 @@ class DocumentObserver
         foreach ($admins as $admin) {
             $admin->notify(new DocumentUploadedNotification($user));
         }
-        Notification::route('mail', config('mail.reply_to.address'))->notify(new DocumentUploadedNotification($user));
+        Notification::route('mail', config('mail.notification_for_mails'))->notify(new DocumentUploadedNotification($user));
 
         if (! $user->isIncomplete()) {
             return;
@@ -34,7 +34,7 @@ class DocumentObserver
         if ($hasCarteIdentite && $hasCertificatMedical && $hasCasierJudiciaire) {
             $user->update(['status' => UserStatus::PENDING]);
             $user->notify(new MemberChangedNotification(newStatus: UserStatus::PENDING->label()));
-            Notification::route('mail', config('mail.reply_to.address'))->notify(new MemberChangedNotification(newStatus: UserStatus::PENDING->label()));
+            Notification::route('mail', config('mail.notification_for_mails'))->notify(new MemberChangedNotification(newStatus: UserStatus::PENDING->label()));
         }
     }
 }

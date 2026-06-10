@@ -32,9 +32,130 @@ aux coordinateurs, de gérer l’ensemble de leur parcours depuis une seule et m
 
 ---
 
-## 2. Personas et Scénarios
+## 2. Personas
 
-### Stéphanie - Administratrice
+### Sam - Arrivant (23 ans)
+Étudiant en éducation sociale
+
+"Je veux juste savoir ce que je dois faire pour commencer."
+
+Contexte : Sam a entendu parler du Fil Rouge via un ami. Il est motivé mais complètement novice dans le milieu de l'animation jeunesse. Il n'a pas encore de brevet, pas encore de compte sur la plateforme.
+
+Objectifs :
+- Comprendre comment rejoindre l'asso
+- Savoir ce qu'on lui demande (documents, étapes)
+- Suivre l'avancement de son dossier
+
+Frustrations :
+- Ne sait pas pourquoi son profil est "incomplet"
+- Ne comprend pas qu'il ne peut pas encore s'inscrire à des stages
+- Cherche une checklist claire de ce qu'il doit faire
+
+Comportement : Mobile-first, consulte surtout en soirée, lit peu, préfère les étapes visuelles.
+
+---
+
+### Léa - Animatrice 1re année (20 ans)
+Étudiante en bachelier
+
+"J'essaie de jongler entre mes cours et mes weekends d'animation."
+
+Contexte : Léa est en pleine formation, elle commence à accumuler des stages. Elle utilise la plateforme régulièrement pour consulter le calendrier et gérer ses inscriptions.
+
+Objectifs :
+- S'inscrire aux stages correspondant à son niveau
+- Savoir si sa candidature a été acceptée
+- Avoir une vue claire de son parcours
+
+Frustrations :
+- Ne peut pas s'inscrire à certaines formations réservées à un niveau supérieur
+- Oublie parfois les dates sans notification claire
+
+Comportement : Utilise la plateforme 2 à 3 fois par semaine, surtout sur mobile.
+
+---
+
+### Tiffany - Brevetée (26 ans)
+Animatrice en maison de jeunes
+
+"J'ai mon brevet, je veux continuer à me former et rester dans la boucle."
+
+Contexte : Tiffany a terminé son parcours de base. Elle cherche des formations complémentaires et veut rester active dans l'asso. Elle peut s'inscrire à tout ce qui est ouvert à son niveau.
+
+Objectifs :
+- Trouver des formations pour progresser (pédagogie, gestion de conflits)
+- Voir qui d'autre s'inscrit aux mêmes séjours
+- Télécharger ses contrats facilement
+
+Frustrations :
+- Les places partent vite, veut être notifiée rapidement
+- Veut voir le statut de ses inscriptions d'un coup d'oeil
+
+Comportement : Utilisatrice régulière, à l'aise avec les interfaces web.
+
+---
+
+### Paul - Coordinateur (32 ans)
+Coordinateur à mi-temps
+
+"Je crée des stages, je valide des gens, je veux que ça aille vite."
+
+Contexte : Paul organise plusieurs stages par an. Il gère les inscriptions, sélectionne les participants et communique avec les admins pour la validation.
+
+Objectifs :
+- Créer et publier un stage rapidement
+- Gérer les inscriptions (accepter/refuser) efficacement
+- Exporter les listes de participants en PDF
+
+Frustrations :
+- Doit attendre la validation admin avant publication, veut être notifié vite
+- Gérer des listes à la main (l'outil remplace des mails et Excel)
+
+Comportement : Utilisateur desktop principalement, organisé, orienté efficacité.
+
+---
+
+### Hugo - Formateur (35 ans)
+Formateur bénévole
+
+"Je crée des formations pour partager ce que je sais. Je veux que les gens s'y inscrivent vraiment."
+
+Contexte : Hugo crée des formations thématiques ponctuelles. Il les soumet pour validation, puis gère les inscriptions en fonction des profils des participants.
+
+Objectifs :
+- Créer une formation avec un contenu détaillé
+- Cibler les bons rôles (éviter les inscriptions non pertinentes)
+- Avoir une vue claire de qui veut participer
+
+Frustrations :
+- Trop d'inscrits avec des profils inadaptés
+- Veut filtrer par rôle directement à la création
+
+Comportement : Utilisateur occasionnel mais impliqué quand il crée du contenu.
+
+---
+
+### Stéphanie - Admin (38 ans)
+Responsable administrative
+
+"Je coordonne tout le monde. Si quelque chose cloche, c'est moi qu'on appelle."
+
+Contexte : Stéphanie est l'admin principale. Elle valide les comptes, publie les stages et formations, gère les demandes de bénévoles et répond aux messages de contact.
+
+Objectifs :
+- Avoir une vue d'ensemble rapide (dashboard)
+- Valider ou corriger le contenu des autres
+- Gérer les membres (rôles, statuts, documents)
+
+Frustrations :
+- Beaucoup de notifications à traiter en même temps
+- Doit vérifier les documents manuellement avant de valider un profil
+
+Comportement : Desktop quasi-exclusivement, power user, consulte la plateforme tous les jours.
+
+---
+
+### Stéphanie - Administratrice 
 
 **Scénario 1 : Demande pour rejoindre la formation**
 

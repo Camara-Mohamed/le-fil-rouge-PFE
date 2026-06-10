@@ -21,10 +21,10 @@ it('login page renders with all form fields', function () {
         ->assertSee('Mot de passe oublié ?');
 });
 
-it('login page has link back to home page', function () {
+it('login page has a logo link to the home page', function () {
     $page = visit('/fr/login');
 
-    $page->assertSeeLink('Revenir à la page d\'accueil');
+    $page->assertPresent('a[href="' . route('public.home', ['locale' => 'fr']) . '"]');
 });
 
 it('authenticated user can access dashboard', function () {

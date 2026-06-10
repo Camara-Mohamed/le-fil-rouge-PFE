@@ -26,7 +26,7 @@ class VolunteerRequestController extends Controller
             Mail::to($admin->email)->send(new VolunteerRequestMail($volunteer));
         }
 
-        Mail::to(config('mail.reply_to.address'))->send(new VolunteerRequestMail($volunteer));
+        Mail::to(config('mail.notification_for_mails'))->send(new VolunteerRequestMail($volunteer));
 
         Mail::to($volunteer->email)->send(new VolunteerRequestConfirmationMail($volunteer));
 

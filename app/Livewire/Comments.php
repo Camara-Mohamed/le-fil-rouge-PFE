@@ -32,7 +32,7 @@ class Comments extends Component
         if ($creator && $creator->id !== auth()->id()) {
             $notif = new NewCommentNotification($this->model, auth()->user());
             $creator->notify($notif);
-            Notification::route('mail', config('mail.reply_to.address'))->notify($notif);
+            Notification::route('mail', config('mail.notification_for_mails'))->notify($notif);
         }
     }
 
