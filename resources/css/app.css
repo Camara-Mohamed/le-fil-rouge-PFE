@@ -121,3 +121,22 @@
         }
     }
 }
+
+/* ─── Announcements Hover ─────────────────────────────────── */
+@layer components {
+    .announcements-grid .announcement-card {
+        transition: opacity 300ms ease;
+    }
+
+    .announcements-grid:has(.announcement-card:is(:hover, :focus-within)) .announcement-card:not(:is(:hover, :focus-within)) {
+        opacity: 0.85;
+    }
+
+    .announcement-card .announcement-banner img {
+        transition: transform 500ms ease-in-out;
+    }
+
+    .announcement-card:is(:hover, :focus-within) .announcement-banner img {
+        transform: scale(1.06);
+    }
+}

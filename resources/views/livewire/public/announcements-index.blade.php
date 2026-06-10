@@ -60,14 +60,14 @@
         </div>
     @endif
 
-    <div class="mt-8 grid grid-cols-3 gap-6">
+    <div class="announcements-grid mt-8 grid grid-cols-3 gap-6">
         @forelse($announcements as $announcement)
             @if($loop->first)
-                <div class="col-span-2 row-span-2">
+                <div class="announcement-card col-span-2 row-span-2">
                     <x-public.announcements.card :announcement="$announcement" :large="true" />
                 </div>
             @else
-                <div class="col-span-1">
+                <div class="announcement-card col-span-1">
                     <x-public.announcements.card :announcement="$announcement" />
                 </div>
             @endif

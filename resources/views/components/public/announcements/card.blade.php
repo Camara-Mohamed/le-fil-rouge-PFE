@@ -7,7 +7,7 @@
 
     {{-- Banner --}}
     <div @class([
-        'relative shrink-0 bg-dark-light',
+        'announcement-banner relative shrink-0 bg-dark-light overflow-hidden',
         'h-72' => $large,
         'h-48' => !$large,
     ])>
