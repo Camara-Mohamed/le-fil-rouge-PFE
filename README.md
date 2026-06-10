@@ -187,6 +187,8 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
 - PHP 8.4+
 - Laravel 12+
 - Livewire 4+
+- Composer 
+- Node.js
 - SQLite
 
 ### Étapes
@@ -232,7 +234,29 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
 
 ### Configuration
 
-Éditer le fichier `.env` pour configurer :
+Variables minimales à vérifier dans `.env` pour un environnement local :
+
+```env
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=sqlite
+FILESYSTEM_DISK=public
+MAIL_MAILER=log
+AWS_BUCKET=
+```
+
+### Comptes 
+
+| Rôle | Email | Mot de passe |
+|---|---|---|
+| Admin | mohamed.camara@lefilrouge.com | change_this |
+| Admin | stephanie.admin@lefilrouge.com | change_this |
+| Formateur | hugo.formateur@lefilrouge.com | change_this |
+| Coordinateur | paul.coordinateur@lefilrouge.com | change_this |
+| Brevetée | tiffany.brevete@lefilrouge.com | change_this |
+| Animateur 2e | luc.animateur2e@lefilrouge.com | change_this |
+| Animateur 1re | lea.animateur1re@lefilrouge.com | change_this |
+| Arrivant | sam.arrivant@lefilrouge.com | change_this |
 
 ---
 

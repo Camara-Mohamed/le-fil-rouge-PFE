@@ -184,11 +184,15 @@
                 @foreach($accepted as $registrant)
                     <div wire:key="user-accepted-{{ $registrant->id }}"
                          class="p-4 bg-bg rounded-lg border border-bg-dark flex items-center gap-3">
-                        <div class="size-9 bg-info-bg rounded-full shrink-0 flex items-center justify-center">
-                                <span class="font-sans font-black text-xs text-info uppercase">
-                                    {{ strtoupper($registrant->user->first_name[0] . $registrant->user->last_name[0]) }}
-                                </span>
-                        </div>
+                        @if($registrant->user->avatar_path)
+                            <img src="{{ Storage::url('avatars/originals/' . $registrant->user->avatar_path) }}"
+                                 alt="{{ $registrant->user->fullName() }}"
+                                 class="size-9 rounded-full object-cover shrink-0">
+                        @else
+                            <div class="size-9 rounded-full bg-bg-dark flex items-center justify-center font-sans font-bold text-xs text-dark-mid uppercase shrink-0">
+                                {{ strtoupper($registrant->user->first_name[0] . $registrant->user->last_name[0]) }}
+                            </div>
+                        @endif
                         <div class="min-w-0 flex-1">
                             <p class="font-sans font-bold text-sm text-dark truncate">{{ $registrant->user->fullName() }}</p>
                             <span class="font-sans text-xs text-dark-mid">{{ $registrant->user->role->label() }}</span>

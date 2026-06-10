@@ -61,25 +61,22 @@
     </div>
 
     {{-- Tableau --}}
-    <div class="bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] overflow-x-auto">
         <table class="w-full">
             <thead>
                 <tr class="border-b border-bg-dark">
                     <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Avatar</th>
                     <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Nom</th>
                     <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Email</th>
-                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid hidden lg:table-cell">Rôle</th>
-                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid hidden lg:table-cell">Statut</th>
+                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Rôle</th>
+                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Statut</th>
                     <th class="px-6 py-4 text-right font-sans font-semibold text-sm text-dark-mid">Actions</th>
                 </tr>
             </thead>
-
             <tbody class="divide-y divide-bg-dark">
                 @forelse($members as $member)
                     @php $initials = strtoupper($member->first_name[0] . $member->last_name[0]); @endphp
-
                     <tr wire:key="member-{{ $member->id }}" class="hover:bg-bg transition">
-
                         <td class="px-6 py-4">
                             @if($member->avatar_path)
                                 <a href="{{ Storage::url('avatars/originals/' . $member->avatar_path) }}" data-fancybox="members">
@@ -93,45 +90,31 @@
                                 </div>
                             @endif
                         </td>
-
                         <td class="px-6 py-4">
-                            <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $member]) }}"
-                               wire:navigate
-                               class="font-sans font-semibold text-dark hover:text-red transition duration-200">
-                                {{ $member->fullName() }}
-                            </a>
-                            <p class="font-serif text-sm text-dark-mid md:hidden">{{ $member->email }}</p>
+                            <p class="font-sans font-semibold text-dark">{{ $member->fullName() }}</p>
                         </td>
-
                         <td class="px-6 py-4">
                             <p class="font-serif text-sm text-dark-mid">{{ $member->email }}</p>
                         </td>
-
-                        <td class="px-6 py-4 hidden lg:table-cell">
+                        <td class="px-6 py-4">
                             <span class="font-serif text-sm text-dark">{{ $member->role->label() }}</span>
                         </td>
-
-                        <td class="px-6 py-4 hidden lg:table-cell">
+                        <td class="px-6 py-4">
                             <x-public.badge variant="{{ match($member->status) {
                                 UserStatus::COMPLETE   => 'success',
                                 UserStatus::PENDING    => 'warning',
                                 UserStatus::INCOMPLETE => 'danger',
                                 UserStatus::ARCHIVED   => 'danger',
-                            } }}">
-                                {{ $member->status->label() }}
-                            </x-public.badge>
+                            } }}">{{ $member->status->label() }}</x-public.badge>
                         </td>
-
                         <td class="px-6 py-4">
                             <div class="flex items-center justify-end gap-2">
                                 <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $member]) }}"
-                                   wire:navigate
                                    class="px-3 py-1.5 rounded-lg border-2 border-dark-light text-dark text-sm font-sans font-medium hover:border-dark transition">
                                     Voir
                                 </a>
                                 @if(!$member->isArchived())
                                     <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(), 'member' => $member]) }}"
-                                       wire:navigate
                                        class="px-3 py-1.5 rounded-lg bg-dark text-white text-sm font-sans font-medium hover:bg-dark-mid transition">
                                         Modifier
                                     </a>
@@ -145,7 +128,6 @@
                                 @endif
                             </div>
                         </td>
-
                     </tr>
                 @empty
                     <tr>

@@ -179,12 +179,10 @@
         </form>
 
         @can('delete', $training)
-            <div class="flex justify-end">
-                <button type="button" wire:click="openConfirmDeleteModal"
-                        class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">
-                    Supprimer la formation
-                </button>
-            </div>
+            <button type="button" wire:click="openConfirmDeleteModal"
+                    class="w-full py-4 bg-white border-2 border-danger text-danger font-sans font-bold text-base rounded-lg hover:bg-danger-bg transition duration-200">
+                Supprimer la formation
+            </button>
         @endcan
 
     </div>
