@@ -15,6 +15,15 @@
 
     <div class="flex flex-col gap-6 px-4 py-8 md:px-8">
 
+
+        {{-- Info documents --}}
+        <a href="#document-upload" title="{{ __('pages/profile.documents_info_title') }}" class="px-6 py-4 bg-white rounded-tl-sm rounded-bl-sm
+        shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)]
+        border-l-[6px] border-red flex flex-col gap-2">
+            <p class="font-sans font-black text-base text-dark">{{ __('pages/profile.documents_info_title') }}</p>
+            <p class="font-serif font-medium text-base text-dark">{{ __('pages/profile.documents_info_desc') }}</p>
+        </a>
+
     {{-- Profil --}}
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-8">
         <h2 class="font-sans font-black text-3xl text-dark">Profil</h2>
@@ -209,7 +218,9 @@
     </section>
 
     {{-- Documents --}}
-    <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-8">
+    <section id="document-upload" class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex
+    flex-col
+    gap-8">
         <h2 class="font-sans font-black text-3xl text-dark">Documents</h2>
 
         <div class="flex flex-col gap-10">
@@ -304,14 +315,12 @@
         </div>
     </section>
 
-    {{-- Info documents --}}
-    <div class="px-6 py-4 bg-white rounded-tl-sm rounded-bl-sm shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] border-l-[6px] border-red flex flex-col gap-2">
-        <p class="font-sans font-black text-base text-dark">{{ __('pages/profile.documents_info_title') }}</p>
-        <p class="font-serif font-medium text-base text-dark">{{ __('pages/profile.documents_info_desc') }}</p>
-    </div>
 
     {{-- Déconnexion --}}
-    <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex items-center justify-between gap-4" aria-label="Déconnexion">
+    <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex
+    items-center
+    justify-between gap-4" aria-label="Déconnexion">
+        <h2 class="sr-only">Déconnexion</h2>
         <div class="flex flex-col gap-1">
             <p class="font-sans font-bold text-base text-dark">Se déconnecter</p>
             <p class="font-serif text-sm text-dark-mid">Vous ne pouvez pas supprimer votre compte.</p>
@@ -327,3 +336,4 @@
     </div>
 
 </div>
+
