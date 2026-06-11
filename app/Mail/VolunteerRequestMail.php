@@ -20,6 +20,8 @@ class VolunteerRequestMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: config('mail.from.address'),
+            replyTo: config('mail.notification_for_mails'),
             subject: 'Nouvelle Demande de Volontaire — '.$this->volunteerRequest->fullName(),
         );
     }
@@ -27,7 +29,7 @@ class VolunteerRequestMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.volunteer-request',
+            view: 'emails.volunteer-request',
         );
     }
 

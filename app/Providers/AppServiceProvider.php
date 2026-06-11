@@ -16,9 +16,12 @@ use App\Policies\DocumentPolicy;
 use App\Policies\TrainingPolicy;
 use App\Policies\UserPolicy;
 use Gate;
+use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\Mime\Address;
 
 class AppServiceProvider extends ServiceProvider
 {

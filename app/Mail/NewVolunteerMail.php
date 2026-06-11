@@ -20,11 +20,14 @@ class NewVolunteerMail extends Mailable
 
     public function envelope(): Envelope
     {
-        return new Envelope(subject: 'Bienvenue');
+        return new Envelope(
+            subject: 'Bienvenue',
+            replyTo: config('mail.notification_for_mails'),
+        );
     }
 
     public function content(): Content
     {
-        return new Content(markdown: 'emails.new-volunteer');
+        return new Content(view: 'emails.new-volunteer');
     }
 }

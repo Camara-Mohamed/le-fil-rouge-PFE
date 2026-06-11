@@ -1,35 +1,13 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name') }}</title>
-</head>
-<body>
+@extends('emails.layout')
 
-<header>
-    <h1>Nouveau message de contact</h1>
-</header>
+@section('content')
+    <h1>{{ __('emails.contact_title') }}</h1>
 
-<main>
-    <p>
-        <strong>De :</strong>
-        {{ $contactMessage->full_name }} ({{ $contactMessage->email }})
-    </p>
+    <p><strong>{{ __('emails.contact_from') }} :</strong> {{ $contactMessage->full_name }} ({{ $contactMessage->email }})</p>
+    <p><strong>{{ __('emails.contact_subject') }} :</strong> {{ $contactMessage->sujet }}</p>
 
-    <p>
-        <strong>Sujet :</strong>
-        {{ $contactMessage->sujet }}
-    </p>
+    <hr class="divider">
 
-    <p>
-        <strong>Message :</strong>
-    </p>
-
-    <p>
-        {{ $contactMessage->message }}
-    </p>
-</main>
-
-</body>
-</html>
+    <p><strong>{{ __('emails.contact_message') }} :</strong></p>
+    <p>{{ $contactMessage->message }}</p>
+@endsection

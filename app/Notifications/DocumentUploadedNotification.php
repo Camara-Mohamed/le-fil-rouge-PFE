@@ -21,7 +21,7 @@ class DocumentUploadedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("Nouveau document : {$this->member->fullName()}")
-            ->line("{$this->member->fullName()} a envoyé un nouveau document.");
+            ->subject(__('emails.document_subject', ['name' => $this->member->fullName()]))
+            ->view('emails.notifications.document-uploaded', ['member' => $this->member]);
     }
 }

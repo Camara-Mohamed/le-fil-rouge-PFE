@@ -13,6 +13,7 @@
         "barryvdh/laravel-dompdf": "^3.1",
         "intervention/image-laravel": "^4.0",
         "laravel/fortify": "^1.36",
+        "fakerphp/faker": "^1.23",
         "laravel/framework": "^13.0",
         "laravel/horizon": "^5.46",
         "laravel/tinker": "^3.0",
@@ -21,7 +22,6 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^4.2",
-        "fakerphp/faker": "^1.23",
         "laravel/dusk": "^8.6",
         "laravel/pail": "^1.2.5",
         "laravel/pint": "^1.29",
@@ -62,6 +62,7 @@
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php -r \"@mkdir(sys_get_temp_dir().'/views', 0755, true);\"",
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [

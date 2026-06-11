@@ -10,6 +10,7 @@
          width="1440"
          height="742"
          loading="eager"
+         fetchpriority="high"
          class="absolute inset-0 w-full h-full object-cover"
     />
 

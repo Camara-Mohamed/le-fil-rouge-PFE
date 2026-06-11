@@ -7,7 +7,7 @@
 
     {{-- Banner --}}
     <div @class([
-        'relative shrink-0 bg-dark-light',
+        'announcement-banner relative shrink-0 bg-dark-light overflow-hidden',
         'h-72' => $large,
         'h-48' => !$large,
     ])>
@@ -16,10 +16,10 @@
                 $variantName  = pathinfo(basename($announcement->banner), PATHINFO_FILENAME) . '.' . config('banners.image_type');
                 $variantsBase = config('banners.paths.announcements.variants');
                 $srcset       = collect(config('banners.sizes.banner'))
-                    ->map(fn($w) => asset("storage/{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
+                    ->map(fn($w) => Storage::url("{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
                     ->implode(', ');
             @endphp
-            <img src="{{ asset('storage/' . $announcement->banner) }}"
+            <img src="{{ Storage::url($announcement->banner) }}"
                  srcset="{{ $srcset }}"
                  sizes="{{ $large ? '66vw' : '33vw' }}"
                  alt="{{ $announcement->title }}"
@@ -50,7 +50,7 @@
                 {{ $announcement->title }}
             </h3>
             @if($large && $announcement->description)
-                <x-public.content class="text-base text-dark">
+                <x-public.content class="text-base text-dark line-clamp-3">
                     {{ $announcement->description }}
                 </x-public.content>
             @endif

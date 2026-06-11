@@ -13,6 +13,7 @@ return [
     'calendar_week' => 'Semaine',
     'calendar_month' => 'Mois',
 
+    'pending_aside_title' => 'Tâches en attente',
     'pending_registers_title' => 'Inscriptions à valider',
     'pending_events_title' => 'Événements à valider',
     'no_pending_registers' => 'Aucune inscription en attente.',

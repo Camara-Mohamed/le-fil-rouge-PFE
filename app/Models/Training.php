@@ -108,7 +108,7 @@ class Training extends Model
             return __('general.free');
         }
 
-        return number_format($this->price, 2, ',', ' ').' €';
+        return number_format($this->price / 100, 2, ',', ' ').' €';
     }
 
     public function galeries(): HasMany
@@ -119,5 +119,10 @@ class Training extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class)->latest();
+    }
+
+    public function modelLabel(): string
+    {
+        return 'la formation';
     }
 }

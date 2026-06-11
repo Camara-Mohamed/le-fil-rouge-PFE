@@ -26,10 +26,15 @@ class ModelChangedNotification extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
-        $action = $this->created ? 'créé' : 'modifié';
+        $action = $this->created ? __('emails.created') : __('emails.modified');
 
         return (new MailMessage)
-            ->subject(ucfirst($this->modelLabel).' '.($this->created ? 'créé' : 'modifié').' : '.$this->model->title)
-            ->line("{$this->author->fullName()} a {$action} {$this->modelLabel} **{$this->model->title}**.");
+            ->subject(ucfirst($this->modelLabel).' '.$action.' : '.$this->model->title)
+            ->view('emails.notifications.model-changed', [
+                'model'      => $this->model,
+                'modelLabel' => $this->modelLabel,
+                'author'     => $this->author,
+                'created'    => $this->created,
+            ]);
     }
 }

@@ -27,7 +27,7 @@
 
                 <div class="flex flex-col gap-4">
                     <x-public.form.input label="Titre" name="form.title" wire:model.live="form.title" required />
-                    <x-public.form.input label="Description courte" name="form.description" wire:model.live="form.description" />
+                    <x-public.form.input label="Description courte" name="form.description" wire:model.live="form.description" required />
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <x-public.form.select
@@ -35,7 +35,7 @@
                             name="form.type"
                             :options="CampTypes::cases()"
                             wire:model.live="form.type"
-                            :error="$errors->first('form.type')"
+                            required
                         />
                         <x-public.form.input label="Participants max" name="form.participants" wire:model.live="form.participants" type="number" min="1" />
                         @if(auth()->user()->isAdmin())
@@ -44,7 +44,7 @@
                                 name="form.status"
                                 :options="CampStatus::cases()"
                                 wire:model.live="form.status"
-                                :error="$errors->first('form.status')"
+                                required
                             />
                         @endif
                     </div>
@@ -74,15 +74,15 @@
                     <div class="md:col-span-2">
                         <x-public.form.input label="Rue" name="form.address" wire:model.live="form.address" />
                     </div>
-                    <x-public.form.input label="Numéro" name="form.number" wire:model.live="form.number" />
-                    <x-public.form.input label="Code postal" name="form.postal_code" wire:model.live="form.postal_code" />
+                    <x-public.form.input label="Numéro" name="form.number" wire:model.live="form.number" maxlength="20" />
+                    <x-public.form.input label="Code postal" name="form.postal_code" wire:model.live="form.postal_code" type="number" min="0" />
                     <x-public.form.input label="Ville" name="form.city" wire:model.live="form.city" />
                     <x-public.form.select
                         label="Province"
                         name="form.province"
                         :options="Provinces::cases()"
                         wire:model.live="form.province"
-                        :error="$errors->first('form.province')"
+                        required
                     />
                 </div>
             </section>
@@ -113,7 +113,7 @@
                 <div class="flex flex-col gap-3">
                     <span class="font-sans font-bold text-base text-dark">Bannière</span>
                     @if($camp->banner && !$form->banner)
-                        <img src="{{ asset('storage/' . $camp->banner) }}" alt="{{ $camp->title }}" class="w-full h-48 object-cover rounded-xl" />
+                        <img src="{{ Storage::url($camp->banner) }}" alt="{{ $camp->title }}" class="w-full h-48 object-cover rounded-xl" />
                     @endif
                     @if($form->banner)
                         <img src="{{ $form->banner->temporaryUrl() }}" alt="Image temporaire" class="w-full h-48 object-cover rounded-xl" />
@@ -136,7 +136,7 @@
                         <div class="grid grid-cols-3 md:grid-cols-4 gap-3">
                             @foreach($camp->galeries as $galerie)
                                 <div wire:key="galerie-{{ $galerie->id }}" class="relative group">
-                                    <img src="{{ asset('storage/' . $galerie->path) }}" alt="{{ $camp->title }}" class="w-full h-24 object-cover rounded-lg" />
+                                    <img src="{{ Storage::url($galerie->path) }}" alt="{{ $camp->title }}" class="w-full h-24 object-cover rounded-lg" />
                                     <button type="button"
                                             wire:click="openConfirmDeleteGalerieModal({{ $galerie->id }})"
                                             class="absolute inset-0 flex items-center justify-center bg-dark/50 text-white font-sans text-xs font-bold rounded-lg opacity-0 group-hover:opacity-100 transition">
@@ -160,7 +160,7 @@
                     @endif
                     <label class="flex items-center gap-3 px-4 py-3 bg-bg border-2 border-dashed border-dark-light rounded-xl cursor-pointer hover:border-dark transition">
                         <span class="font-serif text-sm text-dark-mid">Ajouter des images à la galerie…</span>
-                        <input type="file" wire:model.live="form.galeries" multiple accept="image/*" class="sr-only">
+                        <input type="file" wire:model.live="form.galeries" accept="image/*" class="sr-only">
                     </label>
                     @error('form.galeries.*')
                         <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
@@ -178,12 +178,10 @@
         </form>
 
         @can('delete', $camp)
-            <div class="flex justify-end">
-                <button type="button" wire:click="openConfirmDeleteModal"
-                        class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">
-                    Supprimer le stage
-                </button>
-            </div>
+            <button type="button" wire:click="openConfirmDeleteModal"
+                    class="w-full py-4 bg-white border-2 border-danger text-danger font-sans font-bold text-base rounded-lg hover:bg-danger-bg transition duration-200">
+                Supprimer le stage
+            </button>
         @endcan
 
     </div>

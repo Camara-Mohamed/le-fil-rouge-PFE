@@ -31,6 +31,6 @@ return [
     'sujet' => 'Sujet',
     'message' => 'Message',
     'submit' => 'Envoyer mon message',
-    'send' => 'Ton message a bien été envoyé !',
+    'send' => 'Ton message a bien été envoyé ! Vérifie ta boîte mail, on t\'a envoyé une confirmation.',
 
 ];

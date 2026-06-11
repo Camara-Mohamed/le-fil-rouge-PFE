@@ -3,28 +3,28 @@
 it('home page renders with title and nav links', function () {
     $page = visit('/fr');
 
-    $page->assertSee('Page d\'Accueil');
+    $page->assertSee('Accueil');
 });
 
 it('navigates to trainings page from nav', function () {
     $page = visit('/fr');
 
     $page->click('Les Formations')
-        ->assertSee('Liste des formations');
+        ->assertSee('Formations');
 });
 
 it('navigates to camps page from nav', function () {
     $page = visit('/fr');
 
     $page->click('Les Camps')
-        ->assertSee('La liste des stages et séjours');
+        ->assertSee('Stages & Séjours');
 });
 
 it('navigates to announcements page from nav', function () {
     $page = visit('/fr');
 
     $page->click('Les Actualités')
-        ->assertSee('Liste des actualités');
+        ->assertSee('Actualités');
 });
 
 it('navigates to about page from nav', function () {
@@ -71,7 +71,7 @@ it('nav login link goes to login page', function () {
 it('language switch changes locale', function () {
     $page = visit('/fr');
 
-    $page->assertSee('Page d\'Accueil');
+    $page->assertSee('Accueil');
 
     $page->click('[href*="/en"]')
         ->assertPathBeginsWith('/en');

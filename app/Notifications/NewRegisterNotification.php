@@ -25,7 +25,11 @@ class NewRegisterNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("Nouvelle inscription : {$this->model->title}")
-            ->line("{$this->participantName} vient de s'inscrire à {$this->modelLabel} **{$this->model->title}**.");
+            ->subject(__('emails.new_register_subject', ['title' => $this->model->title]))
+            ->view('emails.notifications.new-register', [
+                'model'           => $this->model,
+                'modelLabel'      => $this->modelLabel,
+                'participantName' => $this->participantName,
+            ]);
     }
 }

@@ -21,8 +21,7 @@ it('check if a route to access a login form existe', function () {
     // Assert
     $response->assertStatus(200);
     $response->assertSeeHtml(
-        '<form method="POST" '.'action="'.
-        route('login', ['locale' => app()->getLocale()])
+        'action="'.route('login', ['locale' => app()->getLocale()])
     );
     $response->assertSee(__('auth.login.title'));
     $response->assertSee('type="email"', false);

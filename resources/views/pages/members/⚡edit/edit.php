@@ -75,7 +75,7 @@ class extends Component
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],
             'last_name' => ['required', 'min:2', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email', 'ends_with:@lefilrouge.com'],
+            'email' => ['required', 'email', 'ends_with:@lefilrouge.com'],
             'role' => ['required', Rule::enum(UserRoles::class)],
             'status' => ['required', Rule::enum(UserStatus::class)],
             'phone' => ['nullable', 'string'],
@@ -87,7 +87,7 @@ class extends Component
             'last_name' => $this->last_name,
             'email' => $this->email,
             'role' => $this->role,
-            'status' => $this->status,
+            'status' => $this->role === UserRoles::ARRIVANT->value ? UserStatus::INCOMPLETE->value : $this->status,
             'phone' => $this->phone,
             'birth_date' => $this->birth_date,
         ]);

@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Luc',
             'last_name' => 'Animateur_2e',
-            'email' => 'paul.animateur2e@lefilrouge.com',
+            'email' => 'luc.animateur2e@lefilrouge.com',
             'role' => UserRoles::ANIMATEUR_2,
             'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),

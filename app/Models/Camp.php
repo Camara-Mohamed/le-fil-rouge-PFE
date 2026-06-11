@@ -110,4 +110,9 @@ class Camp extends Model
     {
         return $this->hasMany(Comment::class)->latest();
     }
+
+    public function modelLabel(): string
+    {
+        return 'le camp';
+    }
 }

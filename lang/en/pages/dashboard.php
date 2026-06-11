@@ -13,6 +13,7 @@ return [
     'calendar_week' => 'Week',
     'calendar_month' => 'Month',
 
+    'pending_aside_title' => 'Pending tasks',
     'pending_registers_title' => 'Registrations to validate',
     'pending_events_title' => 'Events to validate',
     'no_pending_registers' => 'No pending registrations.',

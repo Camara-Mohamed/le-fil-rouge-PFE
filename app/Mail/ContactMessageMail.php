@@ -18,6 +18,8 @@ class ContactMessageMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: config('mail.from.address'),
+            replyTo: config('mail.notification_for_mails'),
             subject: 'Nouveau Message — '.$this->contactMessage->sujet,
         );
     }
@@ -25,7 +27,7 @@ class ContactMessageMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.contact-message',
+            view: 'emails.contact-message',
         );
     }
 

@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Enums\RegisterStatus;
 use App\Enums\UserRoles;
-use App\Models\Camp;
 use App\Models\User;
 use App\Notifications\NewRegisterNotification;
 use App\Notifications\ParticipantsFullNotification;
@@ -31,6 +30,10 @@ class Enrollment extends Component
             return;
         }
 
+        if ($user->isAdmin() || $user->isArrivant()) {
+            return;
+        }
+
         if (! ($user->isComplete() || $user->isPending())) {
             return;
         }
@@ -45,19 +48,23 @@ class Enrollment extends Component
             return;
         }
 
+        $isCreator = $this->model->user_id === $user->id;
+
         $this->model->registers()->create([
             'user_id' => $user->id,
-            'status' => RegisterStatus::PENDING,
+            'status' => $isCreator ? RegisterStatus::ACCEPTED : RegisterStatus::PENDING,
             'notes' => $this->notes ?: null,
         ]);
 
         $this->notes = '';
         $this->dispatch('toast', message: __('toast/enrollments.sent'), type: 'success');
 
-        Notification::send(
-            User::where('role', UserRoles::ADMIN->value)->get()->merge([$this->model->user])->unique('id'),
-            new NewRegisterNotification($this->model, $this->model instanceof Camp ? 'le camp' : 'la formation', $user->fullName())
-        );
+        $label = $this->model->modelLabel();
+        $admins = User::where('role', UserRoles::ADMIN->value)->get()->merge([$this->model->user])->unique('id');
+        foreach ($admins as $admin) {
+            $admin->notify(new NewRegisterNotification($this->model, $label, $user->fullName()));
+        }
+        Notification::route('mail', config('mail.notification_for_mails'))->notify(new NewRegisterNotification($this->model, $label, $user->fullName()));
     }
 
     public function openCancelModal(string $status): void
@@ -102,12 +109,14 @@ class Enrollment extends Component
         $register->update(['status' => RegisterStatus::ACCEPTED]);
 
         $register->user->notify(new RegisterStatusNotification($this->model, 'accepted'));
+        Notification::route('mail', config('mail.notification_for_mails'))->notify(new RegisterStatusNotification($this->model, 'accepted'));
 
         if ($this->model->participants && $this->model->acceptedRegisters()->count() >= $this->model->participants) {
-            Notification::send(
-                User::where('role', UserRoles::ADMIN->value)->get()->merge([$this->model->user])->unique('id'),
-                new ParticipantsFullNotification($this->model, $this->model instanceof Camp ? 'Le camp' : 'La formation')
-            );
+            $admins = User::where('role', UserRoles::ADMIN->value)->get()->merge([$this->model->user])->unique('id');
+            foreach ($admins as $admin) {
+                $admin->notify(new ParticipantsFullNotification($this->model, $this->model->modelLabel()));
+            }
+            Notification::route('mail', config('mail.notification_for_mails'))->notify(new ParticipantsFullNotification($this->model, $this->model->modelLabel()));
         }
 
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
@@ -121,6 +130,7 @@ class Enrollment extends Component
         $register->update(['status' => RegisterStatus::REFUSED]);
 
         $register->user->notify(new RegisterStatusNotification($this->model, 'refused'));
+        Notification::route('mail', config('mail.notification_for_mails'))->notify(new RegisterStatusNotification($this->model, 'refused'));
 
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
     }
@@ -145,6 +155,8 @@ class Enrollment extends Component
             ->first();
 
         $canEnroll = $this->model->isPublished()
+            && ! $user->isAdmin()
+            && ! $user->isArrivant()
             && ($user->isComplete() || $user->isPending())
             && (! $this->model->roles || $this->model->roles($user));
 

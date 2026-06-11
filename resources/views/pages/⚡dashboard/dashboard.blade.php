@@ -4,19 +4,18 @@
 
     {{-- CTA --}}
     @canany(['manage-members', 'manage-messages', 'manage-training', 'manage-camp', 'manage-announcement'])
-        <section aria-label="{{ __('pages/dashboard.pending_registers_title') }}">
-            <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-3">
 
                 @can('manage-members')
                     <x-public.link
                         href="{{ route('admin.members.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg bg-red text-white hover:bg-red-mid">
+                        class="px-6 py-2 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.add_member') }}
                     </x-public.link>
                     <x-public.link
                         href="{{ route('admin.members.index', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark hover:border-dark">
+                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
                         {{ __('pages/dashboard.manage_members') }}
                     </x-public.link>
                 @endcan
@@ -24,7 +23,7 @@
                 @can('manage-messages')
                     <x-public.link
                         href="{{ route('admin.messages.index', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark hover:border-dark">
+                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
                         {{ __('pages/dashboard.view_messages') }}
                     </x-public.link>
                 @endcan
@@ -32,7 +31,7 @@
                 @can('manage-training')
                     <x-public.link
                         href="{{ route('admin.trainings.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg bg-red text-white hover:bg-red-mid">
+                        class="px-6 py-2 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.create_training') }}
                     </x-public.link>
@@ -41,7 +40,7 @@
                 @can('manage-camp')
                     <x-public.link
                         href="{{ route('admin.camps.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg bg-red text-white hover:bg-red-mid">
+                        class="px-6 py-2 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.create_camp') }}
                     </x-public.link>
@@ -50,17 +49,20 @@
                 @can('manage-announcement')
                     <x-public.link
                         href="{{ route('admin.announcements.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark hover:border-dark">
+                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.add_announcement') }}
                     </x-public.link>
                 @endcan
 
-            </div>
-        </section>
+        </div>
     @endcanany
 
+    @canany(['manage-training', 'manage-camp', 'manage-members'])
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8 items-start">
+    @else
+    <div class="flex flex-col gap-8 max-w-4xl">
+    @endcanany
 
         {{-- Calendrier --}}
         <section aria-label="{{ __('pages/dashboard.calendar_title') }}" wire:ignore>
@@ -96,7 +98,8 @@
         </section>
 
         @canany(['manage-training', 'manage-camp', 'manage-members'])
-            <aside aria-label="{{ __('pages/dashboard.pending_registers_title') }}" class="flex flex-col gap-6">
+            <aside aria-labelledby="aside-pending-title" class="flex flex-col gap-6">
+                <h2 id="aside-pending-title" class="sr-only">{{ __('pages/dashboard.pending_aside_title') }}</h2>
 
                 {{-- Inscriptions en attente --}}
                 @if(isset($pendingTrainingRegisters) || isset($pendingCampRegisters))

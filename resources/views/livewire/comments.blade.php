@@ -8,13 +8,17 @@
 
         <form wire:submit="save" class="flex items-start gap-3">
 
-            <div class="size-20 bg-info-bg rounded-full shrink-0 flex items-center justify-center">
-                @auth
-                    <span class="font-sans font-black text-xl text-info uppercase" aria-hidden="true">
+            @auth
+                @if(auth()->user()->avatar_path)
+                    <img src="{{ Storage::url('avatars/originals/' . auth()->user()->avatar_path) }}"
+                         alt="{{ auth()->user()->fullName() }}"
+                         class="size-10 rounded-full object-cover shrink-0">
+                @else
+                    <div class="size-10 rounded-full bg-bg-dark shrink-0 flex items-center justify-center font-sans font-bold text-sm text-dark-mid" aria-hidden="true">
                         {{ strtoupper(auth()->user()->first_name[0] . auth()->user()->last_name[0]) }}
-                    </span>
-                @endauth
-            </div>
+                    </div>
+                @endif
+            @endauth
 
             {{-- Champ --}}
             <div class="flex-1 flex flex-col items-end gap-2">
@@ -30,11 +34,16 @@
                     @enderror
 
                     <label class="flex items-center gap-2 cursor-pointer self-start">
-                        <input type="file" wire:model="form.document" class="hidden" />
+                        <input type="file" wire:model="form.document" class="hidden" id="comment-document-input" />
                         <span class="font-sans text-sm font-medium text-red underline hover:text-red-mid transition duration-200">
                             {{ __('livewire/comments.add_document') }}
                         </span>
                     </label>
+                    @if($form->document)
+                        <span class="self-start font-sans text-xs text-dark-mid">
+                            {{ $form->document->getClientOriginalName() }}
+                        </span>
+                    @endif
                     @error('form.document')
                         <span class="self-start font-sans text-sm text-danger">{{ $message }}</span>
                     @enderror
@@ -60,19 +69,15 @@
                     <div class="flex items-start gap-6">
 
                         {{-- Avatar --}}
-                        <div @class([
-                            'size-10 rounded-full shrink-0 flex items-center justify-center',
-                            'bg-red-light'   => $comment->is_admin,
-                            'bg-info-bg'     => !$comment->is_admin,
-                        ]) aria-hidden="true">
-                            <span @class([
-                                'font-sans font-black text-xs uppercase',
-                                'text-red'  => $comment->is_admin,
-                                'text-info' => !$comment->is_admin,
-                            ])>
+                        @if($comment->user->avatar_path)
+                            <img src="{{ Storage::url('avatars/originals/' . $comment->user->avatar_path) }}"
+                                 alt="{{ $comment->user->fullName() }}"
+                                 class="size-10 rounded-full object-cover shrink-0">
+                        @else
+                            <div class="size-10 rounded-full bg-bg-dark shrink-0 flex items-center justify-center font-sans font-bold text-sm text-dark-mid" aria-hidden="true">
                                 {{ strtoupper($comment->user->first_name[0] . $comment->user->last_name[0]) }}
-                            </span>
-                        </div>
+                            </div>
+                        @endif
 
                         {{-- Contenu --}}
                         <div class="flex-1 flex flex-col gap-4">
@@ -99,7 +104,7 @@
 
                             <div class="flex justify-between items-center gap-4">
                                 @if($comment->document)
-                                    <a href="{{ asset('storage/' . $comment->document) }}"
+                                    <a href="{{ config('filesystems.default') === 's3' ? Storage::disk('s3')->temporaryUrl($comment->document, now()->addMinutes(30)) : Storage::url($comment->document) }}"
                                        data-fancybox="comment-document-{{ $comment->id }}"
                                        data-type="iframe"
                                        data-width="900"

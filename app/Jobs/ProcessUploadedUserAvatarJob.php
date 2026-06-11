@@ -18,16 +18,17 @@ class ProcessUploadedUserAvatarJob implements ShouldQueue
 
     public function handle(): void
     {
-        $image = Image::decode(Storage::disk('public')->get($this->full_path_to_original));
+        $image = Image::decode(Storage::disk('s3')->get($this->full_path_to_original));
 
         foreach (config('avatar.sizes') as $size) {
             $variant = clone $image;
             $variant->scale($size['width']);
 
             $path = sprintf(config('avatar.variant_pattern'), $size['width'], $size['height']);
-            Storage::disk('public')->put(
+            Storage::disk('s3')->put(
                 $path.'/'.$this->file_name,
-                $variant->encodeUsingFileExtension(config('avatar.image_type'), config('avatar.jpeg_compression'))
+                $variant->encodeUsingFileExtension(config('avatar.image_type'), config('avatar.jpeg_compression')),
+                'public'
             );
         }
     }

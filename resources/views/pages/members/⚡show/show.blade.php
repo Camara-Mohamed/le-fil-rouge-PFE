@@ -66,10 +66,10 @@
                  class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col sm:flex-row items-start sm:items-center gap-6">
 
             @if($member->avatar_path)
-                <a href="{{ asset('storage/avatars/originals/' . $member->avatar_path) }}" data-fancybox="avatar">
+                <a href="{{ Storage::url('avatars/originals/' . $member->avatar_path) }}" data-fancybox="avatar">
                     <img
-                        src="{{ asset('storage/avatars/originals/' . $member->avatar_path) }}"
-                        srcset="@foreach($sizes as $size){{ asset('storage/' . sprintf(config('avatar.variant_pattern'), $size['width'], $size['height']) . '/' . $member->avatar_path) }} {{ $size['width'] }}w,@endforeach"
+                        src="{{ Storage::url('avatars/originals/' . $member->avatar_path) }}"
+                        srcset="@foreach($sizes as $size){{ Storage::url(sprintf(config('avatar.variant_pattern'), $size['width'], $size['height']) . '/' . $member->avatar_path) }} {{ $size['width'] }}w,@endforeach"
                         alt="Avatar de {{ $member->fullName() }}"
                         class="size-24 rounded-full object-cover ring-4 ring-white shadow shrink-0 cursor-pointer"
                     >
@@ -187,7 +187,7 @@
                                     <p class="font-sans font-semibold text-sm text-dark truncate">{{ $document->name }}</p>
                                     <p class="font-serif text-xs text-dark-mid">{{ $document->type }}</p>
                                 </div>
-                                <a href="{{ Storage::disk('public')->url($document->path) }}"
+                                <a href="{{ config('filesystems.default') === 's3' ? Storage::disk('s3')->temporaryUrl($document->path, now()->addMinutes(30)) : Storage::url($document->path) }}"
                                    data-fancybox="member-document"
                                    data-type="iframe"
                                    data-width="1000"

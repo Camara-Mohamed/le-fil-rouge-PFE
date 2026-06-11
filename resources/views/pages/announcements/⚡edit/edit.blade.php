@@ -18,13 +18,13 @@
             <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
                 <h2 class="font-sans font-bold text-xl text-dark">Informations</h2>
                 <x-public.form.input label="Titre" name="form.title" wire:model.live="form.title" required />
-                <x-public.form.input label="Description courte" name="form.description" wire:model.live="form.description" />
+                <x-public.form.input label="Description courte" name="form.description" wire:model.live="form.description" required />
             </section>
 
             {{-- Contenu --}}
             <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
                 <h2 class="font-sans font-bold text-xl text-dark">Contenu</h2>
-                <x-public.form.textarea label="Contenu" name="form.content" wire:model.live="form.content" :rows="8" />
+                <x-public.form.textarea label="Contenu" name="form.content" wire:model.live="form.content" :rows="8" required />
                 <x-public.form.textarea label="Détails" name="form.details" wire:model.live="form.details" :rows="5" />
             </section>
 
@@ -36,7 +36,7 @@
                 <div class="flex flex-col gap-3">
                     <span class="font-sans font-bold text-base text-dark">Bannière</span>
                     @if($announcement->banner && !$form->banner)
-                        <img src="{{ asset('storage/' . $announcement->banner) }}" alt="{{ $announcement->title }}" class="w-full h-48 object-cover rounded-xl" />
+                        <img src="{{ Storage::url($announcement->banner) }}" alt="{{ $announcement->title }}" class="w-full h-48 object-cover rounded-xl" />
                     @endif
                     @if($form->banner)
                         <img src="{{ $form->banner->temporaryUrl() }}" alt="Image temporaire" class="w-full h-48 object-cover rounded-xl" />
@@ -59,7 +59,7 @@
                         <div class="grid grid-cols-3 md:grid-cols-4 gap-3">
                             @foreach($announcement->galeries as $galerie)
                                 <div wire:key="galerie-{{ $galerie->id }}" class="relative group">
-                                    <img src="{{ asset('storage/' . $galerie->path) }}" alt="{{ $announcement->title }}" class="w-full h-24 object-cover rounded-lg" />
+                                    <img src="{{ Storage::url($galerie->path) }}" alt="{{ $announcement->title }}" class="w-full h-24 object-cover rounded-lg" />
                                     <button type="button"
                                             wire:click="openConfirmDeleteGalerieModal({{ $galerie->id }})"
                                             class="absolute inset-0 flex items-center justify-center bg-dark/50 text-white font-sans text-xs font-bold rounded-lg opacity-0 group-hover:opacity-100 transition">
@@ -83,7 +83,7 @@
                     @endif
                     <label class="flex items-center gap-3 px-4 py-3 bg-bg border-2 border-dashed border-dark-light rounded-xl cursor-pointer hover:border-dark transition">
                         <span class="font-serif text-sm text-dark-mid">Ajouter des images à la galerie…</span>
-                        <input type="file" wire:model.live="form.galeries" multiple accept="image/*" class="sr-only">
+                        <input type="file" wire:model.live="form.galeries" accept="image/*" class="sr-only">
                     </label>
                     @error('form.galeries.*')
                         <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
@@ -101,12 +101,10 @@
         </form>
 
         @can('delete', $announcement)
-            <div class="flex justify-end">
-                <button type="button" wire:click="openConfirmDeleteModal"
-                        class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">
-                    Supprimer l'actualité
-                </button>
-            </div>
+            <button type="button" wire:click="openConfirmDeleteModal"
+                    class="w-full py-4 bg-white border-2 border-danger text-danger font-sans font-bold text-base rounded-lg hover:bg-danger-bg transition duration-200">
+                Supprimer l'actualité
+            </button>
         @endcan
 
     </div>

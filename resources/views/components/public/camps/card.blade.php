@@ -13,7 +13,7 @@
 <a href="{{ route('public.camps.show', ['locale' => app()->getLocale(), 'camp' => $camp->id]) }}"
    wire:navigate
    title="{{ __('public/camps.card_title', ['title' => $camp->title]) }}"
-   class="group flex flex-col bg-bg rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] border-b-4 border-success overflow-hidden h-[516px]">
+   class="group flex flex-col bg-bg rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] hover:shadow-[0px_16px_40px_0px_rgba(0,0,0,0.18)] border-b-4 border-success overflow-hidden h-[516px] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02]">
 
     <div class="relative h-60 shrink-0 bg-dark-light">
         @if($camp->banner)
@@ -21,15 +21,15 @@
                 $variantName  = pathinfo(basename($camp->banner), PATHINFO_FILENAME) . '.' . config('banners.image_type');
                 $variantsBase = config('banners.paths.camps.variants');
                 $srcset       = collect(config('banners.sizes.banner'))
-                    ->map(fn($w) => asset("storage/{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
+                    ->map(fn($w) => Storage::url("{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
                     ->implode(', ');
             @endphp
-            <img src="{{ asset('storage/' . $camp->banner) }}"
+            <img src="{{ Storage::url($camp->banner) }}"
                  srcset="{{ $srcset }}"
                  sizes="(max-width: 768px) 100vw, 33vw"
                  alt="{{ $camp->title }}"
                  class="absolute inset-0 w-full h-full object-cover"
-                 loading="eager"
+                 loading="lazy"
             />
         @else
             <div class="absolute inset-0 bg-gradient-to-br from-dark-light to-dark-mid opacity-60"></div>
@@ -53,7 +53,7 @@
                 <h3 class="font-sans font-black text-base text-dark">
                     {{ $camp->title }}
                 </h3>
-                <x-public.content class="text-sm text-dark">
+                <x-public.content class="text-sm text-dark line-clamp-4">
                     {{ $camp->description }}
                 </x-public.content>
             </div>

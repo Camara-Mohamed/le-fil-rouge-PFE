@@ -21,7 +21,7 @@ class AnnouncementNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Nouvelle actualité : '.$this->announcement->title)
-            ->line($this->announcement->description);
+            ->subject(__('emails.announcement_subject', ['title' => $this->announcement->title]))
+            ->view('emails.notifications.announcement', ['announcement' => $this->announcement]);
     }
 }
