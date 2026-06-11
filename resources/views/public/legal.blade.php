@@ -17,13 +17,6 @@
 
     <x-public.hero title="{{ __('public/legal.title') }}" />
 
-    <div class="px-4 md:px-6 lg:px-8 pt-8 pb-4">
-        <livewire:widgets::breadcrumb :items="[
-            ['label' => __('breadcrumbs.home'), 'url' => route('public.home', ['locale' => app()->getLocale()])],
-            ['label' => __('public/legal.title')],
-        ]" />
-    </div>
-
     <section aria-labelledby="legal-heading" class="px-4 md:px-6 lg:px-8 py-16">
         <h2 id="legal-heading" class="sr-only">{{ __('public/legal.title') }}</h2>
 
