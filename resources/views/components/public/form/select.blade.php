@@ -3,6 +3,7 @@
     'name'        => null,
     'options'     => [],
     'placeholder' => null,
+    'required'    => false,
     'error'       => null,
 ])
 
@@ -10,7 +11,7 @@
     @if($label)
         <label @if($name) for="{{ $name }}" @endif
                class="font-sans font-bold text-base text-dark">
-            {{ $label }}
+            {{ $label }}@if($required)<abbr title="{{ __('general.required') }}" class="text-red"> *</abbr>@endif
         </label>
     @endif
 

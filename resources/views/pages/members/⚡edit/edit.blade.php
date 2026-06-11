@@ -22,8 +22,8 @@
                      class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
                 <h2 id="section-identity" class="font-sans font-bold text-xl text-dark">{{ __('pages/members.edit_section_identity') }}</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <x-public.form.input :label="__('pages/members.edit_label_first_name')" name="first_name" wire:model.live="first_name" required />
-                    <x-public.form.input :label="__('pages/members.edit_label_last_name')" name="last_name" wire:model.live="last_name" required />
+                    <x-public.form.input :label="__('pages/members.edit_label_first_name')" name="first_name" wire:model.live="first_name" required minlength="2" maxlength="255" />
+                    <x-public.form.input :label="__('pages/members.edit_label_last_name')" name="last_name" wire:model.live="last_name" required minlength="2" maxlength="255" />
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <x-public.form.input :label="__('pages/members.edit_label_phone')" name="phone" wire:model.live="phone" type="tel" />
@@ -51,6 +51,7 @@
                             name="role"
                             :options="UserRoles::cases()"
                             wire:model.live="role"
+                            required
                         />
                     @endcan
 
@@ -68,6 +69,7 @@
                                 name="status"
                                 :options="UserStatus::cases()"
                                 wire:model.live="status"
+                                required
                             />
                         @endif
                     @endcan

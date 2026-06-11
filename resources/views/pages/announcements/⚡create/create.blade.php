@@ -17,13 +17,13 @@
             <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
                 <h2 class="font-sans font-bold text-xl text-dark">Informations</h2>
                 <x-public.form.input label="Titre" name="form.title" wire:model.live="form.title" required />
-                <x-public.form.input label="Description courte" name="form.description" wire:model.live="form.description" />
+                <x-public.form.input label="Description courte" name="form.description" wire:model.live="form.description" required />
             </section>
 
             {{-- Contenu --}}
             <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
                 <h2 class="font-sans font-bold text-xl text-dark">Contenu</h2>
-                <x-public.form.textarea label="Contenu" name="form.content" wire:model.live="form.content" :rows="8" />
+                <x-public.form.textarea label="Contenu" name="form.content" wire:model.live="form.content" :rows="8" required />
                 <x-public.form.textarea label="Détails" name="form.details" wire:model.live="form.details" :rows="5" />
             </section>
 

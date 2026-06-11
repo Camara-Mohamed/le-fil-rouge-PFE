@@ -27,7 +27,7 @@
 
                 <div class="flex flex-col gap-4">
                     <x-public.form.input label="Titre" name="form.title" wire:model.live="form.title" required />
-                    <x-public.form.input label="Description courte" name="form.description" wire:model.live="form.description" />
+                    <x-public.form.input label="Description courte" name="form.description" wire:model.live="form.description" required />
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <x-public.form.select
@@ -35,7 +35,7 @@
                             name="form.type"
                             :options="CampTypes::cases()"
                             wire:model.live="form.type"
-                            :error="$errors->first('form.type')"
+                            required
                         />
                         <x-public.form.input label="Participants max" name="form.participants" wire:model.live="form.participants" type="number" min="1" />
                         @if(auth()->user()->isAdmin())
@@ -44,7 +44,7 @@
                                 name="form.status"
                                 :options="CampStatus::cases()"
                                 wire:model.live="form.status"
-                                :error="$errors->first('form.status')"
+                                required
                             />
                         @endif
                     </div>
@@ -74,15 +74,15 @@
                     <div class="md:col-span-2">
                         <x-public.form.input label="Rue" name="form.address" wire:model.live="form.address" />
                     </div>
-                    <x-public.form.input label="Numéro" name="form.number" wire:model.live="form.number" />
-                    <x-public.form.input label="Code postal" name="form.postal_code" wire:model.live="form.postal_code" />
+                    <x-public.form.input label="Numéro" name="form.number" wire:model.live="form.number" maxlength="20" />
+                    <x-public.form.input label="Code postal" name="form.postal_code" wire:model.live="form.postal_code" type="number" min="0" />
                     <x-public.form.input label="Ville" name="form.city" wire:model.live="form.city" />
                     <x-public.form.select
                         label="Province"
                         name="form.province"
                         :options="Provinces::cases()"
                         wire:model.live="form.province"
-                        :error="$errors->first('form.province')"
+                        required
                     />
                 </div>
             </section>

@@ -14,7 +14,7 @@ return [
     'create_label_role'            => 'Rôle',
     'create_label_status'          => 'Statut',
     'create_label_send_to'         => 'Envoyer les identifiants à',
-    'create_status_arrivant_note'  => 'Incomplet — automatique pour les arrivants',
+    'create_status_arrivant_note'  => 'Incomplet',
     'create_send_to_hint'          => 'Laisse vide pour ne pas envoyer d\'email de bienvenue.',
     'create_btn_submit'            => 'Créer le membre',
     'create_btn_cancel'            => 'Annuler',
@@ -30,7 +30,7 @@ return [
     'edit_label_birth_date'        => 'Date de naissance',
     'edit_label_role'              => 'Rôle',
     'edit_label_status'            => 'Statut',
-    'edit_status_arrivant_note'    => 'Incomplet — automatique pour les arrivants',
+    'edit_status_arrivant_note'    => 'Incomplet',
     'edit_btn_submit'              => 'Enregistrer',
 
 ];

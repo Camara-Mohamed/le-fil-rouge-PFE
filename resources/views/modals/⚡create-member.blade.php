@@ -130,6 +130,7 @@ new class extends Component
                             id="password"
                             :type="show ? 'text' : 'password'"
                             wire:model.live="password"
+                            minlength="8"
                             class="h-11 px-4 pr-12 w-full bg-white border border-bg-dark rounded-lg font-serif font-medium text-base text-dark transition duration-200"
                         />
                         <button type="button" @click="show = !show"
@@ -146,8 +147,8 @@ new class extends Component
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <x-public.form.select :label="__('modals/members.create_label_role')" name="role" wire:model.live="role" :options="UserRoles::ARRIVANT" />
-                    <x-public.form.select :label="__('modals/members.create_label_status')" name="status" wire:model.live="status" :options="UserStatus::INCOMPLETE" />
+                    <x-public.form.select :label="__('modals/members.create_label_role')" name="role" wire:model.live="role" :options="UserRoles::cases()" required />
+                    <x-public.form.select :label="__('modals/members.create_label_status')" name="status" wire:model.live="status" :options="UserStatus::cases()" required />
                 </div>
 
                 <x-public.form.input :label="__('modals/members.create_label_send_to')" name="send_to" type="email" wire:model.live="send_to" placeholder="email@exemple.com" />

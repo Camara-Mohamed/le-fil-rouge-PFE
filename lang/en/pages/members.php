@@ -14,7 +14,7 @@ return [
     'create_label_role'            => 'Role',
     'create_label_status'          => 'Status',
     'create_label_send_to'         => 'Send credentials to',
-    'create_status_arrivant_note'  => 'Incomplete — automatic for newcomers',
+    'create_status_arrivant_note'  => 'Incomplete',
     'create_send_to_hint'          => 'Leave empty to skip the welcome email.',
     'create_btn_submit'            => 'Create member',
     'create_btn_cancel'            => 'Cancel',
@@ -30,7 +30,7 @@ return [
     'edit_label_birth_date'        => 'Date of birth',
     'edit_label_role'              => 'Role',
     'edit_label_status'            => 'Status',
-    'edit_status_arrivant_note'    => 'Incomplete — automatic for newcomers',
+    'edit_status_arrivant_note'    => 'Incomplete',
     'edit_btn_submit'              => 'Save',
 
 ];
