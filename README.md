@@ -322,9 +322,9 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
 
 2. Initialiser le projet
    ```bash
+   cp .env.example .env
    composer install
    npm install
-   cp .env.example .env
    php artisan key:generate
    ```
 
