@@ -23,11 +23,13 @@ new #[Title('Ajouter une formation')] class extends Component
 
         $training = $this->form->store(auth()->user());
 
-        $admins = User::where('role', UserRoles::ADMIN->value)->where('id', '!=', auth()->id())->get();
-        foreach ($admins as $admin) {
-            $admin->notify(new ModelChangedNotification($training, 'la formation', auth()->user(), created: true));
-        }
-        Notification::route('mail', config('mail.reply_to.address'))->notify(new ModelChangedNotification($training, 'la formation', auth()->user(), created: true));
+        try {
+            $admins = User::where('role', UserRoles::ADMIN->value)->where('id', '!=', auth()->id())->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new ModelChangedNotification($training, 'la formation', auth()->user(), created: true));
+            }
+            Notification::route('mail', config('mail.reply_to.address'))->notify(new ModelChangedNotification($training, 'la formation', auth()->user(), created: true));
+        } catch (\Throwable) {}
 
         session()->flash('success', __('toast/trainings.created'));
 
