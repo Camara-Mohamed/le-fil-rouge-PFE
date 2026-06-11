@@ -25,7 +25,7 @@
     </div>
 
     <div class="flex flex-col gap-1">
-        <p class="font-sans font-semibold text-dark">{{ $volunteer->fullName() }}</p>
+        <h3 class="font-sans font-semibold text-dark">{{ $volunteer->fullName() }}</h3>
         <p class="font-serif text-sm text-dark-mid">{{ $volunteer->email }}</p>
     </div>
 

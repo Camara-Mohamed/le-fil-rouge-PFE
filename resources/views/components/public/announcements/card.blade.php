@@ -50,7 +50,7 @@
                 {{ $announcement->title }}
             </h3>
             @if($large && $announcement->description)
-                <x-public.content class="text-base text-dark">
+                <x-public.content class="text-base text-dark line-clamp-3">
                     {{ $announcement->description }}
                 </x-public.content>
             @endif

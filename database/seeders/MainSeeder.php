@@ -145,7 +145,7 @@ class MainSeeder extends Seeder
             'participants' => 20,
             'address' => 'Rue de la Lienne', 'number' => '5',
             'city' => 'Stoumont', 'province' => Provinces::LIEGE, 'postal_code' => '4987',
-            'roles' => [UserRoles::ANIMATEUR_1->value],
+            'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value],
             'user_id' => $admin->id,
             'banner' => $this->storeBanner('images/camps/holiday.webp', 'camps/banners/holiday.webp'),
         ]);
@@ -160,7 +160,7 @@ class MainSeeder extends Seeder
             'participants' => 15,
             'address' => 'Rue du Moulin', 'number' => '3',
             'city' => 'La Roche-en-Ardenne', 'province' => Provinces::LUXEMBOURG, 'postal_code' => '6980',
-            'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value],
+            'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $stephanie->id,
             'banner' => $this->storeBanner('images/camps/holiday_1.webp', 'camps/banners/holiday_1.webp'),
         ]);
@@ -175,7 +175,7 @@ class MainSeeder extends Seeder
             'participants' => 12,
             'address' => 'Avenue des Tilleuls', 'number' => '18',
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
-            'roles' => [UserRoles::ANIMATEUR_1->value],
+            'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value],
             'user_id' => $admin->id,
             'banner' => $this->storeBanner('images/camps/holiday_2.webp', 'camps/banners/holiday_2.webp'),
         ]);
@@ -189,6 +189,7 @@ class MainSeeder extends Seeder
             'type' => CampTypes::SEJOUR, 'status' => CampStatus::PENDING,
             'participants' => 25,
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
+            'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $paul->id,
             'banner' => $this->storeBanner('images/camps/holiday_3.webp', 'camps/banners/holiday_3.webp'),
         ]);
@@ -202,6 +203,7 @@ class MainSeeder extends Seeder
             'type' => CampTypes::STAGE, 'status' => CampStatus::REFUSED,
             'participants' => 10,
             'city' => 'Namur', 'province' => Provinces::NAMUR, 'postal_code' => '5000',
+            'roles' => [UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $paul->id,
             'banner' => $this->storeBanner('images/camps/holiday_4.webp', 'camps/banners/holiday_4.webp'),
         ]);
@@ -243,7 +245,7 @@ class MainSeeder extends Seeder
             'constraints' => 'Aucun prérequis. Formation accessible à tous les niveaux. Tenue confortable recommandée pour les exercices au sol.',
             'start_date' => now()->addDays(5)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(5)->setTime(17,0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
-            'price' => 3500, 'participants' => 16,
+            'price' => 2000, 'participants' => 16,
             'address' => 'Rue Douffet', 'number' => '36',
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4020',
             'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
@@ -261,6 +263,7 @@ class MainSeeder extends Seeder
             'price' => null, 'participants' => 20,
             'address' => 'Rue Douffet', 'number' => '36',
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4020',
+            'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $hugo->id,
             'banner' => $this->storeBanner('images/trainings/fun_1.webp', 'trainings/banners/fun_1.webp'),
         ]);
@@ -272,8 +275,9 @@ class MainSeeder extends Seeder
             'constraints' => 'Avoir au moins 6 mois d\'expérience active en animation est requis pour pouvoir participer pleinement aux mises en situation.',
             'start_date' => now()->addDays(45)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(46)->setTime(17,0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
-            'price' => 5000, 'participants' => 14,
+            'price' => 4000, 'participants' => 14,
             'city' => 'Namur', 'province' => Provinces::NAMUR, 'postal_code' => '5000',
+            'roles' => [UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $admin->id,
             'banner' => $this->storeBanner('images/trainings/fun_2.webp', 'trainings/banners/fun_2.webp'),
         ]);
@@ -285,9 +289,10 @@ class MainSeeder extends Seeder
             'constraints' => 'Réservé aux animateurs ayant au minimum deux saisons d\'expérience. Places limitées à 10 participants pour garantir un accompagnement individualisé.',
             'start_date' => now()->addDays(75)->setTime(14,0)->toDateTimeString(), 'end_date' => now()->addDays(76)->setTime(17,0)->toDateTimeString(),
             'type' => TrainingTypes::RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
-            'price' => 7500, 'participants' => 10,
+            'price' => 4000, 'participants' => 10,
             'address' => 'Chemin des Fagnes', 'number' => '2',
             'city' => 'Malmedy', 'province' => Provinces::LIEGE, 'postal_code' => '4960',
+            'roles' => [UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $stephanie->id,
             'banner' => $this->storeBanner('images/trainings/fun_3.webp', 'trainings/banners/fun_3.webp'),
         ]);
@@ -301,6 +306,7 @@ class MainSeeder extends Seeder
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PENDING,
             'price' => null, 'participants' => 18,
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
+            'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $hugo->id,
             'banner' => $this->storeBanner('images/trainings/fun_4.webp', 'trainings/banners/fun_4.webp'),
         ]);

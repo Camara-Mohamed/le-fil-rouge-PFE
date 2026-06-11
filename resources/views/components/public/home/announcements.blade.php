@@ -28,7 +28,16 @@
 
                         {{-- Image --}}
                         @if($announcement->banner)
-                            <img src="{{ Storage::url($announcement->banner) }}"
+                            @php
+                                $variantName  = pathinfo(basename($announcement->banner), PATHINFO_FILENAME) . '.' . config('banners.image_type');
+                                $variantsBase = config('banners.paths.announcements.variants');
+                                $srcset       = collect(config('banners.sizes.banner'))
+                                    ->map(fn($w) => Storage::url("{$variantsBase}/{$w}/{$variantName}") . " {$w}w")
+                                    ->implode(', ');
+                            @endphp
+                            <img src="{{ Storage::url("{$variantsBase}/640/{$variantName}") }}"
+                                 srcset="{{ $srcset }}"
+                                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                  alt="{{ $announcement->title }}"
                                  class="w-full h-52 object-cover rounded-tl-2xl rounded-tr-2xl"
                                  loading="lazy"

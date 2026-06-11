@@ -16,7 +16,7 @@
     </div>
 
     <div class="flex flex-col gap-1">
-        <p class="font-sans font-semibold text-dark">{{ $contact->full_name }}</p>
+        <h3 class="font-sans font-semibold text-dark">{{ $contact->full_name }}</h3>
         <p class="font-serif text-sm text-dark-mid">{{ $contact->email }}</p>
         @if($contact->sujet)
             <p class="font-sans font-medium text-dark-mid text-sm">{{ $contact->sujet }}</p>

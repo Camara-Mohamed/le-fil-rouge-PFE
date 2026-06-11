@@ -4,8 +4,7 @@
 
     {{-- CTA --}}
     @canany(['manage-members', 'manage-messages', 'manage-training', 'manage-camp', 'manage-announcement'])
-        <section aria-label="{{ __('pages/dashboard.pending_registers_title') }}">
-            <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-3">
 
                 @can('manage-members')
                     <x-public.link
@@ -56,8 +55,7 @@
                     </x-public.link>
                 @endcan
 
-            </div>
-        </section>
+        </div>
     @endcanany
 
     @canany(['manage-training', 'manage-camp', 'manage-members'])
@@ -100,7 +98,8 @@
         </section>
 
         @canany(['manage-training', 'manage-camp', 'manage-members'])
-            <aside aria-label="{{ __('pages/dashboard.pending_registers_title') }}" class="flex flex-col gap-6">
+            <aside aria-labelledby="aside-pending-title" class="flex flex-col gap-6">
+                <h2 id="aside-pending-title" class="sr-only">{{ __('pages/dashboard.pending_aside_title') }}</h2>
 
                 {{-- Inscriptions en attente --}}
                 @if(isset($pendingTrainingRegisters) || isset($pendingCampRegisters))

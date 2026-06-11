@@ -53,7 +53,7 @@
                 <h3 class="font-sans font-black text-base text-dark">
                     {{ $camp->title }}
                 </h3>
-                <x-public.content class="text-sm text-dark">
+                <x-public.content class="text-sm text-dark line-clamp-4">
                     {{ $camp->description }}
                 </x-public.content>
             </div>

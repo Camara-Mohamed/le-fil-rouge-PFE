@@ -108,7 +108,7 @@ class Training extends Model
             return __('general.free');
         }
 
-        return number_format($this->price, 2, ',', ' ').' €';
+        return number_format($this->price / 100, 2, ',', ' ').' €';
     }
 
     public function galeries(): HasMany
