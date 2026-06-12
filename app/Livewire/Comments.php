@@ -28,12 +28,14 @@ class Comments extends Component
         $this->form->store($this->model);
         $this->dispatch('toast', message: __('toast/comments.created'), type: 'success');
 
-        $creator = $this->model->user;
-        if ($creator && $creator->id !== auth()->id()) {
-            $notif = new NewCommentNotification($this->model, auth()->user());
-            $creator->notify($notif);
-            Notification::route('mail', config('mail.notification_for_mails'))->notify($notif);
-        }
+        try {
+            $creator = $this->model->user;
+            if ($creator && $creator->id !== auth()->id()) {
+                $notif = new NewCommentNotification($this->model, auth()->user());
+                $creator->notify($notif);
+                Notification::route('mail', config('mail.notification_for_mails'))->notify($notif);
+            }
+        } catch (\Throwable) {}
     }
 
     public function openDeleteModal(int $commentId): void

@@ -87,10 +87,6 @@ new class extends Component
             'phone'      => $this->phone ?: null,
         ]);
 
-        if ($this->send_to) {
-            Mail::to($this->send_to)->send(new NewVolunteerMail($user, $this->password));
-        }
-
         VolunteerRequest::findOrFail((int) $this->model_id)->update([
             'status' => VolunteerRequestStatus::ACCEPTED,
         ]);
@@ -98,6 +94,12 @@ new class extends Component
         $this->dispatch('close_modal');
         $this->dispatch('volunteer_accepted');
         $this->dispatch('toast', message: __('toast/messages.member_created'), type: 'success');
+
+        if ($this->send_to) {
+            try {
+                Mail::to($this->send_to)->send(new NewVolunteerMail($user, $this->password));
+            } catch (\Throwable) {}
+        }
     }
 };
 ?>

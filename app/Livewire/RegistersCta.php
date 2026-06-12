@@ -25,18 +25,19 @@ class RegistersCta extends Component
         $register = $this->model->registers()->with('user')->findOrFail($registerId);
         $register->update(['status' => RegisterStatus::ACCEPTED]);
 
-        $register->user->notify(new RegisterStatusNotification($this->model, 'accepted'));
-        Notification::route('mail', config('mail.notification_for_mails'))->notify(new RegisterStatusNotification($this->model, 'accepted'));
-
-        if ($this->model->participants && $this->model->acceptedRegisters()->count() >= $this->model->participants) {
-            $admins = User::where('role', UserRoles::ADMIN->value)->get()->merge([$this->model->user])->unique('id');
-            foreach ($admins as $admin) {
-                $admin->notify(new ParticipantsFullNotification($this->model, $this->model->modelLabel()));
-            }
-            Notification::route('mail', config('mail.notification_for_mails'))->notify(new ParticipantsFullNotification($this->model, $this->model->modelLabel()));
-        }
-
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
+        try {
+            $register->user->notify(new RegisterStatusNotification($this->model, 'accepted'));
+            Notification::route('mail', config('mail.notification_for_mails'))->notify(new RegisterStatusNotification($this->model, 'accepted'));
+
+            if ($this->model->participants && $this->model->acceptedRegisters()->count() >= $this->model->participants) {
+                $admins = User::where('role', UserRoles::ADMIN->value)->get()->merge([$this->model->user])->unique('id');
+                foreach ($admins as $admin) {
+                    $admin->notify(new ParticipantsFullNotification($this->model, $this->model->modelLabel()));
+                }
+                Notification::route('mail', config('mail.notification_for_mails'))->notify(new ParticipantsFullNotification($this->model, $this->model->modelLabel()));
+            }
+        } catch (\Throwable) {}
     }
 
     public function refuse(int $registerId): void
@@ -46,10 +47,11 @@ class RegistersCta extends Component
         $register = $this->model->registers()->with('user')->findOrFail($registerId);
         $register->update(['status' => RegisterStatus::REFUSED]);
 
-        $register->user->notify(new RegisterStatusNotification($this->model, 'refused'));
-        Notification::route('mail', config('mail.notification_for_mails'))->notify(new RegisterStatusNotification($this->model, 'refused'));
-
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
+        try {
+            $register->user->notify(new RegisterStatusNotification($this->model, 'refused'));
+            Notification::route('mail', config('mail.notification_for_mails'))->notify(new RegisterStatusNotification($this->model, 'refused'));
+        } catch (\Throwable) {}
     }
 
     public function pending(int $registerId): void

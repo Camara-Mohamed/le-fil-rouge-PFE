@@ -17,11 +17,13 @@ class DocumentObserver
     {
         $user = $document->user;
 
-        $admins = User::where('role', UserRoles::ADMIN->value)->get();
-        foreach ($admins as $admin) {
-            $admin->notify(new DocumentUploadedNotification($user));
-        }
-        Notification::route('mail', config('mail.notification_for_mails'))->notify(new DocumentUploadedNotification($user));
+        try {
+            $admins = User::where('role', UserRoles::ADMIN->value)->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new DocumentUploadedNotification($user));
+            }
+            Notification::route('mail', config('mail.notification_for_mails'))->notify(new DocumentUploadedNotification($user));
+        } catch (\Throwable) {}
 
         if (! $user->isIncomplete()) {
             return;
@@ -33,8 +35,10 @@ class DocumentObserver
 
         if ($hasCarteIdentite && $hasCertificatMedical && $hasCasierJudiciaire) {
             $user->update(['status' => UserStatus::PENDING]);
-            $user->notify(new MemberChangedNotification(newStatus: UserStatus::PENDING->label()));
-            Notification::route('mail', config('mail.notification_for_mails'))->notify(new MemberChangedNotification(newStatus: UserStatus::PENDING->label()));
+            try {
+                $user->notify(new MemberChangedNotification(newStatus: UserStatus::PENDING->label()));
+                Notification::route('mail', config('mail.notification_for_mails'))->notify(new MemberChangedNotification(newStatus: UserStatus::PENDING->label()));
+            } catch (\Throwable) {}
         }
     }
 }
