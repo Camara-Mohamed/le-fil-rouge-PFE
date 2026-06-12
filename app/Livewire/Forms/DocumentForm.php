@@ -18,7 +18,7 @@ class DocumentForm extends Form
 
     public User $user;
 
-    #[Validate('required|file|max:10240')]
+    #[Validate('required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png,webp')]
     public $file = null;
 
     #[Validate('required|string|max:255')]

@@ -1,4 +1,3 @@
-{{-- TODO : SVG --}}
 <a href="{{ route('public.home', ['locale' => app()->getLocale()]) }}"
    wire:navigate
    title="{{ __('navigation.home_title') }}"

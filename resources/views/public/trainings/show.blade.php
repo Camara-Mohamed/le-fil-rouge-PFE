@@ -119,13 +119,13 @@
 
                     @if($training->details)
                         <x-public.accordion :summary="__('public/trainings.show_objectives_accordion')" :open="true" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
-                            <div class="font-serif text-sm leading-5 text-dark">{!! $training->details !!}</div>
+                            <div class="font-serif text-sm leading-5 text-dark">{{ $training->details }}</div>
                         </x-public.accordion>
                     @endif
 
                     @if($training->constraints)
                         <x-public.accordion :summary="__('public/trainings.show_constraints_accordion')" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
-                            <div class="font-serif text-sm leading-5 text-dark">{!! $training->constraints !!}</div>
+                            <div class="font-serif text-sm leading-5 text-dark">{{ $training->constraints }}</div>
                         </x-public.accordion>
                     @endif
 

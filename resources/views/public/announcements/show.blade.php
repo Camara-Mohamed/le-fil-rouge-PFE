@@ -99,7 +99,7 @@
             {{-- Content --}}
             @if($announcement->content)
                 <div class="font-serif text-base leading-7 text-dark prose-sm max-w-none">
-                    {!! $announcement->content !!}
+                    {{ $announcement->content }}
                 </div>
             @elseif($announcement->details)
                 <x-public.content class="text-base leading-7">{{ $announcement->details }}</x-public.content>

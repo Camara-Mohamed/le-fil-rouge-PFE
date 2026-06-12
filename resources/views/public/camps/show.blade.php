@@ -111,13 +111,13 @@
 
                     @if($camp->details)
                         <x-public.accordion :summary="__('public/camps.show_objectives_accordion')" :open="true" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
-                            <div class="font-serif text-sm leading-5 text-dark">{!! $camp->details !!}</div>
+                            <div class="font-serif text-sm leading-5 text-dark">{{ $camp->details }}</div>
                         </x-public.accordion>
                     @endif
 
                     @if($camp->constraints)
                         <x-public.accordion :summary="__('public/camps.show_constraints_accordion')" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
-                            <div class="font-serif text-sm leading-5 text-dark">{!! $camp->constraints !!}</div>
+                            <div class="font-serif text-sm leading-5 text-dark">{{ $camp->constraints }}</div>
                         </x-public.accordion>
                     @endif
 

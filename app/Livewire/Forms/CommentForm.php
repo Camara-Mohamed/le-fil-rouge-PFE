@@ -12,7 +12,7 @@ class CommentForm extends Form
     #[Validate('required|string')]
     public string $content = '';
 
-    #[Validate('nullable|file|max:10240')]
+    #[Validate('nullable|file|max:10240|mimes:pdf,doc,docx,jpg,jpeg,png,webp')]
     public $document = null;
 
     public function store(Model $model): Comment
