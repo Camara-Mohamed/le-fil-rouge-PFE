@@ -37,7 +37,7 @@
                             required
                         />
                         <x-public.form.input label="Participants max" name="form.participants" wire:model.live="form.participants" type="number" min="1" />
-                        @can('change-status')
+                        @can('manage-members')
                             <x-public.form.select
                                 label="Statut"
                                 name="form.status"

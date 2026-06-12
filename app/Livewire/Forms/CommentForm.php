@@ -26,7 +26,7 @@ class CommentForm extends Form
         ];
 
         if ($this->document) {
-            $data['document'] = $this->document->store('comments/documents', 's3');
+            $data['document'] = $this->document->store('comments/documents', config('filesystems.default'));
         }
 
         $comment = $model->comments()->create($data);

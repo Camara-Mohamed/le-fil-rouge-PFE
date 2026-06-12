@@ -36,7 +36,7 @@ class DocumentForm extends Form
     {
         $this->validate();
 
-        $path = $this->file->store("documents/{$this->user->id}", 's3');
+        $path = $this->file->store("documents/{$this->user->id}", config('filesystems.default'));
 
         $this->user->documents()->create([
             'name' => $this->name,
@@ -50,7 +50,7 @@ class DocumentForm extends Form
     public function delete(Document $document): void
     {
         Gate::authorize('delete', $document);
-        Storage::disk('s3')->delete($document->path);
+        Storage::disk(config('filesystems.default'))->delete($document->path);
         $document->delete();
     }
 }
