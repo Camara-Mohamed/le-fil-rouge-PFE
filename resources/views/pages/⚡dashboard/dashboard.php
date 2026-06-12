@@ -7,6 +7,8 @@ use App\Models\Camp;
 use App\Models\CampRegister;
 use App\Models\Training;
 use App\Models\TrainingRegister;
+use App\Notifications\ModelStatusNotification;
+use App\Notifications\RegisterStatusNotification;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -23,6 +25,9 @@ class extends Component
             abort(403);
         }
 
+        $register->load('training');
+        $register->user->notify(new RegisterStatusNotification($register->training, 'accepted'));
+
         $register->update(['status' => RegisterStatus::ACCEPTED]);
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
     }
@@ -35,6 +40,9 @@ class extends Component
         if ($register->training->user_id !== $user->id && ! $user->isAdmin()) {
             abort(403);
         }
+
+        $register->load('training');
+        $register->user->notify(new RegisterStatusNotification($register->training, 'refused'));
 
         $register->update(['status' => RegisterStatus::REFUSED]);
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
@@ -49,6 +57,9 @@ class extends Component
             abort(403);
         }
 
+        $register->load('camp');
+        $register->user->notify(new RegisterStatusNotification($register->camp, 'accepted'));
+
         $register->update(['status' => RegisterStatus::ACCEPTED]);
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
     }
@@ -61,6 +72,9 @@ class extends Component
         if ($register->camp->user_id !== $user->id && ! $user->isAdmin()) {
             abort(403);
         }
+
+        $register->load('camp');
+        $register->user->notify(new RegisterStatusNotification($register->camp, 'refused'));
 
         $register->update(['status' => RegisterStatus::REFUSED]);
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
@@ -86,6 +100,10 @@ class extends Component
 
         Training::findOrFail($trainingId)->update(['status' => TrainingStatus::PUBLISHED]);
         $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'success');
+
+        $training = Training::with('user')->findOrFail($trainingId);
+        $training->update(['status' => TrainingStatus::PUBLISHED]);
+        $training->user->notify(new ModelStatusNotification($training, 'la formation', published: true));
     }
 
     public function refuseTraining(int $trainingId): void
@@ -96,6 +114,10 @@ class extends Component
 
         Training::findOrFail($trainingId)->update(['status' => TrainingStatus::REFUSED]);
         $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'error');
+
+        $training = Training::with('user')->findOrFail($trainingId);
+        $training->update(['status' => TrainingStatus::REFUSED]);
+        $training->user->notify(new ModelStatusNotification($training, 'la formation', published: false));
     }
 
     public function publishCamp(int $campId): void
@@ -106,6 +128,10 @@ class extends Component
 
         Camp::findOrFail($campId)->update(['status' => CampStatus::PUBLISHED]);
         $this->dispatch('toast', message: __('toast/camps.updated', ['type' => 'camp']), type: 'success');
+
+        $camp = Camp::with('user')->findOrFail($campId);
+        $camp->update(['status' => CampStatus::PUBLISHED]);
+        $camp->user->notify(new ModelStatusNotification($camp, 'le camp', published: true));
     }
 
     public function refuseCamp(int $campId): void
@@ -116,6 +142,10 @@ class extends Component
 
         Camp::findOrFail($campId)->update(['status' => CampStatus::REFUSED]);
         $this->dispatch('toast', message: __('toast/camps.updated', ['type' => 'camp']), type: 'error');
+
+        $camp = Camp::with('user')->findOrFail($campId);
+        $camp->update(['status' => CampStatus::REFUSED]);
+        $camp->user->notify(new ModelStatusNotification($camp, 'le camp', published: false));
     }
 
     public function render()

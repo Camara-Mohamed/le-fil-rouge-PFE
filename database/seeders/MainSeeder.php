@@ -24,7 +24,10 @@ use App\Models\VolunteerRequest;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Encoders\WebpEncoder;
+use Intervention\Image\Laravel\Facades\Image;
 
 class MainSeeder extends Seeder
 {
@@ -34,21 +37,33 @@ class MainSeeder extends Seeder
     private function storeImage(string $publicRelativePath, string $storagePath): string
     {
         $fullPath = public_path($publicRelativePath);
-        if (file_exists($fullPath)) {
-            Storage::put($storagePath, file_get_contents($fullPath), 'public');
+        if (! file_exists($fullPath)) {
+            Log::warning("[Seeder] Image source introuvable : {$fullPath}");
+            return $storagePath;
         }
+        Storage::put($storagePath, file_get_contents($fullPath), 'public');
         return $storagePath;
     }
 
-    // Bannière + variants (640, 1024, 1440)
+    // Bannière + variants redimensionnés (640, 1024, 1440)
     private function storeBanner(string $publicRelativePath, string $storagePath): string
     {
-        $this->storeImage($publicRelativePath, $storagePath);
-        $filename = basename($storagePath);
-        $variantsBase = dirname($storagePath) . '/variants';
-        foreach (config('banners.sizes.banner') as $size) {
-            $this->storeImage($publicRelativePath, "{$variantsBase}/{$size}/{$filename}");
+        $fullPath = public_path($publicRelativePath);
+        if (! file_exists($fullPath)) {
+            Log::warning("[Seeder] Bannière source introuvable : {$fullPath}");
+            return $storagePath;
         }
+
+        Storage::put($storagePath, file_get_contents($fullPath), 'public');
+
+        $filename     = basename($storagePath);
+        $variantsBase = dirname($storagePath).'/variants';
+
+        foreach (config('banners.sizes.banner') as $width) {
+            $resized = Image::decode($fullPath)->scaleDown(width: $width)->encode(new WebpEncoder(quality: config('banners.quality', 85)));
+            Storage::put("{$variantsBase}/{$width}/{$filename}", (string) $resized, 'public');
+        }
+
         return $storagePath;
     }
 
@@ -73,7 +88,7 @@ class MainSeeder extends Seeder
             'password' => Hash::make('change_this'),
             'birth_date' => '1997-03-15', 'phone' => '0472/51.38.37',
             'address' => 'Rue du Vallon', 'number' => '12',
-            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
+            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => 4000,
             'diet' => Diets::NORMAL,
             'avatar_path' => $this->storeAvatar('images/trainings/fun.webp', 'avatar_admin.jpg'),
         ]);
@@ -144,9 +159,9 @@ class MainSeeder extends Seeder
             'type' => CampTypes::STAGE, 'status' => CampStatus::PUBLISHED,
             'participants' => 20,
             'address' => 'Rue de la Lienne', 'number' => '5',
-            'city' => 'Stoumont', 'province' => Provinces::LIEGE, 'postal_code' => '4987',
+            'city' => 'Stoumont', 'province' => Provinces::LIEGE, 'postal_code' => 4987,
             'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value],
-            'user_id' => $admin->id,
+            'user_id' => $paul->id,
             'banner' => $this->storeBanner('images/camps/holiday.webp', 'camps/banners/holiday.webp'),
         ]);
 
@@ -159,9 +174,9 @@ class MainSeeder extends Seeder
             'type' => CampTypes::SEJOUR, 'status' => CampStatus::PUBLISHED,
             'participants' => 15,
             'address' => 'Rue du Moulin', 'number' => '3',
-            'city' => 'La Roche-en-Ardenne', 'province' => Provinces::LUXEMBOURG, 'postal_code' => '6980',
+            'city' => 'La Roche-en-Ardenne', 'province' => Provinces::LUXEMBOURG, 'postal_code' => 6980,
             'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
-            'user_id' => $stephanie->id,
+            'user_id' => $paul->id,
             'banner' => $this->storeBanner('images/camps/holiday_1.webp', 'camps/banners/holiday_1.webp'),
         ]);
 
@@ -174,9 +189,9 @@ class MainSeeder extends Seeder
             'type' => CampTypes::STAGE, 'status' => CampStatus::PUBLISHED,
             'participants' => 12,
             'address' => 'Avenue des Tilleuls', 'number' => '18',
-            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
+            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => 4000,
             'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value],
-            'user_id' => $admin->id,
+            'user_id' => $paul->id,
             'banner' => $this->storeBanner('images/camps/holiday_2.webp', 'camps/banners/holiday_2.webp'),
         ]);
 
@@ -185,10 +200,10 @@ class MainSeeder extends Seeder
             'description' => 'Cinq jours d\'engagement concret dans des quartiers liégeois en partenariat avec des associations locales. Pas un stage classique : ici on se retrousse les manches pour contribuer à des projets réels qui ont un impact direct sur la vie des gens du quartier. Peinture de locaux associatifs, organisation d\'activités pour des enfants, mise en place d\'un potager collectif… chaque édition est différente.',
             'details' => 'Les participants travaillent en petits groupes autonomes avec un référent de terrain. Logement chez l\'habitant ou en hébergement collectif selon les disponibilités. Bilan collectif chaque soir. Ce camp n\'est pas noté ni certifiant, il est là pour ancrer la pratique dans le réel.',
             'constraints' => null,
-            'start_date' => now()->subDays(20)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->subDays(16)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(20)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(24)->setTime(17,0)->toDateTimeString(),
             'type' => CampTypes::SEJOUR, 'status' => CampStatus::PENDING,
             'participants' => 25,
-            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
+            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => 4000,
             'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $paul->id,
             'banner' => $this->storeBanner('images/camps/holiday_3.webp', 'camps/banners/holiday_3.webp'),
@@ -202,10 +217,40 @@ class MainSeeder extends Seeder
             'start_date' => now()->subDays(45)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->subDays(41)->setTime(17,0)->toDateTimeString(),
             'type' => CampTypes::STAGE, 'status' => CampStatus::REFUSED,
             'participants' => 10,
-            'city' => 'Namur', 'province' => Provinces::NAMUR, 'postal_code' => '5000',
+            'city' => 'Namur', 'province' => Provinces::NAMUR, 'postal_code' => 5000,
             'roles' => [UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $paul->id,
             'banner' => $this->storeBanner('images/camps/holiday_4.webp', 'camps/banners/holiday_4.webp'),
+        ]);
+
+        $camp6 = Camp::create([
+            'title' => 'Stage Animation Hivernal',
+            'description' => 'Deux jours pour apprendre à concevoir et animer des activités d\'intérieur lors des stages en période froide. Parce que la météo ne dicte pas la qualité de l\'animation, ce stage te donne les outils pour maintenir l\'engagement des jeunes même quand on reste en salle. On alterne ateliers créatifs, jeux géants, veillées et temps de bilan.',
+            'details' => 'Conception d\'activités adaptées aux espaces intérieurs, gestion de l\'énergie du groupe sur de longues journées confinées, veillées à thème et techniques d\'animation sans matériel. Hébergement en dortoir, repas collectifs préparés en équipe. Chaque participant prend en charge une demi-journée d\'animation observée et débriefée.',
+            'constraints' => 'Ouvert aux animateurs ayant déjà encadré au moins un stage résidentiel.',
+            'start_date' => now()->addDays(50)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(51)->setTime(17,0)->toDateTimeString(),
+            'type' => CampTypes::STAGE, 'status' => CampStatus::PUBLISHED,
+            'participants' => 16,
+            'address' => 'Rue des Étangs', 'number' => '4',
+            'city' => 'Spa', 'province' => Provinces::LIEGE, 'postal_code' => 4900,
+            'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value],
+            'user_id' => $admin->id,
+            'banner' => $this->storeBanner('images/camps/holiday_5.webp', 'camps/banners/holiday_5.webp'),
+        ]);
+
+        $camp7 = Camp::create([
+            'title' => 'Week-end Immersion Pédagogique',
+            'description' => 'Un week-end dense pour observer, expérimenter et partager. Ce séjour est conçu pour les membres actifs qui veulent approfondir leur pratique en conditions réelles. On mixe les profils — animateurs, coordinateurs, formateurs — pour créer une dynamique d\'apprentissage entre pairs. Deux jours hors du local pour se retrouver autrement.',
+            'details' => 'Observation mutuelle d\'animations, feedback structuré en binômes, ateliers co-construction d\'outils pédagogiques, soirée de restitution collective. Pas de hiérarchie pendant ce week-end : on apprend ensemble. Hébergement en gîte. Participation aux frais demandée selon les dispo.',
+            'constraints' => null,
+            'start_date' => now()->addDays(90)->setTime(16,0)->toDateTimeString(), 'end_date' => now()->addDays(92)->setTime(14,0)->toDateTimeString(),
+            'type' => CampTypes::SEJOUR, 'status' => CampStatus::PUBLISHED,
+            'participants' => 12,
+            'address' => 'Chaussée de Liège', 'number' => '55',
+            'city' => 'Huy', 'province' => Provinces::LIEGE, 'postal_code' => 4500,
+            'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::COORDINATEUR->value, UserRoles::FORMATEUR->value],
+            'user_id' => $stephanie->id,
+            'banner' => $this->storeBanner('images/camps/holiday_1.webp', 'camps/banners/holiday_1_c7.webp'),
         ]);
 
         // ── Galeries camps ─────────────────────────────────────────────────
@@ -227,6 +272,18 @@ class MainSeeder extends Seeder
                 'path' => $this->storeImage("images/camps/{$img}.webp", "camps/galeries/{$img}_c3.webp"),
             ]);
         }
+        foreach (['holiday_2', 'holiday_3'] as $img) {
+            Galerie::create([
+                'camp_id' => $camp6->id,
+                'path' => $this->storeImage("images/camps/{$img}.webp", "camps/galeries/{$img}_c6.webp"),
+            ]);
+        }
+        foreach (['holiday', 'holiday_4'] as $img) {
+            Galerie::create([
+                'camp_id' => $camp7->id,
+                'path' => $this->storeImage("images/camps/{$img}.webp", "camps/galeries/{$img}_c7.webp"),
+            ]);
+        }
 
         // ── Camp registers (uniquement pour les camps PUBLISHED, sans arrivant) ──
         CampRegister::create(['camp_id' => $camp1->id, 'user_id' => $tiffany->id, 'status' => RegisterStatus::ACCEPTED, 'notes' => 'Déjà animé en maison de jeunes, veut valider ses acquis avec un stage officiel.']);
@@ -234,8 +291,16 @@ class MainSeeder extends Seeder
         CampRegister::create(['camp_id' => $camp1->id, 'user_id' => $lea->id,     'status' => RegisterStatus::ACCEPTED, 'notes' => 'Veut consolider les bases avant de tenter le brevet en automne.']);
         CampRegister::create(['camp_id' => $camp2->id, 'user_id' => $tiffany->id, 'status' => RegisterStatus::ACCEPTED]);
         CampRegister::create(['camp_id' => $camp2->id, 'user_id' => $paul->id,    'status' => RegisterStatus::PENDING,  'notes' => 'Se confirme la semaine prochaine selon ses dispo.']);
-        CampRegister::create(['camp_id' => $camp3->id, 'user_id' => $lea->id,     'status' => RegisterStatus::ACCEPTED]);
+        CampRegister::create(['camp_id' => $camp3->id, 'user_id' => $lea->id,     'status' => RegisterStatus::PENDING, 'notes' => 'En attente de validation — niveau 1re année.']);
         CampRegister::create(['camp_id' => $camp3->id, 'user_id' => $luc->id,     'status' => RegisterStatus::PENDING,  'notes' => 'Attend confirmation de son employeur pour les congés.']);
+        CampRegister::create(['camp_id' => $camp2->id, 'user_id' => $luc->id,     'status' => RegisterStatus::ACCEPTED]);
+        CampRegister::create(['camp_id' => $camp2->id, 'user_id' => $lea->id,     'status' => RegisterStatus::ACCEPTED, 'notes' => 'Inscription confirmée après la réunion de coordination.']);
+        CampRegister::create(['camp_id' => $camp6->id, 'user_id' => $lea->id,     'status' => RegisterStatus::ACCEPTED, 'notes' => 'Veut expérimenter l\'animation en condition hivernale.']);
+        CampRegister::create(['camp_id' => $camp6->id, 'user_id' => $luc->id,     'status' => RegisterStatus::PENDING,  'notes' => 'Attend confirmation de ses dispo sur ce week-end.']);
+        CampRegister::create(['camp_id' => $camp6->id, 'user_id' => $tiffany->id, 'status' => RegisterStatus::ACCEPTED]);
+        CampRegister::create(['camp_id' => $camp7->id, 'user_id' => $lea->id,     'status' => RegisterStatus::ACCEPTED]);
+        CampRegister::create(['camp_id' => $camp7->id, 'user_id' => $paul->id,    'status' => RegisterStatus::ACCEPTED, 'notes' => 'Intéressé par le feedback croisé avec les formateurs.']);
+        CampRegister::create(['camp_id' => $camp7->id, 'user_id' => $hugo->id,    'status' => RegisterStatus::PENDING]);
 
         // ── Trainings ──────────────────────────────────────────────────────
         $training1 = Training::create([
@@ -247,9 +312,9 @@ class MainSeeder extends Seeder
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => 2000, 'participants' => 16,
             'address' => 'Rue Douffet', 'number' => '36',
-            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4020',
+            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => 4020,
             'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
-            'user_id' => $stephanie->id,
+            'user_id' => $hugo->id,
             'banner' => $this->storeBanner('images/trainings/fun.webp', 'trainings/banners/fun.webp'),
         ]);
 
@@ -262,7 +327,7 @@ class MainSeeder extends Seeder
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => null, 'participants' => 20,
             'address' => 'Rue Douffet', 'number' => '36',
-            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4020',
+            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => 4020,
             'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $hugo->id,
             'banner' => $this->storeBanner('images/trainings/fun_1.webp', 'trainings/banners/fun_1.webp'),
@@ -276,9 +341,9 @@ class MainSeeder extends Seeder
             'start_date' => now()->addDays(45)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(46)->setTime(17,0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => 4000, 'participants' => 14,
-            'city' => 'Namur', 'province' => Provinces::NAMUR, 'postal_code' => '5000',
+            'city' => 'Namur', 'province' => Provinces::NAMUR, 'postal_code' => 5000,
             'roles' => [UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
-            'user_id' => $admin->id,
+            'user_id' => $hugo->id,
             'banner' => $this->storeBanner('images/trainings/fun_2.webp', 'trainings/banners/fun_2.webp'),
         ]);
 
@@ -291,9 +356,9 @@ class MainSeeder extends Seeder
             'type' => TrainingTypes::RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => 4000, 'participants' => 10,
             'address' => 'Chemin des Fagnes', 'number' => '2',
-            'city' => 'Malmedy', 'province' => Provinces::LIEGE, 'postal_code' => '4960',
+            'city' => 'Malmedy', 'province' => Provinces::LIEGE, 'postal_code' => 4960,
             'roles' => [UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
-            'user_id' => $stephanie->id,
+            'user_id' => $hugo->id,
             'banner' => $this->storeBanner('images/trainings/fun_3.webp', 'trainings/banners/fun_3.webp'),
         ]);
 
@@ -302,13 +367,43 @@ class MainSeeder extends Seeder
             'description' => 'Comment accueillir un jeune en situation de handicap dans ton groupe d\'animation sans le stigmatiser ni le mettre à l\'écart ? Cette journée te donne les clés pratiques pour adapter tes activités, communiquer avec les familles et créer un environnement réellement inclusif. Parce que chaque jeune a le droit de trouver sa place.',
             'details' => 'Tour d\'horizon des différents types de handicap (moteur, cognitif, sensoriel, psychique), adaptations concrètes d\'activités existantes, communication avec les aidants et les familles, cadre légal de l\'inclusion en Belgique, ressources locales disponibles. Intervention d\'un professionnel du secteur du handicap.',
             'constraints' => null,
-            'start_date' => now()->subDays(30)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->subDays(30)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(14)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(14)->setTime(17,0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PENDING,
             'price' => null, 'participants' => 18,
-            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
+            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => 4000,
             'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value],
             'user_id' => $hugo->id,
             'banner' => $this->storeBanner('images/trainings/fun_4.webp', 'trainings/banners/fun_4.webp'),
+        ]);
+
+        $training6 = Training::create([
+            'title' => 'Journée Prévention Incendie et Sécurité',
+            'description' => 'Une journée pratique pour connaître les bons réflexes en cas d\'incendie ou d\'accident lors de tes stages. Évacuations, extincteurs, chaîne d\'alerte, rôle de l\'animateur dans une urgence : on couvre tout en petits groupes avec un intervenant de la sécurité civile. Une formation que tout encadrant devrait avoir avant sa première prise en charge.',
+            'details' => 'Exercice d\'évacuation chronométré, maniement d\'extincteur, simulation de scénarios critiques (panique, enfant blessé, départ de feu), protocole d\'appel des secours, responsabilités légales de l\'encadrant. Attestation de participation remise en fin de journée. Tenue adaptée à des exercices en extérieur obligatoire.',
+            'constraints' => 'Aucun prérequis. Recommandé avant toute première prise en charge de groupe résidentiel.',
+            'start_date' => now()->addDays(28)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(28)->setTime(17,0)->toDateTimeString(),
+            'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
+            'price' => null, 'participants' => 20,
+            'address' => 'Rue de la Bonne Fortune', 'number' => '1',
+            'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => 4000,
+            'roles' => [UserRoles::ANIMATEUR_1->value, UserRoles::ANIMATEUR_2->value, UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value, UserRoles::FORMATEUR->value],
+            'user_id' => $admin->id,
+            'banner' => $this->storeBanner('images/trainings/fun_5.webp', 'trainings/banners/fun_5.webp'),
+        ]);
+
+        $training7 = Training::create([
+            'title' => 'Formation Coordination d\'Équipe Avancée',
+            'description' => 'Deux jours résidentiels pour les membres expérimentés qui portent ou vont porter une équipe. On travaille en profondeur la posture du coordinateur : déléguer sans lâcher, tenir le cadre sous pression, prendre des décisions difficiles et garder l\'équipe engagée sur la durée. Formation dense et exigeante, dans une ambiance bienveillante.',
+            'details' => 'Diagnostic systémique d\'une équipe, gestion des tensions internes, animation de réunions difficiles, culture du feedback continu, prévention du burn-out en équipe bénévole. Mises en situation filmées et débriefées. Travail en sous-groupes mixtes. Logement et repas inclus. Un formateur senior accompagne chaque groupe de 4.',
+            'constraints' => 'Réservé aux membres ayant au minimum une saison de coordination ou de formation.',
+            'start_date' => now()->addDays(65)->setTime(14,0)->toDateTimeString(), 'end_date' => now()->addDays(66)->setTime(17,0)->toDateTimeString(),
+            'type' => TrainingTypes::RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
+            'price' => 5000, 'participants' => 8,
+            'address' => 'Rue du Château', 'number' => '12',
+            'city' => 'Spa', 'province' => Provinces::LIEGE, 'postal_code' => 4900,
+            'roles' => [UserRoles::BREVETE->value, UserRoles::COORDINATEUR->value, UserRoles::FORMATEUR->value],
+            'user_id' => $stephanie->id,
+            'banner' => $this->storeBanner('images/trainings/fun_1.webp', 'trainings/banners/fun_1_admin.webp'),
         ]);
 
         // ── Galeries trainings ─────────────────────────────────────────────
@@ -330,6 +425,18 @@ class MainSeeder extends Seeder
                 'path' => $this->storeImage("images/trainings/{$img}.webp", "trainings/galeries/{$img}_t3.webp"),
             ]);
         }
+        foreach (['fun_3', 'fun_4'] as $img) {
+            Galerie::create([
+                'training_id' => $training6->id,
+                'path' => $this->storeImage("images/trainings/{$img}.webp", "trainings/galeries/{$img}_t6.webp"),
+            ]);
+        }
+        foreach (['fun_2', 'fun_5'] as $img) {
+            Galerie::create([
+                'training_id' => $training7->id,
+                'path' => $this->storeImage("images/trainings/{$img}.webp", "trainings/galeries/{$img}_t7.webp"),
+            ]);
+        }
 
         // ── Training registers (uniquement pour les formations PUBLISHED, sans arrivant) ──
         TrainingRegister::create(['training_id' => $training1->id, 'user_id' => $tiffany->id, 'status' => RegisterStatus::ACCEPTED, 'notes' => 'Renouvellement PSC1, attestation précédente expirée.']);
@@ -340,6 +447,20 @@ class MainSeeder extends Seeder
         TrainingRegister::create(['training_id' => $training2->id, 'user_id' => $luc->id,     'status' => RegisterStatus::PENDING,  'notes' => 'Intéressé, veut tester des nouvelles méthodes avec ses groupes.']);
         TrainingRegister::create(['training_id' => $training3->id, 'user_id' => $tiffany->id, 'status' => RegisterStatus::ACCEPTED]);
         TrainingRegister::create(['training_id' => $training3->id, 'user_id' => $paul->id,    'status' => RegisterStatus::PENDING,  'notes' => 'Situation difficile vécue cet été, veut mieux outiller.']);
+        TrainingRegister::create(['training_id' => $training2->id, 'user_id' => $tiffany->id, 'status' => RegisterStatus::ACCEPTED, 'notes' => 'Cherche des outils pédago frais pour ses prochains stages brevet.']);
+        TrainingRegister::create(['training_id' => $training2->id, 'user_id' => $paul->id,    'status' => RegisterStatus::ACCEPTED]);
+        TrainingRegister::create(['training_id' => $training3->id, 'user_id' => $luc->id,     'status' => RegisterStatus::ACCEPTED, 'notes' => 'Vécu une situation tendue cet été avec un groupe, veut mieux outiller.']);
+        TrainingRegister::create(['training_id' => $training4->id, 'user_id' => $tiffany->id, 'status' => RegisterStatus::ACCEPTED, 'notes' => 'Prépare une transition vers un rôle de coordination.']);
+        TrainingRegister::create(['training_id' => $training4->id, 'user_id' => $luc->id,     'status' => RegisterStatus::ACCEPTED]);
+        TrainingRegister::create(['training_id' => $training4->id, 'user_id' => $paul->id,    'status' => RegisterStatus::PENDING,  'notes' => 'Doit confirmer selon son planning de stage en parallèle.']);
+        TrainingRegister::create(['training_id' => $training6->id, 'user_id' => $lea->id,     'status' => RegisterStatus::ACCEPTED]);
+        TrainingRegister::create(['training_id' => $training6->id, 'user_id' => $luc->id,     'status' => RegisterStatus::ACCEPTED, 'notes' => 'Jamais eu de formation sécurité officielle, c\'est important.']);
+        TrainingRegister::create(['training_id' => $training6->id, 'user_id' => $tiffany->id, 'status' => RegisterStatus::ACCEPTED]);
+        TrainingRegister::create(['training_id' => $training6->id, 'user_id' => $paul->id,    'status' => RegisterStatus::ACCEPTED]);
+        TrainingRegister::create(['training_id' => $training6->id, 'user_id' => $hugo->id,    'status' => RegisterStatus::PENDING,  'notes' => 'Déjà formé mais veut actualiser ses connaissances.']);
+        TrainingRegister::create(['training_id' => $training7->id, 'user_id' => $tiffany->id, 'status' => RegisterStatus::ACCEPTED, 'notes' => 'En transition vers la coordination de brevet.']);
+        TrainingRegister::create(['training_id' => $training7->id, 'user_id' => $paul->id,    'status' => RegisterStatus::ACCEPTED]);
+        TrainingRegister::create(['training_id' => $training7->id, 'user_id' => $hugo->id,    'status' => RegisterStatus::ACCEPTED, 'notes' => 'Veut structurer sa pratique de formateur senior.']);
 
         // ── Announcements ──────────────────────────────────────────────────
         $ann1 = Announcement::create([
@@ -375,7 +496,7 @@ class MainSeeder extends Seeder
             'content' => '8 sur 10, c\'est le résultat du stage brevet de décembre 2024. Un grand bravo à Anaïs, Romain, Charlotte, Théo, Jade, Bastien, Inès et Mathieu ! Vos brevets vous seront remis à la prochaine réunion.',
             'published_at' => now()->subMonths(3),
             'user_id' => $admin->id,
-            'banner' => $this->storeBanner('images/home/formations.webp', 'announcements/banners/formations.webp'),
+            'banner' => $this->storeBanner('images/home/hero.webp', 'announcements/banners/formations.webp'),
         ]);
 
         Announcement::create([
@@ -396,6 +517,24 @@ class MainSeeder extends Seeder
             'banner' => $this->storeBanner('images/home/hero.webp', 'announcements/banners/hero.webp'),
         ]);
 
+        $ann7 = Announcement::create([
+            'title' => 'Bienvenue à nos nouveaux bénévoles !',
+            'description' => 'Deux nouvelles têtes rejoignent l\'équipe du Fil Rouge. Un grand bienvenue à Camille et Inès qui intègrent l\'asso ce mois-ci.',
+            'content' => 'On est super contents d\'accueillir Camille Peeters et Inès Nguyen dans notre équipe de bénévoles ! Camille arrive avec 3 ans d\'expérience en maison de jeunes à Seraing, et Inès est diplômée en anim socioculturelle et parle même anglais et néerlandais — c\'est un vrai plus pour certains groupes. On leur souhaite la bienvenue et on a hâte de bosser avec elles.',
+            'published_at' => now()->subDays(6),
+            'user_id' => $admin->id,
+            'banner' => $this->storeBanner('images/home/about.webp', 'announcements/banners/bienvenus.webp'),
+        ]);
+
+        $ann8 = Announcement::create([
+            'title' => 'AG annuelle – Samedi 18 octobre à 14h',
+            'description' => 'L\'Assemblée Générale de l\'asso se tient le 18 octobre. Présence fortement recommandée pour tous les membres actifs.',
+            'content' => 'L\'AG annuelle du Fil Rouge aura lieu le samedi 18 octobre à 14h au local. Au programme : bilan de la saison 2024-2025, présentation du plan d\'action 2025-2026, renouvellement partiel du bureau et questions diverses. Les membres actifs sont fortement invités à être présents. Un pot de clôture est prévu à l\'issue. Confirme ta présence par mail ou via la plateforme.',
+            'published_at' => now()->subDays(2),
+            'user_id' => $stephanie->id,
+            'banner' => $this->storeBanner('images/home/formations.webp', 'announcements/banners/ag.webp'),
+        ]);
+
         // ── Galeries announcements ─────────────────────────────────────────
         foreach (['holiday', 'holiday_1', 'holiday_2'] as $img) {
             Galerie::create([
@@ -407,6 +546,12 @@ class MainSeeder extends Seeder
             Galerie::create([
                 'announcement_id' => $ann6->id,
                 'path' => $this->storeImage("images/trainings/{$img}.webp", "announcements/galeries/{$img}_a6.webp"),
+            ]);
+        }
+        foreach (['holiday_3', 'holiday_4'] as $img) {
+            Galerie::create([
+                'announcement_id' => $ann7->id,
+                'path' => $this->storeImage("images/camps/{$img}.webp", "announcements/galeries/{$img}_a7.webp"),
             ]);
         }
 
@@ -432,7 +577,7 @@ class MainSeeder extends Seeder
         ]);
         $training2->comments()->createMany([
             ['content' => 'Hâte de tester les outils pédago avec mon groupe !',   'user_id' => $lea->id,  'is_admin' => false],
-            ['content' => 'On te réserve des surprises, à très vite 😄',           'user_id' => $hugo->id, 'is_admin' => true],
+            ['content' => 'On te réserve des surprises, à très vite 😄',           'user_id' => $hugo->id, 'is_admin' => false],
         ]);
         $training3->comments()->createMany([
             ['content' => 'Vraiment nécessaire cette formation, on en a besoin sur le terrain.',    'user_id' => $paul->id,  'is_admin' => false],
@@ -441,6 +586,61 @@ class MainSeeder extends Seeder
         $ann6->comments()->createMany([
             ['content' => 'Enfin ! J\'attendais ça depuis un moment.',             'user_id' => $luc->id,   'is_admin' => false],
             ['content' => 'On savait que ça allait vous plaire 😄 Inscris-toi !', 'user_id' => $admin->id, 'is_admin' => true],
+        ]);
+        $camp2->comments()->createMany([
+            ['content' => 'Est-ce qu\'on doit apporter du matériel de rando spécifique ?',   'user_id' => $tiffany->id,   'is_admin' => false],
+            ['content' => 'Juste les basiques : bonnes chaussures et cape de pluie 👍',       'user_id' => $stephanie->id, 'is_admin' => true],
+            ['content' => 'Hâte d\'y être, les Ardennes ça ressource toujours.',              'user_id' => $luc->id,       'is_admin' => false],
+        ]);
+        $camp3->comments()->createMany([
+            ['content' => 'Je bosse mon dossier de stage en ce moment, vivement l\'éval pratique !', 'user_id' => $luc->id,   'is_admin' => false],
+            ['content' => 'Courage à tous, on est là pour vous accompagner jusqu\'au bout 💪',        'user_id' => $admin->id, 'is_admin' => true],
+        ]);
+        $camp4->comments()->createMany([
+            ['content' => 'Les contacts avec les asso partenaires sont confirmés pour cette édition ?', 'user_id' => $paul->id,  'is_admin' => false],
+            ['content' => 'Oui tout est en place, on vous brief complet à l\'arrivée.',                  'user_id' => $admin->id, 'is_admin' => true],
+        ]);
+        $training2->comments()->createMany([
+            ['content' => 'Le carnet d\'activités qu\'on a construit ensemble, je l\'utilise encore aujourd\'hui !', 'user_id' => $tiffany->id, 'is_admin' => false],
+            ['content' => 'C\'est exactement l\'objectif, super retour Tiff 🙌',                                      'user_id' => $hugo->id,    'is_admin' => false],
+        ]);
+        $training3->comments()->createMany([
+            ['content' => 'Les jeux de rôle sur les situations de conflit, c\'était costaud mais très utile.', 'user_id' => $luc->id, 'is_admin' => false],
+        ]);
+        $training4->comments()->createMany([
+            ['content' => 'Week-end en Fagnes + formation leadership, combo parfait 🏔️',               'user_id' => $tiffany->id, 'is_admin' => false],
+            ['content' => 'Prépare ton dossier perso d\'avance, ça aide vraiment sur place.',           'user_id' => $hugo->id,    'is_admin' => false],
+            ['content' => 'Places encore dispo ! N\'attendez pas la dernière minute 😊',                'user_id' => $admin->id,   'is_admin' => true],
+        ]);
+        $training5->comments()->createMany([
+            ['content' => 'C\'est une formation qu\'on attendait depuis longtemps, merci de l\'avoir montée.', 'user_id' => $lea->id,   'is_admin' => false],
+            ['content' => 'On a eu des demandes à ce sujet depuis un bon moment, contente que ce soit enfin là !', 'user_id' => $admin->id, 'is_admin' => true],
+        ]);
+        $camp6->comments()->createMany([
+            ['content' => 'L\'animation indoor c\'est souvent sous-estimé, contente que ça existe !',          'user_id' => $tiffany->id, 'is_admin' => false],
+            ['content' => 'Exactement ! On va vous montrer que la salle peut être aussi intense que le terrain.', 'user_id' => $admin->id,   'is_admin' => true],
+            ['content' => 'Des places encore dispo ? Je n\'ai pas encore vu passer le lien d\'inscription.',    'user_id' => $lea->id,     'is_admin' => false],
+        ]);
+        $camp7->comments()->createMany([
+            ['content' => 'Observer des collègues en situation, c\'est tellement formateur. Hâte !',  'user_id' => $paul->id,      'is_admin' => false],
+            ['content' => 'On a encore quelques places, inscrivez-vous vite !',                        'user_id' => $stephanie->id, 'is_admin' => true],
+        ]);
+        $training6->comments()->createMany([
+            ['content' => 'On devrait tous avoir ça, surtout avant un premier stage résidentiel.',            'user_id' => $lea->id,   'is_admin' => false],
+            ['content' => '100% d\'accord, c\'est pour ça qu\'on l\'a rendue accessible à tous les niveaux.', 'user_id' => $admin->id, 'is_admin' => true],
+            ['content' => 'J\'ai déjà eu une formation similaire mais je vais rafraîchir mes acquis.',        'user_id' => $hugo->id,  'is_admin' => false],
+        ]);
+        $training7->comments()->createMany([
+            ['content' => 'La gestion des désaccords dans une équipe, c\'est là que ça bugge souvent.',   'user_id' => $paul->id,      'is_admin' => false],
+            ['content' => 'C\'est exactement l\'un des fils conducteurs de cette formation !',              'user_id' => $stephanie->id, 'is_admin' => true],
+        ]);
+        $ann7->comments()->createMany([
+            ['content' => 'Bienvenue à Camille et Inès ! Hâte de bosser avec vous 🎉',  'user_id' => $paul->id,    'is_admin' => false],
+            ['content' => 'Bienvenue les filles 🙌 On va bien s\'amuser !',              'user_id' => $tiffany->id, 'is_admin' => false],
+        ]);
+        $ann8->comments()->createMany([
+            ['content' => 'Je serai là ! C\'est à quelle heure exactement ?',            'user_id' => $luc->id,       'is_admin' => false],
+            ['content' => 'À 14h, c\'est précisé dans l\'annonce 😉 À samedi !',         'user_id' => $stephanie->id, 'is_admin' => true],
         ]);
 
         // ── Contact messages ───────────────────────────────────────────────
@@ -452,10 +652,10 @@ class MainSeeder extends Seeder
         ContactMessage::create(['full_name' => 'Jade Mercier',   'email' => 'jade.mercier@gmail.com',      'sujet' => 'Info sur les formations',     'message' => 'Salut ! Je viens d\'obtenir mon brevet et je cherche ce que je peux faire comme formation maintenant pour continuer à progresser. Vous avez un parcours conseillé ?', 'read_at' => now()->subHours(3)]);
 
         // ── Volunteer requests ─────────────────────────────────────────────
-        VolunteerRequest::create(['first_name' => 'Camille', 'last_name' => 'Peeters', 'email' => 'camille.peeters@gmail.com',         'phone' => '0487/22.33.44', 'message' => 'Animatrice depuis 3 ans dans une maison de jeunes à Seraing, je veux rejoindre Le Fil Rouge pour continuer à me former et rencontrer d\'autres anim. Dispo les week-ends et pendant les congés scolaires.', 'status' => VolunteerRequestStatus::ACCEPTED]);
+        VolunteerRequest::create(['first_name' => 'Camille', 'last_name' => 'Peeters', 'email' => 'camille.peeters@gmail.com',         'phone' => '0487/22.33.44', 'message' => 'Animatrice depuis 3 ans dans une maison de jeunes à Seraing, je veux rejoindre Le Fil Rouge pour continuer à me former et rencontrer d\'autres anim. Dispo les week-ends et pendant les congés scolaires.', 'status' => VolunteerRequestStatus::ACCEPTED, 'read_at' => now()->subDays(3)]);
         VolunteerRequest::create(['first_name' => 'Nathan',  'last_name' => 'Dubois',  'email' => 'nathan.dubois@student.uliege.be',  'phone' => '0476/55.66.77', 'message' => 'Étudiant en sciences de l\'éduc à l\'ULiège, je cherche une asso sérieuse pour compléter ma formation pratique. J\'ai mon brevet depuis 2023 et j\'ai déjà encadré quelques stages.', 'status' => VolunteerRequestStatus::PENDING]);
         VolunteerRequest::create(['first_name' => 'Sofia',   'last_name' => 'Martins', 'email' => 'sofia.martins@gmail.com',           'phone' => '0465/11.22.33', 'message' => 'Pas encore de brevet mais plein de motivation ! J\'ai déjà bossé dans plusieurs projets jeunesse et je veux vraiment me former correctement. Je suis partante pour commencer par le stage 1er niveau.', 'status' => VolunteerRequestStatus::PENDING]);
-        VolunteerRequest::create(['first_name' => 'Julien',  'last_name' => 'Lambert', 'email' => 'julien.lambert@hotmail.com',        'phone' => '0499/88.77.66', 'message' => 'J\'ai fait plusieurs stages avec Le Fil Rouge et j\'aimerais maintenant aider en tant que bénévole formateur. 8 ans d\'expérience en anim, je pense pouvoir apporter quelque chose.', 'status' => VolunteerRequestStatus::REJECTED]);
-        VolunteerRequest::create(['first_name' => 'Inès',    'last_name' => 'Nguyen',  'email' => 'ines.nguyen@gmail.com',             'phone' => '0478/44.55.66', 'message' => 'Diplômée en anim socioculturelle, dispo tout de suite. Je parle aussi néerlandais et anglais ce qui peut être utile pour certains groupes. J\'attends votre retour avec impatience !', 'status' => VolunteerRequestStatus::ACCEPTED]);
+        VolunteerRequest::create(['first_name' => 'Julien',  'last_name' => 'Lambert', 'email' => 'julien.lambert@hotmail.com',        'phone' => '0499/88.77.66', 'message' => 'J\'ai fait plusieurs stages avec Le Fil Rouge et j\'aimerais maintenant aider en tant que bénévole formateur. 8 ans d\'expérience en anim, je pense pouvoir apporter quelque chose.', 'status' => VolunteerRequestStatus::REJECTED, 'read_at' => now()->subDays(5)]);
+        VolunteerRequest::create(['first_name' => 'Inès',    'last_name' => 'Nguyen',  'email' => 'ines.nguyen@gmail.com',             'phone' => '0478/44.55.66', 'message' => 'Diplômée en anim socioculturelle, dispo tout de suite. Je parle aussi néerlandais et anglais ce qui peut être utile pour certains groupes. J\'attends votre retour avec impatience !', 'status' => VolunteerRequestStatus::ACCEPTED, 'read_at' => now()->subDays(1)]);
     }
 }

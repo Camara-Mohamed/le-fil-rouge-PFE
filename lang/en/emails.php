@@ -70,6 +70,13 @@ return [
 
     'document_sent' => 'sent a new document.',
 
+    // Model status
+    'published'            => 'published',
+    'refused'              => 'refused',
+    'model_training'       => 'the training',
+    'model_camp'           => 'the camp',
+    'model_status_line'    => ':modelLabel :title has been :action.',
+
     // Layout
     'footer' => '© :year Le Fil Rouge — All rights reserved.',
 ];

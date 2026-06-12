@@ -8,10 +8,12 @@
     {{ __('navigation.account') }}
 </x-nav.drop-item>
 
+@unless(auth()->user()?->isAdmin())
 <x-nav.drop-item href="{{ route('admin.enrollments', ['locale' => app()->getLocale()]) }}"
                  title="{{ __('navigation.history_title') }}">
     {{ __('navigation.history') }}
 </x-nav.drop-item>
+@endunless
 
 <form method="POST" action="{{ route('logout', ['locale' => app()->getLocale()]) }}">
     @csrf

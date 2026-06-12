@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserStatus;
 use App\Livewire\Forms\AnnouncementForm;
 use App\Models\Announcement;
 use App\Models\User;
@@ -23,15 +24,15 @@ new #[Title('Ajouter une actualité')] class extends Component
         $announcement = $this->form->store(auth()->user());
 
         try {
-            foreach (User::all() as $user) {
+            foreach (User::where('status', UserStatus::COMPLETE)->get() as $user) {
                 $user->notify(new AnnouncementNotification($announcement));
             }
-            Notification::route('mail', config('mail.reply_to.address'))->notify(new AnnouncementNotification($announcement));
+            Notification::route('mail', config('mail.notification_for_mails'))->notify(new AnnouncementNotification($announcement));
         } catch (\Throwable) {}
 
         session()->flash('success', __('toast/announcements.created'));
 
-        $this->redirectRoute('admin.announcements.edit', [
+        $this->redirectRoute('public.announcements.show', [
             'locale' => app()->getLocale(),
             'announcement' => $announcement,
         ]);

@@ -7,6 +7,13 @@ use Livewire\Component;
 
 new #[Title('Mon historique')] class extends Component
 {
+    public function mount(): void
+    {
+        if (auth()->user()->isAdmin()) {
+            $this->redirectRoute('admin.dashboard', ['locale' => app()->getLocale()]);
+        }
+    }
+
     public function render()
     {
         $trainingRegisters = TrainingRegister::with('training')

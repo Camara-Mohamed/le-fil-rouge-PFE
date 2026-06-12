@@ -116,7 +116,7 @@ return [
     ],
 
     'reply_to' => [
-        'address' => env('REPLY_MY_MAIL', 'camara.mohmd@gmail.com'),
+        'address' => env('REPLY_MY_MAIL'),
         'name'    => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 

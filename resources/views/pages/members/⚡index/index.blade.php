@@ -29,7 +29,7 @@
 
         <select wire:model.live="role" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
             <option value="">Tous les rôles</option>
-            @foreach(UserRoles::cases() as $role)
+            @foreach(UserRoles::registrable() as $role)
                 <option value="{{ $role->value }}">{{ $role->label() }}</option>
             @endforeach
         </select>

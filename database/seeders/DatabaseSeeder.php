@@ -118,5 +118,7 @@ class DatabaseSeeder extends Seeder
         // ContactMessage::factory()->count(10)->create();
 
         // VolunteerRequest::factory()->count(6)->create();
+
+        $this->call(MainSeeder::class);
     }
 }

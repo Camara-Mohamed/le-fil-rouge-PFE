@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Enums\CampStatus;
 use App\Enums\CampTypes;
 use App\Enums\Provinces;
+use App\Enums\UserRoles;
 use App\Models\Camp;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +21,7 @@ class CampForm extends Form
     #[Validate('required|string|max:255')]
     public string $title = '';
 
-    #[Validate('required|string|max:255')]
+    #[Validate('required|string|max:1000')]
     public string $description = '';
 
     #[Validate('required|date')]
@@ -56,11 +57,11 @@ class CampForm extends Form
     #[Validate('nullable|integer')]
     public ?int $postal_code = null;
 
-    #[Validate(['roles' => 'nullable|array', 'roles.*' => 'nullable|string'])]
+    #[Validate(['roles' => 'nullable|array', 'roles.*' => ['nullable', new EnumRule(UserRoles::class)]])]
     public array $roles = [];
 
     #[Validate(['required', new EnumRule(CampStatus::class)])]
-    public string $status = 'draft';
+    public string $status = 'pending';
 
     #[Validate('nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048')]
     public $banner = null;

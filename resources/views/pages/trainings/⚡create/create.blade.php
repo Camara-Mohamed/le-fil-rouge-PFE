@@ -91,7 +91,7 @@
             <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-4">
                 <h2 class="font-sans font-bold text-xl text-dark">Rôles autorisés à s'inscrire</h2>
                 <div class="flex flex-wrap gap-3">
-                    @foreach(UserRoles::cases() as $role)
+                    @foreach(UserRoles::registrable() as $role)
                         <label class="flex items-center gap-2 px-4 py-2 bg-bg rounded-lg cursor-pointer hover:bg-bg-mid transition">
                             <input type="checkbox" wire:model.live="form.roles" value="{{ $role->value }}" class="size-4 accent-red">
                             <span class="font-serif text-sm text-dark">{{ $role->label() }}</span>

@@ -39,6 +39,9 @@ new class extends Component
     #[Validate('nullable|email')]
     public string $send_to    = '';
 
+    #[Validate('nullable|string|max:20')]
+    public string $phone      = '';
+
     public function mount(): void
     {
         $request = VolunteerRequest::findOrFail((int) $this->model_id);
@@ -46,6 +49,7 @@ new class extends Component
         $this->first_name = $request->first_name;
         $this->last_name  = $request->last_name;
         $this->send_to    = $request->email;
+        $this->phone      = $request->phone ?? '';
 
         // email : prenom.nom@lefilrouge.com
         $firstName   = str_replace(' ', '', strtolower(Str::ascii($request->first_name)));
@@ -70,6 +74,7 @@ new class extends Component
             'role'       => ['required', Rule::enum(UserRoles::class)],
             'status'     => ['required', Rule::enum(UserStatus::class)],
             'send_to'    => ['nullable', 'email'],
+            'phone'      => ['nullable', 'string', 'max:20', 'unique:users,phone'],
         ]);
 
         $user = User::create([
@@ -79,6 +84,7 @@ new class extends Component
             'password'   => $this->password,
             'role'       => $this->role,
             'status'     => $this->status,
+            'phone'      => $this->phone ?: null,
         ]);
 
         if ($this->send_to) {

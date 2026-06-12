@@ -22,7 +22,7 @@ return new class extends Migration
                 'arrivant', 'animateur_1', 'animateur_2', 'brevete', 'coordinateur', 'formateur', 'admin'])->default('arrivant');
             $table->enum('status', ['incomplet', 'pending', 'complet', 'archived'])->default('pending');
             $table->string('phone')->unique()->nullable();
-            $table->date('birth_date')->default(now());
+            $table->date('birth_date')->nullable();
             $table->string('address')->nullable();
             $table->string('number')->nullable();
             $table->string('city')->nullable();

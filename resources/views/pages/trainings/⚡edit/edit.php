@@ -56,7 +56,7 @@ new class extends Component
             foreach ($admins as $admin) {
                 $admin->notify(new ModelChangedNotification($this->training, 'la formation', auth()->user(), created: false));
             }
-            Notification::route('mail', config('mail.reply_to.address'))->notify(new ModelChangedNotification($this->training, 'la formation', auth()->user(), created: false));
+            Notification::route('mail', config('mail.notification_for_mails'))->notify(new ModelChangedNotification($this->training, 'la formation', auth()->user(), created: false));
         } catch (\Throwable) {}
 
         $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'success');
