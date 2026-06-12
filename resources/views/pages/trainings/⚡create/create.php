@@ -33,7 +33,7 @@ new #[Title('Ajouter une formation')] class extends Component
 
         session()->flash('success', __('toast/trainings.created'));
 
-        $this->redirectRoute('admin.trainings.edit', ['locale' => app()->getLocale(), 'training' => $training]);
+        $this->redirectRoute('public.trainings.show', ['locale' => app()->getLocale(), 'training' => $training]);
     }
 
     public function render()

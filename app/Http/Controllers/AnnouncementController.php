@@ -20,7 +20,7 @@ class AnnouncementController extends Controller
             }
         }
 
-        $announcement->load('galeries');
+        $announcement->load(['galeries', 'user']);
 
         return view('public.announcements.show', compact('announcement', 'locale'));
     }

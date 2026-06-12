@@ -32,7 +32,7 @@ class CampPolicy
 
     public function delete(User $user, Camp $camp): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || ($user->isCoordinateur() && $camp->user_id === $user->id);
     }
 
     public function restore(User $user, Camp $camp): bool

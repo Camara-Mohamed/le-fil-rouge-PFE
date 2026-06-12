@@ -72,7 +72,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::define('manage-announcement', function (User $user): bool {
-            return $user->isAdmin() || $user->isFormateur();
+            return $user->isAdmin();
         });
 
         Gate::define('manage-members', function (User $user): bool {

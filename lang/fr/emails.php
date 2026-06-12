@@ -72,4 +72,11 @@ return [
 
     // Layout
     'footer' => '© :year Le Fil Rouge — Tous droits réservés.',
+
+    'published'            => 'publié',
+    'refused'              => 'refusé',
+    'model_training'       => 'la formation',
+    'model_camp'           => 'le camp',
+    'model_status_line'    => ':modelLabel :title a été :action.',
+
 ];

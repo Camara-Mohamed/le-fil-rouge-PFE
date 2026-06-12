@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'banner',
     'published_at',
     'user_id',
+    'path',
 ])]
 class Announcement extends Model
 {

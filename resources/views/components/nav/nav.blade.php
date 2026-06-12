@@ -113,12 +113,14 @@
                 {{ __('navigation.account') }}
             </x-nav.nav-link>
 
+            @unless(auth()->user()?->isAdmin())
             <x-nav.nav-link href="{{ route('admin.enrollments', ['locale' => app()->getLocale()]) }}"
                             title="{{ __('navigation.history_title') }}"
                             route="admin.enrollments"
                             class="lg:hidden">
                 {{ __('navigation.history') }}
             </x-nav.nav-link>
+            @endunless
 
             <li class="flex lg:hidden pt-8 border-t border-red
             justify-center">

@@ -36,7 +36,7 @@ new #[Title('Ajouter un camp')] class extends Component
 
         session()->flash('success', __('toast/camps.created', ['type' => $type]));
 
-        $this->redirectRoute('admin.camps.edit', [
+        $this->redirectRoute('public.camps.show', [
             'locale' => app()->getLocale(),
             'camp' => $camp,
         ]);

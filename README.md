@@ -305,7 +305,7 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
 
 ### Prérequis
 
-- PHP 8.4+
+- PHP 8.5+
 - Laravel 12+
 - Livewire 4+
 - Composer 
