@@ -60,7 +60,7 @@ class CampForm extends Form
     public array $roles = [];
 
     #[Validate(['required', new EnumRule(CampStatus::class)])]
-    public string $status = 'draft';
+    public string $status = 'pending';
 
     #[Validate('nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048')]
     public $banner = null;
