@@ -53,7 +53,7 @@ class Comments extends Component
         $this->authorize('delete', $comment);
 
         if ($comment->document) {
-            Storage::disk('public')->delete($comment->document);
+            Storage::disk('s3')->delete($comment->document);
         }
 
         $comment->delete();

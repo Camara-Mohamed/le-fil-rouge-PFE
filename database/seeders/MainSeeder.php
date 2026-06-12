@@ -432,7 +432,7 @@ class MainSeeder extends Seeder
         ]);
         $training2->comments()->createMany([
             ['content' => 'Hâte de tester les outils pédago avec mon groupe !',   'user_id' => $lea->id,  'is_admin' => false],
-            ['content' => 'On te réserve des surprises, à très vite 😄',           'user_id' => $hugo->id, 'is_admin' => true],
+            ['content' => 'On te réserve des surprises, à très vite 😄',           'user_id' => $hugo->id, 'is_admin' => false],
         ]);
         $training3->comments()->createMany([
             ['content' => 'Vraiment nécessaire cette formation, on en a besoin sur le terrain.',    'user_id' => $paul->id,  'is_admin' => false],

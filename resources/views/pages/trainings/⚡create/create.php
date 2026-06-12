@@ -28,7 +28,7 @@ new #[Title('Ajouter une formation')] class extends Component
             foreach ($admins as $admin) {
                 $admin->notify(new ModelChangedNotification($training, 'la formation', auth()->user(), created: true));
             }
-            Notification::route('mail', config('mail.reply_to.address'))->notify(new ModelChangedNotification($training, 'la formation', auth()->user(), created: true));
+            Notification::route('mail', config('mail.notification_for_mails'))->notify(new ModelChangedNotification($training, 'la formation', auth()->user(), created: true));
         } catch (\Throwable) {}
 
         session()->flash('success', __('toast/trainings.created'));

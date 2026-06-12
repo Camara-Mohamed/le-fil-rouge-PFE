@@ -21,7 +21,7 @@ Schedule::call(function () {
         foreach ($camp->acceptedRegisters as $register) {
             $register->user->notify(new UpcomingEventNotification($camp));
         }
-        Notification::route('mail', config('mail.reply_to.address'))->notify(new UpcomingEventNotification($camp));
+        Notification::route('mail', config('mail.notification_for_mails'))->notify(new UpcomingEventNotification($camp));
     }
 
     $trainings = Training::with('acceptedRegisters.user')->whereDate('start_date', $targetDate)->get();
@@ -29,6 +29,6 @@ Schedule::call(function () {
         foreach ($training->acceptedRegisters as $register) {
             $register->user->notify(new UpcomingEventNotification($training));
         }
-        Notification::route('mail', config('mail.reply_to.address'))->notify(new UpcomingEventNotification($training));
+        Notification::route('mail', config('mail.notification_for_mails'))->notify(new UpcomingEventNotification($training));
     }
 })->daily()->name('send-upcoming-event-reminders');

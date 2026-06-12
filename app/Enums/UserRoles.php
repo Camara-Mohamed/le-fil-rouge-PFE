@@ -16,4 +16,9 @@ enum UserRoles: string
     {
         return __("enums/user_roles.{$this->value}");
     }
+
+    public static function registrable(): array
+    {
+        return [self::ANIMATEUR_1, self::ANIMATEUR_2, self::BREVETE, self::COORDINATEUR, self::FORMATEUR];
+    }
 }

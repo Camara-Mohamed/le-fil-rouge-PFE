@@ -16,7 +16,7 @@ class AnnouncementForm extends Form
     #[Validate('required|string|max:255')]
     public string $title = '';
 
-    #[Validate('required|string|max:255')]
+    #[Validate('required|string|max:1000')]
     public string $description = '';
 
     #[Validate('required|string')]

@@ -31,7 +31,7 @@ new #[Title('Ajouter un camp')] class extends Component
             foreach ($admins as $admin) {
                 $admin->notify(new ModelChangedNotification($camp, 'le camp', auth()->user(), created: true));
             }
-            Notification::route('mail', config('mail.reply_to.address'))->notify(new ModelChangedNotification($camp, 'le camp', auth()->user(), created: true));
+            Notification::route('mail', config('mail.notification_for_mails'))->notify(new ModelChangedNotification($camp, 'le camp', auth()->user(), created: true));
         } catch (\Throwable) {}
 
         session()->flash('success', __('toast/camps.created', ['type' => $type]));

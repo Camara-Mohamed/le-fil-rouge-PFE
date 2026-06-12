@@ -5,6 +5,7 @@ namespace App\Livewire\Forms;
 use App\Enums\Provinces;
 use App\Enums\TrainingStatus;
 use App\Enums\TrainingTypes;
+use App\Enums\UserRoles;
 use App\Jobs\ProcessUploadedImage;
 use App\Models\Training;
 use App\Models\User;
@@ -21,7 +22,7 @@ class TrainingForm extends Form
     #[Validate('required|string|max:255')]
     public string $title = '';
 
-    #[Validate('required|string|max:255')]
+    #[Validate('required|string|max:1000')]
     public string $description = '';
 
     #[Validate('required|date')]
@@ -60,7 +61,7 @@ class TrainingForm extends Form
     #[Validate('nullable|integer')]
     public ?int $postal_code = null;
 
-    #[Validate(['roles' => 'nullable|array', 'roles.*' => 'nullable|string'])]
+    #[Validate(['roles' => 'nullable|array', 'roles.*' => ['nullable', new EnumRule(UserRoles::class)]])]
     public array $roles = [];
 
     #[Validate(['required', new EnumRule(TrainingStatus::class)])]
