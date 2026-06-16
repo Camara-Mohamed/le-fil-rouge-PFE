@@ -21,7 +21,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         .header {
-            background-color: #E63946;
+            background-color: #C1121F;
             padding: 32px 40px;
             text-align: center;
         }
@@ -38,7 +38,7 @@
         }
         .body h1, .body h2 {
             font-family: 'Lora', Georgia, serif;
-            color: #E63946;
+            color: #C1121F;
             font-size: 20px;
             margin-top: 0;
             margin-bottom: 20px;
@@ -51,14 +51,14 @@
             margin: 0 0 14px;
         }
         .body strong {
-            color: #E63946;
+            color: #C1121F;
             font-weight: 700;
         }
         .body a.btn {
             display: inline-block;
             margin-top: 12px;
             padding: 12px 28px;
-            background-color: #E63946;
+            background-color: #C1121F;
             color: #ffffff;
             font-family: 'Montserrat', Arial, sans-serif;
             font-weight: 700;
@@ -76,18 +76,6 @@
             color: #999;
             margin-top: 16px;
         }
-        .footer {
-            background-color: #FFF5F5;
-            padding: 20px 40px;
-            text-align: center;
-            border-top: 1px solid #f0e0e0;
-        }
-        .footer p {
-            font-family: 'Montserrat', Arial, sans-serif;
-            font-size: 12px;
-            color: #aaa;
-            margin: 0;
-        }
     </style>
 </head>
 <body>
@@ -97,9 +85,6 @@
         </div>
         <div class="body">
             @yield('content')
-        </div>
-        <div class="footer">
-            <p>{{ __('emails.footer', ['year' => date('Y')]) }}</p>
         </div>
     </div>
 </body>

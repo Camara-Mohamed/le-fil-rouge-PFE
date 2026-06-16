@@ -9,13 +9,13 @@
                 @can('manage-members')
                     <x-public.link
                         href="{{ route('admin.members.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
+                        class="px-8 py-4 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.add_member') }}
                     </x-public.link>
                     <x-public.link
                         href="{{ route('admin.members.index', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
+                        class="px-8 py-4 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
                         {{ __('pages/dashboard.manage_members') }}
                     </x-public.link>
                 @endcan
@@ -23,7 +23,7 @@
                 @can('manage-messages')
                     <x-public.link
                         href="{{ route('admin.messages.index', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
+                        class="px-8 py-4 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
                         {{ __('pages/dashboard.view_messages') }}
                     </x-public.link>
                 @endcan
@@ -31,7 +31,7 @@
                 @can('manage-training')
                     <x-public.link
                         href="{{ route('admin.trainings.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
+                        class="px-8 py-4 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.create_training') }}
                     </x-public.link>
@@ -40,7 +40,7 @@
                 @can('manage-camp')
                     <x-public.link
                         href="{{ route('admin.camps.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
+                        class="px-8 py-4 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.create_camp') }}
                     </x-public.link>
@@ -49,7 +49,7 @@
                 @can('manage-announcement')
                     <x-public.link
                         href="{{ route('admin.announcements.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
+                        class="px-8 py-4 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.add_announcement') }}
                     </x-public.link>

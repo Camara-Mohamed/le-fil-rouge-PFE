@@ -35,6 +35,7 @@
             </button>
         @endif
         <a href="mailto:{{ $contact->email }}"
+           wire:click="markAsRead({{ $contact->id }}, 'contact')"
            class="px-4 py-1.5 rounded-lg bg-red text-white text-sm font-sans font-medium hover:bg-red-mid transition">
             Répondre
         </a>
