@@ -91,18 +91,18 @@
 
             {{-- Description --}}
             @if($announcement->description)
-                <x-public.content class="text-lg text-dark-mid mb-8 leading-7">
-                    {{ $announcement->description }}
+                <x-public.content class="text-lg text-dark-mid mb-8 leading-7 whitespace-pre-line">
+                    {!! $announcement->description !!}
                 </x-public.content>
             @endif
 
             {{-- Content --}}
             @if($announcement->content)
-                <div class="font-serif text-base leading-7 text-dark prose-sm max-w-none">
+                <div class="font-serif text-base leading-7 text-dark prose-sm max-w-none whitespace-pre-line">
                     {!! $announcement->content !!}
                 </div>
             @elseif($announcement->details)
-                <x-public.content class="text-base leading-7">{{ $announcement->details }}</x-public.content>
+                <x-public.content class="text-base leading-7 whitespace-pre-line">{!! $announcement->details !!}</x-public.content>
             @endif
 
         </div>

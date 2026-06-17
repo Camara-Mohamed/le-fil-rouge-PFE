@@ -93,10 +93,12 @@ class extends Component
         ]);
 
         if ($roleChanged || $statusChanged) {
-            $this->member->notify(new MemberChangedNotification(
-                newRole: $roleChanged ? UserRoles::from($this->role)->label() : null,
-                newStatus: $statusChanged ? UserStatus::from($this->status)->label() : null,
-            ));
+            try {
+                $this->member->notify(new MemberChangedNotification(
+                    newRole: $roleChanged ? UserRoles::from($this->role)->label() : null,
+                    newStatus: $statusChanged ? UserStatus::from($this->status)->label() : null,
+                ));
+            } catch (\Throwable) {}
         }
 
         $this->dispatch('toast', message: __('toast/members.updated', ['name' => $this->member->fullName()]), type: 'success');

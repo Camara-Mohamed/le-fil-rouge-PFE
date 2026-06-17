@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Encoders\WebpEncoder;
 use Intervention\Image\Laravel\Facades\Image;
 
+// Code de Claude
 class MainSeeder extends Seeder
 {
     use WithoutModelEvents;

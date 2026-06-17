@@ -54,8 +54,8 @@
                 <h3 class="font-sans font-black text-base text-dark">
                     {{ $training->title }}
                 </h3>
-                <x-public.content class="text-sm text-dark line-clamp-4">
-                    {{ $training->description }}
+                <x-public.content class="text-sm text-dark line-clamp-3">
+                    {{ Str::limit($training->description, 130) }}
                 </x-public.content>
             </div>
             <p class="font-sans text-xs font-medium uppercase text-dark">

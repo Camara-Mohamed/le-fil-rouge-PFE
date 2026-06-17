@@ -23,7 +23,7 @@
         @endif
     </div>
 
-    <p class="font-serif text-dark leading-relaxed">{{ $contact->message }}</p>
+    <p class="font-serif text-dark leading-relaxed whitespace-pre-line">{!! $contact->message !!}</p>
 
     <div class="flex items-center gap-3 flex-wrap pt-2 border-t border-bg-dark">
         @if(!$contact->read_at)
@@ -35,6 +35,7 @@
             </button>
         @endif
         <a href="mailto:{{ $contact->email }}"
+           wire:click="markAsRead({{ $contact->id }}, 'contact')"
            class="px-4 py-1.5 rounded-lg bg-red text-white text-sm font-sans font-medium hover:bg-red-mid transition">
             Répondre
         </a>

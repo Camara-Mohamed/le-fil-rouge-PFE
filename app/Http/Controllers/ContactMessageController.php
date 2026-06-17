@@ -21,15 +21,14 @@ class ContactMessageController extends Controller
     {
         $message = ContactMessage::create($request->validated());
 
-        $admins = User::where('role', UserRoles::ADMIN)->get();
-
-        foreach ($admins as $admin){
-            Mail::to($admin->email)->send(new ContactMessageMail($message));
-        }
-
-        Mail::to(config('mail.notification_for_mails'))->send(new ContactMessageMail($message));
-
-        Mail::to($message->email)->send(new ContactConfirmationMail($message));
+        try {
+            $admins = User::where('role', UserRoles::ADMIN)->get();
+            foreach ($admins as $admin) {
+                Mail::to($admin->email)->send(new ContactMessageMail($message));
+            }
+            Mail::to(config('mail.notification_for_mails'))->send(new ContactMessageMail($message));
+            Mail::to($message->email)->send(new ContactConfirmationMail($message));
+        } catch (\Throwable) {}
 
         return redirect()->back()->with('send', __('/public/contact.send'));
     }

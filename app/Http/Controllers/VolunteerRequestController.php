@@ -21,14 +21,14 @@ class VolunteerRequestController extends Controller
     {
         $volunteer = VolunteerRequest::create($request->validated());
 
-        $admins = User::where('role', UserRoles::ADMIN)->get();
-        foreach ($admins as $admin) {
-            Mail::to($admin->email)->send(new VolunteerRequestMail($volunteer));
-        }
-
-        Mail::to(config('mail.notification_for_mails'))->send(new VolunteerRequestMail($volunteer));
-
-        Mail::to($volunteer->email)->send(new VolunteerRequestConfirmationMail($volunteer));
+        try {
+            $admins = User::where('role', UserRoles::ADMIN)->get();
+            foreach ($admins as $admin) {
+                Mail::to($admin->email)->send(new VolunteerRequestMail($volunteer));
+            }
+            Mail::to(config('mail.notification_for_mails'))->send(new VolunteerRequestMail($volunteer));
+            Mail::to($volunteer->email)->send(new VolunteerRequestConfirmationMail($volunteer));
+        } catch (\Throwable) {}
 
         return redirect()->back()->with('send', __('/public/volunteer-request.send'));
     }

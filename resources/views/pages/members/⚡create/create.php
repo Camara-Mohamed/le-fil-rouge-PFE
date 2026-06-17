@@ -69,8 +69,9 @@ new #[Title('Nouveau membre')] class extends Component
         ]);
 
         if ($this->send_to) {
-            Mail::to($this->send_to)
-                ->send(new NewVolunteerMail($user, $this->password));
+            try {
+                Mail::to($this->send_to)->send(new NewVolunteerMail($user, $this->password));
+            } catch (\Throwable) {}
         }
 
         $this->redirect(route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $user]));

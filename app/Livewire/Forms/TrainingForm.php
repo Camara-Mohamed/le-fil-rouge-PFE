@@ -93,12 +93,12 @@ class TrainingForm extends Form
             'province' => $this->province,
             'postal_code' => $this->postal_code,
             'roles' => $this->roles,
-            'status' => TrainingStatus::PENDING,
+            'status' => $this->status,
             'user_id' => $user->id,
         ];
 
         if ($this->banner) {
-            $path = $this->banner->store('trainings/banners', 's3');
+            $path = $this->banner->store('trainings/banners', config('filesystems.default'));
             $data['banner'] = $path;
             ProcessUploadedImage::dispatch(
                 $path,
@@ -111,7 +111,7 @@ class TrainingForm extends Form
 
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
-                $path = $galery->store('trainings/galeries', 's3');
+                $path = $galery->store('trainings/galeries', config('filesystems.default'));
                 $training->galeries()->create(['path' => $path]);
                 ProcessUploadedImage::dispatch(
                     $path,
@@ -150,9 +150,9 @@ class TrainingForm extends Form
 
         if ($this->banner) {
             if ($training->banner) {
-                Storage::disk('s3')->delete($training->banner);
+                Storage::disk(config('filesystems.default'))->delete($training->banner);
             }
-            $path = $this->banner->store('trainings/banners', 's3');
+            $path = $this->banner->store('trainings/banners', config('filesystems.default'));
             $data['banner'] = $path;
             ProcessUploadedImage::dispatch(
                 $path,
@@ -163,7 +163,7 @@ class TrainingForm extends Form
 
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
-                $path = $galery->store('trainings/galeries', 's3');
+                $path = $galery->store('trainings/galeries', config('filesystems.default'));
                 $training->galeries()->create(['path' => $path]);
                 ProcessUploadedImage::dispatch(
                     $path,

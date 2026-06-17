@@ -88,12 +88,12 @@ class CampForm extends Form
             'province' => $this->province,
             'postal_code' => $this->postal_code,
             'roles' => $this->roles,
-            'status' => CampStatus::PENDING,
+            'status' => $this->status,
             'user_id' => $user->id,
         ];
 
         if ($this->banner) {
-            $data['banner'] = $this->banner->store('camps', 's3');
+            $data['banner'] = $this->banner->store('camps/banners', config('filesystems.default'));
         }
 
         $camp = Camp::create($data);
@@ -101,7 +101,7 @@ class CampForm extends Form
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
                 $camp->galeries()->create([
-                    'path' => $galery->store('camps/galeries', 's3'),
+                    'path' => $galery->store('camps/galeries', config('filesystems.default')),
                 ]);
             }
         }
@@ -134,15 +134,15 @@ class CampForm extends Form
 
         if ($this->banner) {
             if ($camp->banner) {
-                Storage::disk('s3')->delete($camp->banner);
+                Storage::disk(config('filesystems.default'))->delete($camp->banner);
             }
-            $data['banner'] = $this->banner->store('camps/banners', 's3');
+            $data['banner'] = $this->banner->store('camps/banners', config('filesystems.default'));
         }
 
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
                 $camp->galeries()->create([
-                    'path' => $galery->store('camps/galeries', 's3'),
+                    'path' => $galery->store('camps/galeries', config('filesystems.default')),
                 ]);
             }
         }

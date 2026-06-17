@@ -293,7 +293,7 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
 
 | Technologie         | Utilité                                         |
 |---------------------|-------------------------------------------------|
-| Frontend & Backend  | Laravel 12 + Livewire 4  + Tailwind + Alpine JS |
+| Frontend & Backend  | Laravel 13 + Livewire 4  + Tailwind + Alpine JS |
 | Base de données     | SQLite                                          |
 | Testing             | Pest                                            |
 | Stockage            | AWS S3 Storage                                  |
@@ -306,7 +306,7 @@ Convaincu par les valeurs et l'idée, Sam souhaite s'inscrire à une formation. 
 ### Prérequis
 
 - PHP 8.5+
-- Laravel 12+
+- Laravel 13+
 - Livewire 4+
 - Composer 
 - Node.js

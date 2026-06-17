@@ -4,18 +4,18 @@
 
     {{-- CTA --}}
     @canany(['manage-members', 'manage-messages', 'manage-training', 'manage-camp', 'manage-announcement'])
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-col lg:flex-row flex-wrap gap-3">
 
                 @can('manage-members')
                     <x-public.link
                         href="{{ route('admin.members.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
+                        class="flex-1 justify-center py-4 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.add_member') }}
                     </x-public.link>
                     <x-public.link
                         href="{{ route('admin.members.index', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
+                        class="flex-1 justify-center py-4 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
                         {{ __('pages/dashboard.manage_members') }}
                     </x-public.link>
                 @endcan
@@ -23,7 +23,7 @@
                 @can('manage-messages')
                     <x-public.link
                         href="{{ route('admin.messages.index', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
+                        class="flex-1 justify-center py-4 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
                         {{ __('pages/dashboard.view_messages') }}
                     </x-public.link>
                 @endcan
@@ -31,7 +31,7 @@
                 @can('manage-training')
                     <x-public.link
                         href="{{ route('admin.trainings.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
+                        class="flex-1 justify-center py-4 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.create_training') }}
                     </x-public.link>
@@ -40,7 +40,7 @@
                 @can('manage-camp')
                     <x-public.link
                         href="{{ route('admin.camps.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
+                        class="flex-1 justify-center py-4 rounded-lg bg-red text-white font-sans font-bold text-sm hover:bg-red-mid transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.create_camp') }}
                     </x-public.link>
@@ -49,7 +49,7 @@
                 @can('manage-announcement')
                     <x-public.link
                         href="{{ route('admin.announcements.create', ['locale' => app()->getLocale()]) }}"
-                        class="px-6 py-2 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
+                        class="flex-1 justify-center py-4 rounded-lg border-2 border-dark-light text-dark font-sans font-bold text-sm hover:border-dark transition duration-200">
                         <x-icons.plus class="size-4" fill="fill-current" />
                         {{ __('pages/dashboard.add_announcement') }}
                     </x-public.link>
@@ -127,7 +127,7 @@
                                             <p class="font-serif text-sm text-dark-mid">{{ $register->training->title }}</p>
                                             <x-public.badge variant="success" class="self-start">{{ __('pages/dashboard.training_badge') }} · {{ $register->training->start_date->format('d/m/Y') }}</x-public.badge>
                                             @if($register->notes)
-                                                <p class="font-serif text-xs text-dark-mid italic mt-1">{{ $register->notes }}</p>
+                                                <p class="font-serif text-xs text-dark-mid italic mt-1 whitespace-pre-line">{!! $register->notes !!}</p>
                                             @endif
                                         </div>
                                         <div class="flex gap-2">
@@ -152,7 +152,7 @@
                                             <p class="font-serif text-sm text-dark-mid">{{ $register->camp->title }}</p>
                                             <x-public.badge variant="info" class="self-start">{{ __('pages/dashboard.camp_badge') }} · {{ $register->camp->start_date->format('d/m/Y') }}</x-public.badge>
                                             @if($register->notes)
-                                                <p class="font-serif text-xs text-dark-mid italic mt-1">{{ $register->notes }}</p>
+                                                <p class="font-serif text-xs text-dark-mid italic mt-1 whitespace-pre-line">{!! $register->notes !!}</p>
                                             @endif
                                         </div>
                                         <div class="flex gap-2">

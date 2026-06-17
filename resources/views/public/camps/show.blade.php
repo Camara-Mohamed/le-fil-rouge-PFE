@@ -106,18 +106,18 @@
                 <div class="flex flex-col gap-6">
 
                     <x-public.accordion :summary="__('public/camps.show_description_accordion')" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
-                        <x-public.content class="text-sm leading-5">{{ $camp->description }}</x-public.content>
+                        <x-public.content class="text-sm leading-5 whitespace-pre-line">{!! $camp->description !!}</x-public.content>
                     </x-public.accordion>
 
                     @if($camp->details)
                         <x-public.accordion :summary="__('public/camps.show_objectives_accordion')" :open="true" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
-                            <div class="font-serif text-sm leading-5 text-dark">{!! $camp->details !!}</div>
+                            <div class="font-serif text-sm leading-5 text-dark whitespace-pre-line">{!! $camp->details !!}</div>
                         </x-public.accordion>
                     @endif
 
                     @if($camp->constraints)
                         <x-public.accordion :summary="__('public/camps.show_constraints_accordion')" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
-                            <div class="font-serif text-sm leading-5 text-dark">{!! $camp->constraints !!}</div>
+                            <div class="font-serif text-sm leading-5 text-dark whitespace-pre-line">{!! $camp->constraints !!}</div>
                         </x-public.accordion>
                     @endif
 
@@ -145,7 +145,7 @@
                         <x-public.badge variant="danger">{{ $camp->type->label() }}</x-public.badge>
                     </div>
 
-                    <x-public.content class="text-base leading-6">{{ $camp->description }}</x-public.content>
+                    <x-public.content class="text-base leading-6 whitespace-pre-line">{!! $camp->description !!}</x-public.content>
 
                     <div class="flex flex-col gap-2">
                         <p class="font-sans text-base">

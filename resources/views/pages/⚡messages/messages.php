@@ -71,12 +71,14 @@ new #[Title('Les messages')] class extends Component
 
     public function rejectVolunteer(int $id): void
     {
+        $this->markAsRead($id, 'volunteer');
         VolunteerRequest::findOrFail($id)->update(['status' => VolunteerRequestStatus::REJECTED]);
         $this->dispatch('toast', message: __('toast/messages.volunteer_rejected'), type: 'info');
     }
 
     public function openCreateMember(int $id): void
     {
+        $this->markAsRead($id, 'volunteer');
         $this->dispatch('open_modal', payload: [
             'form' => 'modals::create-member',
             'model_id' => (string) $id,
@@ -86,6 +88,7 @@ new #[Title('Les messages')] class extends Component
 
     public function openRefuseModal(int $id): void
     {
+        $this->markAsRead($id, 'volunteer');
         $this->dispatch('open_modal', payload: [
             'form' => 'modals::volunteer.confirm-refuse',
             'model_id' => (string) $id,
@@ -95,6 +98,7 @@ new #[Title('Les messages')] class extends Component
 
     public function openResetPendingModal(int $id): void
     {
+        $this->markAsRead($id, 'volunteer');
         $this->dispatch('open_modal', payload: [
             'form' => 'modals::volunteer.confirm-reset-pending',
             'model_id' => (string) $id,

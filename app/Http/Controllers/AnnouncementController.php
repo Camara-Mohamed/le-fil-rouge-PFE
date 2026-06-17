@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
-use App\Models\User;
 
 class AnnouncementController extends Controller
 {
@@ -12,12 +11,10 @@ class AnnouncementController extends Controller
         return view('public.announcements.index');
     }
 
-    public function show(string $locale, Announcement $announcement, User $user)
+    public function show(string $locale, Announcement $announcement)
     {
-        if (is_null($announcement->published_at)) {
-            if ($user?->isAdmin()) {
-                abort(403);
-            }
+        if (is_null($announcement->published_at) && ! auth()->user()?->isAdmin()) {
+            abort(403);
         }
 
         $announcement->load(['galeries', 'user']);

@@ -26,10 +26,9 @@ class extends Component
         }
 
         $register->load('training');
-        $register->user->notify(new RegisterStatusNotification($register->training, 'accepted'));
-
         $register->update(['status' => RegisterStatus::ACCEPTED]);
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
+        try { $register->user->notify(new RegisterStatusNotification($register->training, 'accepted')); } catch (\Throwable) {}
     }
 
     public function refuseTrainingRegister(int $registerId): void
@@ -42,10 +41,9 @@ class extends Component
         }
 
         $register->load('training');
-        $register->user->notify(new RegisterStatusNotification($register->training, 'refused'));
-
         $register->update(['status' => RegisterStatus::REFUSED]);
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
+        try { $register->user->notify(new RegisterStatusNotification($register->training, 'refused')); } catch (\Throwable) {}
     }
 
     public function acceptCampRegister(int $registerId): void
@@ -58,10 +56,9 @@ class extends Component
         }
 
         $register->load('camp');
-        $register->user->notify(new RegisterStatusNotification($register->camp, 'accepted'));
-
         $register->update(['status' => RegisterStatus::ACCEPTED]);
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
+        try { $register->user->notify(new RegisterStatusNotification($register->camp, 'accepted')); } catch (\Throwable) {}
     }
 
     public function refuseCampRegister(int $registerId): void
@@ -74,10 +71,9 @@ class extends Component
         }
 
         $register->load('camp');
-        $register->user->notify(new RegisterStatusNotification($register->camp, 'refused'));
-
         $register->update(['status' => RegisterStatus::REFUSED]);
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
+        try { $register->user->notify(new RegisterStatusNotification($register->camp, 'refused')); } catch (\Throwable) {}
     }
 
     public function openConfirmRefuseModal(int $id, string $type): void
@@ -98,12 +94,10 @@ class extends Component
             abort(403);
         }
 
-        Training::findOrFail($trainingId)->update(['status' => TrainingStatus::PUBLISHED]);
-        $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'success');
-
         $training = Training::with('user')->findOrFail($trainingId);
         $training->update(['status' => TrainingStatus::PUBLISHED]);
-        $training->user->notify(new ModelStatusNotification($training, 'la formation', published: true));
+        $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'success');
+        try { $training->user->notify(new ModelStatusNotification($training, 'la formation', published: true)); } catch (\Throwable) {}
     }
 
     public function refuseTraining(int $trainingId): void
@@ -112,12 +106,10 @@ class extends Component
             abort(403);
         }
 
-        Training::findOrFail($trainingId)->update(['status' => TrainingStatus::REFUSED]);
-        $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'error');
-
         $training = Training::with('user')->findOrFail($trainingId);
         $training->update(['status' => TrainingStatus::REFUSED]);
-        $training->user->notify(new ModelStatusNotification($training, 'la formation', published: false));
+        $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'error');
+        try { $training->user->notify(new ModelStatusNotification($training, 'la formation', published: false)); } catch (\Throwable) {}
     }
 
     public function publishCamp(int $campId): void
@@ -126,12 +118,10 @@ class extends Component
             abort(403);
         }
 
-        Camp::findOrFail($campId)->update(['status' => CampStatus::PUBLISHED]);
-        $this->dispatch('toast', message: __('toast/camps.updated', ['type' => 'camp']), type: 'success');
-
         $camp = Camp::with('user')->findOrFail($campId);
         $camp->update(['status' => CampStatus::PUBLISHED]);
-        $camp->user->notify(new ModelStatusNotification($camp, 'le camp', published: true));
+        $this->dispatch('toast', message: __('toast/camps.updated', ['type' => 'camp']), type: 'success');
+        try { $camp->user->notify(new ModelStatusNotification($camp, 'le camp', published: true)); } catch (\Throwable) {}
     }
 
     public function refuseCamp(int $campId): void
@@ -140,12 +130,10 @@ class extends Component
             abort(403);
         }
 
-        Camp::findOrFail($campId)->update(['status' => CampStatus::REFUSED]);
-        $this->dispatch('toast', message: __('toast/camps.updated', ['type' => 'camp']), type: 'error');
-
         $camp = Camp::with('user')->findOrFail($campId);
         $camp->update(['status' => CampStatus::REFUSED]);
-        $camp->user->notify(new ModelStatusNotification($camp, 'le camp', published: false));
+        $this->dispatch('toast', message: __('toast/camps.updated', ['type' => 'camp']), type: 'error');
+        try { $camp->user->notify(new ModelStatusNotification($camp, 'le camp', published: false)); } catch (\Throwable) {}
     }
 
     public function render()

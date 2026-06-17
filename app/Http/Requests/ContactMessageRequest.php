@@ -12,7 +12,7 @@ class ContactMessageRequest extends FormRequest
             'full_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
             'sujet' => ['required', 'string', 'max:255'],
-            'message' => ['required', 'string'],
+            'message' => ['required', 'string', 'max:5000'],
         ];
     }
 

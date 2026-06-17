@@ -7,7 +7,6 @@ use App\Models\CampRegister;
 use App\Models\Training;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class ExportController extends Controller
@@ -16,9 +15,7 @@ class ExportController extends Controller
 
     public function resumeTraining(string $locale, Training $training)
     {
-        if (! Gate::allows('update', $training) && $training->user_id !== auth()->id()) {
-            abort(403);
-        }
+        $this->authorize('update', $training);
 
         $training->load(['acceptedRegisters.user', 'pendingRegisters.user', 'refusedRegisters.user', 'user']);
 
@@ -29,9 +26,7 @@ class ExportController extends Controller
 
     public function resumeCamp(string $locale, Camp $camp)
     {
-        if (! Gate::allows('update', $camp) && $camp->user_id !== auth()->id()) {
-            abort(403);
-        }
+        $this->authorize('update', $camp);
 
         $camp->load(['acceptedRegisters.user', 'pendingRegisters.user', 'refusedRegisters.user', 'user']);
 

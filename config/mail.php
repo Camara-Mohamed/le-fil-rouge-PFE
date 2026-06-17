@@ -115,11 +115,6 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
-    'reply_to' => [
-        'address' => env('REPLY_MY_MAIL'),
-        'name'    => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
-    ],
-
     'reply_to_examen' => [
         'address' => env('MAIL_EXAM_ADDRESS', 'lefilrouge.pfe@gmail.com'),
         'name'    => 'Le Fil Rouge PFE',
