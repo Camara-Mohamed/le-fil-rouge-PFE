@@ -97,8 +97,8 @@
                                     </span>
                                 </div>
 
-                                <p class="font-serif text-base leading-6 text-dark">
-                                    {{ $comment->content }}
+                                <p class="font-serif text-base leading-6 text-dark whitespace-pre-line">
+                                    {!! $comment->content !!}
                                 </p>
                             </div>
 

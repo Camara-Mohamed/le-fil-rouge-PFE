@@ -120,5 +120,6 @@ class DatabaseSeeder extends Seeder
         // VolunteerRequest::factory()->count(6)->create();
 
         $this->call(MainSeeder::class);
+        $this->call(PresentationSeeder::class);
     }
 }

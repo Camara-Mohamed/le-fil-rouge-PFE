@@ -1,4 +1,4 @@
-<ul class="flex items-center gap-1.5">
+<ul class="flex items-center gap-1.5 ml-auto">
     @foreach (config('app.locales') as $locale)
         <li class="font-serif text-sm text-white underline font-normal hover:text-red-mid focus:text-red-mid">
             @if (request()->route() && Route::currentRouteName())

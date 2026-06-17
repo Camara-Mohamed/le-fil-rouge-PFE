@@ -114,18 +114,18 @@
                 <div class="flex flex-col gap-6">
 
                     <x-public.accordion :summary="__('public/trainings.show_description_accordion')" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
-                        <x-public.content class="text-sm leading-5">{{ $training->description }}</x-public.content>
+                        <x-public.content class="text-sm leading-5 whitespace-pre-line">{!! $training->description !!}</x-public.content>
                     </x-public.accordion>
 
                     @if($training->details)
                         <x-public.accordion :summary="__('public/trainings.show_objectives_accordion')" :open="true" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
-                            <div class="font-serif text-sm leading-5 text-dark">{{ $training->details }}</div>
+                            <div class="font-serif text-sm leading-5 text-dark whitespace-pre-line">{!! $training->details !!}</div>
                         </x-public.accordion>
                     @endif
 
                     @if($training->constraints)
                         <x-public.accordion :summary="__('public/trainings.show_constraints_accordion')" class="bg-bg-mid rounded-tr-lg rounded-br-lg border-l-[6px] border-red px-6 pt-4 pb-3">
-                            <div class="font-serif text-sm leading-5 text-dark">{{ $training->constraints }}</div>
+                            <div class="font-serif text-sm leading-5 text-dark whitespace-pre-line">{!! $training->constraints !!}</div>
                         </x-public.accordion>
                     @endif
 
@@ -155,7 +155,7 @@
                         @endif
                     </div>
 
-                    <x-public.content class="text-base leading-6">{{ $training->description }}</x-public.content>
+                    <x-public.content class="text-base leading-6 whitespace-pre-line">{!! $training->description !!}</x-public.content>
 
                     <div class="flex flex-col gap-2">
                         <p class="font-sans text-base">

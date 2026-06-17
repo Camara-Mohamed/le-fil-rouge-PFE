@@ -28,7 +28,7 @@
             @if($register->notes)
                 <div class="flex flex-col gap-2">
                     <span class="font-sans font-bold text-base text-dark">{{ __('livewire/enrollment.notes') }}</span>
-                    <div class="p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark">{{ $register->notes }}</div>
+                    <div class="p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark whitespace-pre-line">{!! $register->notes !!}</div>
                 </div>
             @endif
             @if($canCancel)
@@ -71,7 +71,7 @@
             @if($register->notes)
                 <div class="flex flex-col gap-2">
                     <span class="font-sans font-bold text-base text-dark">{{ __('livewire/enrollment.notes') }}</span>
-                    <div class="p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark">{{ $register->notes }}</div>
+                    <div class="p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark whitespace-pre-line">{!! $register->notes !!}</div>
                 </div>
             @endif
             @if($canCancel)
@@ -90,7 +90,7 @@
             @if($register->notes)
                 <div class="flex flex-col gap-2">
                     <span class="font-sans font-bold text-base text-dark">{{ __('livewire/enrollment.notes') }}</span>
-                    <div class="p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark">{{ $register->notes }}</div>
+                    <div class="p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark whitespace-pre-line">{!! $register->notes !!}</div>
                 </div>
             @endif
         </div>

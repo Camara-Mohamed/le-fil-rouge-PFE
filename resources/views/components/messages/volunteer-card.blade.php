@@ -29,7 +29,7 @@
         <p class="font-serif text-sm text-dark-mid">{{ $volunteer->email }}</p>
     </div>
 
-    <p class="font-serif text-dark leading-relaxed">{{ $volunteer->message }}</p>
+    <p class="font-serif text-dark leading-relaxed whitespace-pre-line">{!! $volunteer->message !!}</p>
 
     <div class="flex items-center gap-3 flex-wrap pt-2 border-t border-bg-dark">
         @if(!$volunteer->read_at)

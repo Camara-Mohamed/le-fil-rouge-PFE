@@ -1,4 +1,4 @@
-<nav aria-label="{{ __('general.secondary_nav') }}" class="relative z-[110] flex justify-between items-center bg-dark py-3 px-4 md:px-6 lg:px-8">
+<nav aria-label="{{ __('general.secondary_nav') }}" class="relative z-[110] flex items-center bg-dark py-3 px-4 md:px-6 lg:px-8">
     <h3 class="sr-only">{{ __('general.secondary_nav') }}</h3>
 
     @auth
