@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+echo "Testing Before Push…"
+php artisan test --testsuite=Feature
