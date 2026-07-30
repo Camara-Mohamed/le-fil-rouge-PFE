@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\UserRoles;
+use App\Enums\UserStatus;
 use App\Models\User;
 use App\Notifications\AnnouncementNotification;
 use Livewire\Livewire;
@@ -35,7 +36,7 @@ it('admin can create an announcement', function () {
 it('sends notification to users when announcement is created', function () {
     Notification::fake();
 
-    $members = User::factory(3)->create();
+    $members = User::factory(3)->create(['status' => UserStatus::COMPLETE]);
 
     actingAs($this->user);
 

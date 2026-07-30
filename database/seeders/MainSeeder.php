@@ -29,7 +29,6 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Encoders\WebpEncoder;
 use Intervention\Image\Laravel\Facades\Image;
 
-// Code de Claude
 class MainSeeder extends Seeder
 {
     use WithoutModelEvents;
@@ -40,9 +39,11 @@ class MainSeeder extends Seeder
         $fullPath = public_path($publicRelativePath);
         if (! file_exists($fullPath)) {
             Log::warning("[Seeder] Image source introuvable : {$fullPath}");
+
             return $storagePath;
         }
         Storage::put($storagePath, file_get_contents($fullPath), 'public');
+
         return $storagePath;
     }
 
@@ -52,12 +53,13 @@ class MainSeeder extends Seeder
         $fullPath = public_path($publicRelativePath);
         if (! file_exists($fullPath)) {
             Log::warning("[Seeder] Bannière source introuvable : {$fullPath}");
+
             return $storagePath;
         }
 
         Storage::put($storagePath, file_get_contents($fullPath), 'public');
 
-        $filename     = basename($storagePath);
+        $filename = basename($storagePath);
         $variantsBase = dirname($storagePath).'/variants';
 
         foreach (config('banners.sizes.banner') as $width) {
@@ -71,11 +73,12 @@ class MainSeeder extends Seeder
     // Avatar + variants (80x80, 300x300, 600x600)
     private function storeAvatar(string $publicRelativePath, string $fileName): string
     {
-        $this->storeImage($publicRelativePath, config('avatar.original_path') . '/' . $fileName);
+        $this->storeImage($publicRelativePath, config('avatar.original_path').'/'.$fileName);
         foreach (config('avatar.sizes') as $size) {
             $variantPath = sprintf(config('avatar.variant_pattern'), $size['width'], $size['height']);
-            $this->storeImage($publicRelativePath, $variantPath . '/' . $fileName);
+            $this->storeImage($publicRelativePath, $variantPath.'/'.$fileName);
         }
+
         return $fileName;
     }
 
@@ -156,7 +159,7 @@ class MainSeeder extends Seeder
             'description' => 'Ce stage de 8 jours est le point de départ de ton parcours d\'animateur. Tu vas travailler avec des groupes de jeunes de 6 à 12 ans dans un cadre résidentiel en Ardenne. On te forme à la fois sur la théorie et sur la pratique, avec des mises en situation réelles dès le premier jour. L\'objectif : que tu repartes avec les outils concrets pour animer en toute confiance et en toute sécurité.',
             'details' => 'Au programme : dynamique de groupe, construction d\'activités ludiques et pédagogiques, gestion des conflits entre jeunes, cadre légal lié à l\'encadrement de mineurs, sécurité physique et émotionnelle. Chaque soir une veillée thématique organisée par les participants eux-mêmes. Une équipe de formateurs expérimentés t\'accompagne tout au long du stage avec des feedbacks individualisés.',
             'constraints' => 'Minimum 16 ans révolus au premier jour du stage. Engagement sur les 8 jours complets obligatoire, les absences partielles ne sont pas acceptées. Une fiche médicale complète est exigée avant le départ.',
-            'start_date' => now()->addDays(10)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(17)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(10)->setTime(9, 0)->toDateTimeString(), 'end_date' => now()->addDays(17)->setTime(17, 0)->toDateTimeString(),
             'type' => CampTypes::STAGE, 'status' => CampStatus::PUBLISHED,
             'participants' => 20,
             'address' => 'Rue de la Lienne', 'number' => '5',
@@ -171,7 +174,7 @@ class MainSeeder extends Seeder
             'description' => 'Cinq jours en pleine nature ardennaise pour renforcer tes compétences de terrain tout en découvrant une région magnifique. Ce séjour mélange apprentissage et convivialité : on travaille sérieusement, mais dans une ambiance détendue et bienveillante. Idéal pour approfondir ce que tu as acquis lors de tes premiers stages et enrichir ton réseau au sein de l\'asso.',
             'details' => 'Randonnées en autonomie avec carte et boussole, veillées à thème animées en rotation par les participants, ateliers nature (bivouac, reconnaissance de plantes, faune locale), travail en équipe sur des projets courts. Les hébergements sont en gîte collectif, repas préparés ensemble. Un accompagnateur expérimenté est présent en permanence.',
             'constraints' => null,
-            'start_date' => now()->addDays(30)->setTime(10,0)->toDateTimeString(), 'end_date' => now()->addDays(34)->setTime(16,0)->toDateTimeString(),
+            'start_date' => now()->addDays(30)->setTime(10, 0)->toDateTimeString(), 'end_date' => now()->addDays(34)->setTime(16, 0)->toDateTimeString(),
             'type' => CampTypes::SEJOUR, 'status' => CampStatus::PUBLISHED,
             'participants' => 15,
             'address' => 'Rue du Moulin', 'number' => '3',
@@ -186,7 +189,7 @@ class MainSeeder extends Seeder
             'description' => 'Le stage brevet est l\'étape clé de ton parcours d\'animateur au sein du Fil Rouge. Reconnu par la Fédération Wallonie-Bruxelles, ce stage de 10 jours intensifs te permet d\'obtenir ton brevet d\'animateur officiel, indispensable pour encadrer légalement des activités avec des mineurs en Belgique. On alterne théorie et pratique avec des évaluations tout au long du stage.',
             'details' => 'Programme officiel FWB : pédagogie de projet, animation de grands groupes, gestion des situations d\'urgence, cadre déontologique et réglementaire, dossier de stage individuel à remettre. Chaque participant encadre au minimum deux demi-journées d\'animation réelle, observée et débriefée par les formateurs. L\'évaluation finale est individuelle, orale et pratique.',
             'constraints' => 'Minimum 18 ans au premier jour du stage. Avoir effectué le stage 1er niveau avant de s\'inscrire est obligatoire. Une attestation du stage précédent peut être demandée.',
-            'start_date' => now()->addDays(60)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(69)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(60)->setTime(9, 0)->toDateTimeString(), 'end_date' => now()->addDays(69)->setTime(17, 0)->toDateTimeString(),
             'type' => CampTypes::STAGE, 'status' => CampStatus::PUBLISHED,
             'participants' => 12,
             'address' => 'Avenue des Tilleuls', 'number' => '18',
@@ -201,7 +204,7 @@ class MainSeeder extends Seeder
             'description' => 'Cinq jours d\'engagement concret dans des quartiers liégeois en partenariat avec des associations locales. Pas un stage classique : ici on se retrousse les manches pour contribuer à des projets réels qui ont un impact direct sur la vie des gens du quartier. Peinture de locaux associatifs, organisation d\'activités pour des enfants, mise en place d\'un potager collectif… chaque édition est différente.',
             'details' => 'Les participants travaillent en petits groupes autonomes avec un référent de terrain. Logement chez l\'habitant ou en hébergement collectif selon les disponibilités. Bilan collectif chaque soir. Ce camp n\'est pas noté ni certifiant, il est là pour ancrer la pratique dans le réel.',
             'constraints' => null,
-            'start_date' => now()->addDays(20)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(24)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(20)->setTime(9, 0)->toDateTimeString(), 'end_date' => now()->addDays(24)->setTime(17, 0)->toDateTimeString(),
             'type' => CampTypes::SEJOUR, 'status' => CampStatus::PENDING,
             'participants' => 25,
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => 4000,
@@ -215,7 +218,7 @@ class MainSeeder extends Seeder
             'description' => 'Tu animes depuis un moment et tu veux passer à la coordination ? Ce stage intensif t\'apprend à gérer une équipe d\'animateurs, à planifier un projet sur plusieurs semaines et à communiquer efficacement avec les familles, les partenaires et l\'administration. Un vrai saut de rôle, bien accompagné.',
             'details' => 'Mises en situation de coordination, gestion de crises et imprévus, communication assertive, répartition des rôles dans une équipe, animation de réunions et d\'espaces de bilan. On travaille sur des cas réels issus de l\'asso. Travail individuel sur son propre style de leadership.',
             'constraints' => null,
-            'start_date' => now()->subDays(45)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->subDays(41)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->subDays(45)->setTime(9, 0)->toDateTimeString(), 'end_date' => now()->subDays(41)->setTime(17, 0)->toDateTimeString(),
             'type' => CampTypes::STAGE, 'status' => CampStatus::REFUSED,
             'participants' => 10,
             'city' => 'Namur', 'province' => Provinces::NAMUR, 'postal_code' => 5000,
@@ -229,7 +232,7 @@ class MainSeeder extends Seeder
             'description' => 'Deux jours pour apprendre à concevoir et animer des activités d\'intérieur lors des stages en période froide. Parce que la météo ne dicte pas la qualité de l\'animation, ce stage te donne les outils pour maintenir l\'engagement des jeunes même quand on reste en salle. On alterne ateliers créatifs, jeux géants, veillées et temps de bilan.',
             'details' => 'Conception d\'activités adaptées aux espaces intérieurs, gestion de l\'énergie du groupe sur de longues journées confinées, veillées à thème et techniques d\'animation sans matériel. Hébergement en dortoir, repas collectifs préparés en équipe. Chaque participant prend en charge une demi-journée d\'animation observée et débriefée.',
             'constraints' => 'Ouvert aux animateurs ayant déjà encadré au moins un stage résidentiel.',
-            'start_date' => now()->addDays(50)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(51)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(50)->setTime(9, 0)->toDateTimeString(), 'end_date' => now()->addDays(51)->setTime(17, 0)->toDateTimeString(),
             'type' => CampTypes::STAGE, 'status' => CampStatus::PUBLISHED,
             'participants' => 16,
             'address' => 'Rue des Étangs', 'number' => '4',
@@ -244,7 +247,7 @@ class MainSeeder extends Seeder
             'description' => 'Un week-end dense pour observer, expérimenter et partager. Ce séjour est conçu pour les membres actifs qui veulent approfondir leur pratique en conditions réelles. On mixe les profils — animateurs, coordinateurs, formateurs — pour créer une dynamique d\'apprentissage entre pairs. Deux jours hors du local pour se retrouver autrement.',
             'details' => 'Observation mutuelle d\'animations, feedback structuré en binômes, ateliers co-construction d\'outils pédagogiques, soirée de restitution collective. Pas de hiérarchie pendant ce week-end : on apprend ensemble. Hébergement en gîte. Participation aux frais demandée selon les dispo.',
             'constraints' => null,
-            'start_date' => now()->addDays(90)->setTime(16,0)->toDateTimeString(), 'end_date' => now()->addDays(92)->setTime(14,0)->toDateTimeString(),
+            'start_date' => now()->addDays(90)->setTime(16, 0)->toDateTimeString(), 'end_date' => now()->addDays(92)->setTime(14, 0)->toDateTimeString(),
             'type' => CampTypes::SEJOUR, 'status' => CampStatus::PUBLISHED,
             'participants' => 12,
             'address' => 'Chaussée de Liège', 'number' => '55',
@@ -309,7 +312,7 @@ class MainSeeder extends Seeder
             'description' => 'Tu travailles avec des jeunes ? La formation aux premiers secours, c\'est la base absolue. Cette journée reconnue par la Croix-Rouge de Belgique te prépare à réagir calmement et efficacement face à une urgence, que ce soit sur le terrain d\'un stage, dans un local ou en pleine nature. Une journée qui peut littéralement sauver une vie.',
             'details' => 'Au programme : gestes de survie (PLS, Heimlich, compression de plaie), réanimation cardio-pulmonaire (RCP) avec mannequin, utilisation d\'un défibrillateur automatisé (DEA), prise en charge des bobos courants (chute, coupure, brûlure, malaise). Tout se fait en petits groupes avec un formateur certifié. Une attestation de participation est remise en fin de journée.',
             'constraints' => 'Aucun prérequis. Formation accessible à tous les niveaux. Tenue confortable recommandée pour les exercices au sol.',
-            'start_date' => now()->addDays(5)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(5)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(5)->setTime(9, 0)->toDateTimeString(), 'end_date' => now()->addDays(5)->setTime(17, 0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => 2000, 'participants' => 16,
             'address' => 'Rue Douffet', 'number' => '36',
@@ -324,7 +327,7 @@ class MainSeeder extends Seeder
             'description' => 'Le jeu, c\'est du sérieux. Cette formation de deux jours te donne des outils concrets et immédiatement réutilisables pour rendre tes animations plus dynamiques, plus engageantes et plus efficaces. On ne parle pas théorie en salle : on expérimente, on joue, on débriefe. Tu repars avec une boîte à outils pédagogique bien garnie.',
             'details' => 'Ateliers ludiques, jeux coopératifs et de rôle, techniques de débriefing et d\'animation de groupe, création d\'outils pédagogiques sur mesure adaptés à ton public. Chaque participant repart avec un carnet d\'activités conçu pendant la formation. Possibilité de mutualiser avec d\'autres participants pour enrichir sa pratique.',
             'constraints' => null,
-            'start_date' => now()->addDays(20)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(21)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(20)->setTime(9, 0)->toDateTimeString(), 'end_date' => now()->addDays(21)->setTime(17, 0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => null, 'participants' => 20,
             'address' => 'Rue Douffet', 'number' => '36',
@@ -339,7 +342,7 @@ class MainSeeder extends Seeder
             'description' => 'Les tensions dans un groupe, ça arrive — entre participants, avec les familles, ou au sein de l\'équipe encadrante. Cette formation de deux jours te donne les clés pour repérer les conflits naissants, agir avant l\'escalade et trouver des solutions durables. Pas de recettes miracles, mais des techniques éprouvées et adaptables à tes situations réelles.',
             'details' => 'Communication non-violente (CNV) appliquée à l\'animation, médiation entre jeunes, gestion des émotions fortes, posture de l\'animateur en situation difficile, jeux de rôle sur des cas concrets issus du terrain. Travail en binômes et en petits groupes. Chaque session est débriefée collectivement pour ancrer les apprentissages.',
             'constraints' => 'Avoir au moins 6 mois d\'expérience active en animation est requis pour pouvoir participer pleinement aux mises en situation.',
-            'start_date' => now()->addDays(45)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(46)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(45)->setTime(9, 0)->toDateTimeString(), 'end_date' => now()->addDays(46)->setTime(17, 0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => 4000, 'participants' => 14,
             'city' => 'Namur', 'province' => Provinces::NAMUR, 'postal_code' => 5000,
@@ -353,7 +356,7 @@ class MainSeeder extends Seeder
             'description' => 'Deux jours en résidentiel dans les Hautes Fagnes pour travailler ton leadership et apprendre à porter un projet collectif de A à Z. Formation intensive mais bienveillante : on pousse chacun à se dépasser tout en restant dans un cadre sécurisant. Idéal pour les animateurs qui veulent évoluer vers la coordination ou la formation.',
             'details' => 'Diagnostic de son style de leadership, travail sur la communication en situation de stress, animation de réunions et de prises de décision collectives, gestion des désaccords dans une équipe, feedback structuré entre participants. Soirée de bilan et de projection personnelle le samedi. Logement et repas inclus dans le tarif.',
             'constraints' => 'Réservé aux animateurs ayant au minimum deux saisons d\'expérience. Places limitées à 10 participants pour garantir un accompagnement individualisé.',
-            'start_date' => now()->addDays(75)->setTime(14,0)->toDateTimeString(), 'end_date' => now()->addDays(76)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(75)->setTime(14, 0)->toDateTimeString(), 'end_date' => now()->addDays(76)->setTime(17, 0)->toDateTimeString(),
             'type' => TrainingTypes::RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => 4000, 'participants' => 10,
             'address' => 'Chemin des Fagnes', 'number' => '2',
@@ -368,7 +371,7 @@ class MainSeeder extends Seeder
             'description' => 'Comment accueillir un jeune en situation de handicap dans ton groupe d\'animation sans le stigmatiser ni le mettre à l\'écart ? Cette journée te donne les clés pratiques pour adapter tes activités, communiquer avec les familles et créer un environnement réellement inclusif. Parce que chaque jeune a le droit de trouver sa place.',
             'details' => 'Tour d\'horizon des différents types de handicap (moteur, cognitif, sensoriel, psychique), adaptations concrètes d\'activités existantes, communication avec les aidants et les familles, cadre légal de l\'inclusion en Belgique, ressources locales disponibles. Intervention d\'un professionnel du secteur du handicap.',
             'constraints' => null,
-            'start_date' => now()->addDays(14)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(14)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(14)->setTime(9, 0)->toDateTimeString(), 'end_date' => now()->addDays(14)->setTime(17, 0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PENDING,
             'price' => null, 'participants' => 18,
             'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => 4000,
@@ -382,7 +385,7 @@ class MainSeeder extends Seeder
             'description' => 'Une journée pratique pour connaître les bons réflexes en cas d\'incendie ou d\'accident lors de tes stages. Évacuations, extincteurs, chaîne d\'alerte, rôle de l\'animateur dans une urgence : on couvre tout en petits groupes avec un intervenant de la sécurité civile. Une formation que tout encadrant devrait avoir avant sa première prise en charge.',
             'details' => 'Exercice d\'évacuation chronométré, maniement d\'extincteur, simulation de scénarios critiques (panique, enfant blessé, départ de feu), protocole d\'appel des secours, responsabilités légales de l\'encadrant. Attestation de participation remise en fin de journée. Tenue adaptée à des exercices en extérieur obligatoire.',
             'constraints' => 'Aucun prérequis. Recommandé avant toute première prise en charge de groupe résidentiel.',
-            'start_date' => now()->addDays(28)->setTime(9,0)->toDateTimeString(), 'end_date' => now()->addDays(28)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(28)->setTime(9, 0)->toDateTimeString(), 'end_date' => now()->addDays(28)->setTime(17, 0)->toDateTimeString(),
             'type' => TrainingTypes::NON_RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => null, 'participants' => 20,
             'address' => 'Rue de la Bonne Fortune', 'number' => '1',
@@ -397,7 +400,7 @@ class MainSeeder extends Seeder
             'description' => 'Deux jours résidentiels pour les membres expérimentés qui portent ou vont porter une équipe. On travaille en profondeur la posture du coordinateur : déléguer sans lâcher, tenir le cadre sous pression, prendre des décisions difficiles et garder l\'équipe engagée sur la durée. Formation dense et exigeante, dans une ambiance bienveillante.',
             'details' => 'Diagnostic systémique d\'une équipe, gestion des tensions internes, animation de réunions difficiles, culture du feedback continu, prévention du burn-out en équipe bénévole. Mises en situation filmées et débriefées. Travail en sous-groupes mixtes. Logement et repas inclus. Un formateur senior accompagne chaque groupe de 4.',
             'constraints' => 'Réservé aux membres ayant au minimum une saison de coordination ou de formation.',
-            'start_date' => now()->addDays(65)->setTime(14,0)->toDateTimeString(), 'end_date' => now()->addDays(66)->setTime(17,0)->toDateTimeString(),
+            'start_date' => now()->addDays(65)->setTime(14, 0)->toDateTimeString(), 'end_date' => now()->addDays(66)->setTime(17, 0)->toDateTimeString(),
             'type' => TrainingTypes::RESIDENTIAL, 'status' => TrainingStatus::PUBLISHED,
             'price' => 5000, 'participants' => 8,
             'address' => 'Rue du Château', 'number' => '12',
