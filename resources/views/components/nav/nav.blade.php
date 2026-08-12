@@ -89,6 +89,11 @@
         @endguest
 
         @auth
+            {{-- Cloche --}}
+            <li class="hidden lg:block">
+                <livewire:widgets.notification-bell />
+            </li>
+
             {{-- Desktop --}}
             <x-nav.drop-menu class="hidden lg:block" />
 
@@ -111,6 +116,13 @@
                             route="admin.profile"
                             class="lg:hidden">
                 {{ __('navigation.account') }}
+            </x-nav.nav-link>
+
+            <x-nav.nav-link href="{{ route('admin.notifications', ['locale' => app()->getLocale()]) }}"
+                            title="{{ __('navigation.notifications_title') }}"
+                            route="admin.notifications"
+                            class="lg:hidden">
+                {{ __('navigation.notifications') }}
             </x-nav.nav-link>
 
             @unless(auth()->user()?->isAdmin())

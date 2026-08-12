@@ -35,4 +35,11 @@ return [
     'missing_document_desc' => 'Ton dossier est presque complet. Il te reste à envoyer les documents demandés.',
     'pending_document_title' => 'Dossier en attente',
     'pending_document_desc' => 'Tes documents ont bien été envoyés. Ton dossier est en cours de révision.',
+
+    // Notifications
+    'notifications' => 'Mes Notifications',
+    'unread' => 'non lues',
+    'mark_all_read' => 'Tout marquer comme lu',
+    'no_notifications' => 'Aucune notification pour le moment.',
+    'new_notification' => 'Nouvelle notification',
 ];

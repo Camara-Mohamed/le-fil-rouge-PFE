@@ -13,11 +13,6 @@ class ModelStatusNotification extends BaseNotification
         public bool $published = true,
     ) {}
 
-    public function via(object $notifiable): array
-    {
-        return ['mail'];
-    }
-
     public function toMail(object $notifiable): MailMessage
     {
         $action = $this->published ? __('emails.published') : __('emails.refused');
@@ -29,5 +24,15 @@ class ModelStatusNotification extends BaseNotification
                 'modelLabel' => $this->modelLabel,
                 'published' => $this->published,
             ]);
+    }
+
+    public function toDatabase(object $notifiable): array
+    {
+        $action = $this->published ? __('emails.published') : __('emails.refused');
+
+        return [
+            'message' => ucfirst($this->modelLabel).' '.$action.' : '.$this->model->title,
+            'url' => $this->publicUrl($this->model),
+        ];
     }
 }

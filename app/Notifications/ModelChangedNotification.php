@@ -15,11 +15,6 @@ class ModelChangedNotification extends BaseNotification
         public bool $created = true,
     ) {}
 
-    public function via(object $notifiable): array
-    {
-        return ['mail'];
-    }
-
     public function toMail(object $notifiable): MailMessage
     {
         $action = $this->created ? __('emails.created') : __('emails.modified');
@@ -32,5 +27,15 @@ class ModelChangedNotification extends BaseNotification
                 'author' => $this->author,
                 'created' => $this->created,
             ]);
+    }
+
+    public function toDatabase(object $notifiable): array
+    {
+        $action = $this->created ? __('emails.created') : __('emails.modified');
+
+        return [
+            'message' => ucfirst($this->modelLabel).' '.$action.' : '.$this->model->title,
+            'url' => $this->publicUrl($this->model),
+        ];
     }
 }
