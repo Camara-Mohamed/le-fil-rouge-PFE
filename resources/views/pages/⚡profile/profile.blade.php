@@ -295,7 +295,7 @@
                              class="px-6 py-4 bg-bg rounded-lg flex items-center justify-between gap-4">
                             <p class="font-sans font-bold text-base text-dark">{{ $document->name }}</p>
                             <div class="flex items-center gap-4 shrink-0">
-                                <a href="{{ config('filesystems.default') === 's3' ? Storage::disk('s3')->temporaryUrl($document->path, now()->addMinutes(30)) : Storage::url($document->path) }}"
+                                <a href="{{ route('admin.documents.download', ['locale' => app()->getLocale(), 'document' => $document]) }}"
                                    data-fancybox="profile-document"
                                    data-type="iframe"
                                    data-width="1000"

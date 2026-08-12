@@ -41,7 +41,7 @@ class ExportController extends Controller
             abort(404);
         }
 
-        $this->authorize('view', $camp);
+        $this->authorize('update', $camp);
 
         $register->load('user');
 

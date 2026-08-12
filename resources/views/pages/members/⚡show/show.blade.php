@@ -187,7 +187,7 @@
                                     <p class="font-sans font-semibold text-sm text-dark truncate">{{ $document->name }}</p>
                                     <p class="font-serif text-xs text-dark-mid">{{ $document->type }}</p>
                                 </div>
-                                <a href="{{ config('filesystems.default') === 's3' ? Storage::disk('s3')->temporaryUrl($document->path, now()->addMinutes(30)) : Storage::url($document->path) }}"
+                                <a href="{{ route('admin.documents.download', ['locale' => app()->getLocale(), 'document' => $document]) }}"
                                    data-fancybox="member-document"
                                    data-type="iframe"
                                    data-width="1000"

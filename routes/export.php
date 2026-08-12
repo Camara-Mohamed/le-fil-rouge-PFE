@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ExportController;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Routing\Middleware\SubstituteBindings;
@@ -17,5 +18,9 @@ Route::prefix('{locale}')
             ->name('admin.camps.pdf');
 
         Route::get('/camps/{camp}/registers/{register}/pdf', [ExportController::class, 'contract'])
+            ->middleware('can:manage-camp')
             ->name('admin.camps.register.pdf');
+
+        Route::get('/documents/{document}/download', [DocumentController::class, 'download'])
+            ->name('admin.documents.download');
     });
