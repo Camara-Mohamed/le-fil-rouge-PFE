@@ -2,15 +2,11 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class RegisterStatusNotification extends Notification
+class RegisterStatusNotification extends BaseNotification
 {
-    use Queueable;
-
     public function __construct(
         public Model $model,
         public string $status,
@@ -28,7 +24,7 @@ class RegisterStatusNotification extends Notification
         return (new MailMessage)
             ->subject(($accepted ? __('emails.registration_accepted') : __('emails.registration_refused')).' : '.$this->model->title)
             ->view('emails.notifications.register-status', [
-                'model'    => $this->model,
+                'model' => $this->model,
                 'accepted' => $accepted,
             ]);
     }

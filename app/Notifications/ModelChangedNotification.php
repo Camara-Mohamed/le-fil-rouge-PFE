@@ -3,15 +3,11 @@
 namespace App\Notifications;
 
 use App\Models\User;
-use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class ModelChangedNotification extends Notification
+class ModelChangedNotification extends BaseNotification
 {
-    use Queueable;
-
     public function __construct(
         public Model $model,
         public string $modelLabel,
@@ -31,10 +27,10 @@ class ModelChangedNotification extends Notification
         return (new MailMessage)
             ->subject(ucfirst($this->modelLabel).' '.$action.' : '.$this->model->title)
             ->view('emails.notifications.model-changed', [
-                'model'      => $this->model,
+                'model' => $this->model,
                 'modelLabel' => $this->modelLabel,
-                'author'     => $this->author,
-                'created'    => $this->created,
+                'author' => $this->author,
+                'created' => $this->created,
             ]);
     }
 }

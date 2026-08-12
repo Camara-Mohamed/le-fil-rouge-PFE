@@ -88,6 +88,8 @@ return [
 
     'member_email_domain' => env('MEMBER_EMAIL_DOMAIN', 'lefilrouge.com'),
 
+    'admin_email' => env('ADMIN_EMAIL_ADDRESS'),
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
