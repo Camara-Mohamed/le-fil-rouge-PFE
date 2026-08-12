@@ -17,7 +17,7 @@ class DocumentPolicy
 
     public function view(User $user, Document $document): bool
     {
-        return false;
+        return $user->isAdmin() || $document->user_id === $user->id;
     }
 
     public function create(User $user): bool
