@@ -31,6 +31,7 @@ return new class extends Migration
             $table->enum('diet', ['normal', 'vegetarian', 'vegan', 'halal', 'kosher', 'gluten_free', 'lactose_free', 'other'])->default('normal');
             $table->text('allergies')->nullable();
             $table->string('avatar_path')->nullable();
+            $table->boolean('email_notifications')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

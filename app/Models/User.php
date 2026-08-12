@@ -33,6 +33,7 @@ use Illuminate\Support\Carbon;
     'diet',
     'allergies',
     'avatar_path',
+    'email_notifications',
 ])]
 #[Hidden([
     'password',
@@ -58,7 +59,13 @@ class User extends Authenticatable
             'province' => Provinces::class,
             'diet' => Diets::class,
             'role' => UserRoles::class,
+            'email_notifications' => 'boolean',
         ];
+    }
+
+    public function wantsEmailNotifications(): bool
+    {
+        return $this->email_notifications ?? true;
     }
 
     public function isAdmin(): bool
