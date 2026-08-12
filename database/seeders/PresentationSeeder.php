@@ -82,7 +82,7 @@ class PresentationSeeder extends Seeder
         // Un compte par rôle avec un mot de passe simple pour la démo jury
         $jAdmin = User::factory()->create([
             'first_name' => 'Claire', 'last_name' => 'Admin',
-            'email' => 'claire.admin@lefilrouge.com',
+            'email' => 'claire.admin@'.config('app.member_email_domain'),
             'role' => UserRoles::ADMIN, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
             'birth_date' => '1985-06-12', 'phone' => '+32 470 00 00 01',
@@ -94,7 +94,7 @@ class PresentationSeeder extends Seeder
 
         $jFormateur = User::factory()->create([
             'first_name' => 'Marc', 'last_name' => 'Formateur',
-            'email' => 'marc.formateur@lefilrouge.com',
+            'email' => 'marc.formateur@'.config('app.member_email_domain'),
             'role' => UserRoles::FORMATEUR, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
             'birth_date' => '1990-03-22', 'phone' => '+32 470 00 00 02',
@@ -105,7 +105,7 @@ class PresentationSeeder extends Seeder
 
         $jCoord = User::factory()->create([
             'first_name' => 'Sophie', 'last_name' => 'Coordinateur',
-            'email' => 'sophie.coordinateur@lefilrouge.com',
+            'email' => 'sophie.coordinateur@'.config('app.member_email_domain'),
             'role' => UserRoles::COORDINATEUR, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
             'birth_date' => '1992-11-08', 'phone' => '+32 470 00 00 03',
@@ -116,7 +116,7 @@ class PresentationSeeder extends Seeder
 
         $jAnim1 = User::factory()->create([
             'first_name' => 'Alice', 'last_name' => 'Animateur',
-            'email' => 'alice.animateur1re@lefilrouge.com',
+            'email' => 'alice.animateur1re@'.config('app.member_email_domain'),
             'role' => UserRoles::ANIMATEUR_1, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
             'birth_date' => '1998-07-15', 'phone' => '+32 470 00 00 04',
@@ -127,7 +127,7 @@ class PresentationSeeder extends Seeder
 
         $jAnim2 = User::factory()->create([
             'first_name' => 'Thomas', 'last_name' => 'Animateur',
-            'email' => 'thomas.animateur2e@lefilrouge.com',
+            'email' => 'thomas.animateur2e@'.config('app.member_email_domain'),
             'role' => UserRoles::ANIMATEUR_2, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
             'birth_date' => '1995-02-28', 'phone' => '+32 470 00 00 05',
@@ -138,7 +138,7 @@ class PresentationSeeder extends Seeder
 
         $jBrevete = User::factory()->create([
             'first_name' => 'Julie', 'last_name' => 'Brevete',
-            'email' => 'julie.brevete@lefilrouge.com',
+            'email' => 'julie.brevete@'.config('app.member_email_domain'),
             'role' => UserRoles::BREVETE, 'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
             'birth_date' => '1993-09-17', 'phone' => '+32 470 00 00 06',
@@ -149,7 +149,7 @@ class PresentationSeeder extends Seeder
 
         $jArrivant = User::factory()->create([
             'first_name' => 'Noa', 'last_name' => 'Arrivant',
-            'email' => 'noa.arrivant@lefilrouge.com',
+            'email' => 'noa.arrivant@'.config('app.member_email_domain'),
             'role' => UserRoles::ARRIVANT, 'status' => UserStatus::INCOMPLETE,
             'password' => Hash::make('change_this'),
             'birth_date' => '2002-04-10', 'phone' => '+32 470 00 00 07',
@@ -159,12 +159,12 @@ class PresentationSeeder extends Seeder
         ]);
 
         // Comptes existants pour les inscriptions
-        $hugo = User::where('email', 'hugo.formateur@lefilrouge.com')->first();
-        $paul = User::where('email', 'paul.coordinateur@lefilrouge.com')->first();
-        $lea = User::where('email', 'lea.animateur1re@lefilrouge.com')->first();
-        $luc = User::where('email', 'luc.animateur2e@lefilrouge.com')->first();
-        $tiffany = User::where('email', 'tiffany.brevete@lefilrouge.com')->first();
-        $admin = User::where('email', 'mohamed.camara@lefilrouge.com')->first();
+        $hugo = User::where('email', 'hugo.formateur@'.config('app.member_email_domain'))->first();
+        $paul = User::where('email', 'paul.coordinateur@'.config('app.member_email_domain'))->first();
+        $lea = User::where('email', 'lea.animateur1re@'.config('app.member_email_domain'))->first();
+        $luc = User::where('email', 'luc.animateur2e@'.config('app.member_email_domain'))->first();
+        $tiffany = User::where('email', 'tiffany.brevete@'.config('app.member_email_domain'))->first();
+        $admin = User::where('email', 'mohamed.camara@'.config('app.member_email_domain'))->first();
 
         // Formations supplémentaires pour enrichir le catalogue de la démo
         $tA = Training::create([
