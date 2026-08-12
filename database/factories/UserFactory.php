@@ -69,7 +69,7 @@ class UserFactory extends Factory
             Diets::OTHER,
         ];
 
-        $email = Str::ascii(fake()->unique()->userName()).'@lefilrouge.com';
+        $email = Str::ascii(fake()->unique()->userName()).'@'.config('app.member_email_domain');
 
         return [
             'first_name' => fake()->firstName(),

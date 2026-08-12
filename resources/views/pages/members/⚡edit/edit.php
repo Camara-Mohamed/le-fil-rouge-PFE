@@ -25,7 +25,7 @@ class extends Component
     #[Validate('required|min:2|max:255')]
     public string $last_name = '';
 
-    #[Validate('required|email|ends_with:@lefilrouge.com')]
+    #[Validate('required|email')]
     public string $email = '';
 
     #[Validate(['required', new EnumRule(UserRoles::class)])]
@@ -71,11 +71,11 @@ class extends Component
             $this->authorize('changeStatus', $this->member);
         }
 
-        // TODO: prefix input[nom.prenom . span('@lefilrouge.com')]
+        // TODO: prefix input[nom.prenom . span('@'.config('app.member_email_domain'))]
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],
             'last_name' => ['required', 'min:2', 'max:255'],
-            'email' => ['required', 'email', 'ends_with:@lefilrouge.com'],
+            'email' => ['required', 'email', 'ends_with:@'.config('app.member_email_domain')],
             'role' => ['required', Rule::enum(UserRoles::class)],
             'status' => ['required', Rule::enum(UserStatus::class)],
             'phone' => ['nullable', 'string'],
@@ -98,7 +98,8 @@ class extends Component
                     newRole: $roleChanged ? UserRoles::from($this->role)->label() : null,
                     newStatus: $statusChanged ? UserStatus::from($this->status)->label() : null,
                 ));
-            } catch (\Throwable) {}
+            } catch (Throwable) {
+            }
         }
 
         $this->dispatch('toast', message: __('toast/members.updated', ['name' => $this->member->fullName()]), type: 'success');

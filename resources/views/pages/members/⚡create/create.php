@@ -24,7 +24,7 @@ new #[Title('Nouveau membre')] class extends Component
     #[Validate('required|min:2|max:255')]
     public string $last_name = '';
 
-    #[Validate('required|email|ends_with:@lefilrouge.com')]
+    #[Validate('required|email')]
     public string $email = '';
 
     #[Validate('required|min:8')]
@@ -44,7 +44,7 @@ new #[Title('Nouveau membre')] class extends Component
         $this->password = Str::random(8);
     }
 
-    // TODO: prefix input[nom.prenom . span('@lefilrouge.com')]
+    // TODO: prefix input[nom.prenom . span('@'.config('app.member_email_domain'))]
     public function save(): void
     {
         $this->authorize('create', User::class);
@@ -52,7 +52,7 @@ new #[Title('Nouveau membre')] class extends Component
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],
             'last_name' => ['required', 'min:2', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email', 'ends_with:@lefilrouge.com'],
+            'email' => ['required', 'email', 'unique:users,email', 'ends_with:@'.config('app.member_email_domain')],
             'password' => ['required', 'min:8'],
             'role' => ['required', Rule::enum(UserRoles::class)],
             'status' => ['required', Rule::enum(UserStatus::class)],
@@ -71,7 +71,8 @@ new #[Title('Nouveau membre')] class extends Component
         if ($this->send_to) {
             try {
                 Mail::to($this->send_to)->send(new NewVolunteerMail($user, $this->password));
-            } catch (\Throwable) {}
+            } catch (Throwable) {
+            }
         }
 
         $this->redirect(route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $user]));

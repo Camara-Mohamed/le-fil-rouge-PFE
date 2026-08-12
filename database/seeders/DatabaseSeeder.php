@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         /* User::factory()->create([
             'first_name' => 'Mohamed',
             'last_name' => 'Camara',
-            'email' => 'mohamed.camara@lefilrouge.com',
+            'email' => 'mohamed.camara@'.config('app.member_email_domain'),
             'role' => UserRoles::ADMIN,
             'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Stéphanie',
             'last_name' => 'Admin',
-            'email' => 'stephanie.admin@lefilrouge.com',
+            'email' => 'stephanie.admin@'.config('app.member_email_domain'),
             'role' => UserRoles::ADMIN,
             'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Hugo',
             'last_name' => 'Formateur',
-            'email' => 'hugo.formateur@lefilrouge.com',
+            'email' => 'hugo.formateur@'.config('app.member_email_domain'),
             'role' => UserRoles::FORMATEUR,
             'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Paul',
             'last_name' => 'Coordinateur',
-            'email' => 'paul.coordinateur@lefilrouge.com',
+            'email' => 'paul.coordinateur@'.config('app.member_email_domain'),
             'role' => UserRoles::COORDINATEUR,
             'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
@@ -74,7 +74,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Tiffany',
             'last_name' => 'Brevete',
-            'email' => 'tiffany.brevete@lefilrouge.com',
+            'email' => 'tiffany.brevete@'.config('app.member_email_domain'),
             'role' => UserRoles::BREVETE,
             'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Luc',
             'last_name' => 'Animateur_2e',
-            'email' => 'luc.animateur2e@lefilrouge.com',
+            'email' => 'luc.animateur2e@'.config('app.member_email_domain'),
             'role' => UserRoles::ANIMATEUR_2,
             'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
@@ -92,7 +92,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Léa',
             'last_name' => 'Animateur_1re',
-            'email' => 'lea.animateur1re@lefilrouge.com',
+            'email' => 'lea.animateur1re@'.config('app.member_email_domain'),
             'role' => UserRoles::ANIMATEUR_1,
             'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),
@@ -101,7 +101,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Sam',
             'last_name' => 'Arrivant',
-            'email' => 'sam.arrivant@lefilrouge.com',
+            'email' => 'sam.arrivant@'.config('app.member_email_domain'),
             'role' => UserRoles::ARRIVANT,
             'status' => UserStatus::COMPLETE,
             'password' => Hash::make('change_this'),

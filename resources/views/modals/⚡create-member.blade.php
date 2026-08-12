@@ -24,7 +24,7 @@ new class extends Component
     #[Validate('required|min:2|max:255')]
     public string $last_name  = '';
 
-    #[Validate('required|email|ends_with:@lefilrouge.com')]
+    #[Validate('required|email')]
     public string $email      = '';
 
     #[Validate('required|min:8')]
@@ -51,10 +51,10 @@ new class extends Component
         $this->send_to    = $request->email;
         $this->phone      = $request->phone ?? '';
 
-        // email : prenom.nom@lefilrouge.com
+        // email : prenom.nom@{domaine configuré}
         $firstName   = str_replace(' ', '', strtolower(Str::ascii($request->first_name)));
         $lastName    = str_replace(' ', '', strtolower(Str::ascii($request->last_name)));
-        $this->email = "{$firstName}.{$lastName}@lefilrouge.com";
+        $this->email = "{$firstName}.{$lastName}@".config('app.member_email_domain');
 
         $this->password = Str::random(8);
     }
@@ -69,7 +69,7 @@ new class extends Component
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],
             'last_name'  => ['required', 'min:2', 'max:255'],
-            'email'      => ['required', 'email', 'unique:users,email', 'ends_with:@lefilrouge.com'],
+            'email'      => ['required', 'email', 'unique:users,email', 'ends_with:@'.config('app.member_email_domain')],
             'password'   => ['required', 'min:8'],
             'role'       => ['required', Rule::enum(UserRoles::class)],
             'status'     => ['required', Rule::enum(UserStatus::class)],

@@ -86,6 +86,8 @@ return [
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'fr_FR'),
 
+    'member_email_domain' => env('MEMBER_EMAIL_DOMAIN', 'lefilrouge.com'),
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
