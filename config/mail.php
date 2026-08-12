@@ -116,13 +116,13 @@ return [
     ],
 
     'reply_to_examen' => [
-        'address' => env('MAIL_EXAM_ADDRESS', 'lefilrouge.pfe@gmail.com'),
-        'name'    => 'Le Fil Rouge PFE',
+        'address' => env('MAIL_EXAM_ADDRESS'),
+        'name' => 'Le Fil Rouge PFE',
     ],
 
     'notification_for_mails' => array_filter([
         env('REPLY_MY_MAIL'),
-        env('MAIL_EXAM_ADDRESS', 'lefilrouge.pfe@gmail.com'),
+        env('MAIL_EXAM_ADDRESS'),
     ]),
 
 ];
