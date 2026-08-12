@@ -32,3 +32,6 @@ Schedule::call(function () {
         Notification::route('mail', config('mail.notification_for_mails'))->notify(new UpcomingEventNotification($training));
     }
 })->daily()->name('send-upcoming-event-reminders');
+
+// relance les notifications/mails échoués
+Schedule::command('queue:retry all')->daily()->name('retry-failed-jobs');

@@ -3,14 +3,10 @@
 namespace App\Notifications;
 
 use App\Models\User;
-use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class DocumentUploadedNotification extends Notification
+class DocumentUploadedNotification extends BaseNotification
 {
-    use Queueable;
-
     public function __construct(public User $member) {}
 
     public function via(object $notifiable): array

@@ -3,15 +3,11 @@
 namespace App\Notifications;
 
 use App\Models\User;
-use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class NewCommentNotification extends Notification
+class NewCommentNotification extends BaseNotification
 {
-    use Queueable;
-
     public function __construct(
         public Model $model,
         public User $author,
@@ -27,7 +23,7 @@ class NewCommentNotification extends Notification
         return (new MailMessage)
             ->subject(__('emails.new_comment_subject', ['title' => $this->model->title]))
             ->view('emails.notifications.new-comment', [
-                'model'  => $this->model,
+                'model' => $this->model,
                 'author' => $this->author,
             ]);
     }

@@ -3,14 +3,10 @@
 namespace App\Notifications;
 
 use App\Models\Announcement;
-use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class AnnouncementNotification extends Notification
+class AnnouncementNotification extends BaseNotification
 {
-    use Queueable;
-
     public function __construct(public Announcement $announcement) {}
 
     public function via(object $notifiable): array

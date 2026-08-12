@@ -2,15 +2,11 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class NewRegisterNotification extends Notification
+class NewRegisterNotification extends BaseNotification
 {
-    use Queueable;
-
     public function __construct(
         public Model $model,
         public string $modelLabel,
@@ -27,8 +23,8 @@ class NewRegisterNotification extends Notification
         return (new MailMessage)
             ->subject(__('emails.new_register_subject', ['title' => $this->model->title]))
             ->view('emails.notifications.new-register', [
-                'model'           => $this->model,
-                'modelLabel'      => $this->modelLabel,
+                'model' => $this->model,
+                'modelLabel' => $this->modelLabel,
                 'participantName' => $this->participantName,
             ]);
     }

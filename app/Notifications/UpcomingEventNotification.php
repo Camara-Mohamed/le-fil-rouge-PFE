@@ -2,15 +2,11 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class UpcomingEventNotification extends Notification
+class UpcomingEventNotification extends BaseNotification
 {
-    use Queueable;
-
     public function __construct(public Model $model) {}
 
     public function via(object $notifiable): array
