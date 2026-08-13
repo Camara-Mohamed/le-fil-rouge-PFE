@@ -38,6 +38,8 @@
 
 <x-partials.footer></x-partials.footer>
 
+<x-public.cookie-banner />
+
 <livewire:widgets::modal/>
 <livewire:widgets::toast/>
 
