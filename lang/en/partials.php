@@ -8,6 +8,13 @@ return [
         'nav_label' => 'Legal links',
     ],
 
+    'cookie_banner' => [
+        'title' => 'This site uses cookies',
+        'description' => 'This site uses cookies to improve your user experience.',
+        'accept_all' => 'Accept all',
+        'essential_only' => 'Essential cookies',
+    ],
+
     'meta' => [
         'public' => [
             'description' => 'Le Fil Rouge — trainings, camps and news for young people in Belgium.',
