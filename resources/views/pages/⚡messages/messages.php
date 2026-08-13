@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\VolunteerRequestStatus;
 use App\Models\ContactMessage;
 use App\Models\VolunteerRequest;
 use Livewire\Attributes\On;
@@ -61,19 +60,6 @@ new #[Title('Les messages')] class extends Component
 
         $model->read_at = now();
         $model->save();
-    }
-
-    public function resetToPending(int $id): void
-    {
-        VolunteerRequest::findOrFail($id)->update(['status' => VolunteerRequestStatus::PENDING]);
-        $this->dispatch('toast', message: __('toast/messages.volunteer_reset'));
-    }
-
-    public function rejectVolunteer(int $id): void
-    {
-        $this->markAsRead($id, 'volunteer');
-        VolunteerRequest::findOrFail($id)->update(['status' => VolunteerRequestStatus::REJECTED]);
-        $this->dispatch('toast', message: __('toast/messages.volunteer_rejected'), type: 'info');
     }
 
     public function openCreateMember(int $id): void
