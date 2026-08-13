@@ -2,6 +2,7 @@
 
 use App\Enums\TrainingStatus;
 use App\Models\Training;
+use App\Notifications\ModelStatusNotification;
 use Livewire\Component;
 
 new class extends Component
@@ -20,7 +21,12 @@ new class extends Component
             abort(403);
         }
 
-        Training::findOrFail((int) $this->model_id)->update(['status' => TrainingStatus::REFUSED]);
+        $training = Training::with('user')->findOrFail((int) $this->model_id);
+        $training->update(['status' => TrainingStatus::REFUSED]);
+
+        try {
+            $training->user->notify(new ModelStatusNotification($training, 'la formation', published: false));
+        } catch (\Throwable) {}
 
         $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'error');
         $this->dispatch('dashboard_updated');

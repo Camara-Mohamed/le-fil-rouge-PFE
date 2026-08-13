@@ -2,6 +2,7 @@
 
 use App\Enums\RegisterStatus;
 use App\Models\TrainingRegister;
+use App\Notifications\RegisterStatusNotification;
 use Livewire\Component;
 
 new class extends Component
@@ -24,6 +25,10 @@ new class extends Component
         }
 
         $register->update(['status' => RegisterStatus::REFUSED]);
+
+        try {
+            $register->user->notify(new RegisterStatusNotification($register->training, 'refused'));
+        } catch (\Throwable) {}
 
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
         $this->dispatch('dashboard_updated');

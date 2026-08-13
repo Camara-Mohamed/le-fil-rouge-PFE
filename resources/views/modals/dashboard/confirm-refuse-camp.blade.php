@@ -2,6 +2,7 @@
 
 use App\Enums\CampStatus;
 use App\Models\Camp;
+use App\Notifications\ModelStatusNotification;
 use Livewire\Component;
 
 new class extends Component
@@ -20,7 +21,12 @@ new class extends Component
             abort(403);
         }
 
-        Camp::findOrFail((int) $this->model_id)->update(['status' => CampStatus::REFUSED]);
+        $camp = Camp::with('user')->findOrFail((int) $this->model_id);
+        $camp->update(['status' => CampStatus::REFUSED]);
+
+        try {
+            $camp->user->notify(new ModelStatusNotification($camp, 'le camp', published: false));
+        } catch (\Throwable) {}
 
         $this->dispatch('toast', message: __('toast/camps.updated', ['type' => 'camp']), type: 'error');
         $this->dispatch('dashboard_updated');
