@@ -9,15 +9,18 @@ class DocumentUploadedNotification extends BaseNotification
 {
     public function __construct(public User $member) {}
 
-    public function via(object $notifiable): array
-    {
-        return ['mail'];
-    }
-
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
             ->subject(__('emails.document_subject', ['name' => $this->member->fullName()]))
             ->view('emails.notifications.document-uploaded', ['member' => $this->member]);
+    }
+
+    public function toDatabase(object $notifiable): array
+    {
+        return [
+            'message' => __('emails.document_subject', ['name' => $this->member->fullName()]),
+            'url' => null,
+        ];
     }
 }

@@ -11,11 +11,6 @@ class MemberChangedNotification extends BaseNotification
         public ?string $newStatus = null,
     ) {}
 
-    public function via(object $notifiable): array
-    {
-        return ['mail'];
-    }
-
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
@@ -24,5 +19,13 @@ class MemberChangedNotification extends BaseNotification
                 'newRole' => $this->newRole,
                 'newStatus' => $this->newStatus,
             ]);
+    }
+
+    public function toDatabase(object $notifiable): array
+    {
+        return [
+            'message' => __('emails.member_changed_subject'),
+            'url' => null,
+        ];
     }
 }

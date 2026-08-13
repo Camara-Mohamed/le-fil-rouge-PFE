@@ -16,6 +16,7 @@ return [
     'dashboard' => 'My Dashboard',
     'account' => 'My Account',
     'history' => 'My History',
+    'notifications' => 'My Notifications',
     'logout' => 'Log out',
 
     'home_title' => 'Back to home',
@@ -31,6 +32,7 @@ return [
     'dashboard_title' => 'Go to my dashboard',
     'account_title' => 'Manage my account',
     'history_title' => 'View my registration history',
+    'notifications_title' => 'View my notifications',
     'logout_title' => 'Log out',
 
     'legal' => 'Legal notice',

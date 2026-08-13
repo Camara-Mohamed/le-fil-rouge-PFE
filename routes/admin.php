@@ -65,4 +65,8 @@ Route::prefix('{locale}')
         // Page d'aide pour utilisation du site
         Route::livewire('/how-to-use', 'pages::help')
             ->name('admin.help');
+
+        // Page des notifications
+        Route::livewire('/my-notifications', 'pages::notifications')
+            ->name('admin.notifications');
     });

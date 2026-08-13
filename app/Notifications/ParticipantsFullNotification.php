@@ -12,11 +12,6 @@ class ParticipantsFullNotification extends BaseNotification
         public string $modelLabel,
     ) {}
 
-    public function via(object $notifiable): array
-    {
-        return ['mail'];
-    }
-
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
@@ -25,5 +20,13 @@ class ParticipantsFullNotification extends BaseNotification
                 'model' => $this->model,
                 'modelLabel' => $this->modelLabel,
             ]);
+    }
+
+    public function toDatabase(object $notifiable): array
+    {
+        return [
+            'message' => __('emails.participants_full_subject', ['title' => $this->model->title]),
+            'url' => $this->publicUrl($this->model),
+        ];
     }
 }

@@ -12,11 +12,6 @@ class RegisterStatusNotification extends BaseNotification
         public string $status,
     ) {}
 
-    public function via(object $notifiable): array
-    {
-        return ['mail'];
-    }
-
     public function toMail(object $notifiable): MailMessage
     {
         $accepted = $this->status === 'accepted';
@@ -27,5 +22,15 @@ class RegisterStatusNotification extends BaseNotification
                 'model' => $this->model,
                 'accepted' => $accepted,
             ]);
+    }
+
+    public function toDatabase(object $notifiable): array
+    {
+        $accepted = $this->status === 'accepted';
+
+        return [
+            'message' => ($accepted ? __('emails.registration_accepted') : __('emails.registration_refused')).' : '.$this->model->title,
+            'url' => $this->publicUrl($this->model),
+        ];
     }
 }

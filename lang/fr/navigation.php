@@ -16,6 +16,7 @@ return [
     'dashboard' => 'Mon Dashboard',
     'account' => 'Mon Compte',
     'history' => 'Mon Historique',
+    'notifications' => 'Mes Notifications',
     'logout' => 'Se Déconnecter',
 
     'home_title' => 'Retourner à l\'accueil',
@@ -31,6 +32,7 @@ return [
     'dashboard_title' => 'Accéder à mon tableau de bord',
     'account_title' => 'Gérer mon compte',
     'history_title' => 'Voir mon historique d\'inscriptions',
+    'notifications_title' => 'Voir mes notifications',
     'logout_title' => 'Se déconnecter',
 
     'legal' => 'Mentions légales',

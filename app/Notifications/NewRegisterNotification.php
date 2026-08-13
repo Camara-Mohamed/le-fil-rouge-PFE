@@ -13,11 +13,6 @@ class NewRegisterNotification extends BaseNotification
         public string $participantName,
     ) {}
 
-    public function via(object $notifiable): array
-    {
-        return ['mail'];
-    }
-
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
@@ -27,5 +22,13 @@ class NewRegisterNotification extends BaseNotification
                 'modelLabel' => $this->modelLabel,
                 'participantName' => $this->participantName,
             ]);
+    }
+
+    public function toDatabase(object $notifiable): array
+    {
+        return [
+            'message' => __('emails.new_registration').' : '.$this->participantName.' → '.$this->model->title,
+            'url' => $this->publicUrl($this->model),
+        ];
     }
 }

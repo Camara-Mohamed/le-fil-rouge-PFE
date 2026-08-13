@@ -24,6 +24,12 @@
                 {{ __('navigation.account') }}
             </x-nav.drop-item>
 
+            <x-nav.drop-item href="{{ route('admin.notifications', ['locale' => app()->getLocale()]) }}"
+                             title="{{ __('navigation.notifications_title') }}"
+                             route="admin.notifications">
+                {{ __('navigation.notifications') }}
+            </x-nav.drop-item>
+
             @unless(auth()->user()?->isAdmin())
             <x-nav.drop-item href="{{ route('admin.enrollments', ['locale' => app()->getLocale()]) }}"
                              title="{{ __('navigation.history_title') }}"

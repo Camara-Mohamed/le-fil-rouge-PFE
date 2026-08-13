@@ -32,4 +32,11 @@ return [
     'missing_document_desc' => 'Your file is almost complete. You still need to send the required documents.',
     'pending_document_title' => 'File under review',
     'pending_document_desc' => 'Your documents have been sent. Your file is currently being reviewed.',
+
+    // Notifications
+    'notifications' => 'My Notifications',
+    'unread' => 'unread',
+    'mark_all_read' => 'Mark all as read',
+    'no_notifications' => 'No notifications yet.',
+    'new_notification' => 'New notification',
 ];
