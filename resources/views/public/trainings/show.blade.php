@@ -79,7 +79,7 @@
                    class="font-sans font-bold text-sm text-dark underline hover:text-red transition duration-200">
                     {{ __('general.edit') }}
                 </a>
-                <button
+                <button type="button"
                     x-data
                     @click="Livewire.dispatch('open_modal', { payload: { form: 'modals::trainings.confirm-delete', model_id: '{{ $training->id }}', model_type: 'training' } })"
                     class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">

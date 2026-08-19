@@ -47,7 +47,7 @@
         <div class="flex items-center justify-between px-4 py-3 border-b border-bg-dark bg-bg">
             <span class="font-sans font-bold text-sm text-dark">{{ __('general.notifications') }}</span>
             @if($unread > 0)
-                <button wire:click="markAllRead"
+                <button type="button" wire:click="markAllRead"
                         class="font-sans text-xs text-dark-mid hover:text-red transition duration-200">
                     {{ __('general.mark_all_read') }}
                 </button>

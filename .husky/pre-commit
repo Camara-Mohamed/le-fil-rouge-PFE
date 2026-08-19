@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-STAGED_PHP=$(git diff --cached --name-only --diff-filter=ACMR -- '*.php')
+STAGED_PHP=$(git -c core.quotepath=false diff --cached --name-only --diff-filter=ACMR -- '*.php')
 
 if [ -n "$STAGED_PHP" ]; then
   echo "Formatage du code (Pint)…"

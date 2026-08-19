@@ -29,6 +29,8 @@ new class extends Component {
             wire:key="{{ $toast['id'] }}"
             x-data
             x-init="setTimeout(() => $wire.remove('{{ $toast['id'] }}'), 4000)"
+            role="{{ in_array($toast['type'], ['error', 'danger']) ? 'alert' : 'status' }}"
+            aria-live="{{ in_array($toast['type'], ['error', 'danger']) ? 'assertive' : 'polite' }}"
             @class([
                 'p-4 rounded-2xl border-l-4 flex items-center justify-between gap-3 shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)]',
                 'bg-success-bg border-success text-success' => $toast['type'] === 'success',
@@ -39,7 +41,7 @@ new class extends Component {
         >
             <p class="font-sans text-sm font-medium">{{ $toast['message'] }}</p>
 
-            <button wire:click="remove('{{ $toast['id'] }}')" class="shrink-0 hover:opacity-70 transition duration-200">
+            <button type="button" wire:click="remove('{{ $toast['id'] }}')" class="shrink-0 hover:opacity-70 transition duration-200">
                 <x-icons.close class="size-4" fill="fill-current" />
             </button>
         </div>

@@ -117,7 +117,7 @@
                                 @endif
 
                                 @can('delete', $comment)
-                                    <button wire:click="openDeleteModal({{ $comment->id }})"
+                                    <button type="button" wire:click="openDeleteModal({{ $comment->id }})"
                                             class="font-sans text-sm font-medium text-dark underline hover:text-danger transition duration-200">
                                         {{ __('livewire/comments.delete') }}
                                     </button>

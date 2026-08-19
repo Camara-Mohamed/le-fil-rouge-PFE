@@ -3,6 +3,8 @@
 return [
     'all_read' => 'Tout est à jour.',
     'search_placeholder' => 'Rechercher...',
+    'search_aria' => 'Rechercher dans les notifications',
+    'filter_aria' => 'Filtrer les notifications',
     'filter_all' => 'Toutes',
     'filter_unread' => 'Non lues',
     'filter_read' => 'Lues',

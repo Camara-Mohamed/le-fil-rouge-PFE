@@ -3,6 +3,8 @@
 return [
     'all_read' => "You're all caught up.",
     'search_placeholder' => 'Search...',
+    'search_aria' => 'Search notifications',
+    'filter_aria' => 'Filter notifications',
     'filter_all' => 'All',
     'filter_unread' => 'Unread',
     'filter_read' => 'Read',

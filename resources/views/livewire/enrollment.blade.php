@@ -14,7 +14,7 @@
                           placeholder="{{ __('livewire/enrollment.notes_placeholder') }}"
                           class="w-full p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark placeholder:text-dark-light resize-none focus:outline-none focus:border-red transition duration-200"></textarea>
             </div>
-            <button wire:click="enroll"
+            <button type="button" wire:click="enroll"
                     class="self-start px-8 py-3 bg-red border-2 border-red rounded-lg font-sans font-bold text-sm text-white hover:bg-red-mid hover:border-red-mid transition duration-200">
                 {{ __('livewire/enrollment.enroll') }}
             </button>
@@ -32,7 +32,7 @@
                 </div>
             @endif
             @if($canCancel)
-                <button wire:click="openCancelModal('pending')"
+                <button type="button" wire:click="openCancelModal('pending')"
                         class="self-start px-8 py-3 bg-red-light border-2 border-red rounded-lg font-sans font-bold text-sm text-red hover:bg-red hover:text-white transition duration-200">
                     {{ __('livewire/enrollment.cancel_pending') }}
                 </button>
@@ -75,7 +75,7 @@
                 </div>
             @endif
             @if($canCancel)
-                <button wire:click="openCancelModal('accepted')"
+                <button type="button" wire:click="openCancelModal('accepted')"
                         class="self-start px-8 py-3 bg-red border-2 border-red rounded-lg font-sans font-bold text-sm text-white hover:bg-red-mid hover:border-red-mid transition duration-200">
                     {{ __('livewire/enrollment.deregister') }}
                 </button>

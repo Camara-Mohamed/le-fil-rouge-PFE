@@ -45,11 +45,11 @@
                             <p class="font-serif text-xs text-dark-mid italic border-l-2 border-bg-dark pl-2 whitespace-pre-line">{!! $registrant->notes !!}</p>
                         @endif
                         <div class="flex gap-4 self-end">
-                            <button wire:click="refuse({{ $registrant->id }})"
+                            <button type="button" wire:click="refuse({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-danger underline hover:opacity-70 transition duration-200">
                                 {{ __('livewire/enrollment.action_refuse') }}
                             </button>
-                            <button wire:click="pending({{ $registrant->id }})"
+                            <button type="button" wire:click="pending({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-warning underline hover:opacity-70 transition duration-200">
                                 {{ __('livewire/enrollment.action_pending') }}
                             </button>
@@ -95,11 +95,11 @@
                             <p class="font-serif text-xs text-dark-mid italic border-l-2 border-bg-dark pl-2 whitespace-pre-line">{!! $registrant->notes !!}</p>
                         @endif
                         <div class="flex gap-4 self-end">
-                            <button wire:click="accept({{ $registrant->id }})"
+                            <button type="button" wire:click="accept({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-success underline hover:opacity-70 transition duration-200">
                                 {{ __('livewire/enrollment.action_accept') }}
                             </button>
-                            <button wire:click="refuse({{ $registrant->id }})"
+                            <button type="button" wire:click="refuse({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-danger underline hover:opacity-70 transition duration-200">
                                 {{ __('livewire/enrollment.action_refuse') }}
                             </button>
@@ -142,11 +142,11 @@
                             </div>
                         </div>
                         <div class="flex gap-4 self-end">
-                            <button wire:click="accept({{ $registrant->id }})"
+                            <button type="button" wire:click="accept({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-success underline hover:opacity-70 transition duration-200">
                                 {{ __('livewire/enrollment.action_accept') }}
                             </button>
-                            <button wire:click="pending({{ $registrant->id }})"
+                            <button type="button" wire:click="pending({{ $registrant->id }})"
                                     class="font-sans text-xs font-bold text-warning underline hover:opacity-70 transition duration-200">
                                 {{ __('livewire/enrollment.action_pending') }}
                             </button>
