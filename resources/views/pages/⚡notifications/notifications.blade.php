@@ -11,7 +11,7 @@
             </p>
 
             @if($unread > 0)
-                <button wire:click="markAllRead"
+                <button type="button" wire:click="markAllRead"
                         class="self-start px-4 py-2 rounded-lg border-2 border-dark-light text-dark font-sans font-medium text-xs hover:border-dark transition">
                     {{ __('general.mark_all_read') }}
                 </button>
@@ -23,10 +23,12 @@
             <input type="search"
                    wire:model.live.debounce.300ms="search"
                    placeholder="{{ __('pages/notifications.search_placeholder') }}"
+                   aria-label="{{ __('pages/notifications.search_aria') }}"
                    class="flex-1 px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark
                           placeholder:text-dark-light focus:outline-none focus:border-red transition">
 
             <select wire:model.live="filter"
+                    aria-label="{{ __('pages/notifications.filter_aria') }}"
                     class="px-3 py-2 rounded-lg border border-bg-dark bg-white font-sans text-sm text-dark
                            focus:outline-none focus:border-red transition cursor-pointer">
                 <option value="all">{{ __('pages/notifications.filter_all') }}</option>
@@ -34,7 +36,7 @@
                 <option value="read">{{ __('pages/notifications.filter_read') }}</option>
             </select>
 
-            <button wire:click="$set('sort', sort === 'desc' ? 'asc' : 'desc')"
+            <button type="button" wire:click="$set('sort', sort === 'desc' ? 'asc' : 'desc')"
                     x-data
                     class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-bg-dark bg-white
                            font-sans text-sm text-dark hover:border-red transition whitespace-nowrap">
@@ -78,7 +80,7 @@
 
                             <div class="flex items-center gap-1 shrink-0">
                                 @if($isUnread)
-                                    <button wire:click="markRead('{{ $notif->id }}')"
+                                    <button type="button" wire:click="markRead('{{ $notif->id }}')"
                                             title="{{ __('pages/notifications.mark_read') }}"
                                             class="p-2 rounded-lg text-dark-light hover:text-dark hover:bg-bg-mid transition">
                                         <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
@@ -86,7 +88,7 @@
                                         </svg>
                                     </button>
                                 @endif
-                                <button wire:click="deleteNotification('{{ $notif->id }}')"
+                                <button type="button" wire:click="deleteNotification('{{ $notif->id }}')"
                                         title="{{ __('pages/notifications.delete') }}"
                                         class="p-2 rounded-lg text-dark-light hover:text-danger hover:bg-danger-bg transition">
                                     <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
@@ -110,7 +112,7 @@
                 <h2 class="font-sans font-bold text-base text-dark">{{ __('pages/notifications.prefs_title') }}</h2>
                 <p class="font-serif text-sm text-dark-mid mt-1">{{ __('pages/notifications.prefs_desc') }}</p>
             </div>
-            <button wire:click="toggleEmailNotifications"
+            <button type="button" wire:click="toggleEmailNotifications"
                     role="switch"
                     aria-checked="{{ auth()->user()->email_notifications ? 'true' : 'false' }}"
                     aria-label="{{ __('pages/notifications.prefs_title') }}"

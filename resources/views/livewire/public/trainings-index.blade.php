@@ -86,7 +86,7 @@
 
     @if($search || $type || $province || $status)
         <div class="mt-3 flex justify-end">
-            <button wire:click="resetFilters"
+            <button type="button" wire:click="resetFilters"
                     class="font-sans text-sm text-dark-mid hover:text-dark underline transition duration-200">
                 {{ __('public/trainings.reset_filters') }}
             </button>

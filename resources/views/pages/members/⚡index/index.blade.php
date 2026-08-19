@@ -24,10 +24,11 @@
             type="search"
             wire:model.live.debounce.300ms="search"
             placeholder="Rechercher par nom ou email…"
+            aria-label="Rechercher par nom ou email"
             class="flex-1 min-w-48 px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark placeholder:text-dark-mid focus:outline-none focus:border-dark"
         />
 
-        <select wire:model.live="role" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
+        <select wire:model.live="role" aria-label="Filtrer par rôle" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
             <option value="">Tous les rôles</option>
             @foreach(UserRoles::registrable() as $role)
                 <option value="{{ $role->value }}">{{ $role->label() }}</option>
@@ -35,7 +36,7 @@
         </select>
 
         @if(!$archived)
-            <select wire:model.live="status" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
+            <select wire:model.live="status" aria-label="Filtrer par statut" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
                 <option value="">Tous les statuts</option>
                 @foreach(UserStatus::cases() as $statut)
                     @if($statut !== UserStatus::ARCHIVED)
@@ -54,7 +55,7 @@
         </button>
 
         @if($search || $role || $status)
-            <button wire:click="resetFilters" class="px-4 py-2 rounded-lg border border-bg-dark text-dark-mid font-serif text-sm hover:border-dark hover:text-dark transition">
+            <button type="button" wire:click="resetFilters" class="px-4 py-2 rounded-lg border border-bg-dark text-dark-mid font-serif text-sm hover:border-dark hover:text-dark transition">
                 Réinitialiser
             </button>
         @endif

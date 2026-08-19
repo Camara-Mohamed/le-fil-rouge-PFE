@@ -71,19 +71,19 @@
                 <div class="flex items-center justify-between flex-wrap gap-3">
                     <h2 class="font-sans font-bold text-xl text-dark">{{ __('pages/dashboard.calendar_title') }}</h2>
                     <div class="flex gap-1 bg-bg rounded-lg p-1">
-                        <button
+                        <button type="button"
                             x-on:click="changeView('listMonth')"
                             :class="currentView === 'listMonth' ? 'bg-white text-dark shadow-sm' : 'text-dark-mid hover:text-dark'"
                             class="px-3 py-1.5 font-sans font-medium text-xs rounded-md transition">
                             {{ __('pages/dashboard.calendar_list') }}
                         </button>
-                        <button
+                        <button type="button"
                             x-on:click="changeView('dayGridWeek')"
                             :class="currentView === 'dayGridWeek' ? 'bg-white text-dark shadow-sm' : 'text-dark-mid hover:text-dark'"
                             class="px-3 py-1.5 font-sans font-medium text-xs rounded-md transition">
                             {{ __('pages/dashboard.calendar_week') }}
                         </button>
-                        <button
+                        <button type="button"
                             x-on:click="changeView('dayGridMonth')"
                             :class="currentView === 'dayGridMonth' ? 'bg-white text-dark shadow-sm' : 'text-dark-mid hover:text-dark'"
                             class="px-3 py-1.5 font-sans font-medium text-xs rounded-md transition">

@@ -10,7 +10,7 @@
 
     {{-- Tabs --}}
     <div class="flex gap-1 bg-bg rounded-lg p-1 self-start">
-        <button
+        <button type="button"
             wire:click="switchTab('contact')"
             class="flex items-center gap-2 px-4 py-2 rounded-md font-sans font-medium text-sm transition
                    {{ $tab === 'contact' ? 'bg-white text-dark shadow-sm' : 'text-dark-mid hover:text-dark' }}">
@@ -19,7 +19,7 @@
                 <x-public.badge variant="danger">{{ $unreadContacts }}</x-public.badge>
             @endif
         </button>
-        <button
+        <button type="button"
             wire:click="switchTab('volunteer')"
             class="flex items-center gap-2 px-4 py-2 rounded-md font-sans font-medium text-sm transition
                    {{ $tab === 'volunteer' ? 'bg-white text-dark shadow-sm' : 'text-dark-mid hover:text-dark' }}">
@@ -36,17 +36,18 @@
             type="search"
             wire:model.live.debounce.300ms="search"
             placeholder="Rechercher par nom ou email…"
+            aria-label="Rechercher par nom ou email"
             class="flex-1 min-w-48 px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark placeholder:text-dark-mid focus:outline-none focus:border-dark"
         />
 
-        <select wire:model.live="filterRead" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
+        <select wire:model.live="filterRead" aria-label="Filtrer par statut de lecture" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
             <option value="">Tous</option>
             <option value="unread">Non lus</option>
             <option value="read">Lus</option>
         </select>
 
         @if($tab === 'volunteer')
-            <select wire:model.live="filterStatus" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
+            <select wire:model.live="filterStatus" aria-label="Filtrer par statut de la demande" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
                 <option value="">Tous les statuts</option>
                 @foreach(VolunteerRequestStatus::cases() as $status)
                     <option value="{{ $status->value }}">{{ $status->label() }}</option>
@@ -55,7 +56,7 @@
         @endif
 
         @if($search || $filterRead || $filterStatus)
-            <button wire:click="resetFilters" class="px-4 py-2 rounded-lg border border-bg-dark text-dark-mid font-serif text-sm hover:border-dark hover:text-dark transition">
+            <button type="button" wire:click="resetFilters" class="px-4 py-2 rounded-lg border border-bg-dark text-dark-mid font-serif text-sm hover:border-dark hover:text-dark transition">
                 Réinitialiser
             </button>
         @endif

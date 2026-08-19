@@ -29,13 +29,13 @@
             <div class="flex items-center gap-3 shrink-0 flex-wrap">
                 @if($member->isArchived())
                     @can('restore', $member)
-                        <button wire:click="restore"
+                        <button type="button" wire:click="restore"
                                 class="font-sans font-bold text-sm text-success underline hover:text-red transition duration-200">
                             Restaurer
                         </button>
                     @endcan
                     @can('forceDelete', $member)
-                        <button wire:click="openConfirmForceDeleteModal"
+                        <button type="button" wire:click="openConfirmForceDeleteModal"
                                 class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">
                             Supprimer définitivement
                         </button>
@@ -47,13 +47,13 @@
                         Modifier
                     </a>
                     @can('delete', $member)
-                        <button wire:click="openConfirmDeleteModal"
+                        <button type="button" wire:click="openConfirmDeleteModal"
                                 class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">
                             Archiver
                         </button>
                     @endcan
                     @can('forceDelete', $member)
-                        <button wire:click="openConfirmForceDeleteModal"
+                        <button type="button" wire:click="openConfirmForceDeleteModal"
                                 class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">
                             Supprimer définitivement
                         </button>
