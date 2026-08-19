@@ -1,13 +1,15 @@
-import { Calendar } from '@fullcalendar/core'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import listPlugin from '@fullcalendar/list'
-
 export function dashboardCalendar(events, locale) {
     return {
         currentView: 'dayGridMonth',
         calendar: null,
 
-        init() {
+        async init() {
+            const [{ Calendar }, { default: dayGridPlugin }, { default: listPlugin }] = await Promise.all([
+                import('@fullcalendar/core'),
+                import('@fullcalendar/daygrid'),
+                import('@fullcalendar/list'),
+            ])
+
             this.calendar = new Calendar(this.$refs.calendarEl, {
                 plugins: [dayGridPlugin, listPlugin],
                 initialView: this.currentView,

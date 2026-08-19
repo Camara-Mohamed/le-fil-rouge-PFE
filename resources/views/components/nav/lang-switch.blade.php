@@ -4,7 +4,8 @@
             @if (request()->route() && Route::currentRouteName())
                 <a href="{{ route(Route::currentRouteName(), array_merge(request()->route()->parameters(), ['locale'
                 => $locale])) }}" lang="{{ $locale }}" hreflang="{{ $locale }}"
-                   title="{{ __('general.switch_language', ['language' => __('general.locales.' . $locale)]) }}">
+                   title="{{ __('general.switch_language', ['language' => __('general.locales.' . $locale)]) }}"
+                   class="inline-flex items-center justify-center min-w-6 min-h-6">
                     {{ $locale }}
                 </a>
             @endif

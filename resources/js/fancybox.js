@@ -1,17 +1,24 @@
-import {Fancybox} from '@fancyapps/ui'
+let fancyboxModule = null
+
+async function ensureFancybox() {
+    if (!document.querySelector('[data-fancybox]')) {
+        return
+    }
+
+    if (!fancyboxModule) {
+        fancyboxModule = await import('@fancyapps/ui')
+    }
+
+    fancyboxModule.Fancybox.bind('[data-fancybox]')
+}
 
 export const Fancy = {
     appFancyBox() {
-        Fancybox.bind('[data-fancybox]')
+        ensureFancybox()
 
         document.addEventListener('livewire:init', () => {
-            document.addEventListener('livewire:navigated', () => {
-                Fancybox.bind('[data-fancybox]')
-            })
-
-            document.addEventListener('livewire:updated', () => {
-                Fancybox.bind('[data-fancybox]')
-            })
+            document.addEventListener('livewire:navigated', ensureFancybox)
+            document.addEventListener('livewire:updated', ensureFancybox)
         })
     }
 }

@@ -3,7 +3,7 @@
 
     <div class="px-4 md:px-8 lg:px-8 py-6 flex items-center justify-between gap-6 flex-wrap">
 
-        <span class="font-sans font-black text-2xl text-red">{{ config('app.name') }}</span>
+        <span class="font-sans font-black text-2xl text-red-mid">{{ config('app.name') }}</span>
 
         <nav aria-labelledby="footer-nav-heading" class="flex flex-wrap items-center gap-4">
             <h3 id="footer-nav-heading" class="sr-only">{{ __('partials.footer.nav_label') }}</h3>
