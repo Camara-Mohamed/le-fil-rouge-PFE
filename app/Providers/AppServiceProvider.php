@@ -16,12 +16,12 @@ use App\Policies\DocumentPolicy;
 use App\Policies\TrainingPolicy;
 use App\Policies\UserPolicy;
 use Gate;
-use Illuminate\Mail\Events\MessageSending;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
-use Symfony\Component\Mime\Address;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -46,6 +46,14 @@ class AppServiceProvider extends ServiceProvider
 
         // Locale
         URL::defaults(['locale' => app()->getLocale()]);
+
+        // Bloque la connexion des comptes archivés
+        Event::listen(Login::class, function (Login $event) {
+            if ($event->user->isArchived()) {
+                Auth::logout();
+                abort(403);
+            }
+        });
 
         // Policies
         Gate::policy(User::class, UserPolicy::class);
