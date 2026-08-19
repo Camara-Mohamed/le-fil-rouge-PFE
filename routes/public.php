@@ -42,12 +42,15 @@ Route::prefix('{locale}')
         // Page de contact
         Route::get('/contact', [ContactMessageController::class, 'index'])
             ->name('public.contact');
-        Route::post('/contact', [ContactMessageController::class, 'store'])->name('public.contact.store');
+        Route::post('/contact', [ContactMessageController::class, 'store'])
+            ->middleware('throttle:5,1')
+            ->name('public.contact.store');
 
         // Page devenir volontaire
         Route::get('/volunteer', [VolunteerRequestController::class, 'index'])
             ->name('public.volunteer');
         Route::post('/volunteer', [VolunteerRequestController::class, 'store'])
+            ->middleware('throttle:5,1')
             ->name('public.volunteer.store');
 
         // Mentions légales

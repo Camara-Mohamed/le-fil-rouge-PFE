@@ -127,7 +127,7 @@
                                             <p class="font-serif text-sm text-dark-mid">{{ $register->training->title }}</p>
                                             <x-public.badge variant="success" class="self-start">{{ __('pages/dashboard.training_badge') }} · {{ $register->training->start_date->format('d/m/Y') }}</x-public.badge>
                                             @if($register->notes)
-                                                <p class="font-serif text-xs text-dark-mid italic mt-1 whitespace-pre-line">{!! $register->notes !!}</p>
+                                                <p class="font-serif text-xs text-dark-mid italic mt-1 whitespace-pre-line">{{ $register->notes }}</p>
                                             @endif
                                         </div>
                                         <div class="flex gap-2">
@@ -152,7 +152,7 @@
                                             <p class="font-serif text-sm text-dark-mid">{{ $register->camp->title }}</p>
                                             <x-public.badge variant="info" class="self-start">{{ __('pages/dashboard.camp_badge') }} · {{ $register->camp->start_date->format('d/m/Y') }}</x-public.badge>
                                             @if($register->notes)
-                                                <p class="font-serif text-xs text-dark-mid italic mt-1 whitespace-pre-line">{!! $register->notes !!}</p>
+                                                <p class="font-serif text-xs text-dark-mid italic mt-1 whitespace-pre-line">{{ $register->notes }}</p>
                                             @endif
                                         </div>
                                         <div class="flex gap-2">

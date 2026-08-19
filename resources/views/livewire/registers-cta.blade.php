@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         @if($registrant->notes)
-                            <p class="font-serif text-xs text-dark-mid italic border-l-2 border-bg-dark pl-2 whitespace-pre-line">{!! $registrant->notes !!}</p>
+                            <p class="font-serif text-xs text-dark-mid italic border-l-2 border-bg-dark pl-2 whitespace-pre-line">{{ $registrant->notes }}</p>
                         @endif
                         <div class="flex gap-4 self-end">
                             <button type="button" wire:click="refuse({{ $registrant->id }})"
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                         @if($registrant->notes)
-                            <p class="font-serif text-xs text-dark-mid italic border-l-2 border-bg-dark pl-2 whitespace-pre-line">{!! $registrant->notes !!}</p>
+                            <p class="font-serif text-xs text-dark-mid italic border-l-2 border-bg-dark pl-2 whitespace-pre-line">{{ $registrant->notes }}</p>
                         @endif
                         <div class="flex gap-4 self-end">
                             <button type="button" wire:click="accept({{ $registrant->id }})"

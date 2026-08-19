@@ -98,7 +98,7 @@
                                 </div>
 
                                 <p class="font-serif text-base leading-6 text-dark whitespace-pre-line">
-                                    {!! $comment->content !!}
+                                    {{ $comment->content }}
                                 </p>
                             </div>
 
