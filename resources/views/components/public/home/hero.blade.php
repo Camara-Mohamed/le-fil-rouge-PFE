@@ -3,7 +3,7 @@
                 px-4 md:px-6 lg:px-8 py-20 lg:py-44">
 
     {{-- Image --}}
-    <img src="{{ asset('images/home/hero.webp') }}"
+    <img src="{{ asset('images/home/hero-1440.webp') }}"
          srcset="{{ asset('images/home/hero-640.webp') }} 640w, {{ asset('images/home/hero-1024.webp') }} 1024w, {{ asset('images/home/hero-1440.webp') }} 1440w"
          sizes="100vw"
          alt="{{ __('public/home.hero_img_alt') }}"
