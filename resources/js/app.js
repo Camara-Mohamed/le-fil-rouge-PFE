@@ -1,3 +1,4 @@
+import './echo.js'
 import { Fancy } from './fancybox.js'
 import { dashboardCalendar } from './calendar.js'
 
