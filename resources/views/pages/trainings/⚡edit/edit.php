@@ -77,7 +77,7 @@ new class extends Component
 
         $galerie = $this->training->galeries()->findOrFail($galerieId);
 
-        Storage::disk('public')->delete($galerie->path);
+        Storage::disk(config('filesystems.default'))->delete($galerie->path);
         $galerie->delete();
 
         $this->training->unsetRelation('galeries');
