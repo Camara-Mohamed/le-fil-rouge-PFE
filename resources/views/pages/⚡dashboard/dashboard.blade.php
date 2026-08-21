@@ -1,4 +1,11 @@
-<div class="flex flex-col gap-8 px-4 py-8 md:px-8" wire:poll.10s>
+<div class="flex flex-col gap-8 px-4 py-8 md:px-8"
+     wire:poll.60s
+     x-data
+     x-init="
+         if (window.Echo) {
+             window.Echo.channel('dashboard').listen('.refreshed', () => $wire.$refresh());
+         }
+     ">
 
     <x-public.missing-document/>
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\RegisterStatus;
+use App\Events\BroadcastRefresh;
 use App\Models\TrainingRegister;
 use App\Notifications\RegisterStatusNotification;
 use Livewire\Component;
@@ -31,6 +32,7 @@ new class extends Component
         } catch (\Throwable) {}
 
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
+        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
         $this->dispatch('dashboard_updated');
         $this->dispatch('close_modal');
     }
