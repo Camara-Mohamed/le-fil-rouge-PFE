@@ -8,6 +8,7 @@ use App\Models\Training;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 abstract class BaseNotification extends Notification implements ShouldQueue
@@ -16,13 +17,23 @@ abstract class BaseNotification extends Notification implements ShouldQueue
 
     public function via(object $notifiable): array
     {
-        $channels = ['database'];
+        $channels = ['database', 'broadcast'];
 
         if (! method_exists($notifiable, 'wantsEmailNotifications') || $notifiable->wantsEmailNotifications()) {
             $channels[] = 'mail';
         }
 
         return $channels;
+    }
+
+    public function toBroadcast(object $notifiable): BroadcastMessage
+    {
+        return new BroadcastMessage($this->toDatabase($notifiable));
+    }
+
+    public function broadcastType(): string
+    {
+        return 'notification.received';
     }
 
     protected function publicUrl(Model $model, string $locale = 'fr'): ?string

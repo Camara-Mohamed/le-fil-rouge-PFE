@@ -2,12 +2,13 @@
 
 namespace App\Livewire;
 
+use App\Events\BroadcastRefresh;
 use App\Livewire\Forms\CommentForm;
-use Illuminate\Support\Facades\Notification;
 use App\Models\Comment;
 use App\Notifications\NewCommentNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -21,12 +22,19 @@ class Comments extends Component
 
     public CommentForm $form;
 
+    protected function channelName(): string
+    {
+        return strtolower(class_basename($this->model)).'.'.$this->model->id.'.comments';
+    }
+
     public function save(): void
     {
         $this->authorize('create', Comment::class);
 
         $this->form->store($this->model);
         $this->dispatch('toast', message: __('toast/comments.created'), type: 'success');
+
+        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
 
         try {
             $creator = $this->model->user;
@@ -35,7 +43,8 @@ class Comments extends Component
                 $creator->notify($notif);
                 Notification::route('mail', config('mail.notification_for_mails'))->notify($notif);
             }
-        } catch (\Throwable) {}
+        } catch (\Throwable) {
+        }
     }
 
     public function openDeleteModal(int $commentId): void
@@ -61,6 +70,8 @@ class Comments extends Component
         $comment->delete();
 
         $this->dispatch('toast', message: __('toast/comments.deleted'), type: 'success');
+
+        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
     }
 
     public function render()

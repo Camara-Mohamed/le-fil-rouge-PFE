@@ -162,4 +162,9 @@ class User extends Authenticatable
     {
         return $this->status === UserStatus::ARCHIVED;
     }
+
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'notifications.'.$this->id;
+    }
 }

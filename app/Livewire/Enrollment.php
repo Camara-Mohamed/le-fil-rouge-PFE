@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Enums\RegisterStatus;
 use App\Enums\UserRoles;
+use App\Events\BroadcastRefresh;
 use App\Models\User;
 use App\Notifications\NewRegisterNotification;
 use App\Notifications\ParticipantsFullNotification;
@@ -21,6 +22,11 @@ class Enrollment extends Component
     public Model $model;
 
     public string $notes = '';
+
+    protected function channelName(): string
+    {
+        return strtolower(class_basename($this->model)).'.'.$this->model->id.'.registers';
+    }
 
     public function enroll(): void
     {
@@ -58,6 +64,7 @@ class Enrollment extends Component
 
         $this->notes = '';
         $this->dispatch('toast', message: __('toast/enrollments.sent'), type: 'success');
+        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
 
         try {
             $label = $this->model->modelLabel();
@@ -66,7 +73,8 @@ class Enrollment extends Component
                 $admin->notify(new NewRegisterNotification($this->model, $label, $user->fullName()));
             }
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new NewRegisterNotification($this->model, $label, $user->fullName()));
-        } catch (\Throwable) {}
+        } catch (\Throwable) {
+        }
     }
 
     public function openCancelModal(string $status): void
@@ -95,6 +103,7 @@ class Enrollment extends Component
             ->delete();
 
         $this->dispatch('toast', message: __('toast/enrollments.cancel'), type: 'info');
+        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
     }
 
     #[On('enrollment_cancel_confirmed')]
@@ -111,6 +120,7 @@ class Enrollment extends Component
         $register->update(['status' => RegisterStatus::ACCEPTED]);
 
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
+        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
         try {
             $register->user->notify(new RegisterStatusNotification($this->model, 'accepted'));
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new RegisterStatusNotification($this->model, 'accepted'));
@@ -122,7 +132,8 @@ class Enrollment extends Component
                 }
                 Notification::route('mail', config('mail.notification_for_mails'))->notify(new ParticipantsFullNotification($this->model, $this->model->modelLabel()));
             }
-        } catch (\Throwable) {}
+        } catch (\Throwable) {
+        }
     }
 
     public function refuse(int $registerId): void
@@ -133,10 +144,12 @@ class Enrollment extends Component
         $register->update(['status' => RegisterStatus::REFUSED]);
 
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
+        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
         try {
             $register->user->notify(new RegisterStatusNotification($this->model, 'refused'));
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new RegisterStatusNotification($this->model, 'refused'));
-        } catch (\Throwable) {}
+        } catch (\Throwable) {
+        }
     }
 
     public function pending(int $registerId): void
@@ -148,6 +161,7 @@ class Enrollment extends Component
             ->update(['status' => RegisterStatus::PENDING]);
 
         $this->dispatch('toast', message: __('toast/enrollments.pending'), type: 'info');
+        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
     }
 
     public function render()

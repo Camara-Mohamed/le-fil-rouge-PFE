@@ -1,4 +1,11 @@
-<div wire:poll.20s>
+<div wire:poll.60s
+     x-data
+     x-init="
+         if (window.Echo) {
+             window.Echo.channel('{{ strtolower(class_basename($model)) }}.{{ $model->id }}.registers')
+                 .listen('.refreshed', () => $wire.$refresh());
+         }
+     ">
 
 {{-- Inscrits --}}
 @can('update', $model)

@@ -21,7 +21,7 @@ new class extends Component
     {
         $document = Document::findOrFail((int) $this->model_id);
         $this->authorize('delete', $document);
-        Storage::disk('public')->delete($document->path);
+        Storage::disk(config('filesystems.default'))->delete($document->path);
         $document->delete();
 
         $this->dispatch('document_deleted');

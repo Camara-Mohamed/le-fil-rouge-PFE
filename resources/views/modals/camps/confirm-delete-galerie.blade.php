@@ -21,7 +21,7 @@ new class extends Component
     {
         $galerie = Galerie::findOrFail((int) $this->model_id);
         $this->authorize('update', $galerie->camp);
-        Storage::disk('public')->delete($galerie->path);
+        Storage::disk(config('filesystems.default'))->delete($galerie->path);
         $galerie->delete();
 
         $this->dispatch('galerie_deleted');

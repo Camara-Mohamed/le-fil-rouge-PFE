@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\CampStatus;
+use App\Events\BroadcastRefresh;
 use App\Models\Camp;
 use App\Notifications\ModelStatusNotification;
 use Livewire\Component;
@@ -29,6 +30,7 @@ new class extends Component
         } catch (\Throwable) {}
 
         $this->dispatch('toast', message: __('toast/camps.updated', ['type' => 'camp']), type: 'error');
+        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
         $this->dispatch('dashboard_updated');
         $this->dispatch('close_modal');
     }

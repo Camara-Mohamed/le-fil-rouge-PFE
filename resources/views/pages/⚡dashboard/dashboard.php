@@ -3,6 +3,7 @@
 use App\Enums\CampStatus;
 use App\Enums\RegisterStatus;
 use App\Enums\TrainingStatus;
+use App\Events\BroadcastRefresh;
 use App\Models\Camp;
 use App\Models\CampRegister;
 use App\Models\Training;
@@ -28,6 +29,7 @@ class extends Component
         $register->load('training');
         $register->update(['status' => RegisterStatus::ACCEPTED]);
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
+        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
         try {
             $register->user->notify(new RegisterStatusNotification($register->training, 'accepted'));
         } catch (Throwable) {
@@ -46,6 +48,7 @@ class extends Component
         $register->load('camp');
         $register->update(['status' => RegisterStatus::ACCEPTED]);
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
+        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
         try {
             $register->user->notify(new RegisterStatusNotification($register->camp, 'accepted'));
         } catch (Throwable) {
@@ -73,6 +76,7 @@ class extends Component
         $training = Training::with('user')->findOrFail($trainingId);
         $training->update(['status' => TrainingStatus::PUBLISHED]);
         $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'success');
+        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
         try {
             $training->user->notify(new ModelStatusNotification($training, 'la formation', published: true));
         } catch (Throwable) {
@@ -88,6 +92,7 @@ class extends Component
         $camp = Camp::with('user')->findOrFail($campId);
         $camp->update(['status' => CampStatus::PUBLISHED]);
         $this->dispatch('toast', message: __('toast/camps.updated', ['type' => 'camp']), type: 'success');
+        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
         try {
             $camp->user->notify(new ModelStatusNotification($camp, 'le camp', published: true));
         } catch (Throwable) {

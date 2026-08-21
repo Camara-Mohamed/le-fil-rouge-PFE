@@ -1,4 +1,12 @@
-<div wire:poll.20s class="flex flex-col gap-8">
+<div wire:poll.60s
+     x-data
+     x-init="
+         if (window.Echo) {
+             window.Echo.channel('{{ strtolower(class_basename($model)) }}.{{ $model->id }}.registers')
+                 .listen('.refreshed', () => $wire.$refresh());
+         }
+     "
+     class="flex flex-col gap-8">
 
     {{-- Inscription --}}
     @if($register === null && $canEnroll)
