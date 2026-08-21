@@ -1,4 +1,13 @@
-<section aria-labelledby="section-commentaires" wire:poll.10s class="flex flex-col gap-12">
+<section aria-labelledby="section-commentaires"
+         wire:poll.60s
+         x-data
+         x-init="
+             if (window.Echo) {
+                 window.Echo.channel('{{ strtolower(class_basename($model)) }}.{{ $model->id }}.comments')
+                     .listen('.refreshed', () => $wire.$refresh());
+             }
+         "
+         class="flex flex-col gap-12">
 
     <h2 id="section-commentaires" class="font-sans font-black text-5xl text-dark capitalize">
         {{ __('livewire/comments.title', ['count' => $comments->count()]) }}
