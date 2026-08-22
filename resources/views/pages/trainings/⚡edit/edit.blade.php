@@ -161,7 +161,7 @@
                     @endif
                     <label class="flex items-center gap-3 px-4 py-3 bg-bg border-2 border-dashed border-dark-light rounded-xl cursor-pointer hover:border-dark transition">
                         <span class="font-serif text-sm text-dark-mid">Ajouter des images à la galerie…</span>
-                        <input type="file" wire:model.live="form.galeries" accept="image/*" class="sr-only">
+                        <input type="file" wire:model.live="form.galeries" accept="image/*" multiple class="sr-only">
                     </label>
                     @error('form.galeries.*')
                         <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
