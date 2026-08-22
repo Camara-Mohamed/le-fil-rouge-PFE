@@ -31,31 +31,31 @@
                     @can('restore', $member)
                         <button type="button" wire:click="restore"
                                 class="font-sans font-bold text-sm text-success underline hover:text-red transition duration-200">
-                            Restaurer
+                            {{ __('pages/members.show_restore') }}
                         </button>
                     @endcan
                     @can('forceDelete', $member)
                         <button type="button" wire:click="openConfirmForceDeleteModal"
                                 class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">
-                            Supprimer définitivement
+                            {{ __('pages/members.show_force_delete') }}
                         </button>
                     @endcan
                 @else
                     <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(), 'member' => $member]) }}"
                        wire:navigate
                        class="font-sans font-bold text-sm text-dark underline hover:text-red transition duration-200">
-                        Modifier
+                        {{ __('pages/members.show_edit') }}
                     </a>
                     @can('delete', $member)
                         <button type="button" wire:click="openConfirmDeleteModal"
                                 class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">
-                            Archiver
+                            {{ __('pages/members.show_archive') }}
                         </button>
                     @endcan
                     @can('forceDelete', $member)
                         <button type="button" wire:click="openConfirmForceDeleteModal"
                                 class="font-sans font-bold text-sm text-danger underline hover:text-red transition duration-200">
-                            Supprimer définitivement
+                            {{ __('pages/members.show_force_delete') }}
                         </button>
                     @endcan
                 @endif
@@ -70,7 +70,7 @@
                     <img
                         src="{{ Storage::url('avatars/originals/' . $member->avatar_path) }}"
                         srcset="@foreach($sizes as $size){{ Storage::url(sprintf(config('avatar.variant_pattern'), $size['width'], $size['height']) . '/' . $member->avatar_path) }} {{ $size['width'] }}w,@endforeach"
-                        alt="Avatar de {{ $member->fullName() }}"
+                        alt="{{ __('pages/members.show_avatar_alt', ['name' => $member->fullName()]) }}"
                         class="size-24 rounded-full object-cover ring-4 ring-white shadow shrink-0 cursor-pointer"
                     >
                 </a>
@@ -94,18 +94,18 @@
             {{-- Informations personnelles --}}
             <section aria-labelledby="info-heading"
                      class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
-                <h3 id="info-heading" class="font-sans font-bold text-xl text-dark">Informations personnelles</h3>
+                <h3 id="info-heading" class="font-sans font-bold text-xl text-dark">{{ __('pages/members.show_section_personal_info') }}</h3>
 
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-0.5">
-                        <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">Email</span>
+                        <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">{{ __('pages/members.show_label_email') }}</span>
                         <a href="mailto:{{ $member->email }}"
                            class="font-serif text-base text-dark hover:text-red transition">{{ $member->email }}</a>
                     </div>
 
                     @if($member->phone)
                         <div class="flex flex-col gap-0.5">
-                            <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">Téléphone</span>
+                            <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">{{ __('pages/members.show_label_phone') }}</span>
                             <a href="tel:{{ $member->phone }}"
                                class="font-serif text-base text-dark hover:text-red transition">{{ $member->phone }}</a>
                         </div>
@@ -113,10 +113,10 @@
 
                     @if($member->birth_date)
                         <div class="flex flex-col gap-0.5">
-                            <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">Date de naissance</span>
+                            <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">{{ __('pages/members.show_label_birth_date') }}</span>
                             <p class="font-serif text-base text-dark">
                                 {{ $member->birth_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY') }}
-                                <span class="text-dark-mid">({{ $member->getAge() }} ans)</span>
+                                <span class="text-dark-mid">({{ $member->getAge() }} {{ __('pages/members.show_age_suffix') }})</span>
                             </p>
                         </div>
                     @endif
@@ -127,24 +127,24 @@
             @if($member->address || $member->city)
                 <section aria-labelledby="address-heading"
                          class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
-                    <h3 id="address-heading" class="font-sans font-bold text-xl text-dark">Adresse</h3>
+                    <h3 id="address-heading" class="font-sans font-bold text-xl text-dark">{{ __('pages/members.show_section_address') }}</h3>
 
                     <div class="flex flex-col gap-4">
                         @if($member->address)
                             <div class="flex flex-col gap-0.5">
-                                <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">Rue</span>
+                                <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">{{ __('pages/members.show_label_street') }}</span>
                                 <p class="font-serif text-base text-dark">{{ $member->address }} {{ $member->number }}</p>
                             </div>
                         @endif
                         @if($member->city)
                             <div class="flex flex-col gap-0.5">
-                                <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">Ville</span>
+                                <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">{{ __('pages/members.show_label_city') }}</span>
                                 <p class="font-serif text-base text-dark">{{ $member->postal_code }} {{ $member->city }}</p>
                             </div>
                         @endif
                         @if($member->province)
                             <div class="flex flex-col gap-0.5">
-                                <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">Province</span>
+                                <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">{{ __('pages/members.show_label_province') }}</span>
                                 <p class="font-serif text-base text-dark">{{ $member->province->label() }}</p>
                             </div>
                         @endif
@@ -156,16 +156,16 @@
             @if($member->diet)
                 <section aria-labelledby="diet-heading"
                          class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
-                    <h3 id="diet-heading" class="font-sans font-bold text-xl text-dark">Régime alimentaire</h3>
+                    <h3 id="diet-heading" class="font-sans font-bold text-xl text-dark">{{ __('pages/members.show_section_diet') }}</h3>
 
                     <div class="flex flex-col gap-4">
                         <div class="flex flex-col gap-0.5">
-                            <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">Régime</span>
+                            <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">{{ __('pages/members.show_label_diet') }}</span>
                             <p class="font-serif text-base text-dark">{{ $member->diet->label() }}</p>
                         </div>
                         @if($member->allergies)
                             <div class="flex flex-col gap-0.5">
-                                <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">Allergies</span>
+                                <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">{{ __('pages/members.show_label_allergies') }}</span>
                                 <p class="font-serif text-base text-dark">{{ $member->allergies }}</p>
                             </div>
                         @endif
@@ -176,7 +176,7 @@
             {{-- Documents --}}
             <section aria-labelledby="docs-heading"
                      class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
-                <h3 id="docs-heading" class="font-sans font-bold text-xl text-dark">Documents</h3>
+                <h3 id="docs-heading" class="font-sans font-bold text-xl text-dark">{{ __('pages/members.show_section_documents') }}</h3>
 
                 @if($member->documents && $member->documents->isNotEmpty())
                     <div class="flex flex-col gap-3">
@@ -193,13 +193,13 @@
                                    data-width="1000"
                                    data-height="900"
                                    class="font-sans font-medium text-sm text-dark underline hover:text-red transition shrink-0">
-                                    Voir
+                                    {{ __('pages/members.show_action_view_document') }}
                                 </a>
                             </div>
                         @endforeach
                     </div>
                 @else
-                    <p class="font-serif text-dark-mid">Aucun document.</p>
+                    <p class="font-serif text-dark-mid">{{ __('pages/members.show_empty_documents') }}</p>
                 @endif
             </section>
 
@@ -211,7 +211,7 @@
             {{-- Formations --}}
             <section aria-labelledby="trainings-heading"
                      class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
-                <h3 id="trainings-heading" class="font-sans font-bold text-xl text-dark">Formations</h3>
+                <h3 id="trainings-heading" class="font-sans font-bold text-xl text-dark">{{ __('pages/members.show_section_trainings') }}</h3>
 
                 @forelse($trainingRegisters as $register)
                     <div wire:key="training-register-{{ $register->id }}"
@@ -231,22 +231,22 @@
                             </x-public.badge>
                         </div>
                         <p class="font-serif text-sm text-dark-mid">
-                            Du {{ $register->training->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
-                            au {{ $register->training->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                            {{ __('pages/members.show_date_from') }} {{ $register->training->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                            {{ __('pages/members.show_date_to') }} {{ $register->training->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
                         </p>
                         @if($register->notes)
                             <p class="font-serif text-sm text-dark-mid italic">{{ $register->notes }}</p>
                         @endif
                     </div>
                 @empty
-                    <p class="font-serif text-dark-mid">Aucune formation.</p>
+                    <p class="font-serif text-dark-mid">{{ __('pages/members.show_empty_trainings') }}</p>
                 @endforelse
             </section>
 
             {{-- Camps --}}
             <section aria-labelledby="camps-heading"
                      class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
-                <h3 id="camps-heading" class="font-sans font-bold text-xl text-dark">Camps &amp; Séjours</h3>
+                <h3 id="camps-heading" class="font-sans font-bold text-xl text-dark">{{ __('pages/members.show_section_camps') }}</h3>
 
                 @forelse($campRegisters as $register)
                     <div wire:key="camp-register-{{ $register->id }}"
@@ -266,15 +266,15 @@
                             </x-public.badge>
                         </div>
                         <p class="font-serif text-sm text-dark-mid">
-                            Du {{ $register->camp->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
-                            au {{ $register->camp->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                            {{ __('pages/members.show_date_from') }} {{ $register->camp->start_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
+                            {{ __('pages/members.show_date_to') }} {{ $register->camp->end_date->locale(app()->getLocale())->isoFormat('D MMMM YYYY [à] HH[h]mm') }}
                         </p>
                         @if($register->notes)
                             <p class="font-serif text-sm text-dark-mid italic">{{ $register->notes }}</p>
                         @endif
                     </div>
                 @empty
-                    <p class="font-serif text-dark-mid">Aucun camp ou séjour.</p>
+                    <p class="font-serif text-dark-mid">{{ __('pages/members.show_empty_camps') }}</p>
                 @endforelse
             </section>
 
