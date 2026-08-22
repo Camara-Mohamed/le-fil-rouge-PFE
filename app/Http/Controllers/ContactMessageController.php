@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Enums\UserRoles;
 use App\Http\Requests\ContactMessageRequest;
 use App\Mail\ContactConfirmationMail;
-use App\Mail\ContactMessageMail;
 use App\Models\ContactMessage;
 use App\Models\User;
+use App\Notifications\NewContactMessageNotification;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 class ContactMessageController extends Controller
 {
@@ -24,11 +25,12 @@ class ContactMessageController extends Controller
         try {
             $admins = User::where('role', UserRoles::ADMIN)->get();
             foreach ($admins as $admin) {
-                Mail::to($admin->email)->send(new ContactMessageMail($message));
+                $admin->notify(new NewContactMessageNotification($message));
             }
-            Mail::to(config('mail.notification_for_mails'))->send(new ContactMessageMail($message));
+            Notification::route('mail', config('mail.notification_for_mails'))->notify(new NewContactMessageNotification($message));
             Mail::to($message->email)->send(new ContactConfirmationMail($message));
-        } catch (\Throwable) {}
+        } catch (\Throwable) {
+        }
 
         return redirect()->back()->with('send', __('/public/contact.send'));
     }
