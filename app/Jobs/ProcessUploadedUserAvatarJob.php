@@ -27,8 +27,7 @@ class ProcessUploadedUserAvatarJob implements ShouldQueue
             $path = sprintf(config('avatar.variant_pattern'), $size['width'], $size['height']);
             Storage::disk(config('filesystems.default'))->put(
                 $path.'/'.$this->file_name,
-                $variant->encodeUsingFileExtension(config('avatar.image_type'), config('avatar.jpeg_compression')),
-                'public'
+                $variant->encodeUsingFileExtension(config('avatar.image_type'), config('avatar.jpeg_compression'))
             );
         }
     }

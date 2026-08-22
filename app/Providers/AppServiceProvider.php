@@ -31,9 +31,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('image', function () {
-            return new ImageManager(config('image.driver'));
-        });
+        //
     }
 
     /**
@@ -41,6 +39,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->app->removeDeferredServices(['image']);
+
+        $this->app->singleton('image', function () {
+            return new ImageManager(config('image.driver'));
+        });
+
         // Observers
         Document::observe(DocumentObserver::class);
 
