@@ -21,6 +21,7 @@ return [
     // Actions globales
     'edit' => 'Modifier',
     'delete' => 'Supprimer',
+    'close' => 'Fermer',
 
     // Labels show
     'date_label' => 'Date',

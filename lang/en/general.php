@@ -18,6 +18,7 @@ return [
     // Global actions
     'edit' => 'Edit',
     'delete' => 'Delete',
+    'close' => 'Close',
 
     // Show labels
     'date_label' => 'Date',
