@@ -56,6 +56,12 @@
                 class="text-sm text-white/60 hover:text-white">
                 {{ __('navigation.legal') }}
             </x-public.link>
+            <span class="text-white/40 text-sm">|</span>
+            <x-public.link
+                href="{{ route('public.privacy', ['locale' => app()->getLocale()]) }}"
+                class="text-sm text-white/60 hover:text-white">
+                {{ __('navigation.privacy') }}
+            </x-public.link>
         </div>
 
         <p class="font-sans font-medium text-sm text-white">

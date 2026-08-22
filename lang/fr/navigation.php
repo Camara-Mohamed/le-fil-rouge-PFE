@@ -36,4 +36,5 @@ return [
     'logout_title' => 'Se déconnecter',
 
     'legal' => 'Mentions légales',
+    'privacy' => 'Politique de confidentialité',
 ];

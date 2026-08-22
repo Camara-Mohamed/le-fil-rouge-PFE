@@ -36,4 +36,5 @@ return [
     'logout_title' => 'Log out',
 
     'legal' => 'Legal notice',
+    'privacy' => 'Privacy policy',
 ];

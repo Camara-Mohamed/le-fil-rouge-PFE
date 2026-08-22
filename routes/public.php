@@ -56,4 +56,8 @@ Route::prefix('{locale}')
         // Mentions légales
         Route::get('/legal', fn () => view('public.legal'))
             ->name('public.legal');
+
+        // Politique de confidentialité
+        Route::get('/privacy', fn () => view('public.privacy'))
+            ->name('public.privacy');
     });
