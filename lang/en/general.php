@@ -27,6 +27,9 @@ return [
     // Required field
     'required' => 'Required',
 
+    // Character limit
+    'max_chars' => ':count characters max',
+
     // Missing document component
     'missing_document_title' => 'A document is missing',
     'missing_document_desc' => 'Your file is almost complete. You still need to send the required documents.',

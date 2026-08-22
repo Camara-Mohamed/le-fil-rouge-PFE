@@ -30,6 +30,9 @@ return [
     // Champ obligatoire
     'required' => 'Requis',
 
+    // Limite de caractères
+    'max_chars' => ':count caractères max',
+
     // Composant document manquant
     'missing_document_title' => 'Il manque un document',
     'missing_document_desc' => 'Ton dossier est presque complet. Il te reste à envoyer les documents demandés.',

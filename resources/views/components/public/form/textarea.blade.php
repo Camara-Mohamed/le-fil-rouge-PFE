@@ -26,7 +26,7 @@
     >{{ $slot }}</textarea>
 
     @if($maxlength)
-        <p class="font-serif text-xs text-dark-mid">{{ $maxlength }} caractères max</p>
+        <p class="font-serif text-xs text-dark-mid">{{ __('general.max_chars', ['count' => $maxlength]) }}</p>
     @endif
 
     @error($name)

@@ -22,7 +22,7 @@
                           maxlength="2000"
                           placeholder="{{ __('livewire/enrollment.notes_placeholder') }}"
                           class="w-full p-4 bg-white rounded-lg border-2 border-bg-mid font-serif text-base text-dark placeholder:text-dark-light resize-none focus:outline-none focus:border-red transition duration-200"></textarea>
-                <span class="font-serif text-xs text-dark-mid">2000 caractères max</span>
+                <span class="font-serif text-xs text-dark-mid">{{ __('general.max_chars', ['count' => 2000]) }}</span>
                 @error('notes')
                     <span class="font-sans text-sm text-danger">{{ $message }}</span>
                 @enderror
