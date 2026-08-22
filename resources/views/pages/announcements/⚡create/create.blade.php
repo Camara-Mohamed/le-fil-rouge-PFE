@@ -16,8 +16,8 @@
             {{-- Informations --}}
             <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
                 <h2 class="font-sans font-bold text-xl text-dark">Informations</h2>
-                <x-public.form.input label="Titre" name="form.title" wire:model.live="form.title" required />
-                <x-public.form.input label="Description courte" name="form.description" wire:model.live="form.description" required />
+                <x-public.form.input label="Titre" name="form.title" wire:model.live="form.title" maxlength="255" required />
+                <x-public.form.input label="Description courte" name="form.description" wire:model.live="form.description" maxlength="255" required />
             </section>
 
             {{-- Contenu --}}
@@ -40,6 +40,7 @@
                         <span class="font-serif text-sm text-dark-mid">Choisir une bannière…</span>
                         <input type="file" wire:model.live="form.banner" accept="image/*" class="sr-only">
                     </label>
+                    <p class="font-serif text-xs text-dark-mid">JPG, PNG, GIF ou WEBP - 2 Mo max</p>
                     @error('form.banner')
                         <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
                             <p class="font-serif text-sm text-danger">{{ $message }}</p>
@@ -61,6 +62,7 @@
                         <span class="font-serif text-sm text-dark-mid">Ajouter des images à la galerie…</span>
                         <input type="file" wire:model.live="form.galeries" accept="image/*" multiple class="sr-only">
                     </label>
+                    <p class="font-serif text-xs text-dark-mid">JPG, PNG, GIF ou WEBP - 2 Mo max par image</p>
                     @error('form.galeries.*')
                         <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
                             <p class="font-serif text-sm text-danger">{{ $message }}</p>

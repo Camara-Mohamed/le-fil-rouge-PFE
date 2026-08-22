@@ -12,7 +12,7 @@ class NewContactMessageNotification extends BaseNotification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Nouveau Message — '.$this->contactMessage->sujet)
+            ->subject('Nouveau Message - '.$this->contactMessage->sujet)
             ->view('emails.contact-message', [
                 'contactMessage' => $this->contactMessage,
             ]);

@@ -18,7 +18,7 @@ return [
     // À propos
     'about_label' => 'Notre histoire',
     'about_title' => 'Un Fil Qui Relie Depuis 2009',
-    'about_content_1' => "Le Fil Rouge est né d'une conviction simple : les jeunes ont besoin d'espaces pour apprendre autrement, s'engager et trouver leur place dans la société. Ce projet associatif a vu le jour en 2009, porté par une poignée de bénévoles convaincus que l'engagement jeune pouvait changer les choses — un camp, une formation, un lien à la fois.",
+    'about_content_1' => "Le Fil Rouge est né d'une conviction simple : les jeunes ont besoin d'espaces pour apprendre autrement, s'engager et trouver leur place dans la société. Ce projet associatif a vu le jour en 2009, porté par une poignée de bénévoles convaincus que l'engagement jeune pouvait changer les choses - un camp, une formation, un lien à la fois.",
     'about_content_2' => "Depuis plus de 15 ans, on construit ces espaces avec eux, pas pour eux. Nos formations, nos camps et nos projets citoyens sont pensés pour donner aux jeunes les outils concrets dont ils ont besoin pour s'épanouir, agir et transmettre à leur tour. Parce qu'un fil bien tissé, ça tient dans le temps.",
     'about_cta' => 'En savoir plus',
     'about_img_alt' => "L'équipe du Fil Rouge lors d'une activité",

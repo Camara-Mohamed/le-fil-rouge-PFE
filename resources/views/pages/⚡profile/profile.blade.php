@@ -98,8 +98,8 @@
             {{-- Informations personnelles --}}
             <form wire:submit="saveInfo" class="flex flex-col gap-4">
                 <div class="grid grid-cols-2 gap-4">
-                    <x-public.form.input label="Prénom" name="info.first_name" wire:model.live="info.first_name" required />
-                    <x-public.form.input label="Nom" name="info.last_name" wire:model.live="info.last_name" required />
+                    <x-public.form.input label="Prénom" name="info.first_name" wire:model.live="info.first_name" maxlength="255" required />
+                    <x-public.form.input label="Nom" name="info.last_name" wire:model.live="info.last_name" maxlength="255" required />
                 </div>
                 <x-public.form.input label="Téléphone" name="info.phone" wire:model.live="info.phone" type="tel" />
                 <x-public.form.input label="Date de naissance" name="info.birth_date" wire:model.live="info.birth_date" type="date" />
@@ -185,14 +185,14 @@
         <form wire:submit="saveAddress" class="flex flex-col gap-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="md:col-span-2">
-                    <x-public.form.input label="Rue" name="address.address" wire:model.live="address.address" />
+                    <x-public.form.input label="Rue" name="address.address" wire:model.live="address.address" maxlength="255" />
                 </div>
-                <x-public.form.input label="Numéro" name="address.number" wire:model.live="address.number" />
-                <x-public.form.input label="Ville" name="address.city" wire:model.live="address.city" />
-                <x-public.form.input label="Code postal" name="address.postal_code" wire:model.live="address.postal_code" />
+                <x-public.form.input label="Numéro" name="address.number" wire:model.live="address.number" maxlength="50" />
+                <x-public.form.input label="Ville" name="address.city" wire:model.live="address.city" maxlength="255" />
+                <x-public.form.input label="Code postal" name="address.postal_code" wire:model.live="address.postal_code" maxlength="20" />
                 <x-public.form.select label="Province" name="address.province"
                     :options="Provinces::cases()" wire:model.live="address.province"
-                    :error="$errors->first('address.province')" />
+                    :error="$errors->first('address.province')" required />
             </div>
             <button type="submit"
                     class="w-full py-4 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
@@ -207,7 +207,7 @@
         <form wire:submit="saveDiet" class="flex flex-col gap-6">
             <x-public.form.select label="Régime" name="diet.diet"
                 :options="Diets::cases()" wire:model.live="diet.diet"
-                :error="$errors->first('diet.diet')" />
+                :error="$errors->first('diet.diet')" required />
             <x-public.form.textarea label="Allergies" name="diet.allergies"
                 wire:model.live="diet.allergies"
                 placeholder="Décrivez vos allergies si vous en avez…"
@@ -230,6 +230,10 @@
             {{-- Zone --}}
             <form wire:submit="uploadDocument" x-data="{ dragging: false, fileName: null }">
                 <div class="flex flex-col gap-4">
+
+                    <span class="font-sans font-bold text-base text-dark">
+                        Fichier<abbr title="{{ __('general.required') }}" class="text-red"> *</abbr>
+                    </span>
 
                     <div class="relative h-52">
                         <div class="h-full rounded-xl flex flex-col justify-center items-center gap-3 pointer-events-none transition-all duration-200"
@@ -266,6 +270,8 @@
                         <p class="font-sans text-sm font-medium text-success" x-text="fileName"></p>
                     </div>
 
+                    <p class="font-serif text-xs text-dark-mid">PDF, DOC, DOCX, XLS, XLSX, JPG, PNG ou WEBP - 10 Mo max</p>
+
                     @error('document.file')
                         <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
                             <p class="font-serif text-sm text-danger">{{ $message }}</p>
@@ -274,7 +280,7 @@
 
                     <div class="flex flex-col gap-4">
                         <x-public.form.input label="Nom du document" name="document.name"
-                            wire:model.live="document.name" placeholder="Ex : Casier judiciaire" />
+                            wire:model.live="document.name" placeholder="Ex : Casier judiciaire" maxlength="255" required />
                         <x-public.form.select label="Type" name="document.type"
                             :options="DocumentTypes::cases()" wire:model.live="document.type"
                             :error="$errors->first('document.type')" />
@@ -338,4 +344,3 @@
     </div>
 
 </div>
-

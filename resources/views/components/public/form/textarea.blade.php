@@ -1,8 +1,9 @@
 @props([
-    'label'    => null,
-    'name'     => null,
-    'required' => false,
-    'rows'     => 6,
+    'label'     => null,
+    'name'      => null,
+    'required'  => false,
+    'rows'      => 6,
+    'maxlength' => null,
 ])
 
 <div class="flex flex-col gap-2">
@@ -16,12 +17,17 @@
     <textarea
         @if($name) id="{{ $name }}" name="{{ $name }}" @endif
         rows="{{ $rows }}"
+        @if($maxlength) maxlength="{{ $maxlength }}" @endif
         {{ $attributes->merge(['class' =>
             'px-4 py-3 w-full bg-white border border-bg-dark rounded-lg resize-none ' .
             'font-serif font-medium text-base text-dark placeholder:text-dark-mid placeholder:font-normal ' .
             'transition duration-200'
         ]) }}
     >{{ $slot }}</textarea>
+
+    @if($maxlength)
+        <p class="font-serif text-xs text-dark-mid">{{ $maxlength }} caractères max</p>
+    @endif
 
     @error($name)
         <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">

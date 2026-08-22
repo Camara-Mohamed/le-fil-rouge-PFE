@@ -17,7 +17,7 @@ return [
     // About
     'about_label' => 'Our story',
     'about_title' => 'A Thread That Connects Since 2009',
-    'about_content_1' => 'Le Fil Rouge was born from a simple belief: young people need spaces to learn differently, get involved and find their place in the world. This community project started in 2009, driven by a handful of volunteers convinced that youth engagement could change things — one camp, one training, one connection at a time.',
+    'about_content_1' => 'Le Fil Rouge was born from a simple belief: young people need spaces to learn differently, get involved and find their place in the world. This community project started in 2009, driven by a handful of volunteers convinced that youth engagement could change things - one camp, one training, one connection at a time.',
     'about_content_2' => "For over 15 years, we've been building these spaces with them, not for them. Our trainings, camps and community projects are designed to give young people the concrete tools they need to grow, act and pass it on. Because a thread well woven holds over time.",
     'about_cta' => 'Learn more',
     'about_img_alt' => 'The Le Fil Rouge team during an activity',

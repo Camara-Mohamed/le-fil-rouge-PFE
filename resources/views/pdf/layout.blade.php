@@ -197,7 +197,7 @@
     </div>
 
     <div class="pdf-footer">
-        <span>{{ config('app.name') }} — Document confidentiel</span>
+        <span>{{ config('app.name') }} - Document confidentiel</span>
         <span>Page <span class="page-number"></span></span>
     </div>
 

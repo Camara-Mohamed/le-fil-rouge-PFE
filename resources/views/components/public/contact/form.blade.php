@@ -22,6 +22,7 @@
             :value="old('full_name')"
             :label="__('public/contact.full_name')"
             placeholder="Dylan Piquin"
+            maxlength="255"
             :required="true"
         />
 
@@ -31,6 +32,7 @@
             :value="old('email')"
             :label="__('public/contact.email')"
             placeholder="dylan.piquin@lefilrouge.be"
+            maxlength="255"
             :required="true"
         />
 
@@ -40,6 +42,7 @@
             :value="old('sujet')"
             :label="__('public/contact.sujet')"
             placeholder="Demande d'inscription, question générale…"
+            maxlength="255"
             :required="true"
         />
 
@@ -47,6 +50,7 @@
             name="message"
             :label="__('public/contact.message')"
             placeholder="Écris ton message ici…"
+            maxlength="5000"
             :required="true"
         >{{ old('message') }}</x-public.form.textarea>
 

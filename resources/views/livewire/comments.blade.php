@@ -52,6 +52,8 @@
                         <span class="self-start font-sans text-xs text-dark-mid">
                             {{ $form->document->getClientOriginalName() }}
                         </span>
+                    @else
+                        <span class="self-start font-serif text-xs text-dark-mid">PDF, DOC, DOCX, JPG, PNG ou WEBP - 10 Mo max</span>
                     @endif
                     @error('form.document')
                         <span class="self-start font-sans text-sm text-danger">{{ $message }}</span>

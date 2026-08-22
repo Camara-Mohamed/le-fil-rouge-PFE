@@ -1,7 +1,8 @@
 @props([
-    'label'    => null,
-    'name'     => null,
-    'required' => false,
+    'label'     => null,
+    'name'      => null,
+    'required'  => false,
+    'maxlength' => null,
 ])
 
 <div class="flex flex-col gap-2">
@@ -14,12 +15,17 @@
 
     <input
         @if($name) id="{{ $name }}" name="{{ $name }}" @endif
+        @if($maxlength) maxlength="{{ $maxlength }}" @endif
         {{ $attributes->merge(['class' =>
             'h-11 px-4 w-full bg-white border border-bg-dark rounded-lg ' .
             'font-serif font-medium text-base text-dark placeholder:text-dark-mid placeholder:font-normal ' .
             'transition duration-200'
         ]) }}
     />
+
+    @if($maxlength)
+        <p class="font-serif text-xs text-dark-mid">{{ $maxlength }} caractères max</p>
+    @endif
 
     @error($name)
         <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">

@@ -228,7 +228,7 @@
                 @foreach($training->galeries as $galerie)
                     <a href="{{ Storage::url($galerie->path) }}" data-fancybox="galerie-training">
                         <img src="{{ Storage::url($galerie->path) }}"
-                             alt="Photo {{ $loop->iteration }} — {{ $training->title }}"
+                             alt="Photo {{ $loop->iteration }} - {{ $training->title }}"
                              class="w-full h-48 object-cover rounded-2xl" />
                     </a>
                 @endforeach
