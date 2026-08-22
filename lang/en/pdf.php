@@ -1,0 +1,53 @@
+<?php
+
+return [
+    'camp_contract' => [
+        'title' => 'Participation contract',
+        'section_camp' => 'The camp',
+        'label_dates' => 'Dates',
+        'date_from' => 'From',
+        'date_to' => 'to',
+        'label_type' => 'Type',
+        'label_location' => 'Location',
+
+        'section_participant' => 'The participant',
+        'label_name' => 'Name',
+        'label_email' => 'Email',
+        'label_phone' => 'Phone',
+        'label_birth_date' => 'Date of birth',
+        'label_role' => 'Role',
+        'label_address' => 'Address',
+        'label_diet' => 'Diet',
+        'label_allergies' => 'Allergies',
+        'label_notes' => 'Notes',
+
+        'section_signatures' => 'Signatures',
+        'signature_participant' => 'The participant',
+        'signature_org' => 'Le Fil Rouge',
+        'signature_stamp' => 'Stamp and signature',
+    ],
+
+    'resume' => [
+        'subtitle_camp' => 'Camp summary',
+        'subtitle_training' => 'Training summary',
+        'section_general' => 'General information',
+        'label_dates' => 'Dates',
+        'date_from' => 'From',
+        'date_to' => 'to',
+        'label_type' => 'Type',
+        'label_price' => 'Price',
+        'label_creator' => 'Creator',
+        'label_location' => 'Location',
+        'section_stats' => 'Statistics',
+        'stat_accepted' => 'Accepted',
+        'stat_pending' => 'Pending',
+        'stat_refused' => 'Refused',
+        'section_registered' => 'Accepted registrations (:count)',
+        'col_name' => 'Name',
+        'col_email' => 'Email',
+        'col_role' => 'Role',
+        'col_notes' => 'Notes',
+    ],
+
+    'page' => 'Page',
+];
