@@ -117,7 +117,7 @@
                 @foreach($announcement->galeries as $galerie)
                     <a href="{{ Storage::url($galerie->path) }}" data-fancybox="galerie-announcement">
                         <img src="{{ Storage::url($galerie->path) }}"
-                             alt="Photo {{ $loop->iteration }} - {{ $announcement->title }}"
+                             alt="{{ __('public/announcements.gallery_photo_alt', ['n' => $loop->iteration, 'title' => $announcement->title]) }}"
                              class="w-full h-48 object-cover rounded-2xl" />
                     </a>
                 @endforeach

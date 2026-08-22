@@ -4,6 +4,7 @@ return [
     'title' => 'Formations',
     'hero_alt' => 'Animateurs en formation au Fil Rouge',
     'gallery_title' => 'Galerie',
+    'gallery_photo_alt' => 'Photo :n - :title',
     'card_title' => 'Voir la formation : :title',
 
     // Filtres

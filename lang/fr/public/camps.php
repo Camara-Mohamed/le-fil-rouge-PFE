@@ -4,6 +4,7 @@ return [
     'title' => 'Stages & Séjours',
     'hero_alt' => 'Jeunes en stage avec le Fil Rouge',
     'gallery_title' => 'Galerie',
+    'gallery_photo_alt' => 'Photo :n - :title',
     'card_title' => 'Voir le stage : :title',
 
     // Filtres

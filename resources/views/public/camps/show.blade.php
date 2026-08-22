@@ -227,7 +227,7 @@
                 @foreach($camp->galeries as $galerie)
                     <a href="{{ Storage::url($galerie->path) }}" data-fancybox="galerie-camp">
                         <img src="{{ Storage::url($galerie->path) }}"
-                             alt="Photo {{ $loop->iteration }} - {{ $camp->title }}"
+                             alt="{{ __('public/camps.gallery_photo_alt', ['n' => $loop->iteration, 'title' => $camp->title]) }}"
                              class="w-full h-48 object-cover rounded-2xl" />
                     </a>
                 @endforeach

@@ -30,6 +30,7 @@ return [
     'label_banner' => 'Banner',
     'label_gallery' => 'Gallery',
     'label_new_gallery' => 'New gallery',
+    'image_alt_temp' => 'Temporary image',
     'banner_choose' => 'Choose a banner…',
     'banner_change' => 'Change banner…',
     'gallery_add' => 'Add images to the gallery…',

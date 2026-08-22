@@ -22,6 +22,11 @@ return [
     'email' => 'Adresse e-mail',
     'phone' => 'Téléphone',
     'message' => 'Pourquoi tu veux nous rejoindre ?',
+    'first_name_placeholder' => 'Dylan',
+    'last_name_placeholder' => 'Piquin',
+    'email_placeholder' => 'dylan.piquin@lefilrouge.be',
+    'phone_placeholder' => '+32 470 12 34 56',
+    'message_placeholder' => 'Dis-nous ce qui te motive à rejoindre le Fil Rouge…',
     'submit' => 'Envoyer ma demande',
     'send' => 'Ta demande a bien été envoyée ! Vérifie ta boîte mail, on t\'a envoyé une confirmation.',
 

@@ -12,7 +12,7 @@
             @if(!$volunteer->read_at)
                 <span class="w-2 h-2 rounded-full bg-red inline-block"></span>
             @endif
-            <x-public.badge variant="warning">Bénévole</x-public.badge>
+            <x-public.badge variant="warning">{{ __('pages/messages.badge_volunteer') }}</x-public.badge>
             <x-public.badge variant="{{ match($volunteer->status) {
                 VolunteerRequestStatus::ACCEPTED => 'success',
                 VolunteerRequestStatus::REJECTED => 'danger',
@@ -37,14 +37,14 @@
                 type="button"
                 wire:click="markAsRead({{ $volunteer->id }}, 'volunteer')"
                 class="px-4 py-1.5 rounded-lg border-2 border-dark-light text-dark text-sm font-sans font-medium hover:border-dark transition">
-                Marquer comme lu
+                {{ __('pages/messages.mark_read') }}
             </button>
         @endif
 
         <a href="mailto:{{ $volunteer->email }}"
            wire:click="markAsRead({{ $volunteer->id }}, 'volunteer')"
            class="px-4 py-1.5 rounded-lg bg-red text-white text-sm font-sans font-medium hover:bg-red-mid transition">
-            Contacter
+            {{ __('pages/messages.contact_btn') }}
         </a>
 
         @if($volunteer->status === VolunteerRequestStatus::PENDING)
@@ -52,7 +52,7 @@
                 type="button"
                 wire:click="openCreateMember({{ $volunteer->id }})"
                 class="px-4 py-1.5 rounded-lg bg-dark text-white text-sm font-sans font-medium hover:bg-dark-mid transition">
-                Créer un compte
+                {{ __('pages/messages.create_account') }}
             </button>
         @endif
 
@@ -61,7 +61,7 @@
                 type="button"
                 wire:click="openRefuseModal({{ $volunteer->id }})"
                 class="px-4 py-1.5 rounded-lg border-2 border-red text-red text-sm font-sans font-medium hover:bg-red-light transition">
-                Refuser
+                {{ __('pages/messages.refuse') }}
             </button>
         @endif
 
@@ -70,7 +70,7 @@
                 type="button"
                 wire:click="openResetPendingModal({{ $volunteer->id }})"
                 class="px-4 py-1.5 rounded-lg border-2 border-dark-light text-dark-mid text-sm font-sans font-medium hover:border-dark transition">
-                Remettre en attente
+                {{ __('pages/messages.reset_pending') }}
             </button>
         @endif
     </div>

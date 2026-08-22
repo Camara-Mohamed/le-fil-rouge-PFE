@@ -39,7 +39,7 @@
                         <img src="{{ Storage::url($announcement->banner) }}" alt="{{ $announcement->title }}" class="w-full h-48 object-cover rounded-xl" />
                     @endif
                     @if($form->banner)
-                        <img src="{{ $form->banner->temporaryUrl() }}" alt="Image temporaire" class="w-full h-48 object-cover rounded-xl" />
+                        <img src="{{ $form->banner->temporaryUrl() }}" alt="{{ __('pages/announcements.image_alt_temp') }}" class="w-full h-48 object-cover rounded-xl" />
                     @endif
                     <label class="flex items-center gap-3 px-4 py-3 bg-bg border-2 border-dashed border-dark-light rounded-xl cursor-pointer hover:border-dark transition">
                         <span class="font-serif text-sm text-dark-mid">{{ $announcement->banner ? __('pages/announcements.banner_change') : __('pages/announcements.banner_choose') }}</span>
@@ -78,7 +78,7 @@
                     @if($form->galeries)
                         <div class="grid grid-cols-3 md:grid-cols-4 gap-3">
                             @foreach($form->galeries as $index => $galerie)
-                                <img wire:key="galerie-preview-{{ $index }}" src="{{ $galerie->temporaryUrl() }}" alt="Image temporaire" class="w-full h-24 object-cover rounded-lg" />
+                                <img wire:key="galerie-preview-{{ $index }}" src="{{ $galerie->temporaryUrl() }}" alt="{{ __('pages/announcements.image_alt_temp') }}" class="w-full h-24 object-cover rounded-lg" />
                             @endforeach
                         </div>
                     @endif

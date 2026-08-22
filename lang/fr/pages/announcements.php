@@ -17,6 +17,7 @@ return [
     'label_banner' => 'Bannière',
     'label_gallery' => 'Galerie',
     'label_new_gallery' => 'Nouvelle galerie',
+    'image_alt_temp' => 'Image temporaire',
     'banner_choose' => 'Choisir une bannière…',
     'banner_change' => 'Changer la bannière…',
     'gallery_add' => 'Ajouter des images à la galerie…',

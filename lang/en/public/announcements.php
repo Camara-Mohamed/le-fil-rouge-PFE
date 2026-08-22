@@ -5,6 +5,7 @@ return [
     'hero_alt' => 'Le Fil Rouge news',
     'card_title' => 'Read: :title',
     'gallery_title' => 'Gallery',
+    'gallery_photo_alt' => 'Photo :n - :title',
 
     // Filters
     'search_label' => 'Search',

@@ -30,6 +30,10 @@ return [
     'email' => 'Adresse email',
     'sujet' => 'Sujet',
     'message' => 'Message',
+    'full_name_placeholder' => 'Dylan Piquin',
+    'email_placeholder' => 'dylan.piquin@lefilrouge.be',
+    'sujet_placeholder' => 'Demande d\'inscription, question générale…',
+    'message_placeholder' => 'Écris ton message ici…',
     'submit' => 'Envoyer mon message',
     'send' => 'Ton message a bien été envoyé ! Vérifie ta boîte mail, on t\'a envoyé une confirmation.',
 
