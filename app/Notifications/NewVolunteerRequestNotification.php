@@ -12,7 +12,7 @@ class NewVolunteerRequestNotification extends BaseNotification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Nouvelle Demande de Volontaire — '.$this->volunteerRequest->fullName())
+            ->subject('Nouvelle Demande de Volontaire - '.$this->volunteerRequest->fullName())
             ->view('emails.volunteer-request', [
                 'volunteerRequest' => $this->volunteerRequest,
             ]);

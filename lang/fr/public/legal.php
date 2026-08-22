@@ -7,7 +7,7 @@ return [
     'contact' => 'Contact :',
     'contact_link' => 'formulaire de contact',
     'hosting_title' => 'Hébergement',
-    'hosting_text' => 'Ce site est hébergé par Laravel Cloud — 111 N. Market St, San Jose, CA 95113, États-Unis.',
+    'hosting_text' => 'Ce site est hébergé par Laravel Cloud - 111 N. Market St, San Jose, CA 95113, États-Unis.',
     'data_title' => 'Données personnelles (RGPD)',
     'data_intro' => 'Le Fil Rouge collecte des données personnelles dans le cadre de la gestion des inscriptions aux formations et camps :',
     'data_item_1' => 'Identité : nom, prénom, date de naissance',

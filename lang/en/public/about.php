@@ -6,7 +6,7 @@ return [
     // History
     'histoire_label' => 'Our story',
     'histoire_title' => 'A Thread That Connects Since 2009',
-    'histoire_content_1' => 'Le Fil Rouge was born from a simple belief: young people need spaces to learn differently, get involved and find their place in the world. This community project started in 2009, driven by a handful of volunteers convinced that youth engagement could change things — one camp, one training, one connection at a time.',
+    'histoire_content_1' => 'Le Fil Rouge was born from a simple belief: young people need spaces to learn differently, get involved and find their place in the world. This community project started in 2009, driven by a handful of volunteers convinced that youth engagement could change things - one camp, one training, one connection at a time.',
     'histoire_content_2' => "For over 15 years, we've been building these spaces with them, not for them. Our trainings, camps and community projects are designed to give young people the concrete tools they need to grow, act and pass it on.",
     'histoire_img_alt' => 'The Le Fil Rouge team during an activity',
     'histoire_cta' => 'Become a volunteer',
@@ -22,20 +22,20 @@ return [
 
     // Values
     'valeurs_1_title' => 'Commitment first',
-    'valeurs_1_desc' => 'We get involved because we believe in it, not because we have to. Volunteering is a choice — and here, that choice is respected.',
+    'valeurs_1_desc' => 'We get involved because we believe in it, not because we have to. Volunteering is a choice - and here, that choice is respected.',
     'valeurs_2_title' => 'With, not for',
     'valeurs_2_desc' => "Young people aren't passive recipients. They co-create, they propose, they take ownership. We're here to support, not to decide for them.",
     'valeurs_3_title' => 'Inclusion without conditions',
-    'valeurs_3_desc' => "No matter where you come from, what you do or what you believe — if you want to get involved, there's a place for you at Le Fil Rouge.",
+    'valeurs_3_desc' => "No matter where you come from, what you do or what you believe - if you want to get involved, there's a place for you at Le Fil Rouge.",
     'valeurs_4_title' => 'Nature as a playground',
-    'valeurs_4_desc' => 'Our camps and activities happen outdoors. Nature slows things down, centres us and inspires — we use it as a full educational tool.',
+    'valeurs_4_desc' => 'Our camps and activities happen outdoors. Nature slows things down, centres us and inspires - we use it as a full educational tool.',
     'valeurs_5_title' => 'Passing it on as a driving force',
     'valeurs_5_desc' => "Those who've benefited from Le Fil Rouge become the ones who keep it alive. This cycle of transmission is what's driven us since 2009.",
 
     // FAQ
     'faq_title' => 'Frequently asked questions',
     'faq_1_q' => 'What age do you need to be to join a camp?',
-    'faq_1_a' => "Our camps are for young people aged 14 to 25. Some stays are organised by age group — check each camp's details for the specific requirements.",
+    'faq_1_a' => "Our camps are for young people aged 14 to 25. Some stays are organised by age group - check each camp's details for the specific requirements.",
     'faq_2_q' => 'How do I become a volunteer at Le Fil Rouge?',
     'faq_2_a' => "Just fill in the form on the 'Become a volunteer' page. We'll get back to you quickly for a chat and point you towards the activities that suit you.",
     'faq_3_q' => 'Are the trainings paid?',

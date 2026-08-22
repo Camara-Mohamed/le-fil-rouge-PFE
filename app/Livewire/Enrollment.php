@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Enrollment extends Component
@@ -21,6 +22,7 @@ class Enrollment extends Component
 
     public Model $model;
 
+    #[Validate('nullable|string|max:2000')]
     public string $notes = '';
 
     protected function channelName(): string
@@ -53,6 +55,8 @@ class Enrollment extends Component
 
             return;
         }
+
+        $this->validate();
 
         $isCreator = $this->model->user_id === $user->id;
 

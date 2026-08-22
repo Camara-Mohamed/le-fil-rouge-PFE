@@ -24,7 +24,7 @@ new class extends Component
     #[Validate('required|min:2|max:255')]
     public string $last_name  = '';
 
-    #[Validate('required|email')]
+    #[Validate('required|email|max:255')]
     public string $email      = '';
 
     #[Validate('required|min:8')]
@@ -69,7 +69,7 @@ new class extends Component
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],
             'last_name'  => ['required', 'min:2', 'max:255'],
-            'email'      => ['required', 'email', 'unique:users,email', 'ends_with:@'.config('app.member_email_domain')],
+            'email'      => ['required', 'email', 'max:255', 'unique:users,email', 'ends_with:@'.config('app.member_email_domain')],
             'password'   => ['required', 'min:8'],
             'role'       => ['required', Rule::enum(UserRoles::class)],
             'status'     => ['required', Rule::enum(UserStatus::class)],
@@ -123,11 +123,11 @@ new class extends Component
             <form wire:submit="save" class="flex flex-col gap-4">
 
                 <div class="grid grid-cols-2 gap-4">
-                    <x-public.form.input :label="__('modals/members.create_label_first')" name="first_name" wire:model.live="first_name" required />
-                    <x-public.form.input :label="__('modals/members.create_label_last')" name="last_name" wire:model.live="last_name" required />
+                    <x-public.form.input :label="__('modals/members.create_label_first')" name="first_name" wire:model.live="first_name" maxlength="255" required />
+                    <x-public.form.input :label="__('modals/members.create_label_last')" name="last_name" wire:model.live="last_name" maxlength="255" required />
                 </div>
 
-                <x-public.form.input :label="__('modals/members.create_label_email')" name="email" type="email" wire:model.live="email" required />
+                <x-public.form.input :label="__('modals/members.create_label_email')" name="email" type="email" wire:model.live="email" maxlength="255" required />
 
                 <div x-data="{ show: false }" class="flex flex-col gap-2">
                     <label for="password" class="font-sans font-bold text-base text-dark">

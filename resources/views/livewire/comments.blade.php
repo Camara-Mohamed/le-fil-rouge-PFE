@@ -36,8 +36,10 @@
                     <textarea id="comment-content"
                               wire:model="form.content"
                               rows="6"
+                              maxlength="2000"
                               placeholder="{{ __('livewire/comments.placeholder') }}"
                               class="w-full px-6 py-4 bg-bg border border-bg-dark rounded-lg font-sans text-sm text-dark placeholder:text-dark-light resize-none focus:outline-none focus:border-red transition duration-200"></textarea>
+                    <span class="self-start font-serif text-xs text-dark-mid">2000 caractères max</span>
                     @error('form.content')
                         <span class="self-start font-sans text-sm text-danger">{{ $message }}</span>
                     @enderror
@@ -52,6 +54,8 @@
                         <span class="self-start font-sans text-xs text-dark-mid">
                             {{ $form->document->getClientOriginalName() }}
                         </span>
+                    @else
+                        <span class="self-start font-serif text-xs text-dark-mid">PDF, DOC, DOCX, JPG, PNG ou WEBP - 10 Mo max</span>
                     @endif
                     @error('form.document')
                         <span class="self-start font-sans text-sm text-danger">{{ $message }}</span>

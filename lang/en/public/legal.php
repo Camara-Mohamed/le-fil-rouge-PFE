@@ -7,7 +7,7 @@ return [
     'contact' => 'Contact:',
     'contact_link' => 'contact form',
     'hosting_title' => 'Hosting',
-    'hosting_text' => 'This site is hosted by Laravel Cloud — 111 N. Market St, San Jose, CA 95113, United States.',
+    'hosting_text' => 'This site is hosted by Laravel Cloud - 111 N. Market St, San Jose, CA 95113, United States.',
     'data_title' => 'Personal data (GDPR)',
     'data_intro' => 'Le Fil Rouge collects personal data to manage registrations for trainings and camps:',
     'data_item_1' => 'Identity: last name, first name, date of birth',

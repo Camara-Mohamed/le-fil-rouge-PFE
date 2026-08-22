@@ -23,6 +23,7 @@
                 :value="old('first_name')"
                 :label="__('public/volunteer-request.first_name')"
                 placeholder="Dylan"
+                maxlength="255"
                 :required="true"
             />
             <x-public.form.input
@@ -31,6 +32,7 @@
                 :value="old('last_name')"
                 :label="__('public/volunteer-request.last_name')"
                 placeholder="Piquin"
+                maxlength="255"
                 :required="true"
             />
         </div>
@@ -41,6 +43,7 @@
             :value="old('email')"
             :label="__('public/volunteer-request.email')"
             placeholder="dylan.piquin@lefilrouge.be"
+            maxlength="255"
             :required="true"
         />
 
@@ -50,6 +53,7 @@
             :value="old('phone')"
             :label="__('public/volunteer-request.phone')"
             placeholder="+32 470 12 34 56"
+            maxlength="20"
             :required="true"
         />
 
@@ -57,6 +61,7 @@
             name="message"
             :label="__('public/volunteer-request.message')"
             placeholder="Dis-nous ce qui te motive à rejoindre le Fil Rouge…"
+            maxlength="5000"
             :required="true"
         >{{ old('message') }}</x-public.form.textarea>
 

@@ -10,13 +10,13 @@ class EmailForm extends Form
 {
     public User $user;
 
-    #[Validate('required|email')]
+    #[Validate('required|email|max:255')]
     public string $email = '';
 
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'unique:users,email'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
         ];
     }
 

@@ -26,7 +26,7 @@
                     <x-public.form.input :label="__('pages/members.edit_label_last_name')" name="last_name" wire:model.live="last_name" required minlength="2" maxlength="255" />
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <x-public.form.input :label="__('pages/members.edit_label_phone')" name="phone" wire:model.live="phone" type="tel" />
+                    <x-public.form.input :label="__('pages/members.edit_label_phone')" name="phone" wire:model.live="phone" type="tel" maxlength="255" />
                     <x-public.form.input :label="__('pages/members.edit_label_birth_date')" name="birth_date" wire:model.live="birth_date" type="date" />
                 </div>
             </section>
@@ -35,7 +35,7 @@
             <section aria-labelledby="section-access"
                      class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
                 <h2 id="section-access" class="font-sans font-bold text-xl text-dark">{{ __('pages/members.edit_section_access') }}</h2>
-                <x-public.form.input :label="__('pages/members.edit_label_email')" name="email" wire:model.live="email" type="email" required />
+                <x-public.form.input :label="__('pages/members.edit_label_email')" name="email" wire:model.live="email" type="email" maxlength="255" required />
             </section>
 
             {{-- Rôle & Statut --}}

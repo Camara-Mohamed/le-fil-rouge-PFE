@@ -25,7 +25,7 @@ class extends Component
     #[Validate('required|min:2|max:255')]
     public string $last_name = '';
 
-    #[Validate('required|email')]
+    #[Validate('required|email|max:255')]
     public string $email = '';
 
     #[Validate(['required', new EnumRule(UserRoles::class)])]
@@ -34,7 +34,7 @@ class extends Component
     #[Validate(['required', new EnumRule(UserStatus::class)])]
     public string $status = '';
 
-    #[Validate('nullable|string')]
+    #[Validate('nullable|string|max:255')]
     public string $phone = '';
 
     #[Validate('nullable|date')]
@@ -75,10 +75,10 @@ class extends Component
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],
             'last_name' => ['required', 'min:2', 'max:255'],
-            'email' => ['required', 'email', 'ends_with:@'.config('app.member_email_domain')],
+            'email' => ['required', 'email', 'max:255', 'ends_with:@'.config('app.member_email_domain'), Rule::unique('users', 'email')->ignore($this->member->id)],
             'role' => ['required', Rule::enum(UserRoles::class)],
             'status' => ['required', Rule::enum(UserStatus::class)],
-            'phone' => ['nullable', 'string'],
+            'phone' => ['nullable', 'string', 'max:255', Rule::unique('users', 'phone')->ignore($this->member->id)],
             'birth_date' => ['nullable', 'date'],
         ]);
 
