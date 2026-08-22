@@ -24,7 +24,7 @@ new #[Title('Nouveau membre')] class extends Component
     #[Validate('required|min:2|max:255')]
     public string $last_name = '';
 
-    #[Validate('required|email')]
+    #[Validate('required|email|max:255')]
     public string $email = '';
 
     #[Validate('required|min:8')]
@@ -52,7 +52,7 @@ new #[Title('Nouveau membre')] class extends Component
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],
             'last_name' => ['required', 'min:2', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email', 'ends_with:@'.config('app.member_email_domain')],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email', 'ends_with:@'.config('app.member_email_domain')],
             'password' => ['required', 'min:8'],
             'role' => ['required', Rule::enum(UserRoles::class)],
             'status' => ['required', Rule::enum(UserStatus::class)],

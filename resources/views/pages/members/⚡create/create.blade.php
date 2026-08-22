@@ -31,7 +31,7 @@
                      class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-6">
                 <h2 id="section-access" class="font-sans font-bold text-xl text-dark">{{ __('pages/members.create_section_access') }}</h2>
 
-                <x-public.form.input :label="__('pages/members.create_label_email')" name="email" wire:model.live="email" type="email" required />
+                <x-public.form.input :label="__('pages/members.create_label_email')" name="email" wire:model.live="email" type="email" maxlength="255" required />
 
                 <div class="flex flex-col gap-2">
                     <label for="password" class="font-sans font-bold text-base text-dark">

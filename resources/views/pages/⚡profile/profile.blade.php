@@ -117,7 +117,7 @@
         <h2 class="font-sans font-black text-3xl text-dark">Adresse e-mail</h2>
 
         <form wire:submit.prevent="saveEmail" class="flex flex-col gap-6">
-            <x-public.form.input label="E-mail" name="email.email" wire:model.live="email.email" type="email" required />
+            <x-public.form.input label="E-mail" name="email.email" wire:model.live="email.email" type="email" maxlength="255" required />
             <button type="submit"
                     class="w-full py-4 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
                 Enregistrer
