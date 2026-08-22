@@ -2,7 +2,12 @@
 
 return [
 
+    'header' => [
+        'label' => 'En-tête',
+    ],
+
     'footer' => [
+        'label' => 'Pied de page',
         'made_by' => 'Mohamed Camara',
         'rights' => 'Tous droits réservés.',
         'nav_label' => 'Liens légaux',
