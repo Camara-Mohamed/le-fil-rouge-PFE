@@ -22,6 +22,11 @@ return [
     'email' => 'Email address',
     'phone' => 'Phone number',
     'message' => 'Why do you want to join us?',
+    'first_name_placeholder' => 'Dylan',
+    'last_name_placeholder' => 'Piquin',
+    'email_placeholder' => 'dylan.piquin@lefilrouge.be',
+    'phone_placeholder' => '+32 470 12 34 56',
+    'message_placeholder' => 'Tell us what motivates you to join Le Fil Rouge…',
     'submit' => 'Send my request',
     'send' => 'Your request has been sent! Check your inbox - we\'ve sent you a confirmation.',
 

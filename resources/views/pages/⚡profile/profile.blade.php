@@ -28,20 +28,20 @@
 
     {{-- Profil --}}
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-8">
-        <h2 class="font-sans font-black text-3xl text-dark">Profil</h2>
+        <h2 class="font-sans font-black text-3xl text-dark">{{ __('pages/profile.section_profile') }}</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-8 items-start">
 
             <form wire:submit="saveAvatar" class="flex flex-col items-center gap-4 p-4 bg-bg rounded-xl">
 
                 @if($avatar)
-                    <img src="{{ $avatar->temporaryUrl() }}" alt="Aperçu"
+                    <img src="{{ $avatar->temporaryUrl() }}" alt="{{ __('pages/profile.avatar_preview_alt') }}"
                          class="size-28 rounded-full object-cover ring-4 ring-white shadow">
                 @elseif($user->avatar_path)
                     <a href="{{ Storage::url('avatars/originals/' . $user->avatar_path) }}" data-fancybox="avatar">
                         <img src="{{ Storage::url('avatars/originals/' . $user->avatar_path) }}"
                              srcset="@foreach($sizes as $size){{ Storage::url(sprintf(config('avatar.variant_pattern'), $size['width'], $size['height']) . '/' . $user->avatar_path) }} {{ $size['width'] }}w,@endforeach"
-                             alt="Avatar de {{ $user->fullName() }}"
+                             alt="{{ __('pages/profile.avatar_alt', ['name' => $user->fullName()]) }}"
                              class="size-28 rounded-full object-cover ring-4 ring-white shadow cursor-pointer">
                     </a>
                 @else
@@ -68,7 +68,7 @@
                 <div class="flex flex-col items-center gap-2 w-full pt-2 border-t border-bg-dark">
                     <label for="avatar-input"
                            class="w-full py-1.5 rounded-lg border-2 border-dark-light text-dark font-sans font-medium text-sm cursor-pointer hover:border-dark transition text-center">
-                        Changer la photo
+                        {{ __('pages/profile.avatar_change') }}
                         <input id="avatar-input" type="file" wire:model.live="avatar"
                                accept="image/jpeg,image/png,image/gif,image/webp" class="sr-only">
                     </label>
@@ -82,14 +82,14 @@
                     @if($user->avatar_path)
                         <button type="button" wire:click="deleteAvatar"
                                 class="font-sans font-medium text-xs text-red underline hover:text-red-mid transition">
-                            Supprimer la photo
+                            {{ __('pages/profile.avatar_delete') }}
                         </button>
                     @endif
 
                     @if($avatar)
                         <button type="submit"
                                 class="w-full py-2 bg-red text-white font-sans font-bold text-sm rounded-lg hover:bg-red-mid transition">
-                            Enregistrer
+                            {{ __('pages/profile.btn_save') }}
                         </button>
                     @endif
                 </div>
@@ -98,14 +98,14 @@
             {{-- Informations personnelles --}}
             <form wire:submit="saveInfo" class="flex flex-col gap-4">
                 <div class="grid grid-cols-2 gap-4">
-                    <x-public.form.input label="Prénom" name="info.first_name" wire:model.live="info.first_name" maxlength="255" required />
-                    <x-public.form.input label="Nom" name="info.last_name" wire:model.live="info.last_name" maxlength="255" required />
+                    <x-public.form.input :label="__('pages/profile.label_first_name')" name="info.first_name" wire:model.live="info.first_name" maxlength="255" required />
+                    <x-public.form.input :label="__('pages/profile.label_last_name')" name="info.last_name" wire:model.live="info.last_name" maxlength="255" required />
                 </div>
-                <x-public.form.input label="Téléphone" name="info.phone" wire:model.live="info.phone" type="tel" />
-                <x-public.form.input label="Date de naissance" name="info.birth_date" wire:model.live="info.birth_date" type="date" />
+                <x-public.form.input :label="__('pages/profile.label_phone')" name="info.phone" wire:model.live="info.phone" type="tel" />
+                <x-public.form.input :label="__('pages/profile.label_birth_date')" name="info.birth_date" wire:model.live="info.birth_date" type="date" />
                 <button type="submit"
                         class="w-full py-4 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
-                    Enregistrer
+                    {{ __('pages/profile.btn_save') }}
                 </button>
             </form>
 
@@ -114,26 +114,26 @@
 
     {{-- Email --}}
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-8">
-        <h2 class="font-sans font-black text-3xl text-dark">Adresse e-mail</h2>
+        <h2 class="font-sans font-black text-3xl text-dark">{{ __('pages/profile.section_email') }}</h2>
 
         <form wire:submit.prevent="saveEmail" class="flex flex-col gap-6">
-            <x-public.form.input label="E-mail" name="email.email" wire:model.live="email.email" type="email" maxlength="255" required />
+            <x-public.form.input :label="__('pages/profile.label_email')" name="email.email" wire:model.live="email.email" type="email" maxlength="255" required />
             <button type="submit"
                     class="w-full py-4 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
-                Enregistrer
+                {{ __('pages/profile.btn_save') }}
             </button>
         </form>
     </section>
 
     {{-- Mot de passe --}}
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-8">
-        <h2 class="font-sans font-black text-3xl text-dark">Mot de passe</h2>
+        <h2 class="font-sans font-black text-3xl text-dark">{{ __('pages/profile.section_password') }}</h2>
 
         <form wire:submit="savePassword" class="flex flex-col gap-6">
             <div class="flex flex-col gap-4" x-data="{ show1: false, show2: false }">
 
                 <div class="flex flex-col gap-2">
-                    <label for="current-password" class="font-sans font-bold text-base text-dark">Mot de passe actuel</label>
+                    <label for="current-password" class="font-sans font-bold text-base text-dark">{{ __('pages/profile.label_current_password') }}</label>
                     <div class="relative">
                         <input id="current-password" type="password" :type="show1 ? 'text' : 'password'"
                                wire:model.live="password.current_password"
@@ -152,7 +152,7 @@
                 </div>
 
                 <div class="flex flex-col gap-2">
-                    <label for="new-password" class="font-sans font-bold text-base text-dark">Nouveau mot de passe</label>
+                    <label for="new-password" class="font-sans font-bold text-base text-dark">{{ __('pages/profile.label_new_password') }}</label>
                     <div class="relative">
                         <input id="new-password" type="password" :type="show2 ? 'text' : 'password'"
                                wire:model.live="password.password"
@@ -173,48 +173,48 @@
             </div>
             <button type="submit"
                     class="w-full py-4 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
-                Enregistrer
+                {{ __('pages/profile.btn_save') }}
             </button>
         </form>
     </section>
 
     {{-- Adresse --}}
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-8">
-        <h2 class="font-sans font-black text-3xl text-dark">Adresse</h2>
+        <h2 class="font-sans font-black text-3xl text-dark">{{ __('pages/profile.section_address') }}</h2>
 
         <form wire:submit="saveAddress" class="flex flex-col gap-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="md:col-span-2">
-                    <x-public.form.input label="Rue" name="address.address" wire:model.live="address.address" maxlength="255" />
+                    <x-public.form.input :label="__('pages/profile.label_address')" name="address.address" wire:model.live="address.address" maxlength="255" />
                 </div>
-                <x-public.form.input label="Numéro" name="address.number" wire:model.live="address.number" maxlength="50" />
-                <x-public.form.input label="Ville" name="address.city" wire:model.live="address.city" maxlength="255" />
-                <x-public.form.input label="Code postal" name="address.postal_code" wire:model.live="address.postal_code" maxlength="20" />
-                <x-public.form.select label="Province" name="address.province"
+                <x-public.form.input :label="__('pages/profile.label_number')" name="address.number" wire:model.live="address.number" maxlength="50" />
+                <x-public.form.input :label="__('pages/profile.label_city')" name="address.city" wire:model.live="address.city" maxlength="255" />
+                <x-public.form.input :label="__('pages/profile.label_postal_code')" name="address.postal_code" wire:model.live="address.postal_code" maxlength="20" />
+                <x-public.form.select :label="__('pages/profile.label_province')" name="address.province"
                     :options="Provinces::cases()" wire:model.live="address.province"
                     :error="$errors->first('address.province')" required />
             </div>
             <button type="submit"
                     class="w-full py-4 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
-                Enregistrer
+                {{ __('pages/profile.btn_save') }}
             </button>
         </form>
     </section>
 
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex flex-col gap-8">
-        <h2 class="font-sans font-black text-3xl text-dark">Régime alimentaire</h2>
+        <h2 class="font-sans font-black text-3xl text-dark">{{ __('pages/profile.section_diet') }}</h2>
 
         <form wire:submit="saveDiet" class="flex flex-col gap-6">
-            <x-public.form.select label="Régime" name="diet.diet"
+            <x-public.form.select :label="__('pages/profile.label_diet')" name="diet.diet"
                 :options="Diets::cases()" wire:model.live="diet.diet"
                 :error="$errors->first('diet.diet')" required />
-            <x-public.form.textarea label="Allergies" name="diet.allergies"
+            <x-public.form.textarea :label="__('pages/profile.label_allergies')" name="diet.allergies"
                 wire:model.live="diet.allergies"
-                placeholder="Décrivez vos allergies si vous en avez…"
+                placeholder="{{ __('pages/profile.allergies_placeholder') }}"
                 :rows="4" />
             <button type="submit"
                     class="w-full py-4 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
-                Enregistrer
+                {{ __('pages/profile.btn_save') }}
             </button>
         </form>
     </section>
@@ -223,7 +223,7 @@
     <section id="document-upload" class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex
     flex-col
     gap-8">
-        <h2 class="font-sans font-black text-3xl text-dark">Documents</h2>
+        <h2 class="font-sans font-black text-3xl text-dark">{{ __('pages/profile.section_documents') }}</h2>
 
         <div class="flex flex-col gap-10">
 
@@ -232,7 +232,7 @@
                 <div class="flex flex-col gap-4">
 
                     <span class="font-sans font-bold text-base text-dark">
-                        Fichier<abbr title="{{ __('general.required') }}" class="text-red"> *</abbr>
+                        {{ __('pages/profile.document_label') }}<abbr title="{{ __('general.required') }}" class="text-red"> *</abbr>
                     </span>
 
                     <div class="relative h-52">
@@ -250,9 +250,9 @@
                             <div class="text-center px-4">
                                 <p class="font-sans font-bold text-sm"
                                    :class="dragging ? 'text-red' : 'text-dark'">
-                                    Glisser un fichier ici
+                                    {{ __('pages/profile.document_drag_title') }}
                                 </p>
-                                <p class="font-serif text-sm text-dark-mid">ou <span class="text-red underline font-medium">parcourir</span></p>
+                                <p class="font-serif text-sm text-dark-mid">{{ __('pages/profile.document_drag_or') }} <span class="text-red underline font-medium">{{ __('pages/profile.document_drag_browse') }}</span></p>
                             </div>
                         </div>
                         <input type="file"
@@ -270,7 +270,7 @@
                         <p class="font-sans text-sm font-medium text-success" x-text="fileName"></p>
                     </div>
 
-                    <p class="font-serif text-xs text-dark-mid">PDF, DOC, DOCX, XLS, XLSX, JPG, PNG ou WEBP - 10 Mo max</p>
+                    <p class="font-serif text-xs text-dark-mid">{{ __('pages/profile.document_hint') }}</p>
 
                     @error('document.file')
                         <div class="px-4 py-1 bg-danger-bg border-l-[3px] border-danger">
@@ -279,14 +279,14 @@
                     @enderror
 
                     <div class="flex flex-col gap-4">
-                        <x-public.form.input label="Nom du document" name="document.name"
-                            wire:model.live="document.name" placeholder="Ex : Casier judiciaire" maxlength="255" required />
-                        <x-public.form.select label="Type" name="document.type"
+                        <x-public.form.input :label="__('pages/profile.label_document_name')" name="document.name"
+                            wire:model.live="document.name" placeholder="{{ __('pages/profile.document_name_placeholder') }}" maxlength="255" required />
+                        <x-public.form.select :label="__('pages/profile.label_document_type')" name="document.type"
                             :options="DocumentTypes::cases()" wire:model.live="document.type"
                             :error="$errors->first('document.type')" />
                         <button type="submit"
                                 class="w-full py-4 bg-red text-white font-sans font-bold text-base rounded-lg hover:bg-red-mid transition duration-200">
-                            Envoyer le document
+                            {{ __('pages/profile.btn_upload_document') }}
                         </button>
                     </div>
 
@@ -307,12 +307,12 @@
                                    data-width="1000"
                                    data-height="900"
                                    class="font-sans font-medium text-sm text-dark underline hover:text-red transition">
-                                    Voir
+                                    {{ __('pages/profile.document_view') }}
                                 </a>
                                 <button type="button"
                                         wire:click="openConfirmDeleteDocumentModal({{ $document->id }})"
                                         class="font-sans font-medium text-sm text-red underline hover:text-red-mid transition">
-                                    Supprimer
+                                    {{ __('pages/profile.document_delete') }}
                                 </button>
                             </div>
                         </div>
@@ -327,16 +327,16 @@
     {{-- Déconnexion --}}
     <section class="p-6 bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] flex
     items-center
-    justify-between gap-4" aria-label="Déconnexion">
-        <h2 class="sr-only">Déconnexion</h2>
+    justify-between gap-4" aria-label="{{ __('pages/profile.section_logout') }}">
+        <h2 class="sr-only">{{ __('pages/profile.section_logout') }}</h2>
         <div class="flex flex-col gap-1">
-            <p class="font-sans font-bold text-base text-dark">Se déconnecter</p>
-            <p class="font-serif text-sm text-dark-mid">Vous ne pouvez pas supprimer votre compte.</p>
+            <p class="font-sans font-bold text-base text-dark">{{ __('pages/profile.logout_title') }}</p>
+            <p class="font-serif text-sm text-dark-mid">{{ __('pages/profile.logout_desc') }}</p>
         </div>
         <form method="POST" action="{{ route('logout', ['locale' => app()->getLocale()]) }}">
             @csrf
             <x-forms.button type="submit" class="text-danger border-danger hover:bg-danger hover:text-white">
-                Déconnexion
+                {{ __('pages/profile.logout_btn') }}
             </x-forms.button>
         </form>
     </section>

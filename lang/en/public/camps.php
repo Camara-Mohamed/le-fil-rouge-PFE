@@ -4,6 +4,7 @@ return [
     'title' => 'Camps & Stays',
     'hero_alt' => 'Young people at a Le Fil Rouge camp',
     'gallery_title' => 'Gallery',
+    'gallery_photo_alt' => 'Photo :n - :title',
     'card_title' => 'See camp: :title',
 
     // Filters

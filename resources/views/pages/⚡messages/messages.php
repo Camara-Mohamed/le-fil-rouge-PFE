@@ -3,12 +3,11 @@
 use App\Models\ContactMessage;
 use App\Models\VolunteerRequest;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new #[Title('Les messages')] class extends Component
+new class extends Component
 {
     use WithPagination;
 
@@ -127,6 +126,6 @@ new #[Title('Les messages')] class extends Component
 
         return view('pages.⚡messages.messages', compact(
             'contacts', 'volunteers', 'unreadContacts', 'unreadVolunteers'
-        ));
+        ))->title(__('navigation.messages'));
     }
 };

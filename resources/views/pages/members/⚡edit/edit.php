@@ -7,13 +7,11 @@ use App\Notifications\MemberChangedNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum as EnumRule;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-new #[Title('Modifier un membre')]
-class extends Component
+new class extends Component
 {
     use AuthorizesRequests, WithFileUploads;
 
@@ -107,6 +105,7 @@ class extends Component
 
     public function render()
     {
-        return view('pages.members.⚡edit.edit');
+        return view('pages.members.⚡edit.edit')
+            ->title(__('pages/members.edit_page_title'));
     }
 };

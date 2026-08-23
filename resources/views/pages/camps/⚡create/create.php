@@ -8,11 +8,10 @@ use App\Models\User;
 use App\Notifications\ModelChangedNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Notification;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-new #[Title('Ajouter un camp')] class extends Component
+new class extends Component
 {
     use AuthorizesRequests, WithFileUploads;
 
@@ -32,7 +31,8 @@ new #[Title('Ajouter un camp')] class extends Component
                 $admin->notify(new ModelChangedNotification($camp, 'le camp', auth()->user(), created: true));
             }
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new ModelChangedNotification($camp, 'le camp', auth()->user(), created: true));
-        } catch (\Throwable) {}
+        } catch (Throwable) {
+        }
 
         session()->flash('success', __('toast/camps.created', ['type' => $type]));
 
@@ -44,6 +44,7 @@ new #[Title('Ajouter un camp')] class extends Component
 
     public function render()
     {
-        return view('pages.camps.⚡create.create');
+        return view('pages.camps.⚡create.create')
+            ->title(__('pages/camps.create_page_title'));
     }
 };

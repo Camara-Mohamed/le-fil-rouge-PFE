@@ -11,11 +11,9 @@ use App\Models\TrainingRegister;
 use App\Notifications\ModelStatusNotification;
 use App\Notifications\RegisterStatusNotification;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Title('Dashboard')]
-class extends Component
+new class extends Component
 {
     public function acceptTrainingRegister(int $registerId): void
     {
@@ -142,7 +140,8 @@ class extends Component
 
         $data['calendarEvents'] = $this->getCalendarEvents($user);
 
-        return view('pages.⚡dashboard.dashboard', $data);
+        return view('pages.⚡dashboard.dashboard', $data)
+            ->title(__('navigation.dashboard'));
     }
 
     private function getCalendarEvents($user): array

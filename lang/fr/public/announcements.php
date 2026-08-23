@@ -5,6 +5,7 @@ return [
     'hero_alt' => 'Actualités du Fil Rouge',
     'card_title' => 'Lire : :title',
     'gallery_title' => 'Galerie',
+    'gallery_photo_alt' => 'Photo :n - :title',
 
     // Filtres
     'search_label' => 'Rechercher',

@@ -9,12 +9,11 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum as EnumRule;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-new #[Title('Nouveau membre')] class extends Component
+new class extends Component
 {
     use AuthorizesRequests, WithFileUploads;
 
@@ -80,6 +79,7 @@ new #[Title('Nouveau membre')] class extends Component
 
     public function render()
     {
-        return view('pages.members.⚡create.create');
+        return view('pages.members.⚡create.create')
+            ->title(__('pages/members.create_page_title'));
     }
 };

@@ -7,13 +7,13 @@
 <div class="flex flex-col gap-8 px-4 py-8 md:px-8">
 
     <div class="flex items-center justify-between gap-4 flex-wrap">
-        <h2 class="font-sans font-black text-3xl text-dark">Les membres</h2>
+        <h2 class="font-sans font-black text-3xl text-dark">{{ __('pages/members.index_title') }}</h2>
 
         @can('create', User::class)
             <a href="{{ route('admin.members.create', ['locale' => app()->getLocale()]) }}"
                class="flex items-center gap-2 px-6 py-2 rounded-lg bg-red text-white font-sans font-medium hover:bg-red-mid transition">
                 <x-icons.plus class="size-4" fill="fill-current" />
-                Ajouter un membre
+                {{ __('pages/members.index_add_member') }}
             </a>
         @endcan
     </div>
@@ -23,21 +23,21 @@
         <input
             type="search"
             wire:model.live.debounce.300ms="search"
-            placeholder="Rechercher par nom ou email…"
-            aria-label="Rechercher par nom ou email"
+            placeholder="{{ __('pages/members.index_search_placeholder') }}"
+            aria-label="{{ __('pages/members.index_search_aria') }}"
             class="flex-1 min-w-48 px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark placeholder:text-dark-mid focus:outline-none focus:border-dark"
         />
 
-        <select wire:model.live="role" aria-label="Filtrer par rôle" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
-            <option value="">Tous les rôles</option>
+        <select wire:model.live="role" aria-label="{{ __('pages/members.index_filter_role_aria') }}" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
+            <option value="">{{ __('pages/members.index_all_roles') }}</option>
             @foreach(UserRoles::registrable() as $role)
                 <option value="{{ $role->value }}">{{ $role->label() }}</option>
             @endforeach
         </select>
 
         @if(!$archived)
-            <select wire:model.live="status" aria-label="Filtrer par statut" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
-                <option value="">Tous les statuts</option>
+            <select wire:model.live="status" aria-label="{{ __('pages/members.index_filter_status_aria') }}" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
+                <option value="">{{ __('pages/members.index_all_statuses') }}</option>
                 @foreach(UserStatus::cases() as $statut)
                     @if($statut !== UserStatus::ARCHIVED)
                         <option value="{{ $statut->value }}">{{ $statut->label() }}</option>
@@ -51,12 +51,12 @@
             wire:click="$toggle('archived')"
             class="px-4 py-2 rounded-lg border-2 font-sans font-medium text-sm transition
                    {{ $archived ? 'border-dark bg-dark text-white' : 'border-dark-light text-dark hover:border-dark' }}">
-            {{ $archived ? 'Voir les actifs' : 'Voir les archivés' }}
+            {{ $archived ? __('pages/members.index_view_active') : __('pages/members.index_view_archived') }}
         </button>
 
         @if($search || $role || $status)
             <button type="button" wire:click="resetFilters" class="px-4 py-2 rounded-lg border border-bg-dark text-dark-mid font-serif text-sm hover:border-dark hover:text-dark transition">
-                Réinitialiser
+                {{ __('pages/members.index_reset_filters') }}
             </button>
         @endif
     </div>
@@ -66,12 +66,12 @@
         <table class="w-full">
             <thead>
                 <tr class="border-b border-bg-dark">
-                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Avatar</th>
-                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Nom</th>
-                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Email</th>
-                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Rôle</th>
-                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">Statut</th>
-                    <th class="px-6 py-4 text-right font-sans font-semibold text-sm text-dark-mid">Actions</th>
+                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">{{ __('pages/members.index_col_avatar') }}</th>
+                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">{{ __('pages/members.index_col_name') }}</th>
+                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">{{ __('pages/members.index_col_email') }}</th>
+                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">{{ __('pages/members.index_col_role') }}</th>
+                    <th class="px-6 py-4 text-left font-sans font-semibold text-sm text-dark-mid">{{ __('pages/members.index_col_status') }}</th>
+                    <th class="px-6 py-4 text-right font-sans font-semibold text-sm text-dark-mid">{{ __('pages/members.index_col_actions') }}</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-bg-dark">
@@ -112,18 +112,18 @@
                             <div class="flex items-center justify-end gap-2">
                                 <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $member]) }}"
                                    class="px-3 py-1.5 rounded-lg border-2 border-dark-light text-dark text-sm font-sans font-medium hover:border-dark transition">
-                                    Voir
+                                    {{ __('pages/members.index_action_view') }}
                                 </a>
                                 @if(!$member->isArchived())
                                     <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(), 'member' => $member]) }}"
                                        class="px-3 py-1.5 rounded-lg bg-dark text-white text-sm font-sans font-medium hover:bg-dark-mid transition">
-                                        Modifier
+                                        {{ __('pages/members.index_action_edit') }}
                                     </a>
                                     @can('delete', $member)
                                         <button type="button"
                                                 wire:click="openDeleteModal({{ $member->id }})"
                                                 class="px-3 py-1.5 rounded-lg border-2 border-red text-red text-sm font-sans font-medium hover:bg-red-light transition">
-                                            Supprimer
+                                            {{ __('pages/members.index_action_delete') }}
                                         </button>
                                     @endcan
                                 @endif
@@ -133,7 +133,7 @@
                 @empty
                     <tr>
                         <td colspan="6" class="px-6 py-10 text-center font-serif text-dark-mid">
-                            Aucun membre trouvé.
+                            {{ __('pages/members.index_empty') }}
                         </td>
                     </tr>
                 @endforelse

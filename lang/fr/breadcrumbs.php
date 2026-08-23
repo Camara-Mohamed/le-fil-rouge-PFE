@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'nav_label' => 'Fil d\'ariane',
     'home' => 'Accueil',
     'members' => 'Les Membres',
     'create_member' => 'Ajouter un nouveau membre',

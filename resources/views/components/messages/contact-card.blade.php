@@ -10,7 +10,7 @@
             @if(!$contact->read_at)
                 <span class="w-2 h-2 rounded-full bg-red inline-block"></span>
             @endif
-            <x-public.badge variant="info">Contact</x-public.badge>
+            <x-public.badge variant="info">{{ __('pages/messages.badge_contact') }}</x-public.badge>
         </div>
         <p class="font-serif text-sm text-dark-mid">{{ $contact->created_at->diffForHumans() }}</p>
     </div>
@@ -31,13 +31,13 @@
                 type="button"
                 wire:click="markAsRead({{ $contact->id }}, 'contact')"
                 class="px-4 py-1.5 rounded-lg border-2 border-dark-light text-dark text-sm font-sans font-medium hover:border-dark transition">
-                Marquer comme lu
+                {{ __('pages/messages.mark_read') }}
             </button>
         @endif
         <a href="mailto:{{ $contact->email }}"
            wire:click="markAsRead({{ $contact->id }}, 'contact')"
            class="px-4 py-1.5 rounded-lg bg-red text-white text-sm font-sans font-medium hover:bg-red-mid transition">
-            Répondre
+            {{ __('pages/messages.reply') }}
         </a>
     </div>
 </article>

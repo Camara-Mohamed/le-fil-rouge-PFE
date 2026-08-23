@@ -2,10 +2,9 @@
 
 use App\Models\CampRegister;
 use App\Models\TrainingRegister;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Title('Mon historique')] class extends Component
+new class extends Component
 {
     public function mount(): void
     {
@@ -26,6 +25,7 @@ new #[Title('Mon historique')] class extends Component
             ->latest()
             ->get();
 
-        return view('pages.⚡enrollments.enrollments', compact('trainingRegisters', 'campRegisters'));
+        return view('pages.⚡enrollments.enrollments', compact('trainingRegisters', 'campRegisters'))
+            ->title(__('navigation.history'));
     }
 };

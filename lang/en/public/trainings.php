@@ -4,6 +4,7 @@ return [
     'title' => 'Trainings',
     'hero_alt' => 'Animators in training at Le Fil Rouge',
     'gallery_title' => 'Gallery',
+    'gallery_photo_alt' => 'Photo :n - :title',
     'card_title' => 'See training: :title',
 
     // Filters

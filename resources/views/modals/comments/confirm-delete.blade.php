@@ -27,8 +27,8 @@ new class extends Component
 ?>
 
 <x-modals.confirm-dialog
-    title="Supprimer ce commentaire ?"
-    message="Cette action est irréversible. Le commentaire ne pourra pas être récupéré."
-    confirm-label="Supprimer"
-    cancel-label="Annuler"
+    title="{{ __('modals/comments.delete_title') }}"
+    message="{{ __('modals/comments.delete_message') }}"
+    confirm-label="{{ __('modals/comments.confirm') }}"
+    cancel-label="{{ __('modals/comments.cancel') }}"
 />

@@ -7,11 +7,10 @@ use App\Models\User;
 use App\Notifications\AnnouncementNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Notification;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-new #[Title('Ajouter une actualité')] class extends Component
+new class extends Component
 {
     use AuthorizesRequests, WithFileUploads;
 
@@ -28,7 +27,8 @@ new #[Title('Ajouter une actualité')] class extends Component
                 $user->notify(new AnnouncementNotification($announcement));
             }
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new AnnouncementNotification($announcement));
-        } catch (\Throwable) {}
+        } catch (Throwable) {
+        }
 
         session()->flash('success', __('toast/announcements.created'));
 
@@ -40,6 +40,7 @@ new #[Title('Ajouter une actualité')] class extends Component
 
     public function render()
     {
-        return view('pages.announcements.⚡create.create');
+        return view('pages.announcements.⚡create.create')
+            ->title(__('pages/announcements.create_page_title'));
     }
 };

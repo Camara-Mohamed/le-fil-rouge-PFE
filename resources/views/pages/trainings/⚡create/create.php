@@ -7,11 +7,10 @@ use App\Models\User;
 use App\Notifications\ModelChangedNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Notification;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-new #[Title('Ajouter une formation')] class extends Component
+new class extends Component
 {
     use AuthorizesRequests, WithFileUploads;
 
@@ -29,7 +28,8 @@ new #[Title('Ajouter une formation')] class extends Component
                 $admin->notify(new ModelChangedNotification($training, 'la formation', auth()->user(), created: true));
             }
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new ModelChangedNotification($training, 'la formation', auth()->user(), created: true));
-        } catch (\Throwable) {}
+        } catch (Throwable) {
+        }
 
         session()->flash('success', __('toast/trainings.created'));
 
@@ -38,6 +38,7 @@ new #[Title('Ajouter une formation')] class extends Component
 
     public function render()
     {
-        return view('pages.trainings.⚡create.create');
+        return view('pages.trainings.⚡create.create')
+            ->title(__('pages/trainings.create_page_title'));
     }
 };

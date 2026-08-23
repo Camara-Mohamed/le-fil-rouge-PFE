@@ -21,6 +21,7 @@ return [
     // Actions globales
     'edit' => 'Modifier',
     'delete' => 'Supprimer',
+    'close' => 'Fermer',
 
     // Labels show
     'date_label' => 'Date',
@@ -29,6 +30,9 @@ return [
 
     // Champ obligatoire
     'required' => 'Requis',
+
+    // Limite de caractères
+    'max_chars' => ':count caractères max',
 
     // Composant document manquant
     'missing_document_title' => 'Il manque un document',

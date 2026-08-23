@@ -9,12 +9,11 @@ use App\Livewire\Forms\PasswordForm;
 use App\Traits\HandlesAvatar;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-new #[Title('Mon Profil')] class extends Component
+new class extends Component
 {
     use AuthorizesRequests , HandlesAvatar, WithFileUploads;
 
@@ -99,6 +98,6 @@ new #[Title('Mon Profil')] class extends Component
     {
         return view('pages.⚡profile.profile', [
             'documents' => auth()->user()->documents()->get(),
-        ]);
+        ])->title(__('navigation.profile'));
     }
 };

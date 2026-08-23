@@ -18,6 +18,7 @@ return [
     // Global actions
     'edit' => 'Edit',
     'delete' => 'Delete',
+    'close' => 'Close',
 
     // Show labels
     'date_label' => 'Date',
@@ -26,6 +27,9 @@ return [
 
     // Required field
     'required' => 'Required',
+
+    // Character limit
+    'max_chars' => ':count characters max',
 
     // Missing document component
     'missing_document_title' => 'A document is missing',

@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'nav_label' => 'Breadcrumb',
     'home' => 'Home',
     'members' => 'The Members',
     'create_member' => 'Add a new member',

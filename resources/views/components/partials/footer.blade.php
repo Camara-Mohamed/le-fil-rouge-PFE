@@ -1,5 +1,5 @@
 <footer class="bg-dark">
-    <h2 class="sr-only">Footer</h2>
+    <h2 class="sr-only">{{ __('partials.footer.label') }}</h2>
 
     <div class="px-4 md:px-8 lg:px-8 py-6 flex items-center justify-between gap-6 flex-wrap">
 

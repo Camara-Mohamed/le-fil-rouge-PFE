@@ -7,7 +7,7 @@ new class extends Component {
 };
 ?>
 
-<nav aria-label="Fil d'ariane" class="flex items-center flex-wrap gap-1">
+<nav aria-label="{{ __('breadcrumbs.nav_label') }}" class="flex items-center flex-wrap gap-1">
     @foreach ($items as $item)
         @if (! $loop->last)
             <a href="{{ $item['url'] }}"

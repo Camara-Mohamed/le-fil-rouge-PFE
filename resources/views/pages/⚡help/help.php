@@ -1,9 +1,12 @@
 <?php
 
-use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Title('Comment utilisé l\'application')] class extends Component
+new class extends Component
 {
-    //
+    public function render()
+    {
+        return view('pages.⚡help.help')
+            ->title(__('pages/help.title'));
+    }
 };

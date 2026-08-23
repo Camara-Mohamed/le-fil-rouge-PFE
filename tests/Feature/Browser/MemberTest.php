@@ -12,12 +12,12 @@ use function Pest\Laravel\actingAs;
 
 beforeEach(function () {
     $this->admin = User::factory()->create([
-        'role'   => UserRoles::ADMIN,
+        'role' => UserRoles::ADMIN,
         'status' => UserStatus::COMPLETE,
     ]);
 
     $this->member = User::factory()->create([
-        'role'   => UserRoles::ANIMATEUR_1,
+        'role' => UserRoles::ANIMATEUR_1,
         'status' => UserStatus::COMPLETE,
     ]);
 });
@@ -58,8 +58,8 @@ it('admin can access the members management page', function () {
 
 it('published camp detail page displays the camp title', function () {
     $camp = Camp::factory()->create([
-        'title'   => 'Stage Animateur Test Browser',
-        'status'  => CampStatus::PUBLISHED,
+        'title' => 'Stage Animateur Test Browser',
+        'status' => CampStatus::PUBLISHED,
         'user_id' => $this->admin->id,
     ]);
 
@@ -69,8 +69,8 @@ it('published camp detail page displays the camp title', function () {
 
 it('published training detail page displays the training title', function () {
     $training = Training::factory()->create([
-        'title'   => 'Formation Premiers Secours Test Browser',
-        'status'  => TrainingStatus::PUBLISHED,
+        'title' => 'Formation Premiers Secours Test Browser',
+        'status' => TrainingStatus::PUBLISHED,
         'user_id' => $this->admin->id,
     ]);
 
