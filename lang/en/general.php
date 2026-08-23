@@ -19,6 +19,8 @@ return [
     'edit' => 'Edit',
     'delete' => 'Delete',
     'close' => 'Close',
+    'show_password' => 'Show password',
+    'hide_password' => 'Hide password',
 
     // Show labels
     'date_label' => 'Date',

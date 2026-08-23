@@ -41,7 +41,7 @@ new class extends Component {
         >
             <p class="font-sans text-sm font-medium">{{ $toast['message'] }}</p>
 
-            <button type="button" wire:click="remove('{{ $toast['id'] }}')" class="shrink-0 hover:opacity-70 transition duration-200">
+            <button type="button" wire:click="remove('{{ $toast['id'] }}')" aria-label="{{ __('general.close') }}" class="shrink-0 hover:opacity-70 transition duration-200">
                 <x-icons.close class="size-4" fill="fill-current" />
             </button>
         </div>

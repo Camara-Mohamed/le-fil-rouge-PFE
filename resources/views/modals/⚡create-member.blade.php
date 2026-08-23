@@ -142,6 +142,7 @@ new class extends Component
                             class="h-11 px-4 pr-12 w-full bg-white border border-bg-dark rounded-lg font-serif font-medium text-base text-dark transition duration-200"
                         />
                         <button type="button" @click="show = !show"
+                                :aria-label="show ? '{{ __('general.hide_password') }}' : '{{ __('general.show_password') }}'"
                                 class="absolute right-3 top-1/2 -translate-y-1/2 text-dark-mid hover:text-dark transition">
                             <x-icons.eye x-show="!show" class="size-5" />
                             <x-icons.eye-slash x-show="show" class="size-5" />

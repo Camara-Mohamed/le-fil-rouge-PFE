@@ -22,6 +22,8 @@ return [
     'edit' => 'Modifier',
     'delete' => 'Supprimer',
     'close' => 'Fermer',
+    'show_password' => 'Afficher le mot de passe',
+    'hide_password' => 'Masquer le mot de passe',
 
     // Labels show
     'date_label' => 'Date',
