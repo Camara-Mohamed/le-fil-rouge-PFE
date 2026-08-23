@@ -31,7 +31,8 @@ new class extends Component
                 $admin->notify(new ModelChangedNotification($camp, 'le camp', auth()->user(), created: true));
             }
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new ModelChangedNotification($camp, 'le camp', auth()->user(), created: true));
-        } catch (\Throwable) {}
+        } catch (Throwable) {
+        }
 
         session()->flash('success', __('toast/camps.created', ['type' => $type]));
 

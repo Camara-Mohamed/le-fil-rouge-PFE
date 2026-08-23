@@ -13,14 +13,14 @@ return [
     'confirm' => 'Confirm',
 
     // Modal create volunteer account
-    'create_title'         => 'Create volunteer account',
-    'create_close'         => 'Close',
-    'create_label_first'   => 'First name',
-    'create_label_last'    => 'Last name',
-    'create_label_email'   => 'Email',
-    'create_label_password'=> 'Password',
-    'create_label_role'    => 'Role',
-    'create_label_status'  => 'Status',
+    'create_title' => 'Create volunteer account',
+    'create_close' => 'Close',
+    'create_label_first' => 'First name',
+    'create_label_last' => 'Last name',
+    'create_label_email' => 'Email',
+    'create_label_password' => 'Password',
+    'create_label_role' => 'Role',
+    'create_label_status' => 'Status',
     'create_label_send_to' => 'Send credentials to',
-    'create_btn_submit'    => 'Create account',
+    'create_btn_submit' => 'Create account',
 ];

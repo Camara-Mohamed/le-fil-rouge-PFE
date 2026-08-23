@@ -24,7 +24,7 @@ it('login page renders with all form fields', function () {
 it('login page has a logo link to the home page', function () {
     $page = visit('/fr/login');
 
-    $page->assertPresent('a[href="' . route('public.home', ['locale' => 'fr']) . '"]');
+    $page->assertPresent('a[href="'.route('public.home', ['locale' => 'fr']).'"]');
 });
 
 it('authenticated user can access dashboard', function () {

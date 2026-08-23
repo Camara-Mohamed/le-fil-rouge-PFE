@@ -28,7 +28,8 @@ new class extends Component
                 $admin->notify(new ModelChangedNotification($training, 'la formation', auth()->user(), created: true));
             }
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new ModelChangedNotification($training, 'la formation', auth()->user(), created: true));
-        } catch (\Throwable) {}
+        } catch (Throwable) {
+        }
 
         session()->flash('success', __('toast/trainings.created'));
 

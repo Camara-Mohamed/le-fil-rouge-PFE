@@ -23,7 +23,8 @@ class DocumentObserver
                 $admin->notify(new DocumentUploadedNotification($user));
             }
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new DocumentUploadedNotification($user));
-        } catch (\Throwable) {}
+        } catch (\Throwable) {
+        }
 
         if (! $user->isIncomplete()) {
             return;
@@ -38,7 +39,8 @@ class DocumentObserver
             try {
                 $user->notify(new MemberChangedNotification(newStatus: UserStatus::PENDING->label()));
                 Notification::route('mail', config('mail.notification_for_mails'))->notify(new MemberChangedNotification(newStatus: UserStatus::PENDING->label()));
-            } catch (\Throwable) {}
+            } catch (\Throwable) {
+            }
         }
     }
 }

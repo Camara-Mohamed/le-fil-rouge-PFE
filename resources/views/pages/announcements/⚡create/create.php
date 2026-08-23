@@ -27,7 +27,8 @@ new class extends Component
                 $user->notify(new AnnouncementNotification($announcement));
             }
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new AnnouncementNotification($announcement));
-        } catch (\Throwable) {}
+        } catch (Throwable) {
+        }
 
         session()->flash('success', __('toast/announcements.created'));
 
