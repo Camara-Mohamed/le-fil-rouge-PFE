@@ -2,6 +2,8 @@
 
 return [
 
+    'create_page_title' => 'Ajouter une actualité',
+
     // Sections
     'section_info' => 'Informations',
     'section_content' => 'Contenu',

@@ -1,11 +1,9 @@
 <?php
 
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new #[Title('Mes Notifications')]
-class extends Component
+new class extends Component
 {
     use WithPagination;
 
@@ -60,6 +58,7 @@ class extends Component
         $unread = auth()->user()->unreadNotifications()->count();
         $notifications = $query->paginate(15);
 
-        return view('pages.⚡notifications.notifications', compact('notifications', 'unread'));
+        return view('pages.⚡notifications.notifications', compact('notifications', 'unread'))
+            ->title(__('navigation.notifications'));
     }
 };

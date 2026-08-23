@@ -2,6 +2,8 @@
 
 return [
 
+    'create_page_title' => 'Ajouter une formation',
+
     // Sections
     'section_general' => 'Informations générales',
     'section_content' => 'Contenu',

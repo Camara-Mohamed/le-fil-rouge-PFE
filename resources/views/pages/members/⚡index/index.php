@@ -2,12 +2,11 @@
 
 use App\Enums\UserStatus;
 use App\Models\User;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new #[Title('Les membres')] class extends Component
+new class extends Component
 {
     use WithPagination;
 
@@ -85,6 +84,7 @@ new #[Title('Les membres')] class extends Component
 
         $members = $query->paginate(15);
 
-        return view('pages.members.⚡index.index', compact('members'));
+        return view('pages.members.⚡index.index', compact('members'))
+            ->title(__('navigation.members'));
     }
 };

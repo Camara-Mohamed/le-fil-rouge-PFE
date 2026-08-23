@@ -2,6 +2,8 @@
 
 return [
 
+    'create_page_title' => 'Ajouter un camp',
+
     // Sections
     'section_general' => 'Informations générales',
     'section_content' => 'Contenu',

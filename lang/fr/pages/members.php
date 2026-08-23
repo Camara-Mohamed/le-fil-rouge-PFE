@@ -2,6 +2,9 @@
 
 return [
 
+    'create_page_title' => 'Nouveau membre',
+    'edit_page_title' => 'Modifier un membre',
+
     // Create
     'create_section_identity' => 'Identité',
     'create_section_access' => 'Accès',

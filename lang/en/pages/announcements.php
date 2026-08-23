@@ -2,6 +2,8 @@
 
 return [
 
+    'create_page_title' => 'Add an announcement',
+
     // Sections
     'section_info' => 'Information',
     'section_content' => 'Content',
