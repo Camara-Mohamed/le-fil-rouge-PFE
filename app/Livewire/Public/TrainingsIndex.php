@@ -90,9 +90,10 @@ class TrainingsIndex extends Component
         $user = auth()->user();
 
         if ($user?->isAdmin()) {
-            $query = Training::query();
+            $query = Training::query()->with(['user', 'acceptedRegisters']);
         } elseif ($user) {
             $query = Training::query()
+                ->with(['user', 'acceptedRegisters'])
                 ->where(function ($q) use ($user) {
                     $q->where('status', TrainingStatus::PUBLISHED)
                         ->orWhere('user_id', $user->id)
@@ -100,6 +101,7 @@ class TrainingsIndex extends Component
                 });
         } else {
             $query = Training::query()
+                ->with(['user', 'acceptedRegisters'])
                 ->where('status', TrainingStatus::PUBLISHED);
         }
 

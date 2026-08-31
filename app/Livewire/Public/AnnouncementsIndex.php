@@ -59,9 +59,9 @@ class AnnouncementsIndex extends Component
         $user = auth()->user();
 
         if ($user?->isAdmin()) {
-            $query = Announcement::query();
+            $query = Announcement::query()->with('user');
         } else {
-            $query = Announcement::query()->whereNotNull('published_at');
+            $query = Announcement::query()->with('user')->whereNotNull('published_at');
         }
 
         if ($this->search) {
