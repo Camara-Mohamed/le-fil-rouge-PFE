@@ -61,8 +61,8 @@
         @endif
     </div>
 
-    {{-- Tableau --}}
-    <div class="bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] overflow-x-auto">
+    {{-- Tableau (desktop) --}}
+    <div class="hidden md:block bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] overflow-x-auto">
         <table class="w-full">
             <thead>
                 <tr class="border-b border-bg-dark">
@@ -139,6 +139,64 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
+
+    {{-- Cartes (mobile) --}}
+    <div class="flex flex-col gap-4 md:hidden flex-wrap">
+        @forelse($members as $member)
+            @php $initials = strtoupper($member->first_name[0] . $member->last_name[0]); @endphp
+            <div wire:key="member-card-{{ $member->id }}" class="bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] p-4 flex flex-col gap-3">
+
+                <div class="flex items-center gap-3">
+                    @if($member->avatar_path)
+                        <img src="{{ Storage::url('avatars/originals/' . $member->avatar_path) }}"
+                             alt="{{ $member->fullName() }}"
+                             class="w-12 h-12 rounded-full object-cover shrink-0">
+                    @else
+                        <div class="w-12 h-12 rounded-full bg-bg-dark flex items-center justify-center font-sans font-bold text-sm text-dark-mid shrink-0">
+                            {{ $initials }}
+                        </div>
+                    @endif
+                    <div class="min-w-0">
+                        <p class="font-sans font-semibold text-dark truncate">{{ $member->fullName() }}</p>
+                        <p class="font-serif text-sm text-dark-mid truncate">{{ $member->email }}</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between gap-2 flex-wrap">
+                    <span class="font-serif text-sm text-dark">{{ $member->role->label() }}</span>
+                    <x-public.badge variant="{{ match($member->status) {
+                        UserStatus::COMPLETE   => 'success',
+                        UserStatus::PENDING    => 'warning',
+                        UserStatus::INCOMPLETE => 'danger',
+                        UserStatus::ARCHIVED   => 'danger',
+                    } }}">{{ $member->status->label() }}</x-public.badge>
+                </div>
+
+                <div class="flex items-center gap-2 pt-2 border-t border-bg-dark">
+                    <a href="{{ route('admin.members.show', ['locale' => app()->getLocale(), 'member' => $member]) }}"
+                       class="flex-1 text-center px-3 py-1.5 rounded-lg border-2 border-dark-light text-dark text-sm font-sans font-medium hover:border-dark transition">
+                        {{ __('pages/members.index_action_view') }}
+                    </a>
+                    @if(!$member->isArchived())
+                        <a href="{{ route('admin.members.edit', ['locale' => app()->getLocale(), 'member' => $member]) }}"
+                           class="flex-1 text-center px-3 py-1.5 rounded-lg bg-dark text-white text-sm font-sans font-medium hover:bg-dark-mid transition">
+                            {{ __('pages/members.index_action_edit') }}
+                        </a>
+                        @can('delete', $member)
+                            <button type="button"
+                                    wire:click="openDeleteModal({{ $member->id }})"
+                                    class="px-3 py-1.5 rounded-lg border-2 border-red text-red text-sm font-sans font-medium hover:bg-red-light transition">
+                                {{ __('pages/members.index_action_delete') }}
+                            </button>
+                        @endcan
+                    @endif
+                </div>
+
+            </div>
+        @empty
+            <p class="text-center font-serif text-dark-mid py-10">{{ __('pages/members.index_empty') }}</p>
+        @endforelse
     </div>
 
     @if($members->hasPages())

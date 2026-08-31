@@ -7,4 +7,5 @@ return [
     'refuse' => 'Registration refused!',
     'pending' => 'Registration set to pending!',
     'already_register' => 'You are already registered for this event.',
+    'full' => 'This event is full.',
 ];

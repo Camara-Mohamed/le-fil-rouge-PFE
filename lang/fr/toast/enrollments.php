@@ -7,4 +7,5 @@ return [
     'refuse' => "L'inscription a été refusée !",
     'pending' => "L'inscription a été mise en attente !",
     'already_register' => "T'es déjà inscrit(e) à cet événement.",
+    'full' => 'Cet événement est complet.',
 ];
