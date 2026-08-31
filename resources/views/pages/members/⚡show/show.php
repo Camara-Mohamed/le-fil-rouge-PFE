@@ -2,6 +2,7 @@
 
 use App\Enums\UserStatus;
 use App\Models\User;
+use Illuminate\Database\QueryException as QueryExceptionAlias;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -45,7 +46,13 @@ new class extends Component
     {
         $this->authorize('forceDelete', $this->member);
 
-        $this->member->delete();
+        try {
+            $this->member->delete();
+        } catch (QueryExceptionAlias) {
+            $this->dispatch('toast', message: __('toast/members.force_delete_blocked'), type: 'error');
+
+            return;
+        }
 
         $this->redirectRoute('admin.members.index', [
             'locale' => app()->getLocale(),
