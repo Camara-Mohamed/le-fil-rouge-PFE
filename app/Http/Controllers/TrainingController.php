@@ -15,10 +15,12 @@ class TrainingController extends Controller
     {
         $user = auth()->user();
 
-        if (! $training->isPublished()) {
-            if (! $user || (! $user->isAdmin() && $user->id !== $training->user_id)) {
-                abort(403);
-            }
+        $isVisible = $training->isPublished()
+            || $training->isConfirmed()
+            || ($user && ($user->isAdmin() || $user->id === $training->user_id || $training->acceptedRegisters()->where('user_id', $user->id)->exists()));
+
+        if (! $isVisible) {
+            abort(403);
         }
 
         $training->load(['galeries', 'acceptedRegisters.user']);

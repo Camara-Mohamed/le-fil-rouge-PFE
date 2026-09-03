@@ -15,10 +15,12 @@ class CampController extends Controller
     {
         $user = auth()->user();
 
-        if (! $camp->isPublished()) {
-            if (! $user || (! $user->isAdmin() && $user->id !== $camp->user_id)) {
-                abort(403);
-            }
+        $isVisible = $camp->isPublished()
+            || $camp->isConfirmed()
+            || ($user && ($user->isAdmin() || $user->id === $camp->user_id || $camp->acceptedRegisters()->where('user_id', $user->id)->exists()));
+
+        if (! $isVisible) {
+            abort(403);
         }
 
         $myRegister = $camp
