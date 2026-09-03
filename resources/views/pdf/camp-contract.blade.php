@@ -69,6 +69,14 @@
                 <span class="pdf-info-label">{{ __('pdf.camp_contract.label_diet') }}</span>
                 <span class="pdf-info-value">{{ $register->user->diet->label() }}</span>
             </div>
+            <div class="pdf-info-row">
+                <span class="pdf-info-label">{{ __('pdf.camp_contract.label_gluten_free') }}</span>
+                <span class="pdf-info-value">{{ $register->user->is_gluten_free ? __('pdf.camp_contract.yes') : __('pdf.camp_contract.no') }}</span>
+            </div>
+            <div class="pdf-info-row">
+                <span class="pdf-info-label">{{ __('pdf.camp_contract.label_lactose_free') }}</span>
+                <span class="pdf-info-value">{{ $register->user->is_lactose_free ? __('pdf.camp_contract.yes') : __('pdf.camp_contract.no') }}</span>
+            </div>
         @endif
         @if($register->user->allergies)
             <div class="pdf-info-row">

@@ -64,8 +64,6 @@ class UserFactory extends Factory
             Diets::VEGAN,
             Diets::HALAL,
             Diets::KOSHER,
-            Diets::GLUTEN_FREE,
-            Diets::LACTOSE_FREE,
             Diets::OTHER,
         ];
 
@@ -88,6 +86,8 @@ class UserFactory extends Factory
             'province' => fake()->randomElement($provinces),
             'postal_code' => fake()->postcode(),
             'diet' => fake()->randomElement($diets),
+            'is_gluten_free' => fake()->boolean(15),
+            'is_lactose_free' => fake()->boolean(15),
             'allergies' => fake()->text(),
             'avatar_path' => null,
         ];

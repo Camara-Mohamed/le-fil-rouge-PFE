@@ -127,7 +127,7 @@ class MainSeeder extends Seeder
                 'first_name' => 'Tiffany', 'last_name' => 'Brevete', 'role' => UserRoles::BREVETE,
                 'birth_date' => '1999-01-27', 'phone' => '0491/38.29.16', 'address' => 'Rue Saint-Gilles', 'number' => '156',
                 'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
-                'diet' => Diets::GLUTEN_FREE, 'allergies' => 'Allergie aux arachides.', 'avatar' => 'images/trainings/fun_3.webp',
+                'diet' => Diets::NORMAL, 'is_gluten_free' => true, 'allergies' => 'Allergie aux arachides.', 'avatar' => 'images/trainings/fun_3.webp',
             ],
             'luc' => [
                 'first_name' => 'Luc', 'last_name' => 'Animateur', 'role' => UserRoles::ANIMATEUR_2, 'email_key' => 'luc.animateur2e',
@@ -139,7 +139,7 @@ class MainSeeder extends Seeder
                 'first_name' => 'Léa', 'last_name' => 'Animateur', 'role' => UserRoles::ANIMATEUR_1, 'email_key' => 'lea.animateur1re',
                 'birth_date' => '2003-12-05', 'phone' => '0483/26.17.94', 'address' => 'Rue Neuvice', 'number' => '62',
                 'city' => 'Liège', 'province' => Provinces::LIEGE, 'postal_code' => '4000',
-                'diet' => Diets::VEGAN, 'allergies' => 'Intolérance au lactose.', 'avatar' => 'images/camps/holiday_2.webp',
+                'diet' => Diets::VEGAN, 'is_lactose_free' => true, 'allergies' => null, 'avatar' => 'images/camps/holiday_2.webp',
             ],
             'sam' => [
                 'first_name' => 'Sam', 'last_name' => 'Arrivant', 'role' => UserRoles::ARRIVANT, 'status' => UserStatus::INCOMPLETE,
@@ -169,6 +169,8 @@ class MainSeeder extends Seeder
                 'province' => $accountData['province'],
                 'postal_code' => $accountData['postal_code'],
                 'diet' => $accountData['diet'],
+                'is_gluten_free' => $accountData['is_gluten_free'] ?? false,
+                'is_lactose_free' => $accountData['is_lactose_free'] ?? false,
                 'allergies' => $accountData['allergies'],
                 'avatar_path' => $this->storeAvatar($accountData['avatar'], "avatar_{$key}.jpg"),
             ]);

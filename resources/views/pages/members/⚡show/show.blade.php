@@ -161,7 +161,15 @@
                     <div class="flex flex-col gap-4">
                         <div class="flex flex-col gap-0.5">
                             <span class="font-sans font-semibold text-xs uppercase tracking-wider text-dark-mid">{{ __('pages/members.show_label_diet') }}</span>
-                            <p class="font-serif text-base text-dark">{{ $member->diet->label() }}</p>
+                            @php
+                                $dietRestrictions = implode(', ', array_filter([
+                                    $member->is_gluten_free ? __('enums/diets.gluten_free') : null,
+                                    $member->is_lactose_free ? __('enums/diets.lactose_free') : null,
+                                ]));
+                            @endphp
+                            <p class="font-serif text-base text-dark">
+                                {{ $member->diet->label() }}{{ $dietRestrictions ? " ({$dietRestrictions})" : '' }}
+                            </p>
                         </div>
                         @if($member->allergies)
                             <div class="flex flex-col gap-0.5">

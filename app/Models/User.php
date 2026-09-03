@@ -31,6 +31,8 @@ use Illuminate\Support\Carbon;
     'province',
     'postal_code',
     'diet',
+    'is_gluten_free',
+    'is_lactose_free',
     'allergies',
     'avatar_path',
     'email_notifications',
@@ -58,6 +60,8 @@ class User extends Authenticatable
             'status' => UserStatus::class,
             'province' => Provinces::class,
             'diet' => Diets::class,
+            'is_gluten_free' => 'boolean',
+            'is_lactose_free' => 'boolean',
             'role' => UserRoles::class,
             'email_notifications' => 'boolean',
         ];

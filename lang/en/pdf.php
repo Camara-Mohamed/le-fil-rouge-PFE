@@ -18,6 +18,10 @@ return [
         'label_role' => 'Role',
         'label_address' => 'Address',
         'label_diet' => 'Diet',
+        'label_gluten_free' => 'Gluten-free',
+        'label_lactose_free' => 'Lactose-free',
+        'yes' => 'Yes',
+        'no' => 'No',
         'label_allergies' => 'Allergies',
         'label_notes' => 'Notes',
 
