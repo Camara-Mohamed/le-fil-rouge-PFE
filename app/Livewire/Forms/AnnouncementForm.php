@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Jobs\ProcessUploadedImage;
 use App\Models\Announcement;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -31,7 +32,7 @@ class AnnouncementForm extends Form
     #[Validate('nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048')]
     public $banner = null;
 
-    #[Validate(['galeries' => 'nullable|array', 'galeries.*' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'])]
+    #[Validate(['galeries' => 'nullable|array|max:10', 'galeries.*' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'])]
     public array $galeries = [];
 
     public function store(User $user): Announcement
@@ -48,16 +49,26 @@ class AnnouncementForm extends Form
         ];
 
         if ($this->banner) {
-            $data['banner'] = $this->banner->store('announcements/banners', config('filesystems.default'));
+            $path = $this->banner->store('announcements/banners', config('filesystems.default'));
+            $data['banner'] = $path;
+            ProcessUploadedImage::dispatch(
+                $path,
+                config('banners.paths.announcements.variants'),
+                config('banners.sizes.banner')
+            );
         }
 
         $announcement = Announcement::create($data);
 
         if ($this->galeries) {
             foreach ($this->galeries as $galery) {
-                $announcement->galeries()->create([
-                    'path' => $galery->store('announcements/galeries', config('filesystems.default')),
-                ]);
+                $path = $galery->store('announcements/galeries', config('filesystems.default'));
+                $announcement->galeries()->create(['path' => $path]);
+                ProcessUploadedImage::dispatch(
+                    $path,
+                    config('banners.paths.galeries.announcements'),
+                    config('banners.sizes.galerie')
+                );
             }
         }
 
@@ -80,13 +91,23 @@ class AnnouncementForm extends Form
             if ($announcement->banner) {
                 Storage::disk(config('filesystems.default'))->delete($announcement->banner);
             }
-            $data['banner'] = $this->banner->store('announcements/banners', config('filesystems.default'));
+            $path = $this->banner->store('announcements/banners', config('filesystems.default'));
+            $data['banner'] = $path;
+            ProcessUploadedImage::dispatch(
+                $path,
+                config('banners.paths.announcements.variants'),
+                config('banners.sizes.banner')
+            );
         }
 
         foreach ($this->galeries as $galery) {
-            $announcement->galeries()->create([
-                'path' => $galery->store('announcements/galeries', config('filesystems.default')),
-            ]);
+            $path = $galery->store('announcements/galeries', config('filesystems.default'));
+            $announcement->galeries()->create(['path' => $path]);
+            ProcessUploadedImage::dispatch(
+                $path,
+                config('banners.paths.galeries.announcements'),
+                config('banners.sizes.galerie')
+            );
         }
 
         $announcement->update($data);
