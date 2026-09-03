@@ -30,7 +30,7 @@ class ProcessUploadedImage implements ShouldQueue
 
             Storage::disk(config('filesystems.default'))->put(
                 $this->variantsPath.'/'.$width.'/'.$name,
-                $variant->encodeByExtension($type, quality: $quality)
+                $variant->encodeUsingFileExtension($type, quality: $quality)
             );
         }
     }
