@@ -70,12 +70,16 @@ class TrainingForm extends Form
     #[Validate('nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048')]
     public $banner = null;
 
-    #[Validate(['galeries' => 'nullable|array', 'galeries.*' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'])]
+    #[Validate(['galeries' => 'nullable|array|max:10', 'galeries.*' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp|max:2048'])]
     public array $galeries = [];
 
     public function store(User $user): Training
     {
         $this->validate();
+
+        if (! $user->isAdmin()) {
+            $this->status = TrainingStatus::PENDING->value;
+        }
 
         $data = [
             'title' => $this->title,
@@ -127,6 +131,10 @@ class TrainingForm extends Form
     public function update(Training $training): void
     {
         $this->validate();
+
+        if (! auth()->user()->isAdmin()) {
+            $this->status = $training->status->value;
+        }
 
         $data = [
             'title' => $this->title,

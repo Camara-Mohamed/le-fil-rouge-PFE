@@ -210,6 +210,18 @@
             <x-public.form.select :label="__('pages/profile.label_diet')" name="diet.diet"
                 :options="Diets::cases()" wire:model.live="diet.diet"
                 :error="$errors->first('diet.diet')" required />
+
+            <div class="flex gap-6">
+                <label class="flex items-center gap-2 font-serif text-sm text-dark">
+                    <input type="checkbox" wire:model.live="diet.is_gluten_free" class="rounded border-bg-dark">
+                    {{ __('pages/profile.label_gluten_free') }}
+                </label>
+                <label class="flex items-center gap-2 font-serif text-sm text-dark">
+                    <input type="checkbox" wire:model.live="diet.is_lactose_free" class="rounded border-bg-dark">
+                    {{ __('pages/profile.label_lactose_free') }}
+                </label>
+            </div>
+
             <x-public.form.textarea :label="__('pages/profile.label_allergies')" name="diet.allergies"
                 wire:model.live="diet.allergies"
                 placeholder="{{ __('pages/profile.allergies_placeholder') }}"

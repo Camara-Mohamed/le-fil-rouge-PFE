@@ -90,9 +90,10 @@ class CampsIndex extends Component
         $user = auth()->user();
 
         if ($user?->isAdmin()) {
-            $query = Camp::query();
+            $query = Camp::query()->with(['user', 'acceptedRegisters']);
         } elseif ($user) {
             $query = Camp::query()
+                ->with(['user', 'acceptedRegisters'])
                 ->where(function ($q) use ($user) {
                     $q->where('status', CampStatus::PUBLISHED)
                         ->orWhere('user_id', $user->id)
@@ -100,6 +101,7 @@ class CampsIndex extends Component
                 });
         } else {
             $query = Camp::query()
+                ->with(['user', 'acceptedRegisters'])
                 ->where('status', CampStatus::PUBLISHED);
         }
 

@@ -2,11 +2,15 @@
 
 use App\Enums\VolunteerRequestStatus;
 use App\Models\VolunteerRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 
 new class extends Component
 {
-    public string $model_id   = '';
+    use AuthorizesRequests;
+
+    public string $model_id = '';
+
     public string $model_type = '';
 
     public function close(): void
@@ -16,6 +20,8 @@ new class extends Component
 
     public function confirm(): void
     {
+        $this->authorize('manage-messages');
+
         VolunteerRequest::findOrFail((int) $this->model_id)
             ->update(['status' => VolunteerRequestStatus::PENDING]);
 

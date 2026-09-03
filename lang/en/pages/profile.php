@@ -37,6 +37,8 @@ return [
     // Diet
     'section_diet' => 'Diet',
     'label_diet' => 'Diet',
+    'label_gluten_free' => 'Gluten-free',
+    'label_lactose_free' => 'Lactose-free',
     'label_allergies' => 'Allergies',
     'allergies_placeholder' => 'Describe your allergies if you have any…',
 

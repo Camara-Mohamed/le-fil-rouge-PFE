@@ -6,6 +6,7 @@ use App\Enums\VolunteerRequestStatus;
 use App\Mail\NewVolunteerMail;
 use App\Models\User;
 use App\Models\VolunteerRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -15,45 +16,48 @@ use Livewire\Component;
 
 new class extends Component
 {
-    public string $model_id   = '';
+    use AuthorizesRequests;
+
+    public string $model_id = '';
+
     public string $model_type = '';
 
     #[Validate('required|min:2|max:255')]
     public string $first_name = '';
 
     #[Validate('required|min:2|max:255')]
-    public string $last_name  = '';
+    public string $last_name = '';
 
     #[Validate('required|email|max:255')]
-    public string $email      = '';
+    public string $email = '';
 
     #[Validate('required|min:8')]
-    public string $password   = '';
+    public string $password = '';
 
     #[Validate(['required', new EnumRule(UserRoles::class)])]
-    public string $role       = UserRoles::ARRIVANT->value;
+    public string $role = UserRoles::ARRIVANT->value;
 
     #[Validate(['required', new EnumRule(UserStatus::class)])]
-    public string $status     = UserStatus::INCOMPLETE->value;
+    public string $status = UserStatus::INCOMPLETE->value;
 
     #[Validate('nullable|email')]
-    public string $send_to    = '';
+    public string $send_to = '';
 
     #[Validate('nullable|string|max:20')]
-    public string $phone      = '';
+    public string $phone = '';
 
     public function mount(): void
     {
         $request = VolunteerRequest::findOrFail((int) $this->model_id);
 
         $this->first_name = $request->first_name;
-        $this->last_name  = $request->last_name;
-        $this->send_to    = $request->email;
-        $this->phone      = $request->phone ?? '';
+        $this->last_name = $request->last_name;
+        $this->send_to = $request->email;
+        $this->phone = $request->phone ?? '';
 
         // email : prenom.nom@{domaine configuré}
-        $firstName   = str_replace(' ', '', strtolower(Str::ascii($request->first_name)));
-        $lastName    = str_replace(' ', '', strtolower(Str::ascii($request->last_name)));
+        $firstName = str_replace(' ', '', strtolower(Str::ascii($request->first_name)));
+        $lastName = str_replace(' ', '', strtolower(Str::ascii($request->last_name)));
         $this->email = "{$firstName}.{$lastName}@".config('app.member_email_domain');
 
         $this->password = Str::random(8);
@@ -66,25 +70,27 @@ new class extends Component
 
     public function save(): void
     {
+        $this->authorize('create', User::class);
+
         $this->validate([
             'first_name' => ['required', 'min:2', 'max:255'],
-            'last_name'  => ['required', 'min:2', 'max:255'],
-            'email'      => ['required', 'email', 'max:255', 'unique:users,email', 'ends_with:@'.config('app.member_email_domain')],
-            'password'   => ['required', 'min:8'],
-            'role'       => ['required', Rule::enum(UserRoles::class)],
-            'status'     => ['required', Rule::enum(UserStatus::class)],
-            'send_to'    => ['nullable', 'email'],
-            'phone'      => ['nullable', 'string', 'max:20', 'unique:users,phone'],
+            'last_name' => ['required', 'min:2', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email', 'ends_with:@'.config('app.member_email_domain')],
+            'password' => ['required', 'min:8'],
+            'role' => ['required', Rule::enum(UserRoles::class)],
+            'status' => ['required', Rule::enum(UserStatus::class)],
+            'send_to' => ['nullable', 'email'],
+            'phone' => ['nullable', 'string', 'max:20', 'unique:users,phone'],
         ]);
 
         $user = User::create([
             'first_name' => $this->first_name,
-            'last_name'  => $this->last_name,
-            'email'      => $this->email,
-            'password'   => $this->password,
-            'role'       => $this->role,
-            'status'     => $this->status,
-            'phone'      => $this->phone ?: null,
+            'last_name' => $this->last_name,
+            'email' => $this->email,
+            'password' => $this->password,
+            'role' => $this->role,
+            'status' => $this->status,
+            'phone' => $this->phone ?: null,
         ]);
 
         VolunteerRequest::findOrFail((int) $this->model_id)->update([
@@ -98,7 +104,8 @@ new class extends Component
         if ($this->send_to) {
             try {
                 Mail::to($this->send_to)->send(new NewVolunteerMail($user, $this->password));
-            } catch (\Throwable) {}
+            } catch (Throwable) {
+            }
         }
     }
 };

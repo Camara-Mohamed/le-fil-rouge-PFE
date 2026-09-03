@@ -16,6 +16,7 @@ class HomeController extends Controller
             ->get();
 
         $announcements = Announcement::query()
+            ->whereNotNull('published_at')
             ->orderBy('published_at', 'desc')
             ->limit(3)
             ->get();

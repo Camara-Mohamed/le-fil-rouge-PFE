@@ -43,4 +43,28 @@ class DocumentObserver
             }
         }
     }
+
+    public function deleted(Document $document): void
+    {
+        $user = $document->user;
+
+        if (! in_array($user->status, [UserStatus::PENDING, UserStatus::COMPLETE], true)) {
+            return;
+        }
+
+        $hasCarteIdentite = $user->documents()->where('type', DocumentTypes::CARTE_IDENTITE)->exists();
+        $hasCertificatMedical = $user->documents()->where('type', DocumentTypes::CERTIFICAT_MEDICAL)->exists();
+        $hasCasierJudiciaire = $user->documents()->where('type', DocumentTypes::CASIER_JUDICIAIRE)->exists();
+
+        if ($hasCarteIdentite && $hasCertificatMedical && $hasCasierJudiciaire) {
+            return;
+        }
+
+        $user->update(['status' => UserStatus::INCOMPLETE]);
+        try {
+            $user->notify(new MemberChangedNotification(newStatus: UserStatus::INCOMPLETE->label()));
+            Notification::route('mail', config('mail.notification_for_mails'))->notify(new MemberChangedNotification(newStatus: UserStatus::INCOMPLETE->label()));
+        } catch (\Throwable) {
+        }
+    }
 }

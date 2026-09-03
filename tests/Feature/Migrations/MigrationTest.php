@@ -5,7 +5,7 @@ it('creates the users table with its columns', function () {
         ->and(Schema::hasColumns('users', [
             'id', 'first_name', 'last_name', 'email', 'password',
             'role', 'phone', 'birth_date', 'address', 'number',
-            'city', 'province', 'postal_code', 'diet', 'allergies',
+            'city', 'province', 'postal_code', 'diet', 'is_gluten_free', 'is_lactose_free', 'allergies',
             'avatar_path', 'remember_token', 'created_at', 'updated_at',
         ]))->toBeTrue();
 });

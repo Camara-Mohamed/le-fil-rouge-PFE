@@ -28,7 +28,9 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->enum('province', ['liege', 'namur', 'luxembourg', 'hainaut', 'brabant_wallon', 'anvers', 'limbourg', 'flandre_orientale', 'flandre_occidentale', 'bruxelles', 'brabant_flamand'])->default('liege');
             $table->string('postal_code')->nullable();
-            $table->enum('diet', ['normal', 'vegetarian', 'vegan', 'halal', 'kosher', 'gluten_free', 'lactose_free', 'other'])->default('normal');
+            $table->enum('diet', ['normal', 'vegetarian', 'vegan', 'halal', 'kosher', 'other'])->default('normal');
+            $table->boolean('is_gluten_free')->default(false);
+            $table->boolean('is_lactose_free')->default(false);
             $table->text('allergies')->nullable();
             $table->string('avatar_path')->nullable();
             $table->boolean('email_notifications')->default(true);

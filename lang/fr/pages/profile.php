@@ -37,6 +37,8 @@ return [
     // Régime alimentaire
     'section_diet' => 'Régime alimentaire',
     'label_diet' => 'Régime',
+    'label_gluten_free' => 'Sans gluten',
+    'label_lactose_free' => 'Sans lactose',
     'label_allergies' => 'Allergies',
     'allergies_placeholder' => 'Décrivez vos allergies si vous en avez…',
 
