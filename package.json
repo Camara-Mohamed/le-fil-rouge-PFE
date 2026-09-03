@@ -5,7 +5,8 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "playwright install --with-deps chromium"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.4",

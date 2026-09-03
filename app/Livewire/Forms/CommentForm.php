@@ -21,15 +21,16 @@ class CommentForm extends Form
 
         $data = [
             'content' => $this->content,
-            'user_id' => auth()->id(),
-            'is_admin' => auth()->user()->isAdmin(),
         ];
 
         if ($this->document) {
             $data['document'] = $this->document->store('comments/documents', config('filesystems.default'));
         }
 
-        $comment = $model->comments()->create($data);
+        $comment = $model->comments()->make($data);
+        $comment->user_id = auth()->id();
+        $comment->is_admin = auth()->user()->isAdmin();
+        $comment->save();
 
         $this->reset();
 

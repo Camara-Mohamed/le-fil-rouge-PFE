@@ -25,10 +25,10 @@
             wire:model.live.debounce.300ms="search"
             placeholder="{{ __('pages/members.index_search_placeholder') }}"
             aria-label="{{ __('pages/members.index_search_aria') }}"
-            class="flex-1 min-w-48 px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark placeholder:text-dark-mid focus:outline-none focus:border-dark"
+            class="flex-1 min-w-48 px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark placeholder:text-dark-mid focus:outline-none focus:ring-2 focus:ring-dark focus:ring-offset-1"
         />
 
-        <select wire:model.live="role" aria-label="{{ __('pages/members.index_filter_role_aria') }}" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
+        <select wire:model.live="role" aria-label="{{ __('pages/members.index_filter_role_aria') }}" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:ring-2 focus:ring-dark focus:ring-offset-1">
             <option value="">{{ __('pages/members.index_all_roles') }}</option>
             @foreach(UserRoles::registrable() as $role)
                 <option value="{{ $role->value }}">{{ $role->label() }}</option>
@@ -36,7 +36,7 @@
         </select>
 
         @if(!$archived)
-            <select wire:model.live="status" aria-label="{{ __('pages/members.index_filter_status_aria') }}" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:border-dark">
+            <select wire:model.live="status" aria-label="{{ __('pages/members.index_filter_status_aria') }}" class="px-4 py-2 rounded-lg border border-bg-dark bg-white font-serif text-sm text-dark focus:outline-none focus:ring-2 focus:ring-dark focus:ring-offset-1">
                 <option value="">{{ __('pages/members.index_all_statuses') }}</option>
                 @foreach(UserStatus::cases() as $statut)
                     @if($statut !== UserStatus::ARCHIVED)
