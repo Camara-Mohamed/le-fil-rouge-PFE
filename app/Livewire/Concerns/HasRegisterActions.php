@@ -25,8 +25,8 @@ trait HasRegisterActions
         $register->update(['status' => RegisterStatus::ACCEPTED]);
 
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
-        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
         try {
+            broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
             $register->user->notify(new RegisterStatusNotification($this->model, 'accepted'));
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new RegisterStatusNotification($this->model, 'accepted'));
 
@@ -49,8 +49,8 @@ trait HasRegisterActions
         $register->update(['status' => RegisterStatus::REFUSED]);
 
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
-        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
         try {
+            broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
             $register->user->notify(new RegisterStatusNotification($this->model, 'refused'));
             Notification::route('mail', config('mail.notification_for_mails'))->notify(new RegisterStatusNotification($this->model, 'refused'));
         } catch (\Throwable) {
@@ -66,6 +66,9 @@ trait HasRegisterActions
             ->update(['status' => RegisterStatus::PENDING]);
 
         $this->dispatch('toast', message: __('toast/enrollments.pending'), type: 'info');
-        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
+        try {
+            broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
+        } catch (\Throwable) {
+        }
     }
 }

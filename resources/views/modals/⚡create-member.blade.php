@@ -111,10 +111,9 @@ new class extends Component
 };
 ?>
 
-<div x-data x-init="$refs.dialog.showModal()">
+<div x-data x-init="$refs.dialog.showModal()" @keydown.escape.window="$wire.close()">
     <dialog
         x-ref="dialog"
-        @close="$wire.close()"
         class="p-0 border-0 rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] w-full max-w-lg m-auto backdrop:bg-dark/50"
     >
         <div class="relative px-8 py-8 flex flex-col gap-6">
@@ -130,11 +129,12 @@ new class extends Component
             <form wire:submit="save" class="flex flex-col gap-4">
 
                 <div class="grid grid-cols-2 gap-4">
-                    <x-public.form.input :label="__('modals/members.create_label_first')" name="first_name" wire:model.live="first_name" maxlength="255" required />
-                    <x-public.form.input :label="__('modals/members.create_label_last')" name="last_name" wire:model.live="last_name" maxlength="255" required />
+                    <x-public.form.input :label="__('modals/members.create_label_first')" name="first_name" wire:model="first_name" maxlength="255" required />
+                    <x-public.form.input :label="__('modals/members.create_label_last')" name="last_name" wire:model="last_name" maxlength="255" required />
                 </div>
 
-                <x-public.form.input :label="__('modals/members.create_label_email')" name="email" type="email" wire:model.live="email" maxlength="255" required />
+                <x-public.form.input :label="__('modals/members.create_label_email')" name="email" type="email" wire:model="email" maxlength="255" required />
+                <p class="font-serif text-xs text-dark-mid -mt-2">{{ __('modals/members.create_email_hint', ['domain' => config('app.member_email_domain')]) }}</p>
 
                 <div x-data="{ show: false }" class="flex flex-col gap-2">
                     <label for="password" class="font-sans font-bold text-base text-dark">
@@ -144,7 +144,7 @@ new class extends Component
                         <input
                             id="password"
                             :type="show ? 'text' : 'password'"
-                            wire:model.live="password"
+                            wire:model="password"
                             minlength="8"
                             class="h-11 px-4 pr-12 w-full bg-white border border-bg-dark rounded-lg font-serif font-medium text-base text-dark transition duration-200"
                         />
@@ -163,11 +163,11 @@ new class extends Component
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <x-public.form.select :label="__('modals/members.create_label_role')" name="role" wire:model.live="role" :options="UserRoles::cases()" required />
-                    <x-public.form.select :label="__('modals/members.create_label_status')" name="status" wire:model.live="status" :options="UserStatus::cases()" required />
+                    <x-public.form.select :label="__('modals/members.create_label_role')" name="role" wire:model="role" :options="UserRoles::cases()" required />
+                    <x-public.form.select :label="__('modals/members.create_label_status')" name="status" wire:model="status" :options="UserStatus::cases()" required />
                 </div>
 
-                <x-public.form.input :label="__('modals/members.create_label_send_to')" name="send_to" type="email" wire:model.live="send_to" placeholder="email@exemple.com" />
+                <x-public.form.input :label="__('modals/members.create_label_send_to')" name="send_to" type="email" wire:model="send_to" placeholder="email@exemple.com" />
 
                 <div class="flex items-center justify-end gap-4 pt-2">
                     <button type="button" wire:click="close"

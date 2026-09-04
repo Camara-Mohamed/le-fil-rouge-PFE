@@ -34,9 +34,8 @@ class Comments extends Component
         $this->form->store($this->model);
         $this->dispatch('toast', message: __('toast/comments.created'), type: 'success');
 
-        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
-
         try {
+            broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
             $creator = $this->model->user;
             if ($creator && $creator->id !== auth()->id()) {
                 $notif = new NewCommentNotification($this->model, auth()->user());
@@ -71,7 +70,10 @@ class Comments extends Component
 
         $this->dispatch('toast', message: __('toast/comments.deleted'), type: 'success');
 
-        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
+        try {
+            broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
+        } catch (\Throwable) {
+        }
     }
 
     public function render()

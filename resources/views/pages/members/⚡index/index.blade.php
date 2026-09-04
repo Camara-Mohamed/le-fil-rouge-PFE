@@ -62,7 +62,7 @@
     </div>
 
     {{-- Tableau (desktop) --}}
-    <div class="hidden md:block bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] overflow-x-auto">
+    <div class="hidden lg:block bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] overflow-x-auto">
         <table class="w-full">
             <thead>
                 <tr class="border-b border-bg-dark">
@@ -142,7 +142,7 @@
     </div>
 
     {{-- Cartes (mobile) --}}
-    <div class="flex flex-col gap-4 md:hidden flex-wrap">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden">
         @forelse($members as $member)
             @php $initials = strtoupper($member->first_name[0] . $member->last_name[0]); @endphp
             <div wire:key="member-card-{{ $member->id }}" class="bg-white rounded-2xl shadow-[0px_5px_20px_0px_rgba(0,0,0,0.10)] p-4 flex flex-col gap-3">

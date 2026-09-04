@@ -8,7 +8,8 @@ use Livewire\Component;
 
 new class extends Component
 {
-    public string $model_id   = '';
+    public string $model_id = '';
+
     public string $model_type = '';
 
     public function close(): void
@@ -18,7 +19,7 @@ new class extends Component
 
     public function confirm(): void
     {
-        if (!auth()->user()->isAdmin()) {
+        if (! auth()->user()->isAdmin()) {
             abort(403);
         }
 
@@ -27,10 +28,14 @@ new class extends Component
 
         try {
             $training->user->notify(new ModelStatusNotification($training, 'la formation', published: false));
-        } catch (\Throwable) {}
+        } catch (Throwable) {
+        }
 
         $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'error');
-        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
+        try {
+            broadcast(new BroadcastRefresh('dashboard'))->toOthers();
+        } catch (Throwable) {
+        }
         $this->dispatch('dashboard_updated');
         $this->dispatch('close_modal');
     }

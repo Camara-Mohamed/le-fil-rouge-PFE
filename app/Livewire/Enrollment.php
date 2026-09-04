@@ -72,9 +72,9 @@ class Enrollment extends Component
 
         $this->notes = '';
         $this->dispatch('toast', message: __('toast/enrollments.sent'), type: 'success');
-        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
 
         try {
+            broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
             $label = $this->model->modelLabel();
             $admins = User::where('role', UserRoles::ADMIN->value)->get()->merge([$this->model->user])->unique('id');
             foreach ($admins as $admin) {
@@ -111,7 +111,10 @@ class Enrollment extends Component
             ->delete();
 
         $this->dispatch('toast', message: __('toast/enrollments.cancel'), type: 'info');
-        broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
+        try {
+            broadcast(new BroadcastRefresh($this->channelName()))->toOthers();
+        } catch (\Throwable) {
+        }
     }
 
     #[On('enrollment_cancel_confirmed')]

@@ -8,7 +8,8 @@ use Livewire\Component;
 
 new class extends Component
 {
-    public string $model_id   = '';
+    public string $model_id = '';
+
     public string $model_type = '';
 
     public function close(): void
@@ -18,10 +19,10 @@ new class extends Component
 
     public function confirm(): void
     {
-        $user     = auth()->user();
+        $user = auth()->user();
         $register = TrainingRegister::with('training')->findOrFail((int) $this->model_id);
 
-        if ($register->training->user_id !== $user->id && !$user->isAdmin()) {
+        if ($register->training->user_id !== $user->id && ! $user->isAdmin()) {
             abort(403);
         }
 
@@ -29,10 +30,14 @@ new class extends Component
 
         try {
             $register->user->notify(new RegisterStatusNotification($register->training, 'refused'));
-        } catch (\Throwable) {}
+        } catch (Throwable) {
+        }
 
         $this->dispatch('toast', message: __('toast/enrollments.refuse'), type: 'error');
-        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
+        try {
+            broadcast(new BroadcastRefresh('dashboard'))->toOthers();
+        } catch (Throwable) {
+        }
         $this->dispatch('dashboard_updated');
         $this->dispatch('close_modal');
     }

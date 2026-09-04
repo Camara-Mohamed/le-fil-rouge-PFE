@@ -27,8 +27,8 @@ new class extends Component
         $register->load('training');
         $register->update(['status' => RegisterStatus::ACCEPTED]);
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
-        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
         try {
+            broadcast(new BroadcastRefresh('dashboard'))->toOthers();
             $register->user->notify(new RegisterStatusNotification($register->training, 'accepted'));
         } catch (Throwable) {
         }
@@ -46,8 +46,8 @@ new class extends Component
         $register->load('camp');
         $register->update(['status' => RegisterStatus::ACCEPTED]);
         $this->dispatch('toast', message: __('toast/enrollments.accept'), type: 'success');
-        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
         try {
+            broadcast(new BroadcastRefresh('dashboard'))->toOthers();
             $register->user->notify(new RegisterStatusNotification($register->camp, 'accepted'));
         } catch (Throwable) {
         }
@@ -74,8 +74,8 @@ new class extends Component
         $training = Training::with('user')->findOrFail($trainingId);
         $training->update(['status' => TrainingStatus::PUBLISHED]);
         $this->dispatch('toast', message: __('toast/trainings.updated'), type: 'success');
-        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
         try {
+            broadcast(new BroadcastRefresh('dashboard'))->toOthers();
             $training->user->notify(new ModelStatusNotification($training, 'la formation', published: true));
         } catch (Throwable) {
         }
@@ -90,8 +90,8 @@ new class extends Component
         $camp = Camp::with('user')->findOrFail($campId);
         $camp->update(['status' => CampStatus::PUBLISHED]);
         $this->dispatch('toast', message: __('toast/camps.updated', ['type' => 'camp']), type: 'success');
-        broadcast(new BroadcastRefresh('dashboard'))->toOthers();
         try {
+            broadcast(new BroadcastRefresh('dashboard'))->toOthers();
             $camp->user->notify(new ModelStatusNotification($camp, 'le camp', published: true));
         } catch (Throwable) {
         }

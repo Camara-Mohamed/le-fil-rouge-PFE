@@ -18,6 +18,7 @@ return [
     'create_label_first' => 'Prénom',
     'create_label_last' => 'Nom',
     'create_label_email' => 'Email',
+    'create_email_hint' => 'Doit se terminer par @:domain',
     'create_label_password' => 'Mot de passe',
     'create_label_role' => 'Rôle',
     'create_label_status' => 'Statut',

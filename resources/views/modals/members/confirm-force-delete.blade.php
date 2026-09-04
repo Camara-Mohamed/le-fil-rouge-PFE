@@ -8,7 +8,8 @@ new class extends Component
 {
     use AuthorizesRequests;
 
-    public string $model_id   = '';
+    public string $model_id = '';
+
     public string $model_type = '';
 
     public function close(): void
@@ -22,8 +23,6 @@ new class extends Component
         $this->authorize('forceDelete', $member);
         $member->delete();
 
-        $this->dispatch('toast', message: __('modals/members.force_delete_toast'), type: 'success');
-        $this->dispatch('close_modal');
         $this->redirectRoute('admin.members.index', ['locale' => app()->getLocale()]);
     }
 };
